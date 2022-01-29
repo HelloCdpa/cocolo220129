@@ -1,0 +1,23 @@
+server:
+  port: 8093
+#DB접속 정보
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cocoloDB?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: coco
+    password: 1234
+
+  #JPA관련 설정 datasource와 같은 선에서
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+
+  #mybatis 관련설정
+  #mybatis:
+  #  #resources/mapper/ 에 있는 모든 xml 파일을 내가 매퍼로 쓸거다.
+  #  mapper-locations: mapper/*.xml
+  #alias설정
+#  type-aliases-package: com.phl.cocolo.dto
