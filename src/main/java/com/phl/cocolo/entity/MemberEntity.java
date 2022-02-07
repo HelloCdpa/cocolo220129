@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@Table(name = "member_table")
 public class MemberEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +22,7 @@ public class MemberEntity {
     private String memberPassword;
 
     @Column
-    private String memberNickname;
+    private String memberNickName;
 
     @Column
     private String memberName;

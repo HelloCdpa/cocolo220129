@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -14,4 +16,32 @@ public class BoardEntity extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private MemberEntity memberEntity;
+
+    @OneToMany(mappedBy = "boardEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CommentEntity> commentEntityList = new ArrayList<>();
+
+    @Column
+    private String boardWriter;
+
+    @Column
+    private String boardTitle;
+
+    @Column
+    private String boardContents;
+
+    @Column(columnDefinition = "integer default 0")
+    private int boardHits;
+
+    @Column
+    private String boardFileName;
+
+
+
+
+
+
 }
