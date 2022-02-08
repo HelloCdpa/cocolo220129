@@ -21,9 +21,6 @@ public class BoardEntity extends BaseEntity{
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
 
-    @OneToMany(mappedBy = "boardEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CommentEntity> commentEntityList = new ArrayList<>();
-
     @Column
     private String boardWriter;
 
@@ -39,6 +36,10 @@ public class BoardEntity extends BaseEntity{
     @Column
     private String boardFileName;
 
+    @OneToMany(mappedBy = "boardEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CommentEntity> commentEntityList = new ArrayList<>();
+    @OneToMany(mappedBy = "boardEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LikeEntity> likeEntityList = new ArrayList<>();
 
 
 

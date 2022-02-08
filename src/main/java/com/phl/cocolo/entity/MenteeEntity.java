@@ -5,15 +5,17 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "like_table")
-public class LikeEntity {
+@Table(name = "mentee_table")
+public class MenteeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "like_id")
+    @Column(name = "mentee_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -21,15 +23,13 @@ public class LikeEntity {
     private MemberEntity memberEntity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
-    private BoardEntity boardEntity;
+    @JoinColumn(name = "mentoring_id")
+    private MentoringEntity mentoringEntity;
 
+    @Column
+    private LocalDateTime menteeDate;
 
-
-
-
-
-
-
+    @Column(columnDefinition = "integer default 0")
+    private int menteeCount;
 
 }

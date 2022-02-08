@@ -4,15 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "study_apply_table")
-public class StudyApplyEntity {
+@Table(name = "review_table")
+public class ReviewEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "apply_id")
+    @Column(name = "review_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -20,11 +22,17 @@ public class StudyApplyEntity {
     private MemberEntity memberEntity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "study_id")
-    private StudyEntity studyEntity;
+    @JoinColumn(name = "onClass_id")
+    private OnClassEntity onClassEntity;
 
-    @Column(columnDefinition = "boolean default false")
-    private boolean applyState;
+    @Column
+    private String reviewTitle;
+
+    @Column
+    private String reviewContents;
+
+    @Column
+    private int reviewStar;
 
 
 }
