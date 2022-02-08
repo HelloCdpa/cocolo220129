@@ -1,5 +1,7 @@
 package com.phl.cocolo.entity;
 
+import com.phl.cocolo.dto.BoardSaveDTO;
+import com.phl.cocolo.dto.BoardUpdateDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -42,7 +44,13 @@ public class BoardEntity extends BaseEntity{
     private List<LikeEntity> likeEntityList = new ArrayList<>();
 
 
+    public static BoardEntity toBoardUpdateEntity(BoardUpdateDTO boardUpdateDTO, MemberEntity memberEntity) {
 
+        return null;
+    }
 
+    public static BoardEntity toBoardEntitySave(BoardSaveDTO boardSaveDTO, MemberEntity memberEntity) {
 
+        return null;
+    }
 }

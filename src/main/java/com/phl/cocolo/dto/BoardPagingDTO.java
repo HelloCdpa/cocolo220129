@@ -5,13 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class CommentSaveDTO {
-
+@AllArgsConstructor
+public class BoardPagingDTO {
     private Long boardId;
-    private Long memberId;
-    private String commentWriter;
-    private String commentContents;
+    private String BoardWriter;
+    private String BoardTitle;
+    private int boardHits;
+
 
 }

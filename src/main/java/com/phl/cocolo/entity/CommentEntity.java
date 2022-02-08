@@ -1,5 +1,6 @@
 package com.phl.cocolo.entity;
 
+import com.phl.cocolo.dto.CommentSaveDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "comment_table")
-public class CommentEntity {
+public class CommentEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
@@ -30,5 +31,8 @@ public class CommentEntity {
     private String commentContents;
 
 
+    public static CommentEntity toCommentEntity(CommentSaveDTO commentSaveDTO, BoardEntity boardEntity, MemberEntity memberEntity) {
 
+        return null;
+    }
 }

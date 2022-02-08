@@ -1,5 +1,7 @@
 package com.phl.cocolo.entity;
 
+import com.phl.cocolo.dto.MemberSaveDTO;
+import com.phl.cocolo.dto.MemberUpdateDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "member_table")
-public class MemberEntity {
+public class MemberEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
@@ -70,20 +72,13 @@ public class MemberEntity {
     private List<WishListEntity> wishListEntityList = new ArrayList<>();
 
 
+    public static MemberEntity toMemberUpdateEntity(MemberUpdateDTO memberUpdateDTO) {
 
+        return null;
+    }
 
+    public static MemberEntity toMemberEntitySave(MemberSaveDTO memberSaveDTO) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return null;
+    }
 }
