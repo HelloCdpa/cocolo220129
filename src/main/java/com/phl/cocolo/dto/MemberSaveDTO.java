@@ -25,14 +25,23 @@ public class MemberSaveDTO {
     @NotBlank(message = "필수입력")
     private String memberName;
 
-//    @Pattern(regexp="/^\\d{3}-\\d{4}-\\d{4}$/", (오류난 부분 : / 요부분을 없앤다.)
-//            message = "휴대폰 번호는 - 포함 3-4-4자리로 입력해주세요.")
+    @NotBlank(message = "닉네임을 입력해주세요")
+    private String memberNickName;
 
     @Pattern(regexp = "^\\d{3}-\\d{3,4}-\\d{4}$", message = "휴대폰 번호는 - 포함 3-3(4)-4자리로 입력해주세요.")
     private String memberPhone;
 
     private String memberProfileName;
     private MultipartFile memberProfile;
+
+    private String memberInterest;
+
+    private String memberLevel;
+
+
+
+
+
 
     public MemberSaveDTO(String memberEmail, String memberPassword, String memberName, String memberPhone, String memberProfileName) {
         this.memberEmail = memberEmail;
