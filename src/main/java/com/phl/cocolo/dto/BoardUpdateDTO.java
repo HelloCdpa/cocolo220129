@@ -11,9 +11,12 @@ import org.springframework.web.multipart.MultipartFile;
 public class BoardUpdateDTO {
     private Long boardId;
     private Long memberId;
+    private Long cateId;
     private String boardWriter;
     private String boardTitle;
     private String boardContents;
     private String boardFileName;
     private MultipartFile boardFile;
+
+
 }

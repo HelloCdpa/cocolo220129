@@ -23,6 +23,10 @@ public class BoardEntity extends BaseEntity{
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private CategoryEntity categoryEntity;
+
     @Column
     private String boardWriter;
 
@@ -43,14 +47,35 @@ public class BoardEntity extends BaseEntity{
     @OneToMany(mappedBy = "boardEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LikeEntity> likeEntityList = new ArrayList<>();
 
+    public static BoardEntity toBoardEntitySave(BoardSaveDTO boardSaveDTO, MemberEntity memberEntity, CategoryEntity categoryEntity){
+        BoardEntity boardEntity = new BoardEntity();
+        boardEntity.setMemberEntity(memberEntity);
+        boardEntity.setCategoryEntity(categoryEntity);
 
-    public static BoardEntity toBoardUpdateEntity(BoardUpdateDTO boardUpdateDTO, MemberEntity memberEntity) {
+        boardEntity.setBoardWriter(memberEntity.getMemberNickName());
+        boardEntity.setBoardTitle(boardSaveDTO.getBoardTitle());
+        boardEntity.setBoardContents(boardSaveDTO.getBoardContents());
+        boardEntity.setBoardFileName(boardSaveDTO.getBoardFileName());
 
-        return null;
+        return boardEntity;
+
+
     }
 
-    public static BoardEntity toBoardEntitySave(BoardSaveDTO boardSaveDTO, MemberEntity memberEntity) {
+    public static BoardEntity toBoardUpdateEntity(BoardUpdateDTO boardUpdateDTO, MemberEntity memberEntity,CategoryEntity categoryEntity){
+        BoardEntity boardEntity = new BoardEntity();
+        boardEntity.setId(boardUpdateDTO.getBoardId());
+        boardEntity.setMemberEntity(memberEntity);
+        boardEntity.setCategoryEntity(categoryEntity);
 
-        return null;
+        boardEntity.setBoardWriter(memberEntity.getMemberNickName());
+        boardEntity.setBoardTitle(boardUpdateDTO.getBoardTitle());
+        boardEntity.setBoardContents(boardUpdateDTO.getBoardContents());
+        boardEntity.setBoardFileName(boardUpdateDTO.getBoardFileName());
+
+        return boardEntity;
     }
+
+
+
 }

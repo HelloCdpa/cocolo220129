@@ -7,14 +7,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberSaveDTO {
     @NotBlank(message = "이메일은 필수입니다.")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[@])[a-z@]{5,20}$",
-            message = "이메일 @포함 5~20자 이내")
+//    @Pattern(regexp = "^(?=.*[a-z])(?=.*[@])[a-z@]{5,20}$",
+//            message = "이메일 @포함 5~20자 이내")
     private String memberEmail;
 
     @NotBlank(message = "필수입력")
@@ -39,15 +40,4 @@ public class MemberSaveDTO {
     private String memberLevel;
 
 
-
-
-
-
-    public MemberSaveDTO(String memberEmail, String memberPassword, String memberName, String memberPhone, String memberProfileName) {
-        this.memberEmail = memberEmail;
-        this.memberPassword = memberPassword;
-        this.memberName = memberName;
-        this.memberPhone = memberPhone;
-        this.memberProfileName = memberProfileName;
-    }
 }

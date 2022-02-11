@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "member_table")
-public class MemberEntity extends BaseEntity {
+public class MemberEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
@@ -40,7 +40,7 @@ public class MemberEntity extends BaseEntity {
     @Column
     private String memberProfileName;
 
-    @Column
+    @Column(columnDefinition = "integer default 10000")
     private Long memberPoint;
 
     @Column
@@ -71,14 +71,41 @@ public class MemberEntity extends BaseEntity {
     @OneToMany(mappedBy = "memberEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WishListEntity> wishListEntityList = new ArrayList<>();
 
+    public static MemberEntity toMemberEntitySave(MemberSaveDTO memberSaveDTO) {
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setMemberEmail(memberSaveDTO.getMemberEmail());
+        memberEntity.setMemberPassword(memberSaveDTO.getMemberPassword());
+        memberEntity.setMemberName(memberSaveDTO.getMemberName());
+        memberEntity.setMemberNickName(memberSaveDTO.getMemberNickName());
+        memberEntity.setMemberPhone(memberSaveDTO.getMemberPhone());
+        memberEntity.setMemberInterest(memberSaveDTO.getMemberInterest());
+        memberEntity.setMemberProfileName(memberSaveDTO.getMemberProfileName());
+        memberEntity.setMemberLevel(memberSaveDTO.getMemberLevel());
+
+
+
+        return memberEntity;
+    }
 
     public static MemberEntity toMemberUpdateEntity(MemberUpdateDTO memberUpdateDTO) {
+        MemberEntity memberEntity = new MemberEntity();
 
-        return null;
+        memberEntity.setId(memberUpdateDTO.getMemberId());
+        memberEntity.setMemberPoint(memberUpdateDTO.getMemberPoint());
+
+        memberEntity.setMemberEmail(memberUpdateDTO.getMemberEmail());
+        memberEntity.setMemberPassword(memberUpdateDTO.getMemberPassword());
+        memberEntity.setMemberName(memberUpdateDTO.getMemberName());
+        memberEntity.setMemberNickName(memberUpdateDTO.getMemberNickName());
+        memberEntity.setMemberPhone(memberUpdateDTO.getMemberPhone());
+        memberEntity.setMemberInterest(memberUpdateDTO.getMemberInterest());
+        memberEntity.setMemberProfileName(memberUpdateDTO.getMemberProfileName());
+        memberEntity.setMemberLevel(memberUpdateDTO.getMemberLevel());
+
+
+
+        return memberEntity;
     }
 
-    public static MemberEntity toMemberEntitySave(MemberSaveDTO memberSaveDTO) {
 
-        return null;
-    }
 }

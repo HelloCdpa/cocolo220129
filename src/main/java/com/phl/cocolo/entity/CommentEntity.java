@@ -31,8 +31,12 @@ public class CommentEntity extends BaseEntity{
     private String commentContents;
 
 
-    public static CommentEntity toCommentEntity(CommentSaveDTO commentSaveDTO, BoardEntity boardEntity, MemberEntity memberEntity) {
-
-        return null;
+    public static CommentEntity toCommentEntity(CommentSaveDTO commentSaveDTO, BoardEntity boardEntity, MemberEntity memberEntity){
+        CommentEntity commentEntity = new CommentEntity();
+        commentEntity.setBoardEntity(boardEntity);
+        commentEntity.setMemberEntity(memberEntity);
+        commentEntity.setCommentWriter(memberEntity.getMemberEmail());
+        commentEntity.setCommentContents(commentSaveDTO.getCommentContents());
+        return commentEntity;
     }
 }

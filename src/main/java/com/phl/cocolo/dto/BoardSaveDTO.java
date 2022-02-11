@@ -13,6 +13,8 @@ import javax.validation.constraints.NotBlank;
 public class BoardSaveDTO {
 
     private Long memberId;
+    private Long cateId;
+
     private String boardWriter;
     @NotBlank(message = "비밀번호를 입력해주세요.")
     private String boardPassword;
@@ -22,6 +24,7 @@ public class BoardSaveDTO {
     private String boardContents;
     private String boardFileName;
     private MultipartFile boardFile;
+
 
     public BoardSaveDTO(Long memberId, String boardWriter, String boardPassword, String boardTitle, String boardContents, String boardFileName) {
         this.memberId = memberId;

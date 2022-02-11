@@ -6,8 +6,10 @@ import com.phl.cocolo.dto.BoardPagingDTO;
 import com.phl.cocolo.dto.BoardSaveDTO;
 import com.phl.cocolo.dto.BoardUpdateDTO;
 import com.phl.cocolo.entity.BoardEntity;
+import com.phl.cocolo.entity.CategoryEntity;
 import com.phl.cocolo.entity.MemberEntity;
 import com.phl.cocolo.repository.BoardRepository;
+import com.phl.cocolo.repository.CategoryRepository;
 import com.phl.cocolo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,6 +29,7 @@ import java.util.Optional;
 public class BoardServiceImpl implements BoardService {
     private final BoardRepository br;
     private final MemberRepository mr;
+    private  final CategoryRepository ctr;
 
     @Override
     public Long save(BoardSaveDTO boardSaveDTO) throws IllegalStateException, IOException {
@@ -42,14 +45,16 @@ public class BoardServiceImpl implements BoardService {
         boardSaveDTO.setBoardFileName(b_filename);
 
         MemberEntity memberEntity = mr.findById(boardSaveDTO.getMemberId()).get();
-        BoardEntity boardEntity = BoardEntity.toBoardEntitySave(boardSaveDTO, memberEntity);
+        CategoryEntity categoryEntity = ctr.findById(boardSaveDTO.getCateId()).get();
+        BoardEntity boardEntity = BoardEntity.toBoardEntitySave(boardSaveDTO, memberEntity,categoryEntity);
 
         return br.save(boardEntity).getId();
     }
     @Override
     public Long saveTest(BoardSaveDTO boardSaveDTO){
         MemberEntity memberEntity = mr.findById(boardSaveDTO.getMemberId()).get();
-        BoardEntity boardEntity = BoardEntity.toBoardEntitySave(boardSaveDTO, memberEntity);
+        CategoryEntity categoryEntity = ctr.findById(boardSaveDTO.getCateId()).get();
+        BoardEntity boardEntity = BoardEntity.toBoardEntitySave(boardSaveDTO, memberEntity,categoryEntity);
 
         return br.save(boardEntity).getId();
     }
@@ -94,7 +99,8 @@ public class BoardServiceImpl implements BoardService {
         boardUpdateDTO.setBoardFileName(b_filename);
 
         MemberEntity memberEntity = mr.findById(boardUpdateDTO.getMemberId()).get();
-        BoardEntity boardEntity = BoardEntity.toBoardUpdateEntity(boardUpdateDTO, memberEntity);
+        CategoryEntity categoryEntity = ctr.findById(boardUpdateDTO.getCateId()).get();
+        BoardEntity boardEntity = BoardEntity.toBoardUpdateEntity(boardUpdateDTO, memberEntity,categoryEntity);
 
         return br.save(boardEntity).getId();
 

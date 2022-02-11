@@ -6,6 +6,7 @@ import com.phl.cocolo.dto.MemberSaveDTO;
 import com.phl.cocolo.dto.MemberUpdateDTO;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 public interface MemberService {
@@ -26,6 +27,10 @@ public interface MemberService {
 
     void update(MemberUpdateDTO memberUpdateDTO) throws IllegalStateException, IOException;
 
-    public Long saveTest(MemberSaveDTO memberSaveDTO);
+    Long saveTest(MemberSaveDTO memberSaveDTO);
+
+    String getKaKaoAccessToken(String code);
+
+    String getUserInfo(String access_token);
 }
 

@@ -63,6 +63,10 @@
         <p id="checkResult"></p>
         <p th:if="${#fields.hasErrors('memberEmail')}" th:errors="*{memberEmail}" th:errorclass="field-error"></p>
 
+        닉네임 :
+        <input th:class="form-control" type="text" th:field="*{memberNickName}" placeholder="비밀번호">
+        <p th:if="${#fields.hasErrors('memberNickName')}" th:errors="*{memberNickName}" th:errorclass="field-error"></p>
+
         비밀번호 :
         <input th:class="form-control" type="password" th:field="*{memberPassword}" placeholder="비밀번호">
         <p th:if="${#fields.hasErrors('memberPassword')}" th:errors="*{memberPassword}" th:errorclass="field-error"></p>
@@ -75,6 +79,20 @@
         <input th:class="form-control" type="file" id="memberProfile" th:field="*{memberProfile}">
         <input class="btn btn-outline-success" type="submit" value="회원가입">
 
+        관심있는 언어 :
+        <select th:field="*{memberInterest}">
+            <option th:value="'자바'" selected>자바</option>
+            <option th:value="'자바스크립트'" th:text="자바스크립트"></option>
+            <option th:value="'파이썬'" th:text="파이썬"></option>
+            </select>
+        개발자 레벨 :
+        <select th:field="*{memberLevel}">
+            <option th:value="'초보 개발자'" selected>초보 개발자</option>
+            <option th:value="'중급 개발자'">중급 개발자</option>
+            <option th:value="'고급 개발자'" >고급 개발자</option>
+            <option th:value="'선생님'" >선생님</option>
+        </select>
+
 
     </form>
 </div>
@@ -82,4 +100,15 @@
 
 
 </body>
+<script>
+    $(document).ready(function() {
+        let message = "[[${msg}]]";
+        if (message != "") {
+            alert(message);
+        }else {
+
+        }
+    })
+
+</script>
 </html>
