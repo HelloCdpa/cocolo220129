@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>update</title>
+</head>
+<body>
+<form id="updateForm" th:object="${board}" enctype="multipart/form-data">
+    <input type="hidden" th:field="*{boardId}">
+    <input type="hidden" th:field="*{memberId}">
+    변경할제목 :  <input type="text" th:field="*{boardTitle}"><br>
+    <input type="text" th:field="*{boardWriter}" readonly><br>
+    비밀번호입력 : <input type="password" th:field="*{boardPassword}"><br>
+    변경할 내용 : <input type="text" th:field="*{boardContents}"><br>
+    <label for="boardFile">변경할 사진</label>
+    <input th:class="form-control" type="file" id="boardFile" name="boardFile"><br>
+    <input type="button" value="수정(put)" th:onclick="boardUpdate()">
+
+
+
+
+</form>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script>
+    const boardUpdate = () => {
+        const boardId = document.getElementById('boardId').value;
+        const memberId = document.getElementById('memberId').value;
+        const boardTitle = document.querySelector('#boardTitle').value;
+        const boardWriter = $('#boardWriter').val();
+        const boardPassword = $('#boardPassword').val();
+        const boardContents = $('#boardContents').val();
+        const boardFile = document.getElementById('boardFile').value;
+        console.log(boardId,boardTitle,boardWriter,boardPassword,boardContents,boardFile,memberId);
+        const reqUrl = "/board/" +boardId;
+
+        const data = $('#updateForm')[0];
+        const formData = new FormData(data);
+
+
+        const pwDB = "[[${board.boardPassword}]]";
+        if(pwDB == boardPassword){
+            $.ajax({
+                type : 'put',
+                cache: false,
+                contentType : false,
+                processData : false,
+                data : formData,
+                url : reqUrl,
+                success : function (){
+                    location.href='/';
+                },error : function (){
+                    alert("요청실패")
+                }
+            })}
+        else {
+            alert('비밀번호가 틀렸습니다.');
+        }
+    };
+
+</script>
+
+
+
+
+
+</html>
