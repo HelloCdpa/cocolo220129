@@ -40,4 +40,9 @@ public class MemberSaveDTO {
     private String memberLevel;
 
 
+    public MemberSaveDTO(String s, String s1, String s2, String s3, String s4) {
+
+
+
+    }
 }
