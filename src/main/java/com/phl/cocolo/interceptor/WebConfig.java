@@ -1,4 +1,5 @@
 package com.phl.cocolo.interceptor;
 
-public class WebConfig {
+
+public abstract class WebConfig {
 }

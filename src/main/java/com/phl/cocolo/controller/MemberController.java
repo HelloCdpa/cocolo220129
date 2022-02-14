@@ -61,21 +61,15 @@ public class MemberController {
         return result;
     }
 
-
-    //유효성검증 결과를 보여주기 위해 모델에 데이터 저장
     @GetMapping("/login")
     public String loginForm(Model model) {
-        model.addAttribute("member", new MemberLoginDTO());
         return "/member/login";
     }
 
-    //로그인 세션값 저장 - 유효성검증 -> 이메일 확인 -> 비밀번호 확인 -> 세션아이디 저장
+    //로그인 세션값 저장 - 이메일 확인 -> 비밀번호 확인 -> 세션아이디 저장
     @PostMapping("/login")
     public String login(@Validated @ModelAttribute("member") MemberLoginDTO memberLoginDTO,
-                        BindingResult bindingResult, HttpSession session, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "/member/login";
-        }
+                         HttpSession session, Model model) {
 
         if(ms.findByEmail(memberLoginDTO)){
             session.setAttribute(LOGIN_EMAIL, memberLoginDTO.getMemberEmail());

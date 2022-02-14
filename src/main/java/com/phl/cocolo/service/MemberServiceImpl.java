@@ -133,6 +133,7 @@ public class MemberServiceImpl implements MemberService{
 
     }
 
+    //유저정보 조회
     @Override
     public String getKaKaoAccessToken(String code){
         String access_Token="";
@@ -152,7 +153,7 @@ public class MemberServiceImpl implements MemberService{
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=198b13b4aad42557177244425bb771f9"); // TODO REST_API_KEY 입력
-            sb.append("&redirect_uri=http://localhost:8093/member/kakaologin"); // TODO 인가코드 받은 redirect_uri 입력
+            sb.append("&redirect_uri=http://localhost:8094/member/kakaologin"); // TODO 인가코드 받은 redirect_uri 입력
             sb.append("&code=" + code);
             bw.write(sb.toString());
             bw.flush();
