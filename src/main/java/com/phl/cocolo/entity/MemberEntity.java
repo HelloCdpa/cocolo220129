@@ -35,7 +35,7 @@ public class MemberEntity{
     private String memberPhone;
 
     @Column
-    private String memberInterest;
+    private String memberInteresting;
 
     @Column
     private String memberProfileName;
@@ -78,7 +78,7 @@ public class MemberEntity{
         memberEntity.setMemberName(memberSaveDTO.getMemberName());
         memberEntity.setMemberNickName(memberSaveDTO.getMemberNickName());
         memberEntity.setMemberPhone(memberSaveDTO.getMemberPhone());
-        memberEntity.setMemberInterest(memberSaveDTO.getMemberInterest());
+        memberEntity.setMemberInteresting(memberSaveDTO.getMemberInteresting());
         memberEntity.setMemberProfileName(memberSaveDTO.getMemberProfileName());
         memberEntity.setMemberLevel(memberSaveDTO.getMemberLevel());
 
@@ -98,7 +98,7 @@ public class MemberEntity{
         memberEntity.setMemberName(memberUpdateDTO.getMemberName());
         memberEntity.setMemberNickName(memberUpdateDTO.getMemberNickName());
         memberEntity.setMemberPhone(memberUpdateDTO.getMemberPhone());
-        memberEntity.setMemberInterest(memberUpdateDTO.getMemberInterest());
+        memberEntity.setMemberInteresting(memberUpdateDTO.getMemberInteresting());
         memberEntity.setMemberProfileName(memberUpdateDTO.getMemberProfileName());
         memberEntity.setMemberLevel(memberUpdateDTO.getMemberLevel());
 

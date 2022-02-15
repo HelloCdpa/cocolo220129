@@ -1,9 +1,6 @@
 package com.phl.cocolo.controller;
 
-import com.phl.cocolo.dto.MemberDetailDTO;
-import com.phl.cocolo.dto.MemberLoginDTO;
-import com.phl.cocolo.dto.MemberSaveDTO;
-import com.phl.cocolo.dto.MemberUpdateDTO;
+import com.phl.cocolo.dto.*;
 import com.phl.cocolo.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +16,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.phl.cocolo.common.SessionConst.LOGIN_EMAIL;
+import static com.phl.cocolo.common.SessionConst.*;
 
 @Controller
 @RequestMapping("/member")
@@ -53,11 +50,18 @@ public class MemberController {
         return "redirect:/member/login";
 
     }
-
+    // 이메일 중복 체크
     @PostMapping("/emailDuplication")
     public @ResponseBody
     String emailDuplication(@RequestParam("memberEmail") String memberEmail) {
         String result = ms.emailDuplication(memberEmail);
+        return result;
+    }
+    //닉네임 중복 체크
+    @PostMapping("/NickNameDuplication")
+    public @ResponseBody
+    String NickNameDuplication(@RequestParam("memberNickName") String memberNickName) {
+        String result = ms.NickNameDuplication(memberNickName);
         return result;
     }
 
@@ -73,8 +77,8 @@ public class MemberController {
 
         if(ms.findByEmail(memberLoginDTO)){
             session.setAttribute(LOGIN_EMAIL, memberLoginDTO.getMemberEmail());
-            Long loginId = ms.findByMemberId(memberLoginDTO.getMemberEmail());
-            session.setAttribute("loginId", loginId);
+            Long memberId = ms.findByMemberId(memberLoginDTO.getMemberEmail());
+            session.setAttribute(LOGIN_ID, memberId);
             String redirectURL = (String) session.getAttribute("redirectURL");
 
             if (redirectURL != null){
@@ -89,7 +93,7 @@ public class MemberController {
 
         }
     }
-
+    //카카오 로그인 : 카카오로 로그인 하면 이메일을 받아오고 해당 이메일과 일치하는 회원을 로그인 시킴
     @GetMapping("/kakaologin")
     public String KaKaoLogin(@RequestParam(value = "code", required = false) String code, Model model,
                              HttpSession session) throws Exception {
@@ -98,15 +102,19 @@ public class MemberController {
         System.out.println("###access_Token#### : " + access_Token);
         System.out.println("###userInfo#### : " + userInfo);
         System.out.println("#########" + code);
-
+        // 해당 이메일로 가입 한 회원이 없다면 회원가입 화면으로 이동 시킴
         if(userInfo.equals("no")){
             model.addAttribute("msg","해당 이메일로 회원가입을 먼저 해주세요");
             model.addAttribute("member", new MemberSaveDTO());
             return "/member/save";
         } else {
+//            로그인 회원 이메일과 아이디를 세션에 저장
             session.setAttribute(LOGIN_EMAIL, userInfo);
-            Long loginId = ms.findByMemberId(userInfo);
-            session.setAttribute("loginId", loginId);
+            Long memberId = ms.findByMemberId(userInfo);
+            session.setAttribute(LOGIN_ID, memberId);
+
+
+
             String redirectURL = (String) session.getAttribute("redirectURL");
 
             if (redirectURL != null){
@@ -133,7 +141,7 @@ public class MemberController {
         model.addAttribute("memberList", memberList);
         return "/member/findAll";
     }
-
+    //상세조회(마이페이지) && 수정화면
     @GetMapping("{memberId}")
     public String findById(@PathVariable("memberId") Long memberId, Model model) {
         MemberDetailDTO memberDetailDTO = ms.findById(memberId);
@@ -141,25 +149,34 @@ public class MemberController {
         return "/member/mypage";
     }
 
-    @GetMapping("/update/{memberId}")
-    public String updateForm(@PathVariable("memberId") Long memberId, Model model) {
-        MemberDetailDTO memberDetailDTO = ms.findById(memberId);
-        model.addAttribute("member", memberDetailDTO);
-        return "/member/update";
-    }
-
-    @DeleteMapping("/{memberId}")
-    public ResponseEntity deleteById(@PathVariable("memberId") Long memberId) {
-        ms.deleteById(memberId);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
+    //수정
     @PutMapping("/{memberId}")
     public ResponseEntity update(@ModelAttribute MemberUpdateDTO memberUpdateDTO)
             throws IllegalStateException, IOException {
         System.out.println("받아온 것"+ memberUpdateDTO);
         ms.update(memberUpdateDTO);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    //삭제
+    @DeleteMapping("/{memberId}")
+    public ResponseEntity deleteById(@PathVariable("memberId") Long memberId) {
+        ms.deleteById(memberId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("/pointCharge/{memberId}")
+    public String pointCharge(@PathVariable("memberId") Long memberId,Model model) {
+        MemberDetailDTO memberDetailDTO = ms.findById(memberId);
+        model.addAttribute("member", memberDetailDTO);
+        return "/member/pointCharge";
+    }
+    @PostMapping("pointCharge")
+    public String pointCharge(@ModelAttribute PointSaveDTO pointSaveDTO) {
+        ms.pointCharge(pointSaveDTO);
+
+
+        return "redirect:/member/pointView?m_id="+ pointSaveDTO.getMemberId();
     }
 
 

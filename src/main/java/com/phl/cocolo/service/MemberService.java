@@ -1,9 +1,6 @@
 package com.phl.cocolo.service;
 
-import com.phl.cocolo.dto.MemberDetailDTO;
-import com.phl.cocolo.dto.MemberLoginDTO;
-import com.phl.cocolo.dto.MemberSaveDTO;
-import com.phl.cocolo.dto.MemberUpdateDTO;
+import com.phl.cocolo.dto.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -32,5 +29,9 @@ public interface MemberService {
     String getKaKaoAccessToken(String code);
 
     String getUserInfo(String access_token);
+
+    String NickNameDuplication(String memberNickName);
+
+    void pointCharge(PointSaveDTO pointSaveDTO);
 }
 

@@ -35,7 +35,7 @@ public class MemberSaveDTO {
     private String memberProfileName;
     private MultipartFile memberProfile;
 
-    private String memberInterest;
+    private String memberInteresting;
 
     private String memberLevel;
 

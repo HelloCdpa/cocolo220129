@@ -16,8 +16,8 @@ spring:
       ddl-auto: update
 
   #mybatis 관련설정
-  #mybatis:
+mybatis:
   #  #resources/mapper/ 에 있는 모든 xml 파일을 내가 매퍼로 쓸거다.
-  #  mapper-locations: mapper/*.xml
+  mapper-locations: mapper/*.xml
   #alias설정
 #  type-aliases-package: com.phl.cocolo.dto

@@ -6,7 +6,9 @@ import com.google.gson.JsonParser;
 
 import com.phl.cocolo.dto.*;
 import com.phl.cocolo.entity.MemberEntity;
+import com.phl.cocolo.entity.PointEntity;
 import com.phl.cocolo.repository.MemberRepository;
+import com.phl.cocolo.repository.PointRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +26,7 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository mr;
+    private final PointRepository pr;
     //엔티티로 저장
     @Override
     public Long save(MemberSaveDTO memberSaveDTO)throws IllegalStateException, IOException {
@@ -232,4 +235,26 @@ public class MemberServiceImpl implements MemberService{
         }
 
     }
+
+    @Override
+    public String NickNameDuplication(String memberNickName) {
+        MemberEntity memberEntity = mr.findByMemberNickName(memberNickName);
+        if (memberEntity == null) {
+            return "ok";
+        } else {
+            return "no";
+        }
+
+    }
+
+    @Override
+    public void pointCharge(PointSaveDTO pointSaveDTO) {
+
+        MemberEntity memberEntity = mr.findById(pointSaveDTO.getMemberId()).get();
+        PointEntity pointEntity = PointEntity.toPointSaveEntity(pointSaveDTO,memberEntity);
+        pr.save(pointEntity);
+
+    }
+
+
 }

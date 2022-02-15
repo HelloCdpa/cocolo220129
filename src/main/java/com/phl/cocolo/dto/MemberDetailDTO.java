@@ -16,10 +16,15 @@ public class MemberDetailDTO {
     private String memberEmail;
     private String memberPassword;
     private String memberName;
+    private String memberNickName;
     private String memberPhone;
     private String memberProfileName;
+    private String memberInteresting;
+    private String memberLevel;
+    
     private LocalDateTime memberCreateTime;
     private LocalDateTime memberUpdateTime;
+    
 
 
     public static MemberDetailDTO toMemberDetailDTO(MemberEntity memberEntity){
@@ -34,8 +39,6 @@ public class MemberDetailDTO {
         return memberDetailDTO;
 
     }
-
-
 
 
 
