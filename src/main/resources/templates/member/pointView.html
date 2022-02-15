@@ -12,25 +12,14 @@
         <th>포인트</th>
         <th>유형</th>
         <th>시간</th>
-
     </tr>
-    <"${pList}" var="p">
-        <tr>
-            <td>${p.p_point}</td>
-            <td>${p.p_type}</td>
-            <td>${p.p_pointdate}</td>
+        <tr th:each="point: ${pointList}">
+            <td><span th:text="${point.pointPoint}"></span></td>
+            <td><span th:text="${point.pointType}"></span></td>
+            <td><span th:text="${point.pointDate}"></span></td>
         </tr>
-
-
 </table>
-${m.m_id}님의 전체 포인트 : ${m.m_point} point
-
-
-
-
-
-
-
+<!--<p>${point.memberNickName}님의 전체 포인트 : ${point.memberPoint} point</p>-->
 
 
 

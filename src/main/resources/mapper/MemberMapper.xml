@@ -2,16 +2,23 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.phl.cocolo.repository.MemberRepository">
-    <select id="memberList" resultType="com.phl.cocolo.dto.MemberDetailDTO">
-        select * from member_table
-    </select>
+<mapper namespace="com.phl.cocolo.repository.MemberMapperRepository">
+<!--    <update id="pointCharge"  parameterType="java.util.HashMap">-->
+<!--        update member_table set m_point = m_point + #{member_point}-->
+<!--        where m_id = #{m_id}-->
+<!--    </update>-->
 
-    <insert id="save" parameterType="com.phl.cocolo.dto.MemberSaveDTO">
-        insert into member_table(member_email,member_password,member_name)
-        values (#{member_email},#{member_password},#{member_name})
 
-    </insert>
+
+<!--    <select id="memberList" resultType="com.phl.cocolo.dto.MemberDetailDTO">-->
+<!--        select * from member_table-->
+<!--    </select>-->
+
+<!--    <insert id="save" parameterType="com.phl.cocolo.dto.MemberSaveDTO">-->
+<!--        insert into member_table(member_email,member_password,member_name)-->
+<!--        values (#{member_email},#{member_password},#{member_name})-->
+
+<!--    </insert>-->
 
 
 

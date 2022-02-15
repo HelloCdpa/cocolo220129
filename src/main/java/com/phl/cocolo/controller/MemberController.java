@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 import static com.phl.cocolo.common.SessionConst.*;
@@ -174,10 +173,13 @@ public class MemberController {
     @PostMapping("pointCharge")
     public String pointCharge(@ModelAttribute PointSaveDTO pointSaveDTO) {
         ms.pointCharge(pointSaveDTO);
-
-
         return "redirect:/member/pointView?m_id="+ pointSaveDTO.getMemberId();
     }
-
+    @GetMapping("/pointView/{memberId}")
+    public String pointView(@PathVariable("memberId") Long memberId,Model model) {
+        List<PointDetailDTO> pointList = ms.pointFindAll(memberId);
+        model.addAttribute("pointList", pointList);
+        return "/member/pointView";
+    }
 
 }

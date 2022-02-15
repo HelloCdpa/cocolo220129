@@ -33,5 +33,7 @@ public interface MemberService {
     String NickNameDuplication(String memberNickName);
 
     void pointCharge(PointSaveDTO pointSaveDTO);
+
+    List<PointDetailDTO> pointFindAll(Long memberId);
 }
 

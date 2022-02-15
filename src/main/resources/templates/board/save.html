@@ -15,8 +15,6 @@
     작성자 : <p th:text="${session['loginEmail']}"></p>
     <input type="text" name ="boardWriter" th:value="${session['loginEmail']}" hidden>
     <input type="text" name="memberId" th:value="${session['loginId']}" hidden>
-    비밀번호 : <input th:class="form-control" type="password" th:field="*{boardPassword}" placeholder="비밀번호">
-    <p th:if="${#fields.hasErrors('boardPassword')}" th:errors="*{boardPassword}" th:errorclass="field-error"></p>
     제목 : <input th:class="form-control" type="text" th:field="*{boardTitle}">
     <p th:if="${#fields.hasErrors('boardTitle')}" th:errors="*{boardTitle}" th:errorclass="field-error"></p>
     내용 : <input th:class="form-control" type="text" th:field="*{boardContents}">

@@ -17,7 +17,7 @@
     <div class="btn-group" >
         <form action="/member/pointCharge" method="post" name="updatePoint" th:object="${member}">
 
-            <input type="hidden" name="memberId" id="memberId"th:value="${member.memberName}" >
+            <input type="hidden" name="memberId" id="memberId"th:value="${member.memberId}" >
             <input type="hidden" name="pointType" id="pointType"value="포인트 충전" >
 
             <div class="form-check">

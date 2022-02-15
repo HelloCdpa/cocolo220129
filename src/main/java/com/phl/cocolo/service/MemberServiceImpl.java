@@ -7,6 +7,7 @@ import com.google.gson.JsonParser;
 import com.phl.cocolo.dto.*;
 import com.phl.cocolo.entity.MemberEntity;
 import com.phl.cocolo.entity.PointEntity;
+import com.phl.cocolo.repository.MemberMapperRepository;
 import com.phl.cocolo.repository.MemberRepository;
 import com.phl.cocolo.repository.PointRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,16 +17,14 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository mr;
+    private final MemberMapperRepository mmr;
     private final PointRepository pr;
     //엔티티로 저장
     @Override
@@ -249,10 +248,30 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public void pointCharge(PointSaveDTO pointSaveDTO) {
-
+        //포인트 이력 정보 저장
         MemberEntity memberEntity = mr.findById(pointSaveDTO.getMemberId()).get();
         PointEntity pointEntity = PointEntity.toPointSaveEntity(pointSaveDTO,memberEntity);
         pr.save(pointEntity);
+
+        //회원 포인트 업데이트
+        Map<String, Object> memberPointUpdate = new HashMap<>();
+        memberPointUpdate.put("member_id", pointSaveDTO.getMemberId());
+        memberPointUpdate.put("member_point", pointSaveDTO.getPointPoint());
+
+        mmr.pointCharge(memberPointUpdate);
+
+    }
+
+    @Override
+    public List<PointDetailDTO> pointFindAll(Long memberId) {
+        MemberEntity memberEntity = mr.findById(memberId).get();
+
+        List<PointEntity> pointEntityList = memberEntity.getPointEntityList();
+        List<PointDetailDTO> pointList = new ArrayList<>();
+        for (PointEntity p : pointEntityList){
+            pointList.add( PointDetailDTO.toPointDetailDTO(p));
+        }
+        return pointList;
 
     }
 
