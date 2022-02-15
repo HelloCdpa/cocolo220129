@@ -1,10 +1,11 @@
 package com.phl.cocolo.entity;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+
 
 @Entity
 @Getter
@@ -24,7 +25,14 @@ public class LikeEntity {
     @JoinColumn(name = "board_id")
     private BoardEntity boardEntity;
 
+    public static LikeEntity toLikeSaveEntity(BoardEntity boardEntity,MemberEntity memberEntity){
+        LikeEntity likeEntity = new LikeEntity();
 
+        likeEntity.setBoardEntity(boardEntity);
+        likeEntity.setMemberEntity(memberEntity);
+
+        return likeEntity;
+    }
 
 
 

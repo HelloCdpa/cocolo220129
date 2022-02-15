@@ -1,9 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
     <title>Title</title>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <!-- Nucleo Icons -->
+    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <!-- CSS Files -->
+    <link id="pagestyle" href="/assets/css/material-kit.css?v=3.0.0" rel="stylesheet" />
+
+
+
     <style>
         .field-error{
             color: red;
@@ -46,59 +64,128 @@
 
 </head>
 <body>
-<div class="container mt-4" id="saveContainer">
-    <form action="/member/save" method="post" class="m-3 p-3" th:object="${member}" enctype="multipart/form-data">
-        <div class="row">
-            <label for="memberName" class="col-md-1">이름 :</label>
-            <div class="col-md-3">
-                <input id="memberName" class="form-control input-sm" type="text" th:field="*{memberName}" placeholder="이름">
-            </div>
-            <p th:if="${#fields.hasErrors('memberName')}" th:errors="*{memberName}" th:errorclass="field-error"></p>
-            <div th:if="${#fields.hasGlobalErrors()}">
-                <p class="field-error" th:each="err: ${#fields.globalErrors()}" th:text="${err}">글로벌오류</p>
+<section>
+    <div class="page-header min-vh-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 start-0 text-center justify-content-center flex-column">
+                    <div class="position-relative h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center" style="background-image: url('/static/assets/img/illustration.jpg'); background-size: cover;" loading="lazy"></div>
+                </div>
+                <div class="col-xl-5 col-lg-6 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
+                    <div class="card d-flex blur justify-content-center shadow-lg my-sm-0 my-sm-6 mt-8 mb-5">
+                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                            <div class="bg-gradient-primary shadow-primary border-radius-lg p-3">
+                                <h3 class="text-white text-primary mb-0">회원가입</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form action="/member/save" id="contact-form" method="post" autocomplete="off" th:object="${member}" enctype="multipart/form-data" class="needs-validation">
+                                <div class="card-body p-0 my-3">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-static mb-4">
+                                                <label for="memberName">이름</label>
+                                                <input id="memberName" class="form-control" type="text" th:id="memberName" th:field="*{memberName}" placeholder="이름" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 ps-md-2">
+                                            <div class="input-group input-group-static mb-4">
+                                                <label for="memberNickName">닉네임</label>
+                                                <input th:class="form-control" type="text" id="memberNickName" th:field="*{memberNickName}" placeholder="닉네임">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="input-group input-group-static mb-4">
+                                                <label for="memberEmail">Email</label>
+                                                <input th:class="form-control" type="email" id="memberEmail" th:field="*{memberEmail}" placeholder="hello@naver.com" th:onblur="emailCheck()">
+                                                <p id="checkResult"></p>
+                                                <p th:if="${#fields.hasErrors('memberEmail')}" th:errors="*{memberEmail}" th:errorclass="field-error"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-static mb-4">
+                                                <label for="memberPassword">비밀번호</label>
+                                                <input th:class="form-control" type="password" id="memberPassword" th:field="*{memberPassword}" placeholder="비밀번호">
+                                                <p th:if="${#fields.hasErrors('memberPassword')}" th:errors="*{memberPassword}" th:errorclass="field-error"></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 ps-md-2">
+                                            <div class="input-group input-group-static mb-4">
+                                                <label for="pwCheck">비밀번호 확인</label>
+                                                <input class="form-control" type="password" id="pwCheck" placeholder="비밀번호" onblur="passwordCheck()">
+                                               <span id="pwCheckResult"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div class="row">
+                                            <div class="input-group input-group-static mb-4">
+                                                <label for="memberPhone">전화번호</label>
+                                                <input th:class="form-control" type="text" id="memberPhone" th:field="*{memberPhone}" placeholder="010-3333-3333">
+                                                <p th:if="${#fields.hasErrors('memberPhone')}" th:errors="*{memberPhone}" th:errorclass="field-error"></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="input-group input-group-static mb-4">
+                                                <label for="memberProfile">프로필 사진 선택</label>
+                                                <input th:class="file-selector-button" type="file" id="memberProfile" th:field="*{memberProfile}">
+                                            </div>
+                                        </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="memberInterest">관심있는 분야</label>
+                                            <div class="input-group input-group-static mb-4">
+                                                <select th:class="form-select" id="memberInterest" th:field="*{memberInterest}">
+                                                    <option th:value="'앱개발'" selected>앱개발</option>
+                                                    <option th:value="'웹개발'" th:text="웹개발"></option>
+                                                    <option th:value="'게임개발'" th:text="게임개발"></option>
+                                                    <option th:value="'보안관련'" th:text="보안관련"></option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 ps-md-2">
+                                           <label for="memberLevel">개발자 레벨</label>
+                                            <div class="input-group input-group-static mb-4">
+                                                <select th:class="form-select" id="memberLevel" th:field="*{memberLevel}">
+                                                    <option th:value="'초보 개발자'"  selected>초보 개발자</option>
+                                                    <option th:value="'중급 개발자'">중급 개발자</option>
+                                                    <option th:value="'고급 개발자'" >고급 개발자</option>
+                                                    <option th:value="'선생님'" >선생님</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 text-center">
+                                            <input type="submit" class="btn bg-gradient-primary mt-3 mb-0" value="가입하기">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        이메일 :
-        <input th:class="form-control" type="text" th:field="*{memberEmail}" placeholder="이메일" th:onblur="emailCheck()">
-        <p id="checkResult"></p>
-        <p th:if="${#fields.hasErrors('memberEmail')}" th:errors="*{memberEmail}" th:errorclass="field-error"></p>
+    </div>
+</section>
 
-        닉네임 :
-        <input th:class="form-control" type="text" th:field="*{memberNickName}" placeholder="비밀번호">
-        <p th:if="${#fields.hasErrors('memberNickName')}" th:errors="*{memberNickName}" th:errorclass="field-error"></p>
-
-        비밀번호 :
-        <input th:class="form-control" type="password" th:field="*{memberPassword}" placeholder="비밀번호">
-        <p th:if="${#fields.hasErrors('memberPassword')}" th:errors="*{memberPassword}" th:errorclass="field-error"></p>
-
-        전화번호 :
-        <input th:class="form-control" type="text" th:field="*{memberPhone}" placeholder="010">
-        <p th:if="${#fields.hasErrors('memberPhone')}" th:errors="*{memberPhone}" th:errorclass="field-error"></p>
-
-        <label for="memberProfile">프로필 사진 선택</label>
-        <input th:class="form-control" type="file" id="memberProfile" th:field="*{memberProfile}">
-        <input class="btn btn-outline-success" type="submit" value="회원가입">
-
-        관심있는 언어 :
-        <select th:field="*{memberInterest}">
-            <option th:value="'자바'" selected>자바</option>
-            <option th:value="'자바스크립트'" th:text="자바스크립트"></option>
-            <option th:value="'파이썬'" th:text="파이썬"></option>
-            </select>
-        개발자 레벨 :
-        <select th:field="*{memberLevel}">
-            <option th:value="'초보 개발자'" selected>초보 개발자</option>
-            <option th:value="'중급 개발자'">중급 개발자</option>
-            <option th:value="'고급 개발자'" >고급 개발자</option>
-            <option th:value="'선생님'" >선생님</option>
-        </select>
-
-
-    </form>
-</div>
-
-
-
+<!--   Core JS Files   -->
+<script src="/assets/js/core/popper.min.js" type="text/javascript"></script>
+<script src="/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+<script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
+<script src="/assets/js/plugins/parallax.min.js"></script>
+<!-- Control Center for Material UI Kit: parallax effects, scripts for the example pages etc -->
+<!--  Google Maps Plugin    -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
+<script src="/assets/js/material-kit.min.js?v=3.0.0" type="text/javascript"></script>
 </body>
 <script>
     $(document).ready(function() {
@@ -109,6 +196,22 @@
 
         }
     })
+
+</script>
+<script>
+    function passwordCheck(){
+        const memberPassword = $('#pwCheck').val();
+        const checkPw = $('#memberPassword').val();
+        const pwCheckResult = document.querySelector('#pwCheckResult');
+        console.log(checkPw);
+        if(memberPassword==checkPw) {
+            pwCheckResult.style.color = 'green';
+            pwCheckResult.innerHTML = '비밀번호가 일치합니다'
+        }else{
+            pwCheckResult.style.color = 'red';
+            pwCheckResult.innerHTML = '비밀번호가 일치하지 않습니다'
+        }
+    }
 
 </script>
 </html>

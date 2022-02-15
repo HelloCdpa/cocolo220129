@@ -1,11 +1,10 @@
 package com.phl.cocolo.entity;
 
+import com.phl.cocolo.dto.CartSaveDTO;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -27,5 +26,20 @@ public class CartEntity {
 
     @Column(columnDefinition = "integer default 0")
     private int cartCount;
+
+    public static CartEntity toCartSaveEntity(CartSaveDTO cartSaveDTO,MemberEntity memberEntity,
+                                              OnClassEntity onClassEntity){
+        CartEntity cartEntity = new CartEntity();
+
+        cartEntity.setMemberEntity(memberEntity);
+        cartEntity.setOnClassEntity(onClassEntity);
+        cartEntity.setCartCount(cartSaveDTO.getCartCount());
+
+        return cartEntity;
+
+    }
+
+
+
 
 }

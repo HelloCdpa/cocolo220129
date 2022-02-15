@@ -24,5 +24,12 @@ public class WishListEntity {
     @JoinColumn(name = "onClass_id")
     private OnClassEntity onClassEntity;
 
+    public static WishListEntity toWishListSaveEntity(MemberEntity memberEntity, OnClassEntity onClassEntity){
+        WishListEntity wishListEntity = new WishListEntity();
 
+        wishListEntity.setMemberEntity(memberEntity);
+        wishListEntity.setOnClassEntity(onClassEntity);
+
+        return wishListEntity;
+    }
 }

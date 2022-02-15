@@ -1,5 +1,7 @@
 package com.phl.cocolo.entity;
 
+import com.phl.cocolo.dto.StudyApplySaveDTO;
+import com.phl.cocolo.dto.StudyUpdateDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +27,30 @@ public class StudyApplyEntity {
 
     @Column(columnDefinition = "boolean default false")
     private boolean applyState;
+
+    public static StudyApplyEntity toStudyApplySaveEntity(StudyApplySaveDTO studyApplySaveDTO, MemberEntity memberEntity,
+                                                          StudyEntity studyEntity){
+        StudyApplyEntity studyApplyEntity = new StudyApplyEntity();
+
+        studyApplyEntity.setMemberEntity(memberEntity);
+        studyApplyEntity.setStudyEntity(studyEntity);
+
+        return studyApplyEntity;
+    }
+    public static StudyApplyEntity toStudyApplyUpdateEntity(StudyUpdateDTO studyUpdateDTO, MemberEntity memberEntity,
+                                                            StudyEntity studyEntity){
+        StudyApplyEntity studyApplyEntity = new StudyApplyEntity();
+
+        studyApplyEntity.setId(studyUpdateDTO.getStudyId());
+
+        studyApplyEntity.setMemberEntity(memberEntity);
+        studyApplyEntity.setStudyEntity(studyEntity);
+
+        studyApplyEntity.setApplyState(true);
+
+
+        return studyApplyEntity;
+    }
 
 
 }

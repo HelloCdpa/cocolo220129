@@ -1,5 +1,7 @@
 package com.phl.cocolo.entity;
 
+import com.phl.cocolo.dto.MentoringSaveDTO;
+import com.phl.cocolo.dto.MentoringUpdateDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,4 +43,38 @@ public class MentoringEntity {
 
     @OneToMany(mappedBy = "mentoringEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MenteeEntity> menteeEntityList = new ArrayList<>();
+
+
+    public static MentoringEntity toMentoringSaveEntity(MentoringSaveDTO mentoringSaveDTO, MemberEntity memberEntity){
+        MentoringEntity mentoringEntity = new MentoringEntity();
+
+        mentoringEntity.setMemberEntity(memberEntity);
+
+        mentoringEntity.setMentoringCate(mentoringSaveDTO.getMentoringCate());
+        mentoringEntity.setMentoringTitle(mentoringSaveDTO.getMentoringTitle());
+        mentoringEntity.setMentoringContents(mentoringSaveDTO.getMentoringContents());
+        mentoringEntity.setMentoringCount(mentoringSaveDTO.getMentoringCount());
+        mentoringEntity.setMentoringPrice(mentoringSaveDTO.getMentoringPrice());
+        mentoringEntity.setMentoringCareer(mentoringSaveDTO.getMentoringCareer());
+
+        return mentoringEntity;
+    }
+    public static MentoringEntity toMentoringUpdateEntity(MentoringUpdateDTO mentoringUpdateDTO, MemberEntity memberEntity){
+        MentoringEntity mentoringEntity = new MentoringEntity();
+
+        mentoringEntity.setId(mentoringUpdateDTO.getMentoringId());
+
+        mentoringEntity.setMemberEntity(memberEntity);
+
+        mentoringEntity.setMentoringCate(mentoringUpdateDTO.getMentoringCate());
+        mentoringEntity.setMentoringTitle(mentoringUpdateDTO.getMentoringTitle());
+        mentoringEntity.setMentoringContents(mentoringUpdateDTO.getMentoringContents());
+        mentoringEntity.setMentoringCount(mentoringUpdateDTO.getMentoringCount());
+        mentoringEntity.setMentoringPrice(mentoringUpdateDTO.getMentoringPrice());
+        mentoringEntity.setMentoringCareer(mentoringUpdateDTO.getMentoringCareer());
+
+        return mentoringEntity;
+    }
+
+
 }

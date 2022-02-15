@@ -16,8 +16,6 @@ public class BoardSaveDTO {
     private Long cateId;
 
     private String boardWriter;
-    @NotBlank(message = "비밀번호를 입력해주세요.")
-    private String boardPassword;
     @NotBlank(message = "제목을 입력해주세요.")
     private String boardTitle;
     @NotBlank(message = "내용을 입력해주세요.")

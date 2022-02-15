@@ -1,5 +1,7 @@
 package com.phl.cocolo.entity;
 
+import com.phl.cocolo.dto.OnClassSaveDTO;
+import com.phl.cocolo.dto.OnClassUpdateDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,7 +46,31 @@ public class OnClassEntity extends BaseEntity {
     private List<WishListEntity> wishListEntityList = new ArrayList<>();
 
 
+    public static OnClassEntity toOnClassSaveEntity(OnClassSaveDTO onClassSaveDTO){
+        OnClassEntity onClassEntity = new OnClassEntity();
 
+        onClassEntity.setOnClassTeacher(onClassSaveDTO.getOnClassTeacher());
+        onClassEntity.setOnClassTitle(onClassSaveDTO.getOnClassTitle());
+        onClassEntity.setOnClassContents(onClassSaveDTO.getOnClassContents());
+        onClassEntity.setOnClassCate(onClassSaveDTO.getOnClassCate());
+        onClassEntity.setOnClassIntro(onClassSaveDTO.getOnClassIntro());
+
+        return onClassEntity;
+    }
+
+    public static OnClassEntity toOnClassUpdateEntity(OnClassUpdateDTO onClassUpdateDTO){
+        OnClassEntity onClassEntity = new OnClassEntity();
+
+        onClassEntity.setId(onClassUpdateDTO.getOnClassId());
+
+        onClassEntity.setOnClassTeacher(onClassUpdateDTO.getOnClassTeacher());
+        onClassEntity.setOnClassTitle(onClassUpdateDTO.getOnClassTitle());
+        onClassEntity.setOnClassContents(onClassUpdateDTO.getOnClassContents());
+        onClassEntity.setOnClassCate(onClassUpdateDTO.getOnClassCate());
+        onClassEntity.setOnClassIntro(onClassUpdateDTO.getOnClassIntro());
+
+        return onClassEntity;
+    }
 
 
 }

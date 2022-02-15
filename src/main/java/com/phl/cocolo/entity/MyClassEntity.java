@@ -23,4 +23,13 @@ public class MyClassEntity {
     @JoinColumn(name = "onclass_id")
     private OnClassEntity onClassEntity;
 
+
+    public static MyClassEntity toMyClassSaveEntity(MemberEntity memberEntity, OnClassEntity onClassEntity){
+        MyClassEntity myClassEntity = new MyClassEntity();
+
+        myClassEntity.setMemberEntity(memberEntity);
+        myClassEntity.setOnClassEntity(onClassEntity);
+
+        return myClassEntity;
+    }
 }

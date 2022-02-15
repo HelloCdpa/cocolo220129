@@ -1,5 +1,6 @@
 package com.phl.cocolo.entity;
 
+import com.phl.cocolo.dto.CategorySaveDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,5 +19,12 @@ public class CategoryEntity {
     @Column
     private String cateName;
 
+    public static CategoryEntity toCategorySaveEntity(CategorySaveDTO categorySaveDTO){
+        CategoryEntity categoryEntity = new CategoryEntity();
+
+        categoryEntity.setCateName(categorySaveDTO.getCateName());
+
+        return categoryEntity;
+    }
 
 }
