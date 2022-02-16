@@ -12,11 +12,9 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class MentoringSaveDTO {
     private Long memberId;
-    private Long cateId;
 
-    @NotBlank(message = "제목을 입력해주세요.")
     private String mentoringTitle;
-    @NotBlank(message = "내용을 입력해주세요.")
+
     private String mentoringContents;
 
     private int mentoringPrice;

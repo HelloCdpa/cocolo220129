@@ -1,10 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>전체조회</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+        function findById(boardId){
+            console.log(boardId);
+            const reqUrl = "/board/"+boardId;
+
+            $.ajax({
+                type: 'post',
+                url: reqUrl ,
+                dataType:'json',
+                success: function (result){
+                    console.log(result);
+                    let output="";
+                    output += "<table>\n" +
+                        "    <thead>\n" +
+                        "        <tr>\n" +
+                        "            <th>글번호</th>\n" +
+                        "            <th>작성자</th>\n" +
+                        "            <th>비번</th>\n" +
+                        "            <th>제목</th>\n" +
+                        "            <th>내용</th>\n" +
+                        "            <th>작성시간</th>\n" +
+                        "        </tr>\n" +
+                        "    </thead>\n" +
+                        "    <tbody>\n" +
+                        "        <tr>\n" +
+                        "            <td>" + result.boardId + "</td>\n" +
+                        "            <td>" + result.boardWriter + "</td>\n" +
+                        "            <td>" + result.boardPassword + "</td>\n" +
+                        "            <td>" + result.boardTitle + "</td>\n" +
+                        "            <td>" + result.boardContents + "</td>\n" +
+                        "            <td>" + result.boardDate + "</td>\n" +
+                        "        </tr>\n" +
+                        "    </tbody>\n" +
+                        "</table>";
+                    document.getElementById("detail-view").innerHTML = output;
+                },
+                error: function (){
+                    alert('ajax 실패');
+                }
+            })
+        }
+
+
+
+
+
+        function deleteById(boardId){
+            const reqUrl = "/board/"+boardId;
+            $.ajax({
+                url : reqUrl,
+                type : 'delete',
+                success : function (){
+                    alert('삭제완료')
+                    location.reload();
+                }, error : function (){
+                    alert('요청실패')
+                }
+            })
+        }
+
+
+
+    </script>
+
+
 </head>
 <body>
+
+<table>
+    <thead>
+    <th>글번호</th>
+    <th>작성자</th>
+    <th>글비밀번호</th>
+    <th>제목</th>
+    <th>글내용</th>
+    <th>작성시간</th>
+    <th>수정시간</th>
+    <th>삭제(get)</th>
+    <th>삭제(delete)</th>
+    <th>글수정</th>
+    <th>상세글 조회(ajax)</th>
+    </thead>
+    <tbody>
+    <tr th:each="board:${boardList}">
+        <td th:text="${board.boardId}">글번호</td>
+        <td th:text="${board.boardWriter}">작성자</td>
+        <td th:text="${board.boardPassword}">글비밀번호</td>
+        <td><a th:text="${board.boardTitle}" th:href="@{|/board/${board.boardId}|}"></a></td>
+        <td th:text="${board.boardContents}">글내용</td>
+        <td th:text="${board.createBoardDate}">글작성시간</td>
+        <td th:text="${board.updateBoardDate}">수정 시간</td>
+
+        <td><a th:href="@{|/board/delete/${board.boardId}|}">글삭제</a></td>
+        <td><button type="button" th:onclick="deleteById([[${board.boardId}]])">글삭제(post)</button></td>
+        <td><a th:href="@{|/board/update/${board.boardId}|}">글수정</a></td>
+        <td><button type="button" th:onclick="findById([[${board.boardId}]])">상세글 조회(ajax)</button></td>
+    </tr>
+    </tbody>
+
+
+</table>
+<div id="detail-view"></div>
+
+
+
+
+
+
 
 </body>
 </html>

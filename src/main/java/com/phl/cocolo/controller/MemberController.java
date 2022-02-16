@@ -78,7 +78,10 @@ public class MemberController {
             session.setAttribute(LOGIN_EMAIL, memberLoginDTO.getMemberEmail());
             Long memberId = ms.findByMemberId(memberLoginDTO.getMemberEmail());
             session.setAttribute(LOGIN_ID, memberId);
+            String memberNickName = ms.findById(memberId).getMemberNickName();
+            session.setAttribute(LOGIN_NICKNAME, memberNickName);
             String redirectURL = (String) session.getAttribute("redirectURL");
+
 
             if (redirectURL != null){
                 return "redirect:" + redirectURL;

@@ -1,10 +1,54 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 
+
+<form class="form-control" action="/mentoring/save" method="post">
+<!--   멘토링 카테고리 -->
+    <input type="radio" class="btn-check" value="취업/면접" name="mentoringCate" id="job" autocomplete="off" checked>
+    <label class="btn btn-outline-primary" for="job">취업/면접</label>
+
+    <input type="radio" class="btn-check" value="학습노하우" name="mentoringCate" id="know-how" autocomplete="off">
+    <label class="btn btn-outline-primary" for="know-how">학습노하우</label>
+
+    <input type="radio" class="btn-check" value="피드백" name="mentoringCate" id="feedback" autocomplete="off">
+    <label class="btn btn-outline-primary" for="feedback">피드백</label>
+
+    <input type="radio" class="btn-check" value="기타" name="mentoringCate" id="etc" autocomplete="off">
+    <label class="btn btn-outline-primary"for="etc">기타</label>
+
+
+    작성자 : <p th:text="${session['loginNick']}"></p>
+    <input type="text" name="memberId" th:value="${session['loginId']}" hidden>
+
+    제목 : <input class="form-control" type="text" name="mentoringTitle">
+    내용 : <input class="form-control" type="text" name="mentoringContents">
+     <label for="mentoringCount">멘토링 가격</label>
+    <select class="form-select" id="mentoringCount" name="mentoringCount">
+        <option value="1"selected>1</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+    </select> 회
+
+    <select class="form-select" name="mentoringPrice">
+        <option value="1"selected>1</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+    </select>point <br>
+
+    경력/특기 :  <input class="form-control" type="text" name="mentoringCareer">
+
+
+
+    <input class="btn btn-outline-success" type="submit" value="글작성">
+</form>
 </body>
 </html>

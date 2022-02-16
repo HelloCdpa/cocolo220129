@@ -1,10 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>상세조회</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <style>
+        .container-sm{
+            margin: 20px;
+            border: gray solid 1px;
+            background-color: bisque;
+        }
+        #boardHead{
+            background-color: antiquewhite;
+        }
+    </style>
 </head>
 <body>
+<input type="hidden" id="boardId" th:value="${board.boardId}">
+<input type="hidden" id="memberId" th:value="${board.memberId}">
+<div class="container-sm form-control rounded">
+    <div class="row" id="boardHead">
+        <div class="col-md-3">
+            작성자 : <span th:text="${board.boardWriter}"></span>
+        </div>
+        <div class="col-md-3">
+            조회수 : <span th:text="${board.boardHits}"></span>
+        </div>
+        <div class="col-md-3">
+            작성시간 : <span th:text="${board.createBoardDate}"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            제목 : <span th:text="${board.boardTitle}"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p th:text="${board.boardFileName}"></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <textarea class="form-control" rows="3" th:text="${board.boardContents}"></textarea>
+        </div>
+    </div>
+</div>
+
+
+<div id="comment-write" class="m-2">
+    <div class="row">
+        <div class="col-auto">
+            <input class="form-control" type="text" id="commentWriter" th:value="${session['loginEmail']}">
+        </div>
+        <div class="col-auto">
+            <input class="col-auto form-control" type="text" id="commentContents" placeholder="내용">
+        </div>
+        <div class="col-auto">
+            <button class="col-auto btn btn-primary" id="comment-write-btn">댓글등록</button>
+        </div>
+
+    </div>
+</div>
+
+<div id="comment-list">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">댓글 번호</th>
+            <th scope="col">댓글 작성자</th>
+            <th scope="col">댓글 내용</th>
+            <th scope="col">댓글 작성시간</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="comment: ${commentList}">
+            <td th:text="${comment.commentId}"></td>
+            <td th:text="${comment.commentWriter}"></td>
+            <td th:text="${comment.commentContents}"></td>
+            <td th:text="${comment.commentCreateDate}"></td>
+
+            <td><input class="btn btn-danger" type="button" th:if="(${#strings.equals(session['loginEmail'],'admin')})
+        or (${session.loginEmail}==${comment.commentWriter})"
+                       th:onclick="deleteById([[${comment.commentId}]])"
+                       value="삭제"></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+
 
 </body>
+<script>
+    $("#comment-write-btn").click(function (){
+        console.log("댓글작성클릭");
+        const commentWriter = $("#commentWriter").val();
+        const commentContents = $("#commentContents").val();
+        const boardId = $("#boardId").val();
+        const memberId = $("#memberId").val();
+        console.log(commentWriter + commentContents + boardId);
+        $.ajax({
+            type:'post',
+            url:'/comment/save',
+            data:{
+                'commentWriter' : commentWriter,
+                'commentContents': commentContents,
+                'boardId':boardId,
+                'memberId':memberId
+
+            },
+            dataType : 'json',
+            success: function (){
+                location.reload();
+                document.getElementById('commentContents').value='';
+            },
+            error:function (){
+                alert('ajax 실패');
+            }
+        });
+    });
+</script>
+
+<script>
+    const deleteById  = (commentId) => {
+        console.log('버튼클릭');
+        console.log(commentId);
+        const reqUrl = "/comment/"+commentId
+        $.ajax({
+            type : 'delete',
+            url : reqUrl,
+
+            success : function(){
+                alert('댓글이 삭제되었습니다.');
+                location.reload();
+            }, error(){
+                alert('ajax 실패')
+            }
+
+
+        })
+
+
+    }
+</script>
 </html>

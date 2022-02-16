@@ -2,18 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <link rel="shortcut icon" href="#">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 <body class="container">
 
 <h2>게시판 전체조회</h2>
 <span th:if="${not #strings.isEmpty(session['loginEmail'])}">
-<a class="btn btn-outline-info" href="/board/save" >게시글 작성</a>
+<a class="btn btn-outline-info" href="/board/save">게시글 작성</a>
 </span>
 
 <!--검색기능-->
 <form class="row g-3 container text-center" style="margin-top: 100px;" action="/board/search" method="get">
-    <div class="col-auto" >
+    <div class="col-auto">
         <select class="form-select" style="width:100px;height:40px; display:inline;" name="type">
             <option value="boardTitle" th:selected="(${type}=='boardTitle')">제목</option>
             <option value="boardWriter" th:selected="(${type}=='boardWriter')">작성자</option>
@@ -21,15 +22,34 @@
     </div>
 
     <div class="col-auto">
-        <input class="form-control"  type="text" name="keyword" th:value="${keyword}">
+        <input class="form-control" type="text" name="keyword" th:value="${keyword}">
     </div>
 
     <div class="col-auto">
-        <input class="form-control"  type="submit" value="검색">
+        <input class="form-control" type="submit" value="검색">
     </div>
 </form>
+<!--관리자 카테고리 저장-->
+<!--<span th:if="${#strings.equals(session['loginEmail'],'phl1021@naver.com')}">-->
+	<form action="/board/cateSave" method="get" class="row g-3">
+	<div class="col-auto">
+	<input type="text" name="cateName" class="form-control" style="width:300px;" placeholder="추가할 카테고리 입력">
+	</div>
+	<div class="col-auto">
+	<input type="submit" class="btn btn-outline-danger" value="카테고리 추가">
+	</div>
+	</form>
+<!--</span>-->
+
+<!--카테고리 별로 보기-->
+
+<span th:each="category: ${categoryList}">
+    <a class="btn btn-outline-danger" th:href="@{|/board/cateBoard/${category.cateId}|}"
+       th:text="${category.cateName}"></a>
+</span>
 
 
+<!--페이징 처리 된 게시판-->
 <table class="table table-hover">
     <thead>
     <tr>
@@ -67,7 +87,8 @@
         </li>
 
         <li th:class="${boardList.first} ?  'page-item disabled'">
-            <a class="page-link" th:href="${boardList.first} ? '#' : @{/board/search(page=${boardList.number},type=${type},keyword=${keyword})}">
+            <a class="page-link"
+               th:href="${boardList.first} ? '#' : @{/board/search(page=${boardList.number},type=${type},keyword=${keyword})}">
                 <span>&lt;</span>
             </a>
         </li>
@@ -75,18 +96,21 @@
         <!--startPage ~ endPage 까지 숫자를 만들어주는 역할-->
         <li th:each="page: ${#numbers.sequence(startPage, endPage)}"
             th:class="${page == boardList.number + 1} ? 'page-item active'">
-            <a class="page-link" th:text="${page}" th:href="@{/board/search(page=${page},type=${type},keyword=${keyword})}"></a>
+            <a class="page-link" th:text="${page}"
+               th:href="@{/board/search(page=${page},type=${type},keyword=${keyword})}"></a>
         </li>
 
 
         <li th:class="${boardList.last} ? 'disabled'">
-            <a class="page-link" th:href="${boardList.last} ? '#' : @{/board/search(page=${boardList.number + 2},type=${type},keyword=${keyword})}">
+            <a class="page-link"
+               th:href="${boardList.last} ? '#' : @{/board/search(page=${boardList.number + 2},type=${type},keyword=${keyword})}">
                 <span>&gt;</span> <!--삼항연산자 사용-->
             </a>
         </li>
 
         <li class="page-item">
-            <a class="page-link" th:href="@{/board/search(page=${boardList.totalPages},type=${type},keyword=${keyword})}">
+            <a class="page-link"
+               th:href="@{/board/search(page=${boardList.totalPages},type=${type},keyword=${keyword})}">
                 <span>Last</span>
             </a>
         </li>
@@ -96,15 +120,15 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
-    const deleteById  = (boardId) => {
-        const reqUrl = "/board/"+ boardId;
+    const deleteById = (boardId) => {
+        const reqUrl = "/board/" + boardId;
         $.ajax({
-            url : reqUrl,
-            type : 'delete',
-            success : function (){
+            url: reqUrl,
+            type: 'delete',
+            success: function () {
                 alert('삭제완료');
                 location.reload();
-            }, error : function (){
+            }, error: function () {
                 alert('실패')
             }
         })
@@ -112,9 +136,6 @@
 
 
 </script>
-
-
-
 
 
 </html>

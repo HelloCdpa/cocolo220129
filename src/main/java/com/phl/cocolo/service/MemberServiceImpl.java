@@ -52,11 +52,6 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public Long saveTest(MemberSaveDTO memberSaveDTO){
         MemberEntity memberEntity = MemberEntity.toMemberEntitySave(memberSaveDTO);
-        MemberEntity emailCheck = mr.findByMemberEmail(memberSaveDTO.getMemberEmail());
-
-        if (emailCheck != null){
-            throw new IllegalStateException("중복된 이메일 입니다!");
-        }
         return mr.save(memberEntity).getId();
     }
 
@@ -274,6 +269,7 @@ public class MemberServiceImpl implements MemberService{
         return pointList;
 
     }
+
 
 
 }

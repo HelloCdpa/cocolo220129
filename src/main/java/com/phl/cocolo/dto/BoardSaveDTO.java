@@ -24,8 +24,11 @@ public class BoardSaveDTO {
     private MultipartFile boardFile;
 
 
-    public BoardSaveDTO(Long memberId, String boardWriter, String boardPassword, String boardTitle, String boardContents, String boardFileName) {
+    public BoardSaveDTO(Long memberId, Long cateId,String boardWriter, String boardTitle,
+                        String boardContents, String boardFileName) {
         this.memberId = memberId;
+        this.cateId = cateId;
+
         this.boardWriter = boardWriter;
         this.boardTitle = boardTitle;
         this.boardContents = boardContents;

@@ -19,17 +19,17 @@ public class MemberSaveDTO {
     private String memberEmail;
 
     @NotBlank(message = "필수입력")
-    @Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,20}",
-            message = "비밀번호는 영문 대,소문자와 숫자, 특수기호가 적어도 1개 이상씩 포함된 8자 ~ 20자의 비밀번호여야 합니다.")
+//    @Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,20}",
+//            message = "비밀번호는 영문 대,소문자와 숫자, 특수기호가 적어도 1개 이상씩 포함된 8자 ~ 20자의 비밀번호여야 합니다.")
     private String memberPassword;
 
-    @NotBlank(message = "필수입력")
+//    @NotBlank(message = "필수입력")
     private String memberName;
 
-    @NotBlank(message = "닉네임을 입력해주세요")
+//    @NotBlank(message = "닉네임을 입력해주세요")
     private String memberNickName;
 
-    @Pattern(regexp = "^\\d{3}-\\d{3,4}-\\d{4}$", message = "휴대폰 번호는 - 포함 3-3(4)-4자리로 입력해주세요.")
+//    @Pattern(regexp = "^\\d{3}-\\d{3,4}-\\d{4}$", message = "휴대폰 번호는 - 포함 3-3(4)-4자리로 입력해주세요.")
     private String memberPhone;
 
     private String memberProfileName;

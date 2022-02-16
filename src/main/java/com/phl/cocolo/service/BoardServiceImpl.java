@@ -1,10 +1,7 @@
 package com.phl.cocolo.service;
 
 import com.phl.cocolo.common.PagingConst;
-import com.phl.cocolo.dto.BoardDetailDTO;
-import com.phl.cocolo.dto.BoardPagingDTO;
-import com.phl.cocolo.dto.BoardSaveDTO;
-import com.phl.cocolo.dto.BoardUpdateDTO;
+import com.phl.cocolo.dto.*;
 import com.phl.cocolo.entity.BoardEntity;
 import com.phl.cocolo.entity.CategoryEntity;
 import com.phl.cocolo.entity.MemberEntity;
@@ -22,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,6 +29,7 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository br;
     private final MemberRepository mr;
     private  final CategoryRepository ctr;
+
 
     @Override
     public Long save(BoardSaveDTO boardSaveDTO) throws IllegalStateException, IOException {
@@ -57,6 +57,45 @@ public class BoardServiceImpl implements BoardService {
         BoardEntity boardEntity = BoardEntity.toBoardEntitySave(boardSaveDTO, memberEntity,categoryEntity);
 
         return br.save(boardEntity).getId();
+    }
+    //관리자 카테고리 저장
+    @Override
+    public Long cateSave(CategorySaveDTO categorySaveDTO) {
+        CategoryEntity categoryEntity = CategoryEntity.toCategorySaveEntity(categorySaveDTO);
+        return ctr.save(categoryEntity).getId();
+    }
+    // 카테고리별로 보기 기능
+    @Override
+    public Page<BoardPagingDTO> findCate(Long cateId, Pageable pageable) {
+        int page = pageable.getPageNumber();
+        page = (page == 1) ? 0 : (page - 1);
+        //비워놓기
+        Page<BoardEntity> cateEntity = null;
+        br.findAll(PageRequest.of(page, PagingConst.PAGE_LIMIT, Sort.by(Sort.Direction.DESC, "id")));
+
+        // 카테고리 아이디로 게시물 찾아 넣기
+        cateEntity = br.findByCategoryEntity_Id(cateId,PageRequest.of(page, PagingConst.PAGE_LIMIT, Sort.by(Sort.Direction.DESC, "id")));
+
+        // BoardPaging DTO 화 시키기
+        Page<BoardPagingDTO> boardList = cateEntity.map(
+                board -> new BoardPagingDTO(board.getId(),
+                        board.getBoardWriter(),
+                        board.getBoardTitle(),
+                        board.getBoardHits())
+        );
+
+        return boardList;
+    }
+
+    @Override
+    public List<CategoryDetailDTO> cateFindAll() {
+        List<CategoryEntity> categoryEntityList = ctr.findAll();
+        List<CategoryDetailDTO> categoryList = new ArrayList<>();
+        for(CategoryEntity c : categoryEntityList){
+            categoryList.add(CategoryDetailDTO.toCategoryDetailDTO(c));
+        }
+
+        return categoryList;
     }
 
 
@@ -111,21 +150,24 @@ public class BoardServiceImpl implements BoardService {
         br.deleteById(boardId);
     }
 
+    //검색 작성자 제목 검색
     @Override
     public Page<BoardPagingDTO> search(String type, String keyword, Pageable pageable) {
         int page = pageable.getPageNumber();
         page = (page == 1) ? 0 : (page - 1);
 
+        // Page<BoardEntity>에 검색한 리스트들 찾아 넣기
         Page<BoardEntity> searchEntity = null;
         br.findAll(PageRequest.of(page, PagingConst.PAGE_LIMIT, Sort.by(Sort.Direction.DESC, "id")));
 
-
+        //검색 타입이 제목이라면
         if (type.equals("boardTitle")){
             searchEntity = br.findByBoardTitleContainingIgnoreCase(keyword,PageRequest.of(page, PagingConst.PAGE_LIMIT, Sort.by(Sort.Direction.DESC, "id")));
         } else {
+            //검색 타입이 작성자라면
             searchEntity = br.findByBoardWriterContainingIgnoreCase(keyword,PageRequest.of(page, PagingConst.PAGE_LIMIT, Sort.by(Sort.Direction.DESC, "id")));
         }
-
+        //가져온 내용 DTO 리스트에 담기
         Page<BoardPagingDTO> boardList = searchEntity.map(
                 board -> new BoardPagingDTO(board.getId(),
                         board.getBoardWriter(),

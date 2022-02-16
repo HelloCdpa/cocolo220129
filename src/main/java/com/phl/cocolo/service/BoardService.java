@@ -1,13 +1,11 @@
 package com.phl.cocolo.service;
 
-import com.phl.cocolo.dto.BoardDetailDTO;
-import com.phl.cocolo.dto.BoardPagingDTO;
-import com.phl.cocolo.dto.BoardSaveDTO;
-import com.phl.cocolo.dto.BoardUpdateDTO;
+import com.phl.cocolo.dto.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface BoardService {
     Long save(BoardSaveDTO boardSaveDTO)throws IllegalStateException, IOException;
@@ -25,4 +23,9 @@ public interface BoardService {
     Long saveTest(BoardSaveDTO boardSaveDTO);
 
 
+    Long cateSave(CategorySaveDTO categorySaveDTO);
+
+    Page<BoardPagingDTO> findCate(Long cateId, Pageable pageable);
+
+    List<CategoryDetailDTO> cateFindAll();
 }

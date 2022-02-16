@@ -13,6 +13,10 @@ import java.time.LocalDateTime;
 public class BoardDetailDTO {
     private Long boardId;
     private Long memberId;
+    private Long cateId;
+
+
+    private String categoryName;
     private String boardWriter;
     private String boardTitle;
     private String boardContents;
@@ -26,6 +30,10 @@ public class BoardDetailDTO {
         BoardDetailDTO boardDetailDTO = new BoardDetailDTO();
         boardDetailDTO.setBoardId(boardEntity.getId());
         boardDetailDTO.setMemberId(boardEntity.getMemberEntity().getId());
+        boardDetailDTO.setCateId(boardEntity.getCategoryEntity().getId());
+
+        boardDetailDTO.setCategoryName(boardEntity.getCategoryEntity().getCateName());
+
         boardDetailDTO.setBoardWriter(boardEntity.getBoardWriter());
         boardDetailDTO.setBoardTitle(boardEntity.getBoardTitle());
         boardDetailDTO.setBoardContents(boardEntity.getBoardContents());
