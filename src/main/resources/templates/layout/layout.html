@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lagn="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
 
 <!-- 공통 헤더-->
@@ -13,9 +14,7 @@
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
             <!-- 본문-->
-
-
-
+            <th:block layout:fragment="content"></th:block>
         </div>
         <!-- 공통 하단-->
         <th:block th:replace="/layout/fragments/footer :: footerFragment"></th:block>

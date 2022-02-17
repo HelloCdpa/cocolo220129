@@ -5,15 +5,13 @@ import com.phl.cocolo.service.MentoringService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.util.List;
 
 @Controller
 @RequestMapping("/mentoring")
+@CrossOrigin("*")
 @RequiredArgsConstructor
 public class MentoringController {
     private final MentoringService mts;
@@ -41,6 +39,11 @@ public class MentoringController {
     }
 
 
+    @GetMapping("/mentorChat")
+    public String mentorChatForm() {
+
+        return "/mentoring/mentorChat";
+    }
 
 
 

@@ -8,7 +8,12 @@ public class MainController {
 
     @GetMapping("/")
     public String index(){
-        return "base/nav";
+        return "index";
+    }
+
+    @GetMapping("/a")
+    public String a(){
+        return "/layout/layout";
     }
 
 }

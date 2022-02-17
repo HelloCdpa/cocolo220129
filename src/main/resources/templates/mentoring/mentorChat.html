@@ -1,10 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/assets/css/chat-style.css">
 </head>
 <body>
+<div class="wrapper">
+    <div class="user-container">
+        <label for="nickname">대화명</label>
+        <input type="text" id="nickname">
+    </div>
+
+    <div class="display-container">
+        <ul class="chatting-list">
+
+        </ul>
+    </div>
+
+    <div class="input-container">
+            <span>
+                <input type="text" class="chatting-input">
+                <button class="send-button">전송</button>
+            </span>
+
+    </div>
+</div>
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js" integrity="sha512-MgkNs0gNdrnOM7k+0L+wgiRc5aLgl74sJQKbIWegVIMvVGPc1+gc1L2oK9Wf/D9pq58eqIJAxOonYPVE5UwUFA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
 </body>
+<script  src="http://localhost:5000/socket.io/socket.io.js"></script>
+<script src="/assets/js/chat.js"></script>
 </html>

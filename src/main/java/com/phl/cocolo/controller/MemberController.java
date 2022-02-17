@@ -86,7 +86,7 @@ public class MemberController {
             if (redirectURL != null){
                 return "redirect:" + redirectURL;
             }else{
-                return "redirect:/board/";
+                return "index";
             }
 
         } else {
@@ -95,6 +95,9 @@ public class MemberController {
 
         }
     }
+
+
+
     //카카오 로그인 : 카카오로 로그인 하면 이메일을 받아오고 해당 이메일과 일치하는 회원을 로그인 시킴
     @GetMapping("/kakaologin")
     public String KaKaoLogin(@RequestParam(value = "code", required = false) String code, Model model,
