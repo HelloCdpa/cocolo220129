@@ -33,8 +33,8 @@ public class MentoringDetailDTO {
         mentoringDetailDTO.setMentoringTitle(mentoringEntity.getMentoringTitle());
         mentoringDetailDTO.setMentoringContents(mentoringEntity.getMentoringContents());
         mentoringDetailDTO.setMentoringWriter(mentoringEntity.getMemberEntity().getMemberNickName());
-        mentoringDetailDTO.setMentoringCount(mentoringDetailDTO.getMentoringCount());
-        mentoringDetailDTO.setMentoringPrice(mentoringDetailDTO.getMentoringPrice());
+        mentoringDetailDTO.setMentoringCount(mentoringEntity.getMentoringCount());
+        mentoringDetailDTO.setMentoringPrice(mentoringEntity.getMentoringPrice());
         mentoringDetailDTO.setMentoringCate(mentoringEntity.getMentoringCate());
         mentoringDetailDTO.setMentoringCareer(mentoringEntity.getMentoringCareer());
 

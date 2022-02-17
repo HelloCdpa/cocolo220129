@@ -3,10 +3,14 @@ package com.phl.cocolo.controller;
 import com.phl.cocolo.dto.*;
 import com.phl.cocolo.service.MentoringService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
@@ -26,7 +30,7 @@ public class MentoringController {
 
         mts.save(mentoringSaveDTO);
 
-        return "redirect:/mentoring/findAll";
+        return "redirect:/mentoring/";
     }
     // 상세조회
     @GetMapping("{mentoringId}")
@@ -45,10 +49,35 @@ public class MentoringController {
         return "/mentoring/mentorChat";
     }
 
+    //글 삭제
+    @DeleteMapping("{mentoringId}")
+    public ResponseEntity deleteById (@PathVariable ("mentoringId") Long mentoringId){
+        mts.deleteById(mentoringId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
+    //전체조회
+    @GetMapping("/")
+    public String findAll(Model model) {
+        List<MentoringDetailDTO> mentoringList = mts.findAll();
+        model.addAttribute("mentoringList", mentoringList);
+        return "/mentoring/findAll";
+    }
 
+    // 수정 화면 이동
+    @GetMapping("/update/{mentoringId}")
+    public String updateForm(Model model, @PathVariable ("mentoringId") Long mentoringId){
+        MentoringDetailDTO mentoring = mts.findById(mentoringId);
+        model.addAttribute("mentoring",mentoring);
+        return "/mentoring/update";
+    }
+    // 수정 하기
+    @PutMapping("{mentoringId}")
+    public ResponseEntity update(@ModelAttribute MentoringUpdateDTO mentoringUpdateDTO) {
+        mts.update(mentoringUpdateDTO);
 
-
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 
 

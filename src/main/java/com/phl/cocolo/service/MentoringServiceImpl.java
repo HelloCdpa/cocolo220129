@@ -1,13 +1,19 @@
 package com.phl.cocolo.service;
 
+import com.phl.cocolo.dto.MemberDetailDTO;
 import com.phl.cocolo.dto.MentoringDetailDTO;
 import com.phl.cocolo.dto.MentoringSaveDTO;
+import com.phl.cocolo.dto.MentoringUpdateDTO;
 import com.phl.cocolo.entity.MemberEntity;
 import com.phl.cocolo.entity.MentoringEntity;
 import com.phl.cocolo.repository.MemberRepository;
 import com.phl.cocolo.repository.MentoringRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +31,34 @@ public class MentoringServiceImpl implements MentoringService{
 
     @Override
     public MentoringDetailDTO findById(Long mentoringId) {
-        return null;
+        Optional<MentoringEntity> optionalMentoringEntity = mtr.findById(mentoringId);
+        MentoringDetailDTO mentoringDetailDTO = MentoringDetailDTO.toMentoringDetailDTO(optionalMentoringEntity.get());
+
+        return mentoringDetailDTO;
     }
+
+    @Override
+    public void deleteById(Long mentoringId) {
+        mtr.deleteById(mentoringId);
+    }
+
+    @Override
+    public List<MentoringDetailDTO> findAll() {
+        List<MentoringEntity> mentoringEntityList = mtr.findAll();
+        List<MentoringDetailDTO> mentoringList = new ArrayList<>();
+        for (MentoringEntity m : mentoringEntityList){
+            mentoringList.add(MentoringDetailDTO.toMentoringDetailDTO(m));
+        }
+        return mentoringList;
+    }
+
+    @Override
+    public void update(MentoringUpdateDTO mentoringUpdateDTO) {
+        MemberEntity memberEntity = mr.findById(mentoringUpdateDTO.getMemberId()).get();
+        MentoringEntity mentoringEntity = MentoringEntity.toMentoringUpdateEntity(mentoringUpdateDTO,memberEntity);
+
+        mtr.save(mentoringEntity);
+    }
+
+
 }

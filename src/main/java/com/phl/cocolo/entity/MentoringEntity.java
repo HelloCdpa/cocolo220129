@@ -32,10 +32,10 @@ public class MentoringEntity {
     @Column
     private String mentoringContents;
 
-    @Column(columnDefinition = "integer default 0")
+    @Column
     private int mentoringCount;
 
-    @Column(columnDefinition = "integer default 0")
+    @Column
     private int mentoringPrice;
 
     @Column
