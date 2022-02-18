@@ -8,12 +8,18 @@
 <body>
 <form id="updateForm" th:object="${member}" enctype="multipart/form-data">
     <input type="hidden" th:field="*{memberId}">
+    닉네임 : <span th:text="*{memberNickName}"></span> <br>
     변경할이름 :  <input type="text" th:field="*{memberName}"><br>
     <input type="text" th:field="*{memberEmail}" readonly><br>
     비밀번호입력 : <input type="password" th:field="*{memberPassword}"><br>
     변경할 전화번호 : <input type="text" th:field="*{memberPhone}"><br>
     <label for="memberProfile">변경할 프로필 사진</label>
     <input th:class="form-control" type="file" id="memberProfile" name="memberProfile"><br>
+
+
+    개발자 레벨 : <input type="text" th:field="*{memberLevel}"><br>
+    개발 분야 : <input type="text" th:field="*{memberInteresting}"><br>
+
     <input type="button" value="수정(put)" th:onclick="memberUpdate()">
 </form>
 </body>

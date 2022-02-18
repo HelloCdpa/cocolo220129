@@ -36,21 +36,27 @@
 <table class="table table-striped table-hover">
     <thead>
     <th scope="col">번호</th>
+    <th scope="col">닉네임</th>
     <th scope="col">이메일</th>
     <th scope="col">비밀번호</th>
     <th scope="col">이름</th>
     <th scope="col">전화번호</th>
-    <th scope="col">프로필사진</th>
+    <th scope="col">프로필 사진</th>
+    <th scope="col">개발자 레벨</th>
+    <th scope="col">개발 분야</th>
     <th scope="col">회원삭제</th>
     </thead>
     <tbody>
     <tr th:each="member:${memberList}">
         <td th:text="${member.memberId}">번호</td>
+        <td th:text="${member.memberNickName}">닉네임</td>
         <td><a th:text="${member.memberEmail}" th:href="@{|/member/${member.memberId}|}"></a></td>
         <td th:text="${member.memberPassword}">비밀번호</td>
         <td th:text="${member.memberName}">이름</td>
         <td th:text="${member.memberPhone}">전화번호</td>
         <td th:text="${member.memberName}">프로필사진</td>
+        <td th:text="${member.memberLevel}">개발 레벨</td>
+        <td th:text="${member.memberInteresting}">개발 분야</td>
         <td><input type="button" th:onclick="deleteById([[${member.memberId}]])" value="삭제(delete)"></td>
         <td></td>
         <td></td>

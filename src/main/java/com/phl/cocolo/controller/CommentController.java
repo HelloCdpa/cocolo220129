@@ -31,7 +31,7 @@ public class CommentController {
 
     @GetMapping("/{boardId}")
     public @ResponseBody List<CommentDetailDTO> findAll(@PathVariable ("boardId") Long boardId, Model model,@ModelAttribute CommentDetailDTO commentDetailDTO){
-        List<CommentDetailDTO> commentList = cs.findAll(commentDetailDTO.getBoardId());
+        List<CommentDetailDTO> commentList = cs.findAll(boardId);
         model.addAttribute("commentList",commentList);
         return commentList;
     }

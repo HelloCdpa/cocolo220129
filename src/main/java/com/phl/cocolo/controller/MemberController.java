@@ -144,7 +144,7 @@ public class MemberController {
     public String findAll(Model model) {
         List<MemberDetailDTO> memberList = ms.findAll();
         model.addAttribute("memberList", memberList);
-        return "/member/findAll";
+        return "/admin/memberFindAll";
     }
     //상세조회(마이페이지) && 수정화면
     @GetMapping("{memberId}")

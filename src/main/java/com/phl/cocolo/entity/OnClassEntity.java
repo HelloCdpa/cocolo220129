@@ -37,7 +37,7 @@ public class OnClassEntity extends BaseEntity {
     @OneToMany(mappedBy = "onClassEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReviewEntity> reviewEntityList = new ArrayList<>();
     @OneToMany(mappedBy = "onClassEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OnClassCourseEntity> onClassCourseEntityList = new ArrayList<>();
+    private List<CourseEntity> courseEntityList = new ArrayList<>();
     @OneToMany(mappedBy = "onClassEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MyClassEntity> myClassEntityList = new ArrayList<>();
     @OneToMany(mappedBy = "onClassEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

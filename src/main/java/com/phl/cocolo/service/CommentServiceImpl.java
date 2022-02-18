@@ -36,8 +36,7 @@ public class CommentServiceImpl implements CommentService{
         List<CommentEntity> commentEntityList = boardEntity.getCommentEntityList();
         List<CommentDetailDTO> commentList = new ArrayList<>();
         for(CommentEntity c: commentEntityList){
-            CommentDetailDTO commentDetailDTO = CommentDetailDTO.toCommentDetail(c);
-            commentList.add(commentDetailDTO);
+            commentList.add(CommentDetailDTO.toCommentDetail(c));
         }
 
         return commentList;
