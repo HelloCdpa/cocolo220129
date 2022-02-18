@@ -1,42 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
 
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="/assets/css/chat-style.css">
-</head>
+<!-- 공통 헤더-->
+<th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
+
 <body>
-<div class="wrapper">
-    <div class="user-container">
-        <label for="nickname">대화명</label>
-        <input type="text" id="nickname">
+<th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
+<div class="modal fade" id="chatModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <div class="user-container modal-header">
+                <label class="modal-title" id="staticBackdropLabel" for="nickname">대화명</label>
+                <span type="text" id="nickname" th:text="${session['loginNick']}" th:value="${session['loginNick']}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+
+            <div class="display-container modal-body" style="height: 1000px">
+                <ul class="chatting-list">
+
+                </ul>
+            </div>
+
+
+            <div class="input-container modal-footer">
+                                    <span>
+                                        <textarea type="text" id="msg" class="chatting-input form-control" aria-label="Recipient's username" aria-describedby="button-addon2"></textarea>
+                                        <button type="button" id="send-button" class="send-button">전송</button>
+                                    </span>
+            </div>
+
+        </div>
     </div>
 
-    <div class="display-container">
-        <ul class="chatting-list">
-
-        </ul>
-    </div>
-
-    <div class="input-container">
-            <span>
-                <input type="text" class="chatting-input">
-                <button class="send-button">전송</button>
-            </span>
-
-    </div>
 </div>
 
-
-
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js" integrity="sha512-MgkNs0gNdrnOM7k+0L+wgiRc5aLgl74sJQKbIWegVIMvVGPc1+gc1L2oK9Wf/D9pq58eqIJAxOonYPVE5UwUFA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<div class="wrapper" style="margin-top: 100px;">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chatModal">채팅하기</button>
+</div>
 
 </body>
-<script  src="http://localhost:5000/socket.io/socket.io.js"></script>
-<script src="/assets/js/chat.js"></script>
+<th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
+<script th:inline="javascript">
+    $(document).ready(function(){
+        const date = new Date();
+        const hours = String(date.getHours()).padStart(2,"0");
+        const minutes = String(date.getMinutes()).padStart(2,"0");
+        const time = `${hours}시 : ${minutes}분`;
+        const username = "관리자";
+        const msg = document.getElementById('msg');
+
+        console.log(msg.value);
+        console.log(username);
+
+
+        $("#disconn").on("click", (e) => {
+            disconnect();
+        })
+
+        $("#send-button").on("click", (e) => {
+            if(msg.value == "" || msg.value == " "){
+
+            }else {
+                send();
+            }
+
+        });
+
+        let websocket = new WebSocket("ws://localhost:8095/ws/chat");
+
+        websocket.onmessage = onMessage;
+        websocket.onopen = onOpen;
+        websocket.onclose = onClose;
+
+
+        function send(){
+
+            let msg = document.getElementById("msg");
+
+            console.log(username + ":" + msg.value);
+            websocket.send(username + ":" + msg.value);
+            msg.value = '';
+        }
+
+        //채팅창에서 나갔을 때
+        function onClose(evt) {
+            let str = username + ": 님이 방을 나가셨습니다.";
+            websocket.send(str);
+        }
+
+        //채팅창에 들어왔을 때
+        function onOpen(evt) {
+            let str = username + ": 님이 입장하셨습니다.";
+            websocket.send(str);
+        }
+
+        function onMessage(msg) {
+            let data = msg.data;
+            let sessionId = null;
+            //데이터를 보낸 사람
+            let message = null;
+            let arr = data.split(":");
+
+            for(let i=0; i<arr.length; i++){
+                console.log('arr[' + i + ']: ' + arr[i]);
+            }
+
+            let cur_session = username;
+
+            //현재 세션에 로그인 한 사람
+            console.log("cur_session : " + cur_session);
+            sessionId = arr[0];
+            message = arr[1];
+
+            console.log("sessionID : " + sessionId);
+            console.log("cur_session : " + cur_session);
+
+            const item = new LiModel(sessionId, message,time);
+            item.makeLi();
+        }
+
+        function LiModel(sessionId,message,time){
+            this.name = sessionId;
+            this.msg = message;
+            this.time = time;
+            const chatList = document.querySelector(".chatting-list");
+            const nickname = document.querySelector("#nickname");
+            this.makeLi = ()=>{
+                const li = document.createElement("li");
+                li.classList.add(nickname.value === this.name ? "sent" : "received")
+                const dom = `  <span class="profile">
+                    <span class="user">${this.name}</span>
+                    <img class="image" src="https://placeimg.com/50/50/any" alt="any">
+                    </span>
+                    <span class="message">${this.msg}</span>
+                    <span class="time">${this.time}</span>`;
+                li.innerHTML = dom;
+                chatList.appendChild(li)
+
+            }
+        }
+    })
+</script>
+
 </html>

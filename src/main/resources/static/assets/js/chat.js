@@ -1,8 +1,3 @@
-//socket.io불러오기
-"use strict"
-const socket = io("http://localhost:5000");
-
-
 
 const nickname = document.querySelector("#nickname");
 const chatList = document.querySelector(".chatting-list");
