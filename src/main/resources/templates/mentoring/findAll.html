@@ -1,47 +1,84 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="UTF-8">
-    <title>전체조회</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script>
-        function deleteById(mentoringId){
-            const reqUrl = "/mentoring/"+mentoringId;
-            $.ajax({
-                url : reqUrl,
-                type : 'delete',
-                success : function (){
-                    alert('삭제되었습니다.')
-                    location.reload();
-                }, error : function (){
-                    alert('요청실패')
-                }
-            })
-        }
-    </script>
-
-
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<link rel="shortcut icon" href="#">
+<style>
+    #background {
+        background-image: url("https://cdn.pixabay.com/photo/2016/11/08/05/20/sunset-1807524_1280.jpg");
+    }
+</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
 <body>
+<div id="wrapper">
+    <header class="bg-gradient-dark">
+        <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
+        <div class="page-header min-vh-75" id="background">
+            <span class="mask bg-gradient-dark opacity-6"></span>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center mx-auto my-auto">
+                        <h1 class="text-white">Mentoring</h1>
+                        <p class="lead mb-4 text-white opacity-8">함께하는 개발생활</p>
+                        <span th:if="${not #strings.isEmpty(session['loginEmail'])}">
+                    <a class="btn btn-outline-info" href="/mentoring/save">게시글 작성</a>
+                    </span>
+                        <div class="d-flex justify-content-center">
+                            <!--카테고리 별로 보기-->
+                            <span th:each="mentoring:${mentoringList}">
+                             <a class="btn bg-gradient-primary w-auto me-2" th:href="@{|/mentoring/cateMentoring/${mentoring.mentoringCate}|}"
+                                th:text="${mentoring.mentoringCate}"></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-<table>
-    <tr th:each="mentoring:${mentoringList}">
-        <td th:text="${mentoring.mentoringId}">글번호</td>
-        <td th:text="${mentoring.mentoringWriter}">작성자</td>
-        <td><a th:text="${mentoring.mentoringTitle}" th:href="@{|/mentoring/${mentoring.mentoringId}|}"> 글제목</a></td>
-        <td th:text="${mentoring.mentoringContents}">글내용</td>
-        <td th:text="${mentoring.mentoringPrice}">멘토링 가격</td>
-        <td th:text="${mentoring.mentoringCareer}">멘토 경력, 특기</td>
-        <td th:text="${mentoring.mentoringCate}">멘토 분야</td>
-        <td th:text="${mentoring.mentoringCount}">멘토링 횟수</td>
+    <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
+        <table>
+            <tr th:each="mentoring:${mentoringList}">
+                <td th:text="${mentoring.mentoringId}">글번호</td>
+                <td th:text="${mentoring.mentoringWriter}">작성자</td>
+                <td><a th:text="${mentoring.mentoringTitle}" th:href="@{|/mentoring/${mentoring.mentoringId}|}"> 글제목</a></td>
+                <td th:text="${mentoring.mentoringContents}">글내용</td>
+                <td th:text="${mentoring.mentoringPrice}">멘토링 가격</td>
+                <td th:text="${mentoring.mentoringCareer}">멘토 경력, 특기</td>
+                <td th:text="${mentoring.mentoringCate}">멘토 분야</td>
+                <td th:text="${mentoring.mentoringCount}">멘토링 횟수</td>
 
-        <td><button type="button" th:onclick="deleteById([[${mentoring.mentoringId}]])">글삭제</button></td>
-        <td><a th:href="@{|/mentoring/update/${mentoring.mentoringId}|}">글수정</a></td>
-    </tr>
+                <td><button type="button" th:onclick="deleteById([[${mentoring.mentoringId}]])">글삭제</button></td>
+                <td><a th:href="@{|/mentoring/update/${mentoring.mentoringId}|}">글수정</a></td>
+            </tr>
 
-</table>
+        </table>
 
 
+
+    </div>
+</div>
+<th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
+</div>
+</div>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script>
+    function deleteById(mentoringId){
+        const reqUrl = "/mentoring/"+mentoringId;
+        $.ajax({
+            url : reqUrl,
+            type : 'delete',
+            success : function (){
+                alert('삭제되었습니다.')
+                location.reload();
+            }, error : function (){
+                alert('요청실패')
+            }
+        })
+    }
+</script>
+
+
 </html>

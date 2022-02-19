@@ -7,6 +7,7 @@
 
 <body>
 <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
+<input type="hidden" th:value="${session['loginNick']}" id="loginNick">
             <div class="modal fade" id="chatModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                         <div class="modal-content">
@@ -49,10 +50,9 @@
         const hours = String(date.getHours()).padStart(2,"0");
         const minutes = String(date.getMinutes()).padStart(2,"0");
         const time = `${hours}시 : ${minutes}분`;
-        const username = "관리자";
+        const username = document.getElementById("loginNick").value;
         const msg = document.getElementById('msg');
 
-        console.log(msg.value);
         console.log(username);
 
 
@@ -118,11 +118,11 @@
             console.log("sessionID : " + sessionId);
             console.log("cur_session : " + cur_session);
 
-            const item = new LiModel(sessionId, message,time);
+            const item = new LiModel(sessionId, message,time,cur_session);
             item.makeLi();
         }
 
-            function LiModel(sessionId,message,time){
+            function LiModel(sessionId,message,time,cur_session){
                 this.name = sessionId;
                 this.msg = message;
                 this.time = time;
@@ -130,7 +130,7 @@
                 const nickname = document.querySelector("#nickname");
                 this.makeLi = ()=>{
                     const li = document.createElement("li");
-                    li.classList.add(nickname.value === this.name ? "sent" : "received")
+                    li.classList.add(nickname.value === cur_session ? "sent" : "received")
                     const dom = `  <span class="profile">
                     <span class="user">${this.name}</span>
                     <img class="image" src="https://placeimg.com/50/50/any" alt="any">
