@@ -4,9 +4,11 @@ import com.phl.cocolo.common.PagingConst;
 import com.phl.cocolo.dto.*;
 import com.phl.cocolo.entity.BoardEntity;
 import com.phl.cocolo.entity.CategoryEntity;
+import com.phl.cocolo.entity.LikeEntity;
 import com.phl.cocolo.entity.MemberEntity;
 import com.phl.cocolo.repository.BoardRepository;
 import com.phl.cocolo.repository.CategoryRepository;
+import com.phl.cocolo.repository.LikeRepository;
 import com.phl.cocolo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,6 +31,7 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository br;
     private final MemberRepository mr;
     private  final CategoryRepository ctr;
+    private  final LikeRepository lr;
 
 
     @Override
@@ -81,7 +84,8 @@ public class BoardServiceImpl implements BoardService {
                 board -> new BoardPagingDTO(board.getId(),
                         board.getBoardWriter(),
                         board.getBoardTitle(),
-                        board.getBoardHits())
+                        board.getBoardHits(),
+                        board.getLikeCount())
         );
 
         return boardList;
@@ -96,6 +100,39 @@ public class BoardServiceImpl implements BoardService {
         }
 
         return categoryList;
+    }
+
+    @Override
+    public int findLike(Long boardId, Long memberId) {
+        // 저장된 DTO 가 없다면 0, 있다면 1
+       if(lr.LikeCheck(boardId,memberId) == null) {
+        return 1;
+       } else {
+           return 0;
+       }
+    }
+
+    @Transactional
+    @Override
+    public int saveLike(LikeSaveDTO likeSaveDTO) {
+        long boardId = likeSaveDTO.getBoardId();
+        long memberId = likeSaveDTO.getMemberId();
+        // 좋아요가 이미 있는지 확인하는 코드
+        LikeSaveDTO find = lr.LikeCheck(boardId,memberId);
+
+        // find가 null이면 좋아요가 없는 상태이므로 정보 저장
+        // find가 null이 아니면 좋아요가 있는 상태이므로 정보 삭제
+        if(find==null) {
+            lr.save(likeSaveDTO);
+            br.plusLike(boardId);
+            return 1;
+
+        } else {
+            lr.deleteLike(likeSaveDTO);
+            br.minusLike(boardId);
+            return 0;
+        }
+
     }
 
 
@@ -119,7 +156,8 @@ public class BoardServiceImpl implements BoardService {
                 board -> new BoardPagingDTO(board.getId(),
                         board.getBoardWriter(),
                         board.getBoardTitle(),
-                        board.getBoardHits())
+                        board.getBoardHits(),
+                        board.getLikeCount())
         );
 
         return boardList;
@@ -172,7 +210,8 @@ public class BoardServiceImpl implements BoardService {
                 board -> new BoardPagingDTO(board.getId(),
                         board.getBoardWriter(),
                         board.getBoardTitle(),
-                        board.getBoardHits())
+                        board.getBoardHits(),
+                        board.getLikeCount())
         );
 
         return boardList;

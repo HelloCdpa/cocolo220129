@@ -24,20 +24,6 @@ public class LikeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private BoardEntity boardEntity;
-
-    public static LikeEntity toLikeSaveEntity(BoardEntity boardEntity,MemberEntity memberEntity){
-        LikeEntity likeEntity = new LikeEntity();
-
-        likeEntity.setBoardEntity(boardEntity);
-        likeEntity.setMemberEntity(memberEntity);
-
-        return likeEntity;
-    }
-
-
-
-
-
-
+    
 
 }

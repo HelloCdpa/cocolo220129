@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LikeSaveDTO {
-    private Long memberId;
     private Long boardId;
+    private Long memberId;
 }

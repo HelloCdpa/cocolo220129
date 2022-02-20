@@ -24,6 +24,7 @@ public class BoardDetailDTO {
     private LocalDateTime CreateBoardDate;
     private LocalDateTime UpdateBoardDate;
     private int boardHits;
+    private int likeCount;
 
 
     public static BoardDetailDTO toBoardDetailDTO(BoardEntity boardEntity){
@@ -40,6 +41,7 @@ public class BoardDetailDTO {
         boardDetailDTO.setBoardFileName(boardEntity.getBoardFileName());
         boardDetailDTO.setCreateBoardDate(boardEntity.getCreatTime());
         boardDetailDTO.setBoardHits(boardEntity.getBoardHits());
+        boardDetailDTO.setLikeCount(boardEntity.getLikeCount());
 
         return boardDetailDTO;
 

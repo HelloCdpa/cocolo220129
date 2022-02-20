@@ -14,6 +14,9 @@
     변경할 내용 : <input type="text" th:field="*{boardContents}"><br>
     <label for="boardFile">변경할 사진</label>
     <input th:class="form-control" type="file" id="boardFile" name="boardFile"><br>
+
+    <input type="hidden" th:field="*{boardHits}">
+    <input type="hidden" th:field="*{likeCount}">
     <input type="button" value="수정(put)" th:onclick="boardUpdate()">
 
 
@@ -58,11 +61,7 @@
             alert('비밀번호가 틀렸습니다.');
         }
     };
-
 </script>
-
-
-
 
 
 </html>

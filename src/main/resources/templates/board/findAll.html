@@ -72,19 +72,11 @@
 <div class="container-fluid">
 <!--페이징 처리 된 게시판-->
 <table class="table table-hover">
-    <thead>
-    <tr>
-        <th scope="col">글 번호</th>
-        <th scope="col">글쓴이</th>
-        <th scope="col">글 제목</th>
-        <th scope="col">조회수</th>
-    </tr>
-    </thead>
     <tbody>
     <tr th:each="board: ${boardList}">
         <td th:text="${board.boardId}"></td>
+        <td><a th:href="@{|/board/${board.boardId}|}" th:text="${board.boardTitle}"></a></td>
         <td th:text="${board.boardWriter}"></td>
-        <td><a th:href="@{|/board/${board.boardId}|}" th:text="${board.boardTitle}">제목</a></td>
         <td th:text="${board.boardHits}"></td>
         <td><input class="btn btn-danger" type="button" th:if="(${#strings.equals(session['loginEmail'],'admin')})
         or (${session.loginEmail}==${board.boardWriter})"

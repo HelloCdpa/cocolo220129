@@ -34,7 +34,7 @@ public class StudyEntity extends BaseEntity{
     private int studyMax;
 
     @Column(columnDefinition = "integer default 0")
-    private String studyCount;
+    private int studyCount;
 
     @Column
     private String studyCate;

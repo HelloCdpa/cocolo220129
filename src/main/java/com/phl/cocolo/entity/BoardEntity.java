@@ -39,6 +39,9 @@ public class BoardEntity extends BaseEntity{
     @Column(columnDefinition = "integer default 0")
     private int boardHits;
 
+    @Column(columnDefinition = "integer default 0")
+    private int likeCount;
+
     @Column
     private String boardFileName;
 
@@ -72,6 +75,7 @@ public class BoardEntity extends BaseEntity{
         boardEntity.setBoardTitle(boardUpdateDTO.getBoardTitle());
         boardEntity.setBoardContents(boardUpdateDTO.getBoardContents());
         boardEntity.setBoardFileName(boardUpdateDTO.getBoardFileName());
+        boardEntity.setLikeCount(boardUpdateDTO.getLikeCount());
 
         return boardEntity;
     }

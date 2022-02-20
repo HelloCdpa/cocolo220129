@@ -28,4 +28,8 @@ public interface BoardService {
     Page<BoardPagingDTO> findCate(Long cateId, Pageable pageable);
 
     List<CategoryDetailDTO> cateFindAll();
+
+    int findLike(Long boardId, Long memberId);
+
+    int saveLike(LikeSaveDTO likeSaveDTO);
 }

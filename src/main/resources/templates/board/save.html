@@ -14,17 +14,15 @@
 <body>
 <form class="form-control" action="/board/save" method="post" th:object="${board}" enctype="multipart/form-data">
     <span th:each="category: ${categoryList}">
-        <input type="radio" class="btn-check" th:value="${category.cateId}" name="cateId" th:id="${category.cateName}" autocomplete="off" checked>
+        <input type="radio" class="btn-check" th:value="${category.cateId}" name="cateId" th:id="${category.cateName}" autocomplete="off" checked required>
     <label class="btn btn-outline-primary" th:for="${category.cateName}" th:text="${category.cateName}"></label>
     </span>
 
-    작성자 : <p th:text="${session['loginEmail']}"></p>
+    작성자 : <p th:text="${session['loginNick']}"></p>
     <input type="text" name="boardWriter" th:value="${session['loginEmail']}" hidden>
     <input type="text" name="memberId" th:value="${session['loginId']}" hidden>
     제목 : <input th:class="form-control" type="text" th:field="*{boardTitle}">
-    <p th:if="${#fields.hasErrors('boardTitle')}" th:errors="*{boardTitle}" th:errorclass="field-error"></p>
     내용 : <input th:class="form-control" type="text" th:field="*{boardContents}">
-    <p th:if="${#fields.hasErrors('boardContents')}" th:errors="*{boardContents}" th:errorclass="field-error"></p>
     <label for="memberProfile">업로드 사진 선택</label>
     <input th:class="form-control" type="file" id="memberProfile" th:field="*{boardFile}">
     <input class="btn btn-outline-success" type="submit" value="글작성">

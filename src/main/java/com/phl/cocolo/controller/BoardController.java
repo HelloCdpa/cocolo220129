@@ -16,8 +16,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+
+import static com.phl.cocolo.common.SessionConst.LOGIN_ID;
 
 
 @Controller
@@ -36,24 +39,36 @@ public class BoardController {
     }
     //게시글 저장
     @PostMapping("/save")
-    public String save(@Validated @ModelAttribute BoardSaveDTO boardSaveDTO, BindingResult bindingResult)throws IllegalStateException, IOException {
-        System.out.println("받아온 값"+boardSaveDTO);
-        if (bindingResult.hasErrors()) {
-            return "/board/save";
-        }
+    public String save(@Validated @ModelAttribute BoardSaveDTO boardSaveDTO)throws IllegalStateException, IOException {
         bs.save(boardSaveDTO);
-
         return "redirect:/board/";
     }
     // 상세조회
     @GetMapping("{boardId}")
-    public String findById(@PathVariable("boardId") Long boardId, Model model){
+    public String findById(@PathVariable("boardId") Long boardId, Model model, HttpSession session){
         BoardDetailDTO boardDetailDTO = bs.findById(boardId);
         List<CommentDetailDTO> commentList = cs.findAll(boardId);
+        // memberId 세션값 가져오기
+        Long memberId = (Long) session.getAttribute(LOGIN_ID);
+
         model.addAttribute("board",boardDetailDTO);
         model.addAttribute("commentList",commentList);
+
+        int like = bs.findLike(boardId,memberId);
+        model.addAttribute("like",like);
+
         return "/board/findById";
     }
+    //좋아요
+    @PostMapping("/like")
+    public @ResponseBody int like(@ModelAttribute LikeSaveDTO likeSaveDTO) {
+        int result = bs.saveLike(likeSaveDTO);
+
+        return result;
+    }
+
+
+
     // 전체 조회 (페이징 처리)
     @GetMapping
     public String paging(@PageableDefault(page = 1) Pageable pageable, Model model){
@@ -79,7 +94,7 @@ public class BoardController {
 
         bs.cateSave(categorySaveDTO);
 
-        return "redirect:/board/findAll";
+        return "redirect:/board/";
     }
 
     //카테고리 별로 조회(페이징 처리)
