@@ -1,6 +1,7 @@
 package com.phl.cocolo.controller;
 
 import com.phl.cocolo.dto.*;
+import com.phl.cocolo.service.BoardService;
 import com.phl.cocolo.service.OnClassService;
 import com.phl.cocolo.service.StudyService;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudyController {
     private final StudyService ss;
-
+    private final BoardService bs;
     @GetMapping("/save")
-    public String saveForm() {
+    public String saveForm(Model model) {
+        model.addAttribute("board",new BoardSaveDTO());
+        List<CategoryDetailDTO> categoryList = bs.cateFindAll();
+        model.addAttribute("categoryList",categoryList);
         return "/study/save";
     }
     //게시글 저장

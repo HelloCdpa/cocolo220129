@@ -1,6 +1,7 @@
 package com.phl.cocolo.entity;
 
 
+import com.phl.cocolo.dto.LikeSaveDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +25,14 @@ public class LikeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private BoardEntity boardEntity;
-    
+
+    public static LikeEntity toLikeEntity(MemberEntity memberEntity, BoardEntity boardEntity){
+        LikeEntity likeEntity = new LikeEntity();
+        likeEntity.setMemberEntity(memberEntity);
+        likeEntity.setBoardEntity(boardEntity);
+
+        return likeEntity;
+    }
+
 
 }

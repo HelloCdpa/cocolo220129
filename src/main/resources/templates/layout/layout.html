@@ -4,11 +4,12 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
 
-<!-- 공통 헤더-->
+<!-- 공통 헤드-->
 <th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
 
 <body class="index-page bg-gray-200">
 <div id="wrapper">
+<!--    네비게이션-->
     <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
     <th:block th:replace="/layout/fragments/findAllHeader :: findAllFragment"></th:block>
 

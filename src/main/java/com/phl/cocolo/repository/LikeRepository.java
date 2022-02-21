@@ -1,21 +1,11 @@
 package com.phl.cocolo.repository;
 
-import com.phl.cocolo.dto.LikeSaveDTO;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import com.phl.cocolo.entity.LikeEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
 
-
-@Mapper
-public interface LikeRepository{
-    @Select("select * from like_table where board_id=#{boardId} and member_id=#{memberId}")
-    LikeSaveDTO LikeCheck(Long boardId, Long memberId);
-
-    @Delete("delete from like_table where board_id=#{boardId} and member_id=#{memberId}")
-    void deleteLike(LikeSaveDTO likeSaveDTO);
-
-    @Insert("insert into like_table (board_id,member_id) values(#{boardId},#{memberId})")
-    void save(LikeSaveDTO likeSaveDTO);
+public interface LikeRepository extends JpaRepository<LikeEntity,Long> {
+    Optional<LikeEntity> findByBoardEntity_IdAndMemberEntity_Id(Long boardId, Long memberId);
+    void  deleteByBoardEntity_IdAndMemberEntity_Id(Long boardId, Long memberId);
 }

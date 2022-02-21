@@ -20,10 +20,6 @@ import java.util.List;
 public class MentoringController {
     private final MentoringService mts;
 
-    @GetMapping("/save")
-    public String saveForm() {
-        return "/mentoring/save";
-    }
     //게시글 저장
     @PostMapping("/save")
     public String save(@Validated @ModelAttribute MentoringSaveDTO mentoringSaveDTO){

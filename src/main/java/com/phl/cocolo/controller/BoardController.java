@@ -29,14 +29,7 @@ import static com.phl.cocolo.common.SessionConst.LOGIN_ID;
 public class BoardController {
     private final BoardService bs;
     private final CommentService cs;
-    //게시글 저장 화면 이동
-    @GetMapping("/save")
-    public String saveForm(Model model){
-        model.addAttribute("board",new BoardSaveDTO());
-        List<CategoryDetailDTO> categoryList = bs.cateFindAll();
-        model.addAttribute("categoryList",categoryList);
-        return "/board/save";
-    }
+
     //게시글 저장
     @PostMapping("/save")
     public String save(@Validated @ModelAttribute BoardSaveDTO boardSaveDTO)throws IllegalStateException, IOException {
@@ -54,16 +47,17 @@ public class BoardController {
         model.addAttribute("board",boardDetailDTO);
         model.addAttribute("commentList",commentList);
 
-        int like = bs.findLike(boardId,memberId);
+        bs.findLike(boardId,memberId);
+
+        int like = bs.saveLike(boardId,memberId);
         model.addAttribute("like",like);
 
         return "/board/findById";
     }
     //좋아요
     @PostMapping("/like")
-    public @ResponseBody int like(@ModelAttribute LikeSaveDTO likeSaveDTO) {
-        int result = bs.saveLike(likeSaveDTO);
-
+    public @ResponseBody int like(Long boardId, Long memberId) {
+        int result = bs.saveLike(boardId,memberId);
         return result;
     }
 
@@ -83,6 +77,9 @@ public class BoardController {
         model.addAttribute("endPage",endPage);
 
         model.addAttribute("categoryList",categoryList);
+
+//        모달 게시글 저장할 때
+        model.addAttribute("board",new BoardSaveDTO());
 
         return "/board/findAll";
 

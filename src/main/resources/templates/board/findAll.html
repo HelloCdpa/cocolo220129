@@ -14,6 +14,8 @@
 <div id="wrapper">
 <header class="bg-gradient-dark">
 <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
+    <th:block th:replace="/board/save/saveModalFragment :: saveModalFragment"></th:block>
+
     <div class="page-header min-vh-75" id="background" >
         <span class="mask bg-gradient-dark opacity-6"></span>
         <div class="container">
@@ -22,7 +24,7 @@
                     <h1 class="text-white">Community</h1>
                     <p class="lead mb-4 text-white opacity-8">함께하는 개발생활</p>
                     <span th:if="${not #strings.isEmpty(session['loginEmail'])}">
-                    <a class="btn btn-outline-info" href="/board/save">게시글 작성</a>
+                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#saveModal">게시글 작성하기</button>
                     </span>
                     <div class="d-flex justify-content-center">
                         <!--카테고리 별로 보기-->

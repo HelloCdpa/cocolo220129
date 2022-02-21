@@ -4,7 +4,7 @@
 
 <body>
 
-<th:block th:fragment="saveModalFragment">
+<th:block th:fragment="saveFragment">
 
     <input type="hidden" th:value="${session['loginNick']}" id="loginNick">
     <div class="modal fade" id="saveModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
@@ -21,7 +21,7 @@
                             <div class="row">
                                 <div class="card z-index-0 fadeIn3 fadeInBottom">
                                     <div class="card-body">
-                                        <div>
+                                            <div>
                                         <span th:each="category: ${categoryList}">
                                             <input type="radio" class="btn-check" th:value="${category.cateId}"
                                                    name="cateId" th:id="${category.cateName}" autocomplete="off" checked
@@ -29,29 +29,29 @@
                                         <label class="btn btn-outline-primary" th:for="${category.cateName}"
                                                th:text="${category.cateName}"></label>
                                         </span>
-                                        </div>
+                                            </div>
 
-                                        <div>
-                                            작성자 : <p th:text="${session['loginNick']}"></p>
-                                            <input type="text" name="boardWriter"
-                                                   th:value="${session['loginEmail']}" hidden>
-                                            <input type="text" name="memberId" th:value="${session['loginId']}"
-                                                   hidden>
-                                        </div>
-                                        <div class="input-group input-group-outline my-3">
-                                            <label class="form-label">제목</label>
-                                            <input type="text" th:class="form-control" th:field="*{boardTitle}">
-                                        </div>
-                                        <div class="input-group mb-4 input-group-static">
-                                            <label>내용</label>
-                                            <textarea type="text" th:class="form-control"
-                                                      th:field="*{boardContents}" rows="10"></textarea>
-                                        </div>
-                                        <div>
-                                            <label for="memberProfile">업로드 사진 선택</label>
-                                            <input th:class="file-selector-button" type="file" id="memberProfile"
-                                                   th:field="*{boardFile}">
-                                        </div>
+                                            <div>
+                                                작성자 : <p th:text="${session['loginNick']}"></p>
+                                                <input type="text" name="boardWriter"
+                                                       th:value="${session['loginEmail']}" hidden>
+                                                <input type="text" name="memberId" th:value="${session['loginId']}"
+                                                       hidden>
+                                            </div>
+                                            <div class="input-group input-group-outline my-3">
+                                                <label class="form-label">제목</label>
+                                                <input type="text" th:class="form-control" th:field="*{boardTitle}">
+                                            </div>
+                                            <div class="input-group mb-4 input-group-static">
+                                                <label>내용</label>
+                                                <textarea type="text" th:class="form-control"
+                                                          th:field="*{boardContents}" rows="10"></textarea>
+                                            </div>
+                                            <div>
+                                                <label for="memberProfile">업로드 사진 선택</label>
+                                                <input th:class="file-selector-button" type="file" id="memberProfile"
+                                                       th:field="*{boardFile}">
+                                            </div>
                                     </div>
                                 </div>
                             </div>

@@ -105,32 +105,38 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public int findLike(Long boardId, Long memberId) {
         // 저장된 DTO 가 없다면 0, 있다면 1
-       if(lr.LikeCheck(boardId,memberId) == null) {
-        return 1;
-       } else {
-           return 0;
-       }
+
+        Optional<LikeEntity> findLike = lr.findByBoardEntity_IdAndMemberEntity_Id(boardId, memberId);
+
+
+        if (findLike.isEmpty()){
+            return 0;
+        }else {
+
+            return 1;
+        }
     }
 
     @Transactional
     @Override
-    public int saveLike(LikeSaveDTO likeSaveDTO) {
-        long boardId = likeSaveDTO.getBoardId();
-        long memberId = likeSaveDTO.getMemberId();
-        // 좋아요가 이미 있는지 확인하는 코드
-        LikeSaveDTO find = lr.LikeCheck(boardId,memberId);
+    public int saveLike(Long boardId, Long memberId) {
+        Optional<LikeEntity> findLike = lr.findByBoardEntity_IdAndMemberEntity_Id(boardId, memberId);
 
-        // find가 null이면 좋아요가 없는 상태이므로 정보 저장
-        // find가 null이 아니면 좋아요가 있는 상태이므로 정보 삭제
-        if(find==null) {
-            lr.save(likeSaveDTO);
+        System.out.println(findLike.isEmpty());
+
+        if (findLike.isEmpty()){
+            MemberEntity memberEntity = mr.findById(memberId).get();
+            BoardEntity boardEntity = br.findById(boardId).get();
+
+            LikeEntity likeEntity = LikeEntity.toLikeEntity(memberEntity, boardEntity);
+            lr.save(likeEntity);
             br.plusLike(boardId);
             return 1;
-
-        } else {
-            lr.deleteLike(likeSaveDTO);
+        }else {
+            lr.deleteByBoardEntity_IdAndMemberEntity_Id(boardId, memberId);
             br.minusLike(boardId);
             return 0;
+
         }
 
     }
