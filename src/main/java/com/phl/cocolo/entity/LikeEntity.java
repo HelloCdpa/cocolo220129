@@ -1,7 +1,6 @@
 package com.phl.cocolo.entity;
 
 
-import com.phl.cocolo.dto.LikeSaveDTO;
 import lombok.Getter;
 import lombok.Setter;
 

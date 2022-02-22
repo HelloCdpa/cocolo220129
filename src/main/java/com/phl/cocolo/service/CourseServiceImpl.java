@@ -7,7 +7,10 @@ import com.phl.cocolo.repository.CourseRepository;
 import com.phl.cocolo.repository.OnClassRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +23,17 @@ public class CourseServiceImpl implements CourseService{
 
 
     @Override
-    public Long save(CourseSaveDTO courseSaveDTO) {
+    public Long save(CourseSaveDTO courseSaveDTO) throws IllegalStateException, IOException {
+
+        MultipartFile c_file = courseSaveDTO.getCourseFile();
+        String c_filename = c_file.getOriginalFilename();
+        c_filename = System.currentTimeMillis() + "-" + c_filename;
+        // 파일 저장하기
+        String savePath = "D:\\development_Phl\\source\\springboot\\MemberBoardProject\\src\\main\\resources\\course_uploadfile\\" + c_filename;
+        if (!c_file.isEmpty()) {
+            c_file.transferTo(new File(savePath));
+        }
+        courseSaveDTO.setCourseFileName(c_filename);
 
         OnClassEntity onClassEntity = or.findById(courseSaveDTO.getOnClassId()).get();
         CourseEntity courseEntity = CourseEntity.toCategorySaveEntity(courseSaveDTO,onClassEntity);
@@ -28,6 +41,8 @@ public class CourseServiceImpl implements CourseService{
         return cr.save(courseEntity).getId();
     }
 
+       
+  
     @Override
     public void deleteById(Long courseId) {
         cr.findById(courseId);

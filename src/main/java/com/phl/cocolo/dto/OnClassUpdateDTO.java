@@ -15,4 +15,8 @@ public class OnClassUpdateDTO {
     private String onClassContents;
     private String onClassCate;
     private String onClassIntro;
+
+    private int onClassPrice;
+    private String onClassFileName;
+    private int onClassWishListCount;
 }

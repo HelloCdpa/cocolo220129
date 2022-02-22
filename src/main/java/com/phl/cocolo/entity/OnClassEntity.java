@@ -34,6 +34,19 @@ public class OnClassEntity extends BaseEntity {
     @Column
     private String onClassIntro;
 
+    @Column
+    private int onClassPrice;
+
+    @Column
+    private String onClassFileName;
+
+    @Column(columnDefinition = "integer default 0")
+    private int onClassWishListCount;
+
+
+
+
+
     @OneToMany(mappedBy = "onClassEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReviewEntity> reviewEntityList = new ArrayList<>();
     @OneToMany(mappedBy = "onClassEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -54,6 +67,8 @@ public class OnClassEntity extends BaseEntity {
         onClassEntity.setOnClassContents(onClassSaveDTO.getOnClassContents());
         onClassEntity.setOnClassCate(onClassSaveDTO.getOnClassCate());
         onClassEntity.setOnClassIntro(onClassSaveDTO.getOnClassIntro());
+        onClassEntity.setOnClassPrice(onClassSaveDTO.getOnClassPrice());
+        onClassEntity.setOnClassFileName(onClassSaveDTO.getOnClassFileName());
 
         return onClassEntity;
     }
@@ -68,6 +83,9 @@ public class OnClassEntity extends BaseEntity {
         onClassEntity.setOnClassContents(onClassUpdateDTO.getOnClassContents());
         onClassEntity.setOnClassCate(onClassUpdateDTO.getOnClassCate());
         onClassEntity.setOnClassIntro(onClassUpdateDTO.getOnClassIntro());
+        onClassEntity.setOnClassPrice(onClassUpdateDTO.getOnClassPrice());
+        onClassEntity.setOnClassFileName(onClassUpdateDTO.getOnClassFileName());
+        onClassEntity.setOnClassWishListCount(onClassUpdateDTO.getOnClassWishListCount());
 
         return onClassEntity;
     }

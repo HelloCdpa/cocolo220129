@@ -17,6 +17,10 @@ public class OnClassDetailDTO {
     private String onClassCate;
     private String onClassIntro;
 
+    private int onClassPrice;
+    private String onClassFileName;
+    private int onClassWishListCount;
+
     public static OnClassDetailDTO toOnClassDetailDTO(OnClassEntity onClassEntity){
         OnClassDetailDTO onClassDetailDTO = new OnClassDetailDTO();
 
@@ -26,6 +30,9 @@ public class OnClassDetailDTO {
         onClassDetailDTO.setOnClassIntro(onClassEntity.getOnClassIntro());
         onClassDetailDTO.setOnClassTitle(onClassEntity.getOnClassTitle());
         onClassDetailDTO.setOnClassTeacher(onClassEntity.getOnClassTeacher());
+        onClassDetailDTO.setOnClassPrice(onClassEntity.getOnClassPrice());
+        onClassDetailDTO.setOnClassFileName(onClassEntity.getOnClassFileName());
+        onClassDetailDTO.setOnClassWishListCount(onClassEntity.getOnClassWishListCount());
 
         return onClassDetailDTO;
 

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -26,7 +27,7 @@ public class CourseController {
     }
     //게시글 저장
     @PostMapping("/save")
-    public String save(@Validated @ModelAttribute CourseSaveDTO courseSaveDTO){
+    public String save(@Validated @ModelAttribute CourseSaveDTO courseSaveDTO)throws IllegalStateException, IOException {
 
         cs.save(courseSaveDTO);
 

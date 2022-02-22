@@ -4,57 +4,75 @@
 
 <body>
 
-<th:block th:fragment="saveModalFragment">
+<th:block th:fragment="studySaveFragment">
 
     <input type="hidden" th:value="${session['loginNick']}" id="loginNick">
-    <div class="modal fade" id="saveModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    <div class="modal fade" id="studySaveFragment" data-bs-backdrop="static" tabindex="-1"
+         aria-labelledby="staticBackdropLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <label class="modal-title" id="staticBackdropLabel">게시글 작성</label>
+                    <label class="modal-title" id="staticBackdropLabel">스터디 모집</label>
                 </div>
                 <div class="modal-body">
-                    <form action="/board/save" method="post" th:object="${board}" enctype="multipart/form-data">
+                    <form class="form-control" action="/mentoring/save" method="post">
                         <div class="container my-auto">
                             <div class="row">
                                 <div class="card z-index-0 fadeIn3 fadeInBottom">
                                     <div class="card-body">
-                                        <span th:each="category: ${categoryList}">
-                                            <input type="radio" class="btn-check" th:value="${category.cateId}"
-                                                   name="cateId" th:id="${category.cateName}" autocomplete="off" checked
-                                                   required>
-                                            <label class="btn btn-outline-primary" th:for="${category.cateName}"
-                                                   th:text="${category.cateName}"></label>
-                                        </span>
+                                        <div>
+                                            <input type="radio" class="btn-check" value="취업/면접" name="studyCate"
+                                                   id="job" autocomplete="off" checked>
+                                            <label class="btn btn-outline-primary" for="job">취업/면접</label>
 
+                                            <input type="radio" class="btn-check" value="학습노하우" name="studyCate"
+                                                   id="java" autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="java">자바</label>
+
+                                            <input type="radio" class="btn-check" value="피드백" name="studyCate"
+                                                   id="spring" autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="spring">스프링</label>
+
+                                            <input type="radio" class="btn-check" value="기타" name="studyCate"
+                                                   id="etc" autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="etc">기타</label>
+                                        </div>
 
                                         <div>
                                             작성자 : <p th:text="${session['loginNick']}"></p>
-                                            <input type="text" name="boardWriter"
-                                                   th:value="${session['loginEmail']}" hidden>
                                             <input type="text" name="memberId" th:value="${session['loginId']}"
                                                    hidden>
                                         </div>
                                         <div class="input-group input-group-outline my-3">
                                             <label class="form-label">제목</label>
-                                            <input type="text" th:class="form-control" th:field="*{boardTitle}">
+                                            <input type="text" class="form-control" name="studyTitle">
                                         </div>
                                         <div class="input-group mb-4 input-group-static">
                                             <label>내용</label>
-                                            <textarea type="text" th:class="form-control"
-                                                      th:field="*{boardContents}" rows="10"></textarea>
+                                            <textarea type="text" class="form-control"
+                                                      name="studyContents" rows="5"></textarea>
                                         </div>
-                                        <div>
-                                            <label for="memberProfile">업로드 사진 선택</label>
-                                            <input th:class="file-selector-button" type="file" id="memberProfile"
-                                                   th:field="*{boardFile}">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <label class="form-label">스터디 장소</label>
+                                                <div class="input-group input-group-outline my-3">
+                                                    <input type="text" class="form-control" name="studyPlace">
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <label class="form-label">스터디 모집 인원</label>
+                                                <div class="input-group input-group-outline my-3">
+                                                    <input type="text" class="form-control" name="studyMax">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="input-container modal-footer">
                             <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"
                                     aria-label="Close">
@@ -67,6 +85,7 @@
             </div>
         </div>
     </div>
+
 </th:block>
 
 </body>

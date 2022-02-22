@@ -15,7 +15,8 @@ public class StudyDetailDTO {
 
     private int studyMax;
     private int studyCount;
-
+    //작성자
+    private String studyWriter;
     private String studyTitle;
     private String studyContents;
     private String studyPlace;
@@ -26,6 +27,7 @@ public class StudyDetailDTO {
 
         studyDetailDTO.setStudyId(studyEntity.getId());
         studyDetailDTO.setMemberId(studyEntity.getMemberEntity().getId());
+        studyDetailDTO.setStudyWriter(studyEntity.getMemberEntity().getMemberNickName());
 
         studyDetailDTO.setStudyMax(studyEntity.getStudyMax());
         studyDetailDTO.setStudyCount(studyEntity.getStudyCount());

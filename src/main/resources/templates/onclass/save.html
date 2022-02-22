@@ -4,84 +4,76 @@
 
 <body>
 
-<th:block th:fragment="MetoringsaveModalFragment">
+<th:block th:fragment="onClassSaveModalFragment">
 
     <input type="hidden" th:value="${session['loginNick']}" id="loginNick">
-    <div class="modal fade" id="mentoringSaveModal" data-bs-backdrop="static" tabindex="-1"
+    <div class="modal fade" id="onClassSaveModalFragment" data-bs-backdrop="static" tabindex="-1"
          aria-labelledby="staticBackdropLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <label class="modal-title" id="staticBackdropLabel">멘토링 글 작성</label>
+                    <label class="modal-title" id="staticBackdropLabel">온라인 강의 글 작성</label>
                 </div>
                 <div class="modal-body">
-                    <form class="form-control" action="/mentoring/save" method="post">
+                    <form class="form-control" action="/onclass/save" method="post" enctype="multipart/form-data">
                         <div class="container my-auto">
                             <div class="row">
                                 <div class="card z-index-0 fadeIn3 fadeInBottom">
                                     <div class="card-body">
 
                                         <div>
-                                            <input type="radio" class="btn-check" value="취업/면접" name="mentoringCate"
-                                                   id="job" autocomplete="off" checked>
-                                            <label class="btn btn-outline-primary" for="job">취업/면접</label>
+                                            <input type="radio" class="btn-check" value="자바" name="onclassCate"
+                                                   id="java" autocomplete="off" checked>
+                                            <label class="btn btn-outline-primary" for="java">자바</label>
 
-                                            <input type="radio" class="btn-check" value="학습노하우" name="mentoringCate"
-                                                   id="know-how" autocomplete="off">
-                                            <label class="btn btn-outline-primary" for="know-how">학습노하우</label>
+                                            <input type="radio" class="btn-check" value="스프링" name="onclassCate"
+                                                   id="spring" autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="spring">스프링</label>
 
-                                            <input type="radio" class="btn-check" value="피드백" name="mentoringCate"
-                                                   id="feedback" autocomplete="off">
-                                            <label class="btn btn-outline-primary" for="feedback">피드백</label>
+                                            <input type="radio" class="btn-check" value="파이썬" name="onclassCate"
+                                                   id="python" autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="python">파이썬</label>
 
-                                            <input type="radio" class="btn-check" value="기타" name="mentoringCate"
+                                            <input type="radio" class="btn-check" value="프론트엔드" name="onclassCate"
+                                                   id="front" autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="front">프론트엔드</label>
+
+                                            <input type="radio" class="btn-check" value="기타" name="onclassCate"
                                                    id="etc" autocomplete="off">
                                             <label class="btn btn-outline-primary" for="etc">기타</label>
                                         </div>
 
                                         <div>
-                                            작성자 : <p th:text="${session['loginNick']}"></p>
-                                            <input type="text" name="memberId" th:value="${session['loginId']}"
-                                                   hidden>
+                                            <label class="form-label">선생님</label>
+                                            <input type="text" class="form-control" name="onclassTeacher">
                                         </div>
                                         <div class="input-group input-group-outline my-3">
                                             <label class="form-label">제목</label>
-                                            <input type="text" class="form-control" name="mentoringTitle">
+                                            <input type="text" class="form-control" name="onclassTitle">
+                                        </div>
+                                        <div class="input-group input-group-outline my-3">
+                                            <label class="form-label">한 줄 소개</label>
+                                            <input type="text" class="form-control" name="onclassIntro">
                                         </div>
                                         <div class="input-group mb-4 input-group-static">
                                             <label>내용</label>
                                             <textarea type="text" class="form-control"
                                                       name="mentoringContents" rows="5"></textarea>
                                         </div>
-                                        <div class="row"><label for="mentoringCount">멘토링 가격</label></div>
                                         <div class="row">
-                                            <div class="col-3">
-                                                <select class="form-select" id="mentoringCount"
-                                                        name="mentoringCount">
-                                                    <option value="1" selected>1</option>
-                                                    <option value="5">5</option>
-                                                    <option value="10">10</option>
-                                                    <option value="20">20</option>
-                                                </select>
+                                            <div class="input-group input-group-outline my-3">
+                                                <label class="form-label">수업 가격</label>
+                                                <input type="text" id="onclassPrice" class="form-control" name="onclassPrice">
                                             </div>
-                                            <div class="col-3"><h6>회</h6></div>
+
+                                            <div class="col-3"><h6>파일 업로드</h6></div>
                                             <div class="col-3">
-                                                <select class="form-select" name="mentoringPrice">
-                                                    <option value="1000" selected>1000</option>
-                                                    <option value="5000">5000</option>
-                                                    <option value="10000">10000</option>
-                                                    <option value="20000">20000</option>
-                                                </select>
+                                                <input class="form-control" type="file" name="onclassFile">
                                             </div>
                                             <div class="col-3"><h6>point</h6></div>
                                         </div>
-                                        <div class="input-group input-group-outline my-3">
-                                            <label class="form-label">경력/특기</label>
-                                            <input type="text" class="form-control" name="mentoringCareer">
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>

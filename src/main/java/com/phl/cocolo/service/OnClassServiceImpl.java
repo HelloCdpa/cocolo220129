@@ -7,7 +7,10 @@ import com.phl.cocolo.entity.OnClassEntity;
 import com.phl.cocolo.repository.OnClassRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,9 +21,23 @@ public class OnClassServiceImpl implements OnClassService{
     private final OnClassRepository or;
 
     @Override
-    public Long save(OnClassSaveDTO onClassSaveDTO) {
+    public Long save(OnClassSaveDTO onClassSaveDTO) throws IllegalStateException, IOException {
+
+        MultipartFile o_file = onClassSaveDTO.getOnClassFile();
+        String o_filename = o_file.getOriginalFilename();
+        o_filename = System.currentTimeMillis() + "-" + o_filename;
+        // 파일 저장하기
+        String savePath = "D:\\development_Phl\\source\\springboot\\MemberBoardProject\\src\\main\\resources\\onclass_uploadfile\\" + o_filename;
+        if (!o_file.isEmpty()) {
+            o_file.transferTo(new File(savePath));
+        }
+        onClassSaveDTO.setOnClassFileName(o_filename);
+
         return or.save(OnClassEntity.toOnClassSaveEntity(onClassSaveDTO)).getId();
     }
+
+
+
 
     @Override
     public OnClassDetailDTO findById(Long onClassId) {

@@ -16,7 +16,7 @@
                     <label class="modal-title" id="staticBackdropLabel">게시글 작성</label>
                 </div>
                 <div class="modal-body">
-                    <form action="/board/save" method="post" th:object="${board}" enctype="multipart/form-data">
+                    <form action="/board/save" method="post" enctype="multipart/form-data">
                         <div class="container my-auto">
                             <div class="row">
                                 <div class="card z-index-0 fadeIn3 fadeInBottom">
@@ -40,17 +40,17 @@
                                         </div>
                                         <div class="input-group input-group-outline my-3">
                                             <label class="form-label">제목</label>
-                                            <input type="text" th:class="form-control" th:field="*{boardTitle}">
+                                            <input type="text" th:class="form-control" name="boardTitle">
                                         </div>
                                         <div class="input-group mb-4 input-group-static">
                                             <label>내용</label>
                                             <textarea type="text" th:class="form-control"
-                                                      th:field="*{boardContents}" rows="10"></textarea>
+                                                      name="boardContents" rows="10"></textarea>
                                         </div>
                                         <div>
                                             <label for="memberProfile">업로드 사진 선택</label>
                                             <input th:class="file-selector-button" type="file" id="memberProfile"
-                                                   th:field="*{boardFile}">
+                                                   name="boardFile">
                                         </div>
                                     </div>
                                 </div>

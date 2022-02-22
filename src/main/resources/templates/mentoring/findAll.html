@@ -15,10 +15,8 @@
     <header class="bg-gradient-dark">
         <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
 
-        <th:block th:replace="/mentoring/save :: MetoringsaveModalFragment"></th:block>
+        <th:block th:replace="/mentoring/save :: mentoringsaveModalFragment"></th:block>
 
-
-        <th:block th:fragment="MetoringsaveModalFragment">
         <div class="page-header min-vh-75" id="background">
             <span class="mask bg-gradient-dark opacity-6"></span>
             <div class="container">
@@ -54,7 +52,7 @@
                 <td th:text="${mentoring.mentoringCate}">멘토 분야</td>
                 <td th:text="${mentoring.mentoringCount}">멘토링 횟수</td>
 
-                <td><button type="button" th:onclick="deleteById([[${mentoring.mentoringId}]])">글삭제</button></td>
+                <td><button type="button" class="btn btn-danger" th:onclick="deleteById([[${mentoring.mentoringId}]])">글삭제</button></td>
                 <td><a th:href="@{|/mentoring/update/${mentoring.mentoringId}|}">글수정</a></td>
             </tr>
 

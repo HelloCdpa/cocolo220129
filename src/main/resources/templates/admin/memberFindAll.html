@@ -21,13 +21,8 @@
                 error: function () {
                     alert("오타 찾기")
                 }
-
             })
-
-
         }
-
-
     </script>
 
 
@@ -57,7 +52,7 @@
         <td th:text="${member.memberName}">프로필사진</td>
         <td th:text="${member.memberLevel}">개발 레벨</td>
         <td th:text="${member.memberInteresting}">개발 분야</td>
-        <td><input type="button" th:onclick="deleteById([[${member.memberId}]])" value="삭제(delete)"></td>
+        <td><input type="button" class="btn btn-danger" th:onclick="deleteById([[${member.memberId}]])" value="삭제(delete)"></td>
         <td></td>
         <td></td>
     </tr>

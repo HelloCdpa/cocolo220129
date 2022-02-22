@@ -12,6 +12,7 @@ public class CourseDetailDTO {
     private Long courseId;
     private Long onClassId;
 
+    private String courseTitle;
     private String courseSection;
     private String courseContents;
     private String courseFileName;
@@ -22,6 +23,7 @@ public class CourseDetailDTO {
         courseDetailDTO.setCourseId(courseEntity.getId());
         courseDetailDTO.setOnClassId(courseEntity.getOnClassEntity().getId());
 
+        courseDetailDTO.setCourseTitle(courseEntity.getCourseTitle());
         courseDetailDTO.setCourseSection(courseEntity.getCourseSection());
         courseDetailDTO.setCourseContents(courseEntity.getCourseContents());
         courseDetailDTO.setCourseFileName(courseEntity.getCourseFileName());

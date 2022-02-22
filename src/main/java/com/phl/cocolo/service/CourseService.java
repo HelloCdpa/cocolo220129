@@ -5,10 +5,11 @@ import com.phl.cocolo.dto.CourseSaveDTO;
 import com.phl.cocolo.dto.CourseUpdateDTO;
 import com.phl.cocolo.dto.MentoringDetailDTO;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface CourseService {
-    Long save(CourseSaveDTO courseSaveDTO);
+    Long save(CourseSaveDTO courseSaveDTO) throws IllegalStateException, IOException;
 
     void deleteById(Long courseId);
 

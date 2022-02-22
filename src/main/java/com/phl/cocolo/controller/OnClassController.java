@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -24,7 +25,7 @@ public class OnClassController {
     }
     //게시글 저장
     @PostMapping("/save")
-    public String save(@Validated @ModelAttribute OnClassSaveDTO onClassSaveDTO){
+    public String save(@Validated @ModelAttribute OnClassSaveDTO onClassSaveDTO)throws IllegalStateException, IOException {
 
         os.save(onClassSaveDTO);
 
