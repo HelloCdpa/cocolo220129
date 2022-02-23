@@ -14,14 +14,14 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-@RequestMapping("/onclass")
+@RequestMapping("/onClass")
 @RequiredArgsConstructor
 public class OnClassController {
     private final OnClassService os;
 
     @GetMapping("/save")
     public String saveForm() {
-        return "/onclass/save";
+        return "/onClass/save";
     }
     //게시글 저장
     @PostMapping("/save")
@@ -29,20 +29,20 @@ public class OnClassController {
 
         os.save(onClassSaveDTO);
 
-        return "redirect:/onclass/";
+        return "redirect:/onClass/";
     }
     // 상세조회
-    @GetMapping("{onClassId}")
+    @GetMapping("/{onClassId}")
     public String findById(@PathVariable("onClassId") Long onClassId, Model model){
         OnClassDetailDTO onClassDetailDTO = os.findById(onClassId);
 
         model.addAttribute("onClass",onClassDetailDTO);
 
-        return "/onclass/findById";
+        return "/onClass/findById";
     }
 
     //글 삭제
-    @DeleteMapping("{onClassId}")
+    @DeleteMapping("/{onClassId}")
     public ResponseEntity deleteById (@PathVariable ("onClassId") Long onClassId){
         os.deleteById(onClassId);
         return new ResponseEntity(HttpStatus.OK);
@@ -53,7 +53,7 @@ public class OnClassController {
     public String findAll(Model model) {
         List<OnClassDetailDTO> onClassList = os.findAll();
         model.addAttribute("onClassList", onClassList);
-        return "/onclass/findAll";
+        return "/onClass/findAll";
     }
 
     // 수정 화면 이동
@@ -61,10 +61,10 @@ public class OnClassController {
     public String updateForm(Model model, @PathVariable ("onClassId") Long onClassId){
         OnClassDetailDTO onClass = os.findById(onClassId);
         model.addAttribute("onClass",onClass);
-        return "/onclass/update";
+        return "/onClass/update";
     }
     // 수정 하기
-    @PutMapping("{onClassId}")
+    @PutMapping("/{onClassId}")
     public ResponseEntity update(@ModelAttribute OnClassUpdateDTO onClassUpdateDTO) {
         os.update(onClassUpdateDTO);
 

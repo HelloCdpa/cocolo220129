@@ -21,6 +21,7 @@ public class StudyDetailDTO {
     private String studyContents;
     private String studyPlace;
     private String studyCate;
+    private String memberProfileName;
 
     public static StudyDetailDTO toStudyDetailDTO(StudyEntity studyEntity){
         StudyDetailDTO studyDetailDTO = new StudyDetailDTO();
@@ -35,6 +36,7 @@ public class StudyDetailDTO {
         studyDetailDTO.setStudyContents(studyEntity.getStudyContents());
         studyDetailDTO.setStudyPlace(studyEntity.getStudyPlace());
         studyDetailDTO.setStudyCate(studyEntity.getStudyCate());
+        studyDetailDTO.setMemberProfileName(studyEntity.getMemberEntity().getMemberProfileName());
 
         return studyDetailDTO;
     }

@@ -15,7 +15,7 @@ public class BoardDetailDTO {
     private Long memberId;
     private Long cateId;
 
-
+    private String memberProfileName;
     private String categoryName;
     private String boardWriter;
     private String boardTitle;
@@ -34,6 +34,7 @@ public class BoardDetailDTO {
         boardDetailDTO.setCateId(boardEntity.getCategoryEntity().getId());
 
         boardDetailDTO.setCategoryName(boardEntity.getCategoryEntity().getCateName());
+        boardDetailDTO.setMemberProfileName(boardEntity.getMemberEntity().getMemberProfileName());
 
         boardDetailDTO.setBoardWriter(boardEntity.getBoardWriter());
         boardDetailDTO.setBoardTitle(boardEntity.getBoardTitle());

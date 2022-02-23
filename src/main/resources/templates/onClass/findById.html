@@ -18,39 +18,33 @@
                     <div class="col-12 mx-auto">
                         <div class="mt-n8 mt-md-n9 text-center">
                             <img class="avatar avatar-xxl shadow-xl position-relative z-index-2"
-                                 th:src= "@{/member_upload/}+${study.memberProfileName}" alt="bruce" loading="lazy">
+                                 th:src= "@{/class_upload/}+${onClass.onClassFileName}" alt="bruce" loading="lazy">
                         </div>
                         <div class="row py-5">
                             <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mx-auto">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h3 class="mb-0 " th:text="${study.studyTitle}"></h3>
+                                    <h3 class="mb-0 " th:text="${onClass.onClassTitle}"></h3>
                                 </div>
                                 <div class="row mb-4">
                                     <div class="col-auto">
-                                        <span class="h6" th:text="${study.studyWriter}"></span>
+                                        <span class="h6" th:text="${onClass.onClassTeacher}"></span>
                                     </div>
                                     <div class="col-auto">
-                                        <span class="h6" th:text="${study.studyCate}"></span>
+                                        <span class="h6">수업 분야 :</span>
+                                        <span th:text="${onClass.onClassCate}"></span>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <span class="h6">스터디 장소 :</span>
-                                        <span th:text="${study.studyPlace}"></span>
-                                    </div>
+                                <div th:text="${onClass.onClassIntro}"></div>
+                                <div>
+                                    <img th:src= "@{/class_upload/}+${onClass.onClassFileName}" alt="">
                                 </div>
-                                <div class="row">
-                                    <p class="text-lg mb-0" th:text="${study.studyContents}"></p>
-                                    <div class="col-md-3">
-                                        <span class="h6">스터디 모집 인원 :</span>
-                                        <span th:text="${study.studyMax}"></span><span>명</span>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <span class="h6">현재 모집한 인원 :</span>
-                                        <span th:text="${study.studyCount}"></span><span>명</span>
-                                        <input type="hidden" id="studyId" th:value="${study.studyId}">
-                                        <input type="hidden" id="memberId" th:value="${study.memberId}">
-                                    </div>
+                                <div class="border-1">
+                                    <p class="text-lg mb-0" th:text="${onClass.onClassContents}"></p>
+                                </div>
+                                <div>
+                                    <span class="h6">수강권 가격 :</span>
+                                    <span th:text="${onClass.onClassPrice}"></span>
+                                    <span class="h6">point</span>
                                 </div>
 
                             </div>

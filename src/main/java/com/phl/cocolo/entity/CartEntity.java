@@ -24,7 +24,7 @@ public class CartEntity {
     @JoinColumn(name = "onClass_id")
     private OnClassEntity onClassEntity;
 
-    @Column(columnDefinition = "integer default 0")
+    @Column
     private int cartCount;
 
     public static CartEntity toCartSaveEntity(CartSaveDTO cartSaveDTO,MemberEntity memberEntity,

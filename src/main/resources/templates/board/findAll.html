@@ -39,7 +39,7 @@
     </div>
 </header>
 
-    <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
+    <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n3">
 <!--검색기능-->
 <form class="row g-3 container text-center" action="/board/search" method="get">
     <div class="col-auto">
@@ -85,7 +85,7 @@
                    th:onclick="deleteById([[${board.boardId}]])"
                    value="삭제"></td>
 
-        <td><a class="btn btn-info" type="button" th:if="(${session.loginEmail}==${board.boardWriter})"
+        <td><a class="btn btn-info" type="button" th:if="(${session.loginNick}==${board.boardWriter})"
                th:href="@{|/board/update/${board.boardId}|}">글수정</a></td>
 
     </tr>

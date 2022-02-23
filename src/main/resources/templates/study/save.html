@@ -7,7 +7,7 @@
 <th:block th:fragment="studySaveFragment">
 
     <input type="hidden" th:value="${session['loginNick']}" id="loginNick">
-    <div class="modal fade" id="studySaveFragment" data-bs-backdrop="static" tabindex="-1"
+    <div class="modal fade" id="studySaveModal" data-bs-backdrop="static" tabindex="-1"
          aria-labelledby="staticBackdropLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
@@ -17,7 +17,7 @@
                     <label class="modal-title" id="staticBackdropLabel">스터디 모집</label>
                 </div>
                 <div class="modal-body">
-                    <form class="form-control" action="/mentoring/save" method="post">
+                    <form class="form-control" action="/study/save" method="post">
                         <div class="container my-auto">
                             <div class="row">
                                 <div class="card z-index-0 fadeIn3 fadeInBottom">

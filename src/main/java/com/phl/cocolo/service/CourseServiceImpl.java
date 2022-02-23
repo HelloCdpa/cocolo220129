@@ -29,7 +29,7 @@ public class CourseServiceImpl implements CourseService{
         String c_filename = c_file.getOriginalFilename();
         c_filename = System.currentTimeMillis() + "-" + c_filename;
         // 파일 저장하기
-        String savePath = "D:\\development_Phl\\source\\springboot\\MemberBoardProject\\src\\main\\resources\\course_uploadfile\\" + c_filename;
+        String savePath = "D:\\development_Phl\\source\\springboot\\CocoloProject\\src\\main\\resources\\static\\class_upload\\" + c_filename;
         if (!c_file.isEmpty()) {
             c_file.transferTo(new File(savePath));
         }

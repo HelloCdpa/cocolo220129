@@ -9,7 +9,7 @@
 
 <body>
 <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
-<div style="margin-top: 500px">
+<div style="margin-top: 300px">
 <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6 mb-4">
     <!-- START Testimonials w/ user image & text & info -->
     <section class="py-sm-7 py-5 position-relative">
@@ -18,7 +18,7 @@
                 <div class="col-12 mx-auto">
                     <div class="mt-n8 mt-md-n9 text-center">
                         <img class="avatar avatar-xxl shadow-xl position-relative z-index-2"
-                             src="/assets/img/bruce-mars.jpg" alt="bruce" loading="lazy">
+                             th:src= "@{/member_upload/}+${board.memberProfileName}" alt="bruce" loading="lazy">
                     </div>
                     <div class="row py-5">
                         <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mx-auto">
@@ -54,7 +54,7 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p th:text="${board.boardFileName}"></p>
+                                    <img th:src= "@{/board_upload/}+${board.boardFileName}" alt="">
                                 </div>
                             </div>
                             <p class="text-lg mb-0" th:text="${board.boardContents}"></p>

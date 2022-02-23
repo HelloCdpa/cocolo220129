@@ -41,7 +41,7 @@ public class BoardServiceImpl implements BoardService {
         String b_filename = b_file.getOriginalFilename();
         b_filename = System.currentTimeMillis() + "-" + b_filename;
         // 파일 저장하기
-        String savePath = "D:\\development_Phl\\source\\springboot\\MemberBoardProject\\src\\main\\resources\\board_uploadfile\\" + b_filename;
+        String savePath = "D:\\development_Phl\\source\\springboot\\CocoloProject\\src\\main\\resources\\static\\board_upload\\" + b_filename;
         if (!b_file.isEmpty()) {
             b_file.transferTo(new File(savePath));
         }

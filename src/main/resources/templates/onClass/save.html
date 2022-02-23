@@ -4,10 +4,10 @@
 
 <body>
 
-<th:block th:fragment="onClassSaveModalFragment">
+<th:block th:fragment="onClassSaveFragment">
 
     <input type="hidden" th:value="${session['loginNick']}" id="loginNick">
-    <div class="modal fade" id="onClassSaveModalFragment" data-bs-backdrop="static" tabindex="-1"
+    <div class="modal fade" id="onClassSave" data-bs-backdrop="static" tabindex="-1"
          aria-labelledby="staticBackdropLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
@@ -17,62 +17,65 @@
                     <label class="modal-title" id="staticBackdropLabel">온라인 강의 글 작성</label>
                 </div>
                 <div class="modal-body">
-                    <form class="form-control" action="/onclass/save" method="post" enctype="multipart/form-data">
+                    <form class="form-control" action="/onClass/save" method="post" enctype="multipart/form-data">
                         <div class="container my-auto">
                             <div class="row">
                                 <div class="card z-index-0 fadeIn3 fadeInBottom">
                                     <div class="card-body">
 
                                         <div>
-                                            <input type="radio" class="btn-check" value="자바" name="onclassCate"
+                                            <input type="radio" class="btn-check" value="자바" name="onClassCate"
                                                    id="java" autocomplete="off" checked>
                                             <label class="btn btn-outline-primary" for="java">자바</label>
 
-                                            <input type="radio" class="btn-check" value="스프링" name="onclassCate"
+                                            <input type="radio" class="btn-check" value="스프링" name="onClassCate"
                                                    id="spring" autocomplete="off">
                                             <label class="btn btn-outline-primary" for="spring">스프링</label>
 
-                                            <input type="radio" class="btn-check" value="파이썬" name="onclassCate"
+                                            <input type="radio" class="btn-check" value="파이썬" name="onClassCate"
                                                    id="python" autocomplete="off">
                                             <label class="btn btn-outline-primary" for="python">파이썬</label>
 
-                                            <input type="radio" class="btn-check" value="프론트엔드" name="onclassCate"
+                                            <input type="radio" class="btn-check" value="프론트엔드" name="onClassCate"
                                                    id="front" autocomplete="off">
                                             <label class="btn btn-outline-primary" for="front">프론트엔드</label>
 
-                                            <input type="radio" class="btn-check" value="기타" name="onclassCate"
+                                            <input type="radio" class="btn-check" value="기타" name="onClassCate"
                                                    id="etc" autocomplete="off">
                                             <label class="btn btn-outline-primary" for="etc">기타</label>
                                         </div>
 
                                         <div>
                                             <label class="form-label">선생님</label>
-                                            <input type="text" class="form-control" name="onclassTeacher">
+                                            <input type="text" class="form-control" name="onClassTeacher">
                                         </div>
                                         <div class="input-group input-group-outline my-3">
                                             <label class="form-label">제목</label>
-                                            <input type="text" class="form-control" name="onclassTitle">
+                                            <input type="text" class="form-control" name="onClassTitle">
                                         </div>
                                         <div class="input-group input-group-outline my-3">
                                             <label class="form-label">한 줄 소개</label>
-                                            <input type="text" class="form-control" name="onclassIntro">
+                                            <input type="text" class="form-control" name="onClassIntro">
                                         </div>
+
                                         <div class="input-group mb-4 input-group-static">
                                             <label>내용</label>
                                             <textarea type="text" class="form-control"
-                                                      name="mentoringContents" rows="5"></textarea>
+                                                      name="onClassContents" rows="5">
+                                            </textarea>
                                         </div>
+
                                         <div class="row">
                                             <div class="input-group input-group-outline my-3">
                                                 <label class="form-label">수업 가격</label>
-                                                <input type="text" id="onclassPrice" class="form-control" name="onclassPrice">
+                                                <input type="text" id="onClassPrice" class="form-control" name="onClassPrice">
+                                                <h6>point</h6>
                                             </div>
 
                                             <div class="col-3"><h6>파일 업로드</h6></div>
                                             <div class="col-3">
-                                                <input class="form-control" type="file" name="onclassFile">
+                                                <input class="form-control" type="file" name="onClassFile">
                                             </div>
-                                            <div class="col-3"><h6>point</h6></div>
                                         </div>
                                     </div>
                                 </div>

@@ -21,6 +21,7 @@ public class MentoringDetailDTO {
 
     private String mentoringCareer;
     private String mentoringCate;
+    private String memberProfileName;
 
 
 //    멘토링 상세조회
@@ -29,6 +30,7 @@ public class MentoringDetailDTO {
 
         mentoringDetailDTO.setMentoringId(mentoringEntity.getId());
         mentoringDetailDTO.setMemberId(mentoringEntity.getMemberEntity().getId());
+        mentoringDetailDTO.setMemberProfileName(mentoringEntity.getMemberEntity().getMemberProfileName());
 
         mentoringDetailDTO.setMentoringTitle(mentoringEntity.getMentoringTitle());
         mentoringDetailDTO.setMentoringContents(mentoringEntity.getMentoringContents());

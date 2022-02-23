@@ -27,7 +27,7 @@ public class OnClassServiceImpl implements OnClassService{
         String o_filename = o_file.getOriginalFilename();
         o_filename = System.currentTimeMillis() + "-" + o_filename;
         // 파일 저장하기
-        String savePath = "D:\\development_Phl\\source\\springboot\\MemberBoardProject\\src\\main\\resources\\onclass_uploadfile\\" + o_filename;
+        String savePath = "D:\\development_Phl\\source\\springboot\\CocoloProject\\src\\main\\resources\\static\\class_upload\\" + o_filename;
         if (!o_file.isEmpty()) {
             o_file.transferTo(new File(savePath));
         }

@@ -34,7 +34,7 @@ public class MemberServiceImpl implements MemberService{
         String m_filename = m_file.getOriginalFilename();
         m_filename = System.currentTimeMillis() + "-" + m_filename;
         // 파일 저장하기
-        String savePath = "D:\\development_Phl\\source\\springboot\\MemberBoardProject\\src\\main\\resources\\member_uploadfile\\"+m_filename;
+        String savePath = "D:\\development_Phl\\source\\springboot\\CocoloProject\\src\\main\\resources\\static\\member_upload\\"+m_filename;
         if(!m_file.isEmpty()) {
             m_file.transferTo(new File(savePath));
         }

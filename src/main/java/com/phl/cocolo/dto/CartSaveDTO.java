@@ -15,9 +15,8 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartSaveDTO {
-    private Long cartId;
     private Long memberId;
-    private int onClassId;
+    private Long onClassId;
     private int cartCount;
 
 

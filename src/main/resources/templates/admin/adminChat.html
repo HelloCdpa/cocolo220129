@@ -45,10 +45,10 @@
 </body>
 <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
 <script th:inline="javascript">
-    $(document).ready(function(){
+    $(document).ready(function() {
         const date = new Date();
-        const hours = String(date.getHours()).padStart(2,"0");
-        const minutes = String(date.getMinutes()).padStart(2,"0");
+        const hours = String(date.getHours()).padStart(2, "0");
+        const minutes = String(date.getMinutes()).padStart(2, "0");
         const time = `${hours}시 : ${minutes}분`;
         const username = document.getElementById("loginNick").value;
         const msg = document.getElementById('msg');
@@ -61,9 +61,9 @@
         })
 
         $("#send-button").on("click", (e) => {
-            if(msg.value == "" || msg.value == " "){
+            if (msg.value == "" || msg.value == " ") {
 
-            }else {
+            } else {
                 send();
             }
 
@@ -76,7 +76,7 @@
         websocket.onclose = onClose;
 
 
-        function send(){
+        function send() {
 
             let msg = document.getElementById("msg");
 
@@ -99,12 +99,12 @@
 
         function onMessage(msg) {
             let data = msg.data;
-            let sessionId = null;
+            let sessionId = username;
             //데이터를 보낸 사람
             let message = null;
             let arr = data.split(":");
 
-            for(let i=0; i<arr.length; i++){
+            for (let i = 0; i < arr.length; i++) {
                 console.log('arr[' + i + ']: ' + arr[i]);
             }
 
@@ -118,30 +118,31 @@
             console.log("sessionID : " + sessionId);
             console.log("cur_session : " + cur_session);
 
-            const item = new LiModel(sessionId, message,time,cur_session);
+            const item = new LiModel(sessionId, message, time, cur_session);
             item.makeLi();
         }
 
-            function LiModel(sessionId,message,time,cur_session){
-                this.name = sessionId;
-                this.msg = message;
-                this.time = time;
-                const chatList = document.querySelector(".chatting-list");
-                const nickname = document.querySelector("#nickname");
-                this.makeLi = ()=>{
-                    const li = document.createElement("li");
-                    li.classList.add(nickname.value === cur_session ? "sent" : "received")
-                    const dom = `  <span class="profile">
+        function LiModel(sessionId, message, time, cur_session) {
+            this.name = sessionId;
+            this.msg = message;
+            this.time = time;
+            const chatList = document.querySelector(".chatting-list");
+            const nickname = document.querySelector("#nickname");
+            this.makeLi = () => {
+                const li = document.createElement("li");
+                li.classList.add(nickname.value === cur_session ? "sent" : "received")
+                const dom = `<span class="profile">
                     <span class="user">${this.name}</span>
                     <img class="image" src="https://placeimg.com/50/50/any" alt="any">
                     </span>
                     <span class="message">${this.msg}</span>
                     <span class="time">${this.time}</span>`;
-                            li.innerHTML = dom;
-                            chatList.appendChild(li)
+                li.innerHTML = dom;
+                chatList.appendChild(li)
 
-                }
             }
+        }
+
     })
 </script>
 

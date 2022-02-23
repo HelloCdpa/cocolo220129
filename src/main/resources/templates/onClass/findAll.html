@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<link rel="shortcut icon" href="#">
+<style>
+    #background {
+        background-image: url("https://cdn.pixabay.com/photo/2015/07/19/10/00/school-work-851328_1280.jpg");
+    }
+</style>
+<th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
+<body>
+<div id="wrapper">
+    <header class="bg-gradient-dark">
+        <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
+
+        <th:block th:replace="/onClass/save :: onClassSaveFragment"></th:block>
+
+        <div class="page-header min-vh-75" id="background">
+            <span class="mask bg-gradient-dark opacity-6"></span>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center mx-auto my-auto">
+                        <h1 class="text-white">Online ClassRoom</h1>
+                        <p class="lead mb-4 text-white opacity-8">포인트로 수강권을 구매하여 개발 지식을 키워나가세요!</p>
+                        <span th:if="${not #strings.isEmpty(session['loginEmail'])}">
+                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#onClassSave">게시글 작성하기</button>
+                    </span>
+                        <div class="d-flex justify-content-center">
+                            <!--카테고리 별로 보기-->
+                            <span th:each="onClass:${onClassList}">
+                             <a class="btn bg-gradient-primary w-auto me-2"
+                                th:href="@{|/templates/onClass/cateOnClass/${onClass.onClassCate}|}"
+                                th:text="${onClass.onClassCate}"></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n3">
+        <div class="row">
+            <span th:each="onClass:${onClassList}">
+                <div class="col-md-4 mb-5">
+                        <div class="card h-70">
+                            <a th:href="@{|/templates/onClass/${onClass.onClassId}|}">
+                                    <div class="card-body">
+                                        <p class="card-text text-center">
+                                            <img class="img-fluid rounded mb-4 mb-lg-0"
+                                                  th:src="@{/class_upload/}+${onClass.onClassFileName}"
+                                                  alt="..." width="200" height="150"/></p>
+                                        <p class="card-text text-center h6" th:text="${onClass.onClassTitle}"></p>
+                                        <p class="card-text text-center">
+                                        <span th:text="${onClass.onClassCate}"></span>
+                                        /<span th:text="${onClass.onClassIntro}"></span>
+                                        </p>
+                                    </div>
+                            </a>
+                            <div class="card-footer text-center">
+                                <span class="card-text" th:text="${onClass.onClassPrice}"></span>
+                                <span>point</span>
+                                <div>
+                                <a class="btn btn-outline-success" th:href="@{|/wishList/save/${onClass.onClassId}|}">찜하기</a>
+                                <a class="btn btn-outline-success"
+                                   th:href="@{|/cart/save/${onClass.onClassId}|}">장바구니</a>
+                                </div>
+
+                                    <div th:if="(${session.loginNick}==${onClass.onClassTeacher})">
+                                <a class="btn btn-info" type="button"
+                                   th:href="@{|/templates/onClass/update/${onClass.onClassId}|}">글수정</a>
+                                <button type="button" class="btn btn-danger"
+                                        th:onclick="deleteById([[${onClass.onClassId}]])">글삭제</button>
+                                    </div>
+                            </div>
+                        </div>
+                </div>
+            </span>
+        </div>
+    </div>
+</div>
+    <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script>
+    function deleteById(onClassId) {
+        const reqUrl = "/onClass/" + onClassId;
+        $.ajax({
+            url: reqUrl,
+            type: 'delete',
+            success: function () {
+                alert('삭제되었습니다.')
+                location.reload();
+            }, error: function () {
+                alert('요청실패')
+            }
+        })
+    }
+</script>
+
+
+</html>
