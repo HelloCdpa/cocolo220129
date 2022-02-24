@@ -80,7 +80,7 @@
                 <ul class="navbar-nav navbar-nav-hover ms-auto">
                     <!-- nav-item 1 강의 -->
                     <li class="nav-item ms-lg-auto">
-                        <a class="nav-link nav-link-icon me-2" href="/onclass/">
+                        <a class="nav-link nav-link-icon me-2" href="/onClass/">
                             <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" >강의</p>
                         </a>
                     </li>
@@ -281,6 +281,16 @@
                                         </a>
                                     </li>
                                     <li class="nav-item list-group-item border-0 p-0">
+                                        <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/cart/${session.loginId}|}">
+                                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">나의 장바구니</h6>
+                                        </a>
+                                    </li>
+                                     <li class="nav-item list-group-item border-0 p-0">
+                                        <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/wish/${session.loginId}|}">
+                                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">나의 위시리스트</h6>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item list-group-item border-0 p-0">
                                         <a class="dropdown-item py-2 ps-3 border-radius-md" href="/member/logout">
                                             <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">로그아웃</h6>
                                         </a>
@@ -299,7 +309,7 @@
 
                                     </a>
 
-                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="/onclass/">
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="/onClass/">
                                         <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">강의 학습</h6>
 
                                     </a>
@@ -308,9 +318,14 @@
                                         <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">회원정보 수정</h6>
                                     </a>
 
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/cart/${session.loginId}|}">
+                                        <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">나의 장바구니</h6>
+                                    </a>
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/wish/${session.loginId}|}">
+                                        <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">나의 위시리스트</h6>
+                                    </a>
                                 </div>
                             </div>
-
                         </ul>
                     </li>
                     </span>

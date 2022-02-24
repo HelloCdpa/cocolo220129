@@ -1,10 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<link rel="shortcut icon" href="#">
+<style>
+    #background {
+        background-image: url("https://cdn.pixabay.com/photo/2020/03/21/17/26/woman-4954694_1280.jpg");
+    }
+</style>
+<th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
 <body>
+<div id="wrapper">
+    <header class="bg-gradient-dark">
+        <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
 
+        <div class="page-header min-vh-75" id="background">
+            <span class="mask bg-gradient-dark opacity-6"></span>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center mx-auto my-auto">
+                        <h1 class="text-white">나의 위시리스트</h1>
+                        <p class="lead mb-4 text-white opacity-8">포인트로 수강권을 구매하여 개발 지식을 키워나가세요!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n3">
+        <div class="row">
+
+                <div class="col-md-4 mb-5" th:each="wish:${wishList}">
+                        <div class="card h-100">
+                             <a th:href="@{|/onClass/${wish.onClassId}|}">
+                                    <div class="card-body">
+                                        <p class="card-text text-center">
+                                            <img class="img-fluid rounded mb-4 mb-lg-0"
+                                                 th:src="@{/class_upload/}+${wish.onClassFileName}"
+                                                 alt="..." width="150" height="100"/></p>
+                                        <p class="card-text text-center h6" th:text="${wish.onClassTitle}"></p>
+                                         <div class="d-block">
+                                    <!--  like-->
+                                    <input type="hidden" id="onClassId" th:value="${wish.onClassId}">
+                                    <input type="hidden" id="memberId" th:value="${session.loginId}">
+                                    <input type="hidden" id="wishListId" th:value="${wish.wishListId}">
+                                        </div>
+                                    </div>
+                            </a>
+                            <div class="card-footer text-center">
+                                <img id="likeImg" src="/assets/img/like_click.png" alt="" width="30px" height="30px">
+                                <span class="card-text" th:text="${wish.onClassPrice}"></span>
+                                <span>point</span>
+                            </div>
+                        </div>
+                </div>
+
+        </div>
+    </div>
+</div>
+<th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
 </body>
+<script>
+        $("#likeImg").on("click", function () {
+            const wishListId = $("#wishListId").val();
+                const reqUrl = "/wish/" + wishListId;
+                $.ajax({
+                url: reqUrl,
+                type: 'delete',
+                success: function () {
+                alert('위시리스트에서 삭제되었습니다.')
+                location.reload();
+            }, error: function () {
+                alert('요청실패')
+            }
+            })
+        });
+</script>
 </html>

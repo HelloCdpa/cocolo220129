@@ -49,7 +49,7 @@ public class BoardController {
 
         bs.findLike(boardId,memberId);
 
-        int like = bs.saveLike(boardId,memberId);
+        int like = bs.findLike(boardId,memberId);
         model.addAttribute("like",like);
 
         return "/board/findById";

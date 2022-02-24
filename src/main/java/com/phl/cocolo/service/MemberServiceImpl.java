@@ -5,8 +5,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import com.phl.cocolo.dto.*;
+import com.phl.cocolo.entity.KakaoEntity;
 import com.phl.cocolo.entity.MemberEntity;
 import com.phl.cocolo.entity.PointEntity;
+import com.phl.cocolo.repository.KakaoRepository;
 import com.phl.cocolo.repository.MemberMapperRepository;
 import com.phl.cocolo.repository.MemberRepository;
 import com.phl.cocolo.repository.PointRepository;
@@ -26,6 +28,7 @@ public class MemberServiceImpl implements MemberService{
     private final MemberRepository mr;
     private final MemberMapperRepository mmr;
     private final PointRepository pr;
+    private final KakaoRepository kr;
     //엔티티로 저장
     @Override
     public Long save(MemberSaveDTO memberSaveDTO)throws IllegalStateException, IOException {
@@ -150,7 +153,7 @@ public class MemberServiceImpl implements MemberService{
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=198b13b4aad42557177244425bb771f9"); // TODO REST_API_KEY 입력
-            sb.append("&redirect_uri=http://localhost:8094/member/kakaologin"); // TODO 인가코드 받은 redirect_uri 입력
+            sb.append("&redirect_uri=http://localhost:8093/member/kakaologin"); // TODO 인가코드 받은 redirect_uri 입력
             sb.append("&code=" + code);
             bw.write(sb.toString());
             bw.flush();
@@ -214,7 +217,6 @@ public class MemberServiceImpl implements MemberService{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         // catch 아래 코드 추가.
         MemberEntity result = mr.findByMemberEmail(userEmail);
         //멤버테이블에서 정보가 있나 조회
@@ -227,6 +229,7 @@ public class MemberServiceImpl implements MemberService{
             return userEmail;
             // 정보가 이미 있으면 사용자의 이메일을 리턴함.
         }
+
 
     }
 

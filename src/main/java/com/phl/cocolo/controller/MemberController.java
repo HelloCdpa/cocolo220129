@@ -121,8 +121,6 @@ public class MemberController {
             Long memberId = ms.findByMemberId(userInfo);
             session.setAttribute(LOGIN_ID, memberId);
 
-
-
             String redirectURL = (String) session.getAttribute("redirectURL");
 
             if (redirectURL != null){
@@ -150,8 +148,9 @@ public class MemberController {
         return "/admin/memberFindAll";
     }
     //상세조회(마이페이지) && 수정화면
-    @GetMapping("{memberId}")
-    public String findById(@PathVariable("memberId") Long memberId, Model model) {
+    @GetMapping("/mypage")
+    public String findById(Model model,HttpSession session) {
+        Long memberId = (Long) session.getAttribute(LOGIN_ID);
         MemberDetailDTO memberDetailDTO = ms.findById(memberId);
         model.addAttribute("member", memberDetailDTO);
         return "/member/mypage";
@@ -180,9 +179,9 @@ public class MemberController {
         return "/member/pointCharge";
     }
     @PostMapping("pointCharge")
-    public String pointCharge(@ModelAttribute PointSaveDTO pointSaveDTO) {
+    public ResponseEntity pointCharge(@ModelAttribute PointSaveDTO pointSaveDTO) {
         ms.pointCharge(pointSaveDTO);
-        return "redirect:/member/pointView?m_id="+ pointSaveDTO.getMemberId();
+        return new ResponseEntity(HttpStatus.OK);
     }
     @GetMapping("/pointView/{memberId}")
     public String pointView(@PathVariable("memberId") Long memberId,Model model) {

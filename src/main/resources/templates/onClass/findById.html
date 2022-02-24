@@ -46,6 +46,11 @@
                                     <span th:text="${onClass.onClassPrice}"></span>
                                     <span class="h6">point</span>
                                 </div>
+                                <div>
+                                    <button type="button" class="btn btn-success" id="buy-button">수강신청하기</button>
+                                    <input type="hidden" id="onClassId" th:value="${onClass.onClassId}">
+                                    <input type="hidden" id="memberId" th:value="${session.loginId}">
+                                </div>
 
                             </div>
                         </div>
@@ -63,5 +68,28 @@
 <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
 </div>
 </body>
-
+<script>
+<!--    수강신청버튼 클릭 - 장바구니에 추가 - 나의 장바구니로 이동-->
+    $("#buy-button").click(function () {
+        const onClassId = $("#onClassId").val();
+        const memberId = $("#memberId").val();
+        console.log(onClassId + memberId);
+        $.ajax({
+            type: 'post',
+            url: '/cart/save',
+            data: {
+                'onClassId': onClassId,
+                'memberId': memberId
+            },
+            dataType: 'json',
+            success: function () {
+                //장바구니에 없다면 저장 후 이동 있다면 그냥 이동
+                location.href='/cart/'+memberId;
+            },
+            error: function () {
+                alert('ajax 실패');
+            }
+        });
+    });
+</script>
 </html>

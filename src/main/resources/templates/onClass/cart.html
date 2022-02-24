@@ -1,10 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<link rel="shortcut icon" href="#">
+<style>
+    #background {
+        background-image: url("https://cdn.pixabay.com/photo/2020/03/21/17/26/woman-4954694_1280.jpg");
+    }
+</style>
+<th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
 <body>
+<div id="wrapper">
+    <header class="bg-gradient-dark">
+        <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
 
+        <div class="page-header min-vh-75" id="background">
+            <span class="mask bg-gradient-dark opacity-6"></span>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center mx-auto my-auto">
+                        <h1 class="text-white">나의 장바구니</h1>
+                        <p class="lead mb-4 text-white opacity-8">포인트로 수강권을 구매하여 개발 지식을 키워나가세요!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="row">
+        <div class="col-lg-8">
+        <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+            <div id="cartLength" class="row">
+                    <div class="col-md-3 mb-5" th:each="cart:${cartList}">
+                            <div class="card h-100">
+                                 <a th:href="@{|/onClass/${cart.onClassId}|}">
+                                        <div class="card-body">
+                                            <p class="card-text text-center">
+                                                <img class="img-fluid rounded mb-4 mb-lg-0"
+                                                     th:src="@{/class_upload/}+${cart.onClassFileName}"
+                                                     alt="..." width="150" height="100"/></p>
+                                            <p class="card-text text-center h6" th:text="${cart.onClassTitle}"></p>
+                                        </div>
+                                </a>
+                                <div class="card-footer text-center">
+                                    <span class="card-text" id="onClassPrice" th:text="${cart.onClassPrice}"></span>
+                                    <span>point</span>
+                                </div>
+                                <button type="button" class="btn btn-danger btn-sm"
+                                        th:onclick="deleteById([[${cart.cartId}]])">장바구니에서 삭제</button>
+                            </div>
+                    </div>
+            </div>
+        </div>
+        </div>
+        <div class="col-lg-4">
+        <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+        <h2>총계 : </h2><span class="h2" id="amount"></span>
+        <button type="button" class="btn btn-success">수강권 구입</button>
+        </div>
+        </div>
+    </div>
+</div>
+<th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script>
+    function deleteById(cartId) {
+        const reqUrl = "/cart/" + cartId;
+        $.ajax({
+            url: reqUrl,
+            type: 'delete',
+            success: function () {
+                alert('삭제되었습니다.')
+                location.reload();
+            }, error: function () {
+                alert('요청실패')
+            }
+        })
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        const str = "";
+        let sum = 0;
+        const count = $("#cartLength").rows.length;
+        for (let i = 0; i < count; i++) {
+                sum += parseInt($("#onClassPrice")[i].value);
+        }
+        $("#total_sum").html(sum + " point");
+        $("#amount").val(sum);
+        $("#amount").innerText =sum;
+    });
+</script>
 </html>

@@ -1,7 +1,9 @@
 package com.phl.cocolo.controller;
 
 import com.phl.cocolo.dto.*;
+import com.phl.cocolo.service.CartService;
 import com.phl.cocolo.service.OnClassService;
+import com.phl.cocolo.service.WishListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,14 +12,18 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+
+import static com.phl.cocolo.common.SessionConst.LOGIN_ID;
 
 @Controller
 @RequestMapping("/onClass")
 @RequiredArgsConstructor
 public class OnClassController {
     private final OnClassService os;
+    private final WishListService ws;
 
     @GetMapping("/save")
     public String saveForm() {
@@ -50,9 +56,13 @@ public class OnClassController {
 
     //전체조회
     @GetMapping("/")
-    public String findAll(Model model) {
+    public String findAll(Model model, HttpSession session) {
         List<OnClassDetailDTO> onClassList = os.findAll();
         model.addAttribute("onClassList", onClassList);
+        Long memberId = (Long) session.getAttribute(LOGIN_ID);
+
+        model.addAttribute("wishCheck", ws.findByMemberId(memberId));
+
         return "/onClass/findAll";
     }
 

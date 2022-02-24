@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
 <link rel="shortcut icon" href="#">
 <style>
@@ -41,19 +41,20 @@
 
     <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n3">
         <div class="row">
-            <span th:each="onClass:${onClassList}">
-                <div class="col-md-4 mb-5">
-                        <div class="card h-70">
-                            <a th:href="@{|/templates/onClass/${onClass.onClassId}|}">
+                <div class="col-md-3 mb-5" th:each="onClass:${onClassList}">
+                   <div class="card h-100">
+                            <a th:href="@{|/onClass/${onClass.onClassId}|}">
                                     <div class="card-body">
                                         <p class="card-text text-center">
                                             <img class="img-fluid rounded mb-4 mb-lg-0"
-                                                  th:src="@{/class_upload/}+${onClass.onClassFileName}"
-                                                  alt="..." width="200" height="150"/></p>
+                                                 th:src="@{/class_upload/}+${onClass.onClassFileName}"
+                                                 alt="..." width="150" height="100"/></p>
                                         <p class="card-text text-center h6" th:text="${onClass.onClassTitle}"></p>
                                         <p class="card-text text-center">
                                         <span th:text="${onClass.onClassCate}"></span>
                                         /<span th:text="${onClass.onClassIntro}"></span>
+                                            <input type="hidden" id="onClassId" th:value="${onClass.onClassId}">
+                                            <input type="hidden" id="memberId" th:value="${session.loginId}">
                                         </p>
                                     </div>
                             </a>
@@ -61,25 +62,26 @@
                                 <span class="card-text" th:text="${onClass.onClassPrice}"></span>
                                 <span>point</span>
                                 <div>
-                                <a class="btn btn-outline-success" th:href="@{|/wishList/save/${onClass.onClassId}|}">찜하기</a>
-                                <a class="btn btn-outline-success"
-                                   th:href="@{|/cart/save/${onClass.onClassId}|}">장바구니</a>
+                                <!--찜하기-->
+                                <img id="likeImg" class="likeImg" src="/assets/img/like_empty.png" alt="" width="30px"
+                                     height="30px"/>
+                                <button type="button" class="btn btn-outline-success"
+                                        id="cart-save-btn">장바구니에 담기</button>
                                 </div>
-
                                     <div th:if="(${session.loginNick}==${onClass.onClassTeacher})">
-                                <a class="btn btn-info" type="button"
-                                   th:href="@{|/templates/onClass/update/${onClass.onClassId}|}">글수정</a>
-                                <button type="button" class="btn btn-danger"
-                                        th:onclick="deleteById([[${onClass.onClassId}]])">글삭제</button>
+                                        <a class="btn btn-info" type="button"
+                                           th:href="@{|/templates/onClass/update/${onClass.onClassId}|}">글수정</a>
+                                        <button type="button" class="btn btn-danger"
+                                                th:onclick="deleteById([[${onClass.onClassId}]])">글삭제</button>
                                     </div>
-                            </div>
-                        </div>
-                </div>
-            </span>
+                           </div>
+                    </div>
+             </div>
         </div>
     </div>
 </div>
-    <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
+
+<th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
@@ -98,5 +100,55 @@
     }
 </script>
 
+<script>
+    $("#cart-save-btn").click(function () {
+        const onClassId = $("#onClassId").val();
+        const memberId = $("#memberId").val();
+        console.log(onClassId + memberId);
+        $.ajax({
+            type: 'post',
+            url: '/cart/save',
+            data: {
+                'onClassId': onClassId,
+                'memberId': memberId
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data) {
+                    alert('장바구니에 저장되었습니다.')
+                    location.reload();
+                } else {
+                    alert('이미 장바구니에 있습니다.')
+                }
+
+            },
+            error: function () {
+                alert('ajax 실패');
+            }
+        });
+    });
+</script>
+<script>
+    // 위시리스트 버튼을 클릭 시 실행되는 코드
+    $("#likeImg").click(function () {
+        const onClassId = $("#onClassId").val();
+        const memberId = $("#memberId").val();
+        $.ajax({
+            url: '/wish/save',
+            type: 'POST',
+            data: {'onClassId': onClassId, 'memberId': memberId},
+            success: function (data) {
+                if (data) {
+                    $("#likeImg").attr("src", "/assets/img/like_click.png");
+                } else {
+                    $("#likeImg").attr("src", "/assets/img/like_empty.png");
+                }
+            }, error: function () {
+                $("#likeImg").attr("src", "/assets/img/like_click.png");
+                console.log('오타 찾으세요')
+            }
+        });
+    });
+</script>
 
 </html>
