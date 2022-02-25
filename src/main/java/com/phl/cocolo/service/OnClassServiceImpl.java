@@ -36,7 +36,10 @@ public class OnClassServiceImpl implements OnClassService{
         return or.save(OnClassEntity.toOnClassSaveEntity(onClassSaveDTO)).getId();
     }
 
-
+    @Override
+    public Long saveTest(OnClassSaveDTO onClassSaveDTO){
+        return or.save(OnClassEntity.toOnClassSaveEntity(onClassSaveDTO)).getId();
+    }
 
 
     @Override

@@ -178,7 +178,7 @@ public class MemberController {
         model.addAttribute("member", memberDetailDTO);
         return "/member/pointCharge";
     }
-    @PostMapping("pointCharge")
+    @PostMapping("/pointCharge")
     public ResponseEntity pointCharge(@ModelAttribute PointSaveDTO pointSaveDTO) {
         ms.pointCharge(pointSaveDTO);
         return new ResponseEntity(HttpStatus.OK);

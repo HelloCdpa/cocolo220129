@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
@@ -15,11 +16,11 @@
         <th>유형</th>
         <th>시간</th>
     </tr>
-        <tr th:each="point: ${pointList}">
-            <td><span th:text="${point.pointPoint}"></span></td>
-            <td><span th:text="${point.pointType}"></span></td>
-            <td><span th:text="${point.pointDate}"></span></td>
-        </tr>
+    <tr th:each="point: ${pointList}">
+        <td><span th:text="${point.pointPoint}"></span></td>
+        <td><span th:text="${point.pointType}"></span></td>
+        <td><span th:text="${point.pointDate}"></span></td>
+    </tr>
 </table>
 <!--<p>${point.memberNickName}님의 전체 포인트 : ${point.memberPoint} point</p>-->
 

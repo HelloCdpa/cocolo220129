@@ -10,6 +10,8 @@ import java.util.List;
 public interface OnClassService {
     Long save(OnClassSaveDTO onClassSaveDTO) throws IllegalStateException, IOException;
 
+    Long saveTest(OnClassSaveDTO onClassSaveDTO);
+
     OnClassDetailDTO findById(Long onClassId);
 
     void deleteById(Long onClassId);

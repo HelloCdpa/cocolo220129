@@ -250,7 +250,7 @@ public class MemberServiceImpl implements MemberService{
         MemberEntity memberEntity = mr.findById(pointSaveDTO.getMemberId()).get();
         PointEntity pointEntity = PointEntity.toPointSaveEntity(pointSaveDTO,memberEntity);
         pr.save(pointEntity);
-
+        System.out.println("포인트 충전");
         //회원 포인트 업데이트
         Map<String, Object> memberPointUpdate = new HashMap<>();
         memberPointUpdate.put("member_id", pointSaveDTO.getMemberId());

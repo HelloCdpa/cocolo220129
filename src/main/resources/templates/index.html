@@ -7,6 +7,48 @@
 <th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
 
 <body class="index-page bg-gray-200">
+<!-- Channel Plugin Scripts -->
+<script>
+    (function() {
+        let w = window;
+        if (w.ChannelIO) {
+            return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
+        }
+        let ch = function() {
+            ch.c(arguments);
+        };
+        ch.q = [];
+        ch.c = function(args) {
+            ch.q.push(args);
+        };
+        w.ChannelIO = ch;
+        function l() {
+            if (w.ChannelIOInitialized) {
+                return;
+            }
+            w.ChannelIOInitialized = true;
+            let s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+            s.charset = 'UTF-8';
+            let x = document.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(s, x);
+        }
+        if (document.readyState === 'complete') {
+            l();
+        } else if (window.attachEvent) {
+            window.attachEvent('onload', l);
+        } else {
+            window.addEventListener('DOMContentLoaded', l, false);
+            window.addEventListener('load', l, false);
+        }
+    })();
+    ChannelIO('boot', {
+        "pluginKey": "56e7d959-6210-422d-8d0c-e1c35e70517a"
+    });
+</script>
+<!-- End Channel Plugin -->
 <div id="wrapper">
     <div id="content-wrapper" class="d-flex flex-column">
         <header class="bg-gradient-dark">
@@ -54,7 +96,7 @@
                                     <div class="info">
                                         <div class="embed-responsive embed-responsive-16by9">
                                         <video width="450" height="350" controls autoplay loop class="embed-responsive-item">
-                                            <source src="/assets/images/Nebula360.mp4" type="video/mp4">
+                                            <source src="/assets/images/sample.mp4" type="video/mp4">
                                         </video>
                                         </div>
                                     </div>

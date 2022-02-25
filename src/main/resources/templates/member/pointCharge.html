@@ -3,93 +3,93 @@
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>포인트 충전</title>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+  <meta charset="UTF-8">
+  <title>포인트 충전</title>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 </head>
 <body>
 
-<div class="container" style="margin-top: 100px;">
-    <h2>포인트 충전</h2>
+<div class="container">
+  <h2>포인트 충전</h2>
 
-    <div class="btn-group" >
-        <form action="/member/pointCharge" method="post" name="updatePoint" th:object="${member}">
+  <div class="btn-group" >
+    <form action="/member/pointCharge" method="post" name="updatePoint" th:object="${member}">
 
-            <input type="hidden" name="memberId" id="memberId"th:value="${member.memberId}" >
-            <input type="hidden" name="pointType" id="pointType"value="포인트 충전" >
+      <input type="hidden" name="memberId" id="memberId"th:value="${member.memberId}" >
+      <input type="hidden" name="pointType" id="pointType"value="포인트 충전" >
 
-            <div class="form-check">
-                <input class="form-check-input" type="radio" id="50000" name="pointPoint" th:value="50000" checked>
-                <label class="form-check-label" for="50000">
-                    50000p
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="pointPoint" id="100000" th:value="100000">
-                <label class="form-check-label" for="100000">
-                    100000p
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" id="200000" name="pointPoint" th:value="200000" checked>
-                <label class="form-check-label" for="200000">
-                    200000p
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="pointPoint" id="500000" th:value="500000">
-                <label class="form-check-label" for="500000">
-                    500000p
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="pointPoint" id="1000000" th:value="1000000">
-                <label class="form-check-label" for="1000000">
-                    1000000p
-                </label>
-            </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="50000" name="pointPoint" th:value="50000" checked>
+        <label class="form-check-label" for="50000">
+          50000p
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="pointPoint" id="100000" th:value="100000">
+        <label class="form-check-label" for="100000">
+          100000p
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="200000" name="pointPoint" th:value="200000" checked>
+        <label class="form-check-label" for="200000">
+          200000p
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="pointPoint" id="500000" th:value="500000">
+        <label class="form-check-label" for="500000">
+          500000p
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="pointPoint" id="1000000" th:value="1000000">
+        <label class="form-check-label" for="1000000">
+          1000000p
+        </label>
+      </div>
 
-            <input class="btn btn-outline-danger" type="button" onclick="requestPay()" value="포인트 충전">
-        </form>
-    </div>
+      <input class="btn btn-outline-danger" type="button" onclick="requestPay()" value="포인트 충전">
+    </form>
+  </div>
 </div>
 
 </body>
 <script>
-    //포인트 값과 구매자의 이름, 이메일
-    const pointAmount = document.querySelector("input[name='pointPoint']:checked").value;
-    const pointBuyerEmail = "[[${member.memberEmail}]]"
-    const pointBuyerName = "[[${member.memberName}]]"
+  //포인트 값과 구매자의 이름, 이메일
+  const pointAmount = document.querySelector("input[name='pointPoint']:checked").value;
+  const pointBuyerEmail = "[[${member.memberEmail}]]"
+  const pointBuyerName = "[[${member.memberName}]]"
 
-    const IMP = window.IMP;
-    IMP.init('imp45182196');
-    function requestPay() {
-        // IMP.request_pay(param, callback) 결제창 호출
-        IMP.request_pay({ // param
-            pg: "kakao",
-            pay_method: "card",
-            merchant_uid: 'merchant_' + new Date().getTime(),
-            name: "포인트 충전",
-            amount: pointAmount,
-            buyer_email: pointBuyerEmail,
-            buyer_name: pointBuyerName,
+  const IMP = window.IMP;
+  IMP.init('imp45182196');
+  function requestPay() {
+    // IMP.request_pay(param, callback) 결제창 호출
+    IMP.request_pay({ // param
+      pg: "kakao",
+      pay_method: "card",
+      merchant_uid: 'merchant_' + new Date().getTime(),
+      name: "포인트 충전",
+      amount: pointAmount,
+      buyer_email: pointBuyerEmail,
+      buyer_name: pointBuyerName,
 
-        }, function (rsp) { // callback
-            if (rsp.success) {
-                const msg = '결제가 완료되었습니다.';
-                alert(msg);
-                updatePoint.submit();
+    }, function (rsp) { // callback
+      if (rsp.success) {
+        const msg = '결제가 완료되었습니다.';
+        alert(msg);
+        updatePoint.submit();
 
-            } else {
-                const msg = '결제에 실패하였습니다.';
-                alert(msg);
-            }
+      } else {
+        const msg = '결제에 실패하였습니다.';
+        alert(msg);
+      }
 
 
 
-        });
-    }
+    });
+  }
 </script>
 </html>

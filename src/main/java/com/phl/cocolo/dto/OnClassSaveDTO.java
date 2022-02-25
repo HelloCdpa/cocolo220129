@@ -21,5 +21,13 @@ public class OnClassSaveDTO {
     private String onClassFileName;
     private MultipartFile onClassFile;
 
-
+    public OnClassSaveDTO(String onClassTeacher, String onClassTitle, String onClassContents, String onClassCate, String onClassIntro, int onClassPrice, String onClassFileName) {
+        this.onClassTeacher = onClassTeacher;
+        this.onClassTitle = onClassTitle;
+        this.onClassContents = onClassContents;
+        this.onClassCate = onClassCate;
+        this.onClassIntro = onClassIntro;
+        this.onClassPrice = onClassPrice;
+        this.onClassFileName = onClassFileName;
+    }
 }

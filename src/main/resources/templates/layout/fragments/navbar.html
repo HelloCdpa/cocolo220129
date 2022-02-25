@@ -254,29 +254,29 @@
                         <!-- 로그인 유저일 때 보이는 nav : 마이페이지-->
                     <span th:if="${not #strings.isEmpty(session['loginEmail'])}">
                     <li class="nav-item dropdown dropdown-hover mx-2">
-                        <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuDocs" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a th:href="@{|/member/mypage/${session.loginId}|}" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuDocs" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="/assets/img/slide_3.jpg" alt="" width="40" height="40" class="rounded-circle"></a>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-animation dropdown-md dropdown-md-responsive mt-0 mt-lg-3 p-3 border-radius-lg" aria-labelledby="dropdownMenuDocs">
                             <div class="d-none d-lg-block">
                                 <ul class="list-group">
                                     <li class="nav-item list-group-item border-0 p-0">
-                                        <a class="dropdown-item py-2 ps-3 border-radius-md" href="/member/pointView">
+                                        <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/member/pointView/${session.loginId}|}">
                                             <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">나의 포인트</h6>
                                         </a>
                                     </li>
                                     <li class="nav-item list-group-item border-0 p-0">
-                                        <a class="dropdown-item py-2 ps-3 border-radius-md" href="">
+                                        <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/member/mypage/${session.loginId}|}">
                                             <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">나의 멘토링</h6>
                                         </a>
                                     </li>
                                     <li class="nav-item list-group-item border-0 p-0">
-                                        <a class="dropdown-item py-2 ps-3 border-radius-md" href="">
+                                        <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/member/mypage/${session.loginId}|}">
                                             <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">강의 학습</h6>
                                         </a>
                                     </li>
                                     <li class="nav-item list-group-item border-0 p-0">
-                                        <a class="dropdown-item py-2 ps-3 border-radius-md" href="/member/mypage">
+                                        <a class="dropdown-item py-2 ps-3 border-radius-md"  th:href="@{|/member/mypage|}">
                                             <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">회원정보 수정</h6>
                                         </a>
                                     </li>
@@ -300,21 +300,21 @@
                             <!-- 반응형 : md일 때 nav 마이페이지-->
                             <div class="row d-lg-none">
                                 <div class="col-md-12 g-0">
-                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="member/pointView">
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/member/pointView/${session.loginId}|}">
                                         <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">나의 포인트</h6>
                                     </a>
 
-                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="./pages/about-us.html">
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/member/mypage/${session.loginId}|}">
                                         <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">나의 멘토링</h6>
 
                                     </a>
 
-                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="/onClass/">
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/member/mypage/${session.loginId}|}">
                                         <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">강의 학습</h6>
 
                                     </a>
 
-                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="/member/mypage">
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/member/mypage|}">
                                         <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">회원정보 수정</h6>
                                     </a>
 

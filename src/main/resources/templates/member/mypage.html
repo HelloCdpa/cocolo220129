@@ -1,30 +1,120 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <meta charset="UTF-8">
-    <title>update</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<link rel="shortcut icon" href="#">
+<style>
+    #background {
+        background-image: url("https://cdn.pixabay.com/photo/2018/06/29/08/15/doodle-3505459_1280.png");
+    }
+</style>
+<th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
 <body>
-<form id="updateForm" th:object="${member}" enctype="multipart/form-data">
-    <input type="hidden" th:field="*{memberId}">
-    닉네임 : <span th:text="*{memberNickName}"></span> <br>
-    변경할이름 :  <input type="text" th:field="*{memberName}"><br>
-    <input type="text" th:field="*{memberEmail}" readonly><br>
-    비밀번호입력 : <input type="password" th:field="*{memberPassword}"><br>
-    변경할 전화번호 : <input type="text" th:field="*{memberPhone}"><br>
-    <label for="memberProfile">변경할 프로필 사진</label>
-    <input th:class="form-control" type="file" id="memberProfile" name="memberProfile"><br>
+<div id="wrapper">
+    <header class="bg-gradient-dark">
+        <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
+
+        <div class="page-header min-vh-50" id="background">
+            <span class="mask bg-gradient-dark opacity-6"></span>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center mx-auto my-auto">
+                        <h1 class="text-white">My Page</h1>
+                        <span th:if="${not #strings.isEmpty(session['loginEmail'])}">
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+                <form id="updateForm" th:object="${member}" enctype="multipart/form-data">
+                    <input type="hidden" th:field="*{memberId}">
+
+                    <div class="input-group input-group-static mb-4">
+                        <label>닉네임</label>
+                        <input class="form-control" th:field="*{memberNickName}" th:value="*{memberNickName}" type="text" readonly>
+                    </div>
+
+                    <div class="input-group input-group-static mb-4">
+                        <label>이름</label>
+                        <input class="form-control" th:field="*{memberName}" th:value="*{memberName}" type="text" readonly>
+                    </div>
+
+                    <div class="input-group input-group-static mb-4">
+                        <label>이메일</label>
+                        <input class="form-control" th:field="*{memberEmail}" th:value="*{memberEmail}" type="text" readonly>
+                    </div>
+
+                    <div class="input-group input-group-static mb-4">
+                        <label>비밀번호입력</label>
+                        <input class="form-control" th:field="*{memberPassword}" type="password" >
+                    </div>
+
+                    <div class="input-group input-group-static mb-4">
+                        <label>전화번호</label>
+                        <input class="form-control" th:field="*{memberPhone}" th:value="*{memberPhone}" type="text" >
+                    </div>
+
+                    <div class="input-group input-group-static mb-4">
+                        <label>프로필 사진</label>
+                        <input class="form-control" type="file" id="memberProfile" name="memberProfile" >
+                        <img th:src= "@{/member_upload/}+${member.memberProfileName}" alt="member" loading="lazy">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="memberInteresting">관심있는 분야</label>
+                            <div class="input-group input-group-static mb-4">
+                                <select th:class="form-select" id="memberInteresting" th:field="*{memberInteresting}">
+                                    <option th:value="*{memberInteresting}" th:text="${memberInteresting}" selected></option>
+                                    <option th:value="'앱개발'">앱개발</option>
+                                    <option th:value="'웹개발'" th:text="웹개발"></option>
+                                    <option th:value="'게임개발'" th:text="게임개발"></option>
+                                    <option th:value="'보안관련'" th:text="보안관련"></option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 ps-md-2">
+                            <label for="memberLevel">개발자 레벨</label>
+                            <div class="input-group input-group-static mb-4">
+                                <select th:class="form-select" id="memberLevel" th:field="*{memberLevel}">
+                                    <option th:value="*{memberLevel}" th:text="${memberLevel}" selected></option>
+                                    <option th:value="'초보 개발자'" >초보 개발자</option>
+                                    <option th:value="'중급 개발자'">중급 개발자</option>
+                                    <option th:value="'고급 개발자'" >고급 개발자</option>
+                                    <option th:value="'선생님'" >선생님</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input class="btn btn-danger" type="button" value="수정(put)" th:onclick="memberUpdate()">
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+                  <div><a class="btn btn-success" th:href="@{|/member/pointView/${session.loginId}|}">나의 포인트</a></div>
+                  <div><a class="btn btn-success" th:href="@{|/member/mypage/${session.loginId}|}">회원정보 수정</a></div>
+                  <div><a class="btn btn-success" th:href="@{|/board/mypage/${session.loginId}|}">내가 쓴 글</a></div>
+                  <div><a class="btn btn-success"  th:href="@{|/mentoring/${session.loginId}|}">나의 멘토링</a></div>
+                  <div><a class="btn btn-success" th:href="@{|/onClass/${session.loginId}|}">강의 수강하기</a></div>
+                  <div><a class="btn btn-success" th:href="@{|/cart/${session.loginId}|}">장바구니</a></div>
+                  <div><a class="btn btn-success" th:href="@{|/wish/${session.loginId}|}">위시리스트</a></div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
-    개발자 레벨 : <input type="text" th:field="*{memberLevel}"><br>
-    개발 분야 : <input type="text" th:field="*{memberInteresting}"><br>
-
-    <input type="button" value="수정(put)" th:onclick="memberUpdate()">
-</form>
+<th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
+</div>
+</div>
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
     const memberUpdate = () => {
         const memberId = document.getElementById('memberId').value;
@@ -61,9 +151,6 @@
     };
 
 </script>
-
-
-
 
 
 </html>

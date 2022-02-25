@@ -20,7 +20,7 @@ public class PointEntity {
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
 
-    @Column(columnDefinition = "integer default 0")
+    @Column
     private int pointPoint;
 
     @Column
