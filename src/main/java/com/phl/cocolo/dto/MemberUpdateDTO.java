@@ -16,7 +16,7 @@ public class MemberUpdateDTO {
     private String memberPhone;
     private MultipartFile memberProfile;
     private String memberProfileName;
-    private long memberPoint;
+    private int memberPoint;
     private String memberInteresting;
     private String memberNickName;
     private String memberLevel;

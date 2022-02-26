@@ -19,7 +19,7 @@ public class PointDetailDTO {
 
     private String pointType;
     private String memberNickName;
-    private Long memberPoint;
+    private int memberPoint;
 
     public static PointDetailDTO toPointDetailDTO(PointEntity pointEntity){
         PointDetailDTO pointDetailDTO = new PointDetailDTO();

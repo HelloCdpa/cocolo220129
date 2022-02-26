@@ -41,7 +41,7 @@ public class MemberEntity{
     private String memberProfileName;
 
     @Column(columnDefinition = "integer default 10000")
-    private Long memberPoint;
+    private int memberPoint;
 
     @Column
     private String memberLevel;

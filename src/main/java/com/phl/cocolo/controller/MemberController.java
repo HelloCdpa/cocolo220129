@@ -176,12 +176,17 @@ public class MemberController {
     public String pointCharge(@PathVariable("memberId") Long memberId,Model model) {
         MemberDetailDTO memberDetailDTO = ms.findById(memberId);
         model.addAttribute("member", memberDetailDTO);
+        List<PointDetailDTO> pointList = ms.pointFindAll(memberId);
+        model.addAttribute("pointList", pointList);
         return "/member/pointCharge";
     }
     @PostMapping("/pointCharge")
-    public ResponseEntity pointCharge(@ModelAttribute PointSaveDTO pointSaveDTO) {
+    public String pointCharge(@ModelAttribute PointSaveDTO pointSaveDTO,Model model) {
         ms.pointCharge(pointSaveDTO);
-        return new ResponseEntity(HttpStatus.OK);
+        List<PointDetailDTO> pointList = ms.pointFindAll(pointSaveDTO.getMemberId());
+        model.addAttribute("pointList", pointList);
+
+        return "/member/pointView";
     }
     @GetMapping("/pointView/{memberId}")
     public String pointView(@PathVariable("memberId") Long memberId,Model model) {

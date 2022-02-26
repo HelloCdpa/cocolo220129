@@ -1,30 +1,47 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-</head>
+<link rel="shortcut icon" href="#">
+<style>
+    #background {
+        background-image: url("https://cdn.pixabay.com/photo/2018/06/29/08/15/doodle-3505459_1280.png");
+    }
+</style>
+<th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
 <body>
-<table class="table table-striped table-hover" style="margin-top: 70px;">
-    <tr>
-        <th>포인트</th>
-        <th>유형</th>
-        <th>시간</th>
-    </tr>
-    <tr th:each="point: ${pointList}">
-        <td><span th:text="${point.pointPoint}"></span></td>
-        <td><span th:text="${point.pointType}"></span></td>
-        <td><span th:text="${point.pointDate}"></span></td>
-    </tr>
-</table>
-<!--<p>${point.memberNickName}님의 전체 포인트 : ${point.memberPoint} point</p>-->
+<header class="bg-gradient-dark">
+    <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
 
-
-
+    <div class="page-header min-vh-65" id="background">
+        <span class="mask bg-gradient-dark opacity-6"></span>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center mx-auto my-auto">
+                    <h1 class="text-white">My Point</h1>
+                    <p class="lead mb-4 text-white opacity-8">포인트도 + 지식도 +!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<th:block th:fragment="pointFragment">
+    <div class="col-lg-8">
+        <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+            <h3>포인트 내역</h3>
+            <table>
+                <tr th:each="point:${pointList}">
+                    <td th:text="${point.pointPoint}"></td>
+                    <td th:text="${point.pointType}"></td>
+                    <td th:text="${point.pointDate}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</th:block>
+<th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
 </body>
+
+<a th:href="@{|/member/pointCharge/${session.loginId}|}" class="btn btn-primary"> 포인트 충전 하기 </a>
+
+
 </html>
