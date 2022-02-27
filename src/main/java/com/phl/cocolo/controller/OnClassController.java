@@ -82,9 +82,28 @@ public class OnClassController {
     }
 
 
+    @PostMapping("/payment")
+    public ResponseEntity payment(@RequestParam(value="cartList[]") List<CartDetailDTO> cartList) {
+        System.out.println("cartList = " + cartList);
+        //    CartDetailDTO 에서 쓸 것
+        //    Long memberId;
+        //    Long onClassId;
+
+        // 1. 포인트 사용 내역 넣기
+        // 100포인트로 4000원짜리 물건을 3900원에 구매 : 포인트 내역에는 [-100포인트 /수강권 구매 사용 /회원번호]
+
+        // 2. 회원에게 강의 권한 주기
+        // 회원의 온라인 클래스 : : my_class_table  여기에 onClassId 와 memberId를 반복문을 이용해 넣음
+        // member_id
+        // onClass_id
+
+        //0번에 있는 onClassID : cartList.get(0).getOnClassId();
 
 
 
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 
 

@@ -14,15 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ChatController {
 
 
-
-    @GetMapping("/admin")
-    public String adminChat(Model model){
-
-        log.info("@ChatController, chat GET()");
-
-        return "/admin/adminChat";
-    }
-
     @GetMapping("/mentor")
     public String mentorChat(Model model){
 

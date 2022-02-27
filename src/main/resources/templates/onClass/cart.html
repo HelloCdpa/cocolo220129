@@ -26,44 +26,56 @@
         </div>
     </header>
 
+    <input type="hidden" th:value="${session.loginEmail}" id="memberEmail">
+    <input type="hidden" th:value="${session.loginId}" id="memberId">
 
     <div class="row">
         <div class="col-lg-8">
-        <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
-            <div id="cartLength" class="row">
+            <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+                <div id="cartLength" class="row">
                     <div class="col-md-3 mb-5" th:each="cart:${cartList}">
-                            <div class="card h-100">
-                                 <a th:href="@{|/onClass/${cart.onClassId}|}">
-                                        <div class="card-body">
-                                            <p class="card-text text-center">
-                                                <img class="img-fluid rounded mb-4 mb-lg-0"
-                                                     th:src="@{/class_upload/}+${cart.onClassFileName}"
-                                                     alt="..." width="150" height="100"/></p>
-                                            <p class="card-text text-center h6" th:text="${cart.onClassTitle}"></p>
-                                        </div>
-                                </a>
-                                <div class="card-footer text-center">
-                                    <span class="card-text" id="onClassPrice" th:text="${cart.onClassPrice}"></span>
-                                    <span>point</span>
+                        <div class="card h-100">
+                            <a th:href="@{|/onClass/${cart.onClassId}|}">
+                                <input type="hidden" th:value="${cart.onClassId}" id="onClassIdList">
+                                <div class="card-body">
+                                    <p class="card-text text-center">
+                                        <img class="img-fluid rounded mb-4 mb-lg-0"
+                                             th:src="@{/class_upload/}+${cart.onClassFileName}"
+                                             alt="..." width="150" height="100"/></p>
+                                    <p class="card-text text-center h6" th:text="${cart.onClassTitle}"></p>
                                 </div>
-                                <button type="button" class="btn btn-danger btn-sm"
-                                        th:onclick="deleteById([[${cart.cartId}]])">장바구니에서 삭제</button>
+                            </a>
+                            <div class="card-footer text-center">
+                                <span class="card-text" id="onClassPrice" th:text="${cart.onClassPrice}"></span>
+                                <span>point</span>
                             </div>
+                            <button type="button" class="btn btn-danger btn-sm"
+                                    th:onclick="deleteById([[${cart.cartId}]])">장바구니에서 삭제
+                            </button>
+                        </div>
                     </div>
+                </div>
             </div>
         </div>
-        </div>
         <div class="col-lg-4">
-        <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
-        <h2>총계 : </h2><span class="h2" id="amount"></span>
-        <button type="button" class="btn btn-success">수강권 구입</button>
-        </div>
+            <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+                <div class="h4">총계 : &#8361;<span th:text="*{totalPrice}" th:value="*{totalPrice}"></span></div>
+                <div class="h6">포인트 사용 :<input class="form-control" type="number" min="0" th:max="*{memberPoint}"
+                                               id="point_use_value" name="pointUse" onblur="point_use()" value="0">
+                    보유 포인트 : <span th:text="*{memberPoint}" th:value="*{memberPoint}"></span>point
+                </div>
+                <span class="h6" id="pointApply"></span>
+                <div class="h3"> 결제금액 : <span id="applyPrice"></span></div>
+                <input type="hidden" id="point_value" value="0">
+                <input type="hidden" id="totalPrice" th:value="*{totalPrice}">
+                <input type="hidden" id="applyValue">
+                <button type="button" class="btn btn-success" onclick="requestPay()" value="수강권 구매">수강권 구매</button>
+            </div>
         </div>
     </div>
 </div>
 <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
     function deleteById(cartId) {
         const reqUrl = "/cart/" + cartId;
@@ -76,21 +88,109 @@
             }, error: function () {
                 alert('요청실패')
             }
-        })
+        });
     }
 </script>
-
 <script>
-    $(document).ready(function () {
-        const str = "";
-        let sum = 0;
-        const count = $("#cartLength").rows.length;
-        for (let i = 0; i < count; i++) {
-                sum += parseInt($("#onClassPrice")[i].value);
+    const point_use = () => {
+        const maxPoint = '[[${memberPoint}]]'
+        const point = document.getElementById('point_use_value');
+        const intPoint = parseInt(point.value);
+        //초기 값
+        const startPrice = document.getElementById('totalPrice').value;
+
+        console.log(intPoint + "<" + maxPoint);
+        if (intPoint < maxPoint && intPoint <= startPrice) {
+            // 포인트가 적용된 값
+            const view = document.getElementById('pointApply');
+            const applyPrice = document.getElementById('applyPrice');
+            document.getElementById('point_value').value = intPoint;
+
+            let finalInt = startPrice - intPoint;
+            applyPrice.innerHTML = `${finalInt} 원`;
+            view.innerHTML = `${startPrice}원 - ${intPoint}point 사용`;
+            $('#applyValue').val(finalInt);
+
+        } else if (intPoint > maxPoint) {
+            alert(`보유 포인트(${maxPoint})를 초과하였습니다.`);
+        } else {
+            alert('결제 금액을 초과하였습니다.');
         }
-        $("#total_sum").html(sum + " point");
-        $("#amount").val(sum);
-        $("#amount").innerText =sum;
-    });
+    }
+</script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script th:inline="javascript">
+    //구매 값과 구매자의 이메일
+
+    const memberEmail = document.querySelector("#memberEmail").value;
+    const memberId = document.querySelector("#memberId").value;
+
+    // 장바구니의 모든 cartList
+    let cartList = [];
+    /*[# th:each="n : ${cartList}"]*/
+
+    cartList.push("[(${n})]");
+
+    /*[/]*/
+
+    // Array(4)
+    //   0: "CartDetailDTO(cartId=1, memberId=1, onClassId=1, onClassTitle=onClassTitle1, onClassPrice=20000, onClassFileName=기본.png)"
+    //   1: "CartDetailDTO(cartId=3, memberId=1, onClassId=2, onClassTitle=onClassTitle2, onClassPrice=20000, onClassFileName=기본.png)"
+    //   2: "CartDetailDTO(cartId=4, memberId=1, onClassId=10, onClassTitle=onClassTitle10, onClassPrice=20000, onClassFileName=기본.png)"
+    //   3: "CartDetailDTO(cartId=5, memberId=1, onClassId=14, onClassTitle=onClassTitle14, onClassPrice=20000, onClassFileName=기본.png)"
+    //   length: 4
+    //       [[Prototype]]: Array(0)
+    console.log(cartList);
+
+
+    const IMP = window.IMP;
+    IMP.init('imp45182196');
+
+    console.log(memberEmail);
+
+    function requestPay() {
+        const applyPrice = document.querySelector("#applyValue").value;
+        const intApplyPrice = parseInt(applyPrice);
+        // IMP.request_pay(param, callback) 결제창 호출
+        IMP.request_pay({ // param
+            pg: "kakao",
+            pay_method: "card",
+            merchant_uid: 'merchant_' + new Date().getTime(),
+            name: "수강권 구매",
+            amount: intApplyPrice,
+            buyer_email: memberEmail
+
+        }, function (rsp) { // callback
+            if (rsp.success) {
+                const msg = '결제가 완료되었습니다.';
+                alert(msg);
+
+                const reqUrl = "/onClass/payment";
+
+                $.ajax({
+                    type: 'post',
+                    url: reqUrl,
+                    data: {
+                        'cartList': cartList,
+                        'memberId': memberId
+                    },
+                    dataType: 'json',
+                    success: function () {
+                        console.log(data);
+                    },
+                    error: function () {
+                        alert('ajax 실패');
+                    }
+                });
+
+            } else {
+                const msg = '결제에 실패하였습니다.';
+                alert(msg);
+            }
+
+
+        });
+    };
 </script>
 </html>

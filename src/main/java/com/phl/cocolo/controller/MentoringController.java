@@ -10,7 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
+
+import static com.phl.cocolo.common.SessionConst.LOGIN_ID;
+import static com.phl.cocolo.common.SessionConst.LOGIN_NICKNAME;
 
 
 @Controller
@@ -40,8 +44,11 @@ public class MentoringController {
 
 
     @GetMapping("/mentorChat")
-    public String mentorChatForm() {
-
+    public String mentorChatForm(Model model, HttpSession session) {
+        Long memberId = (Long) session.getAttribute(LOGIN_ID);
+        Long memberNickName = (Long) session.getAttribute(LOGIN_NICKNAME);
+        model.addAttribute("memberId",memberId);
+        model.addAttribute("memberNickName",memberNickName);
         return "/mentoring/mentorChat";
     }
 

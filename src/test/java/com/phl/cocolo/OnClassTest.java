@@ -38,7 +38,7 @@ public class OnClassTest {
     @DisplayName("테스트강의소개30개 등록")
     public void testMemberSave(){
         IntStream.rangeClosed(1, 30).forEach(i->{
-            OnClassSaveDTO onClassSaveDTO = new OnClassSaveDTO("onClassTeacher"+i, "onClassTitle"+i, "onClassContents"+i, "onClassCate"+i, "onClassIntro"+i,20000,"기본.png");
+            OnClassSaveDTO onClassSaveDTO = new OnClassSaveDTO("onClassTeacher"+i, "onClassTitle"+i, "onClassContents"+i, "onClassCate", "onClassIntro"+i,20000,"기본.png");
             os.saveTest(onClassSaveDTO);
         });
     }
@@ -50,7 +50,7 @@ public class OnClassTest {
     public void onClassFindAllTest(){
         List<OnClassDetailDTO> onClassDetailDTOS = os.findAll();
 
-        assertThat(onClassDetailDTOS.size()).isEqualTo(28);
+        assertThat(onClassDetailDTOS.size()).isEqualTo(30);
     }
 
     @Test

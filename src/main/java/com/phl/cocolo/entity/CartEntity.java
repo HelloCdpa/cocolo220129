@@ -24,16 +24,13 @@ public class CartEntity {
     @JoinColumn(name = "onClass_id")
     private OnClassEntity onClassEntity;
 
-    @Column
-    private int cartCount;
 
-    public static CartEntity toCartSaveEntity(CartSaveDTO cartSaveDTO,MemberEntity memberEntity,
+    public static CartEntity toCartSaveEntity(MemberEntity memberEntity,
                                               OnClassEntity onClassEntity){
         CartEntity cartEntity = new CartEntity();
 
         cartEntity.setMemberEntity(memberEntity);
         cartEntity.setOnClassEntity(onClassEntity);
-        cartEntity.setCartCount(cartSaveDTO.getCartCount());
 
         return cartEntity;
 

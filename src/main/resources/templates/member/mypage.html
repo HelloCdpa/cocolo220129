@@ -68,7 +68,7 @@
                             <label for="memberInteresting">관심있는 분야</label>
                             <div class="input-group input-group-static mb-4">
                                 <select th:class="form-select" id="memberInteresting" th:field="*{memberInteresting}">
-                                    <option th:value="*{memberInteresting}" th:text="${memberInteresting}" selected></option>
+                                    <option th:value="*{memberInteresting}" th:text="*{memberInteresting}" selected></option>
                                     <option th:value="'앱개발'">앱개발</option>
                                     <option th:value="'웹개발'" th:text="웹개발"></option>
                                     <option th:value="'게임개발'" th:text="게임개발"></option>
@@ -81,7 +81,7 @@
                             <label for="memberLevel">개발자 레벨</label>
                             <div class="input-group input-group-static mb-4">
                                 <select th:class="form-select" id="memberLevel" th:field="*{memberLevel}">
-                                    <option th:value="*{memberLevel}" th:text="${memberLevel}" selected></option>
+                                    <option th:value="*{memberLevel}" th:text="*{memberLevel}" selected></option>
                                     <option th:value="'초보 개발자'" >초보 개발자</option>
                                     <option th:value="'중급 개발자'">중급 개발자</option>
                                     <option th:value="'고급 개발자'" >고급 개발자</option>

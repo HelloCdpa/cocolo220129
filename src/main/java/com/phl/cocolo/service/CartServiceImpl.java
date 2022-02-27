@@ -35,7 +35,7 @@ public class CartServiceImpl implements CartService{
     public Long save(CartSaveDTO cartSaveDTO) {
         MemberEntity memberEntity = mr.findById(cartSaveDTO.getMemberId()).get();
         OnClassEntity onClassEntity = or.findById(cartSaveDTO.getOnClassId()).get();
-        return cr.save(CartEntity.toCartSaveEntity(cartSaveDTO,memberEntity,onClassEntity)).getId();
+        return cr.save(CartEntity.toCartSaveEntity(memberEntity,onClassEntity)).getId();
     }
 
     @Override

@@ -1,5 +1,5 @@
 server:
-  port: 8092
+  port: 8095
 #DB접속 정보
 spring:
   main:

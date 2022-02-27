@@ -21,7 +21,8 @@ public class MemberDetailDTO {
     private String memberProfileName;
     private String memberInteresting;
     private String memberLevel;
-    
+    private int memberPoint;
+
     private LocalDateTime memberCreateTime;
     private LocalDateTime memberUpdateTime;
     
@@ -36,6 +37,7 @@ public class MemberDetailDTO {
         memberDetailDTO.setMemberEmail(memberEntity.getMemberEmail());
         memberDetailDTO.setMemberPassword(memberEntity.getMemberPassword());
         memberDetailDTO.setMemberProfileName(memberEntity.getMemberProfileName());
+        memberDetailDTO.setMemberPoint(memberEntity.getMemberPoint());
 
         return memberDetailDTO;
 

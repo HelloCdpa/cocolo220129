@@ -12,8 +12,6 @@ public class CartDetailDTO {
     private Long cartId;
     private Long memberId;
     private Long onClassId;
-    //장바구니 전체 총가격
-    private int cartCount;
 
     // 장바구니에서 보여줄 것 : 온클래스 제목/ 온클래스 사진/ 가격 / 장바구니 리스트의 가격
     private String onClassTitle;
@@ -28,8 +26,6 @@ public class CartDetailDTO {
 
         cartDetailDTO.setMemberId(cartEntity.getMemberEntity().getId());
         cartDetailDTO.setOnClassId(cartEntity.getOnClassEntity().getId());
-
-        cartDetailDTO.setCartCount(cartEntity.getCartCount());
 
         cartDetailDTO.setOnClassTitle(cartEntity.getOnClassEntity().getOnClassTitle());
         cartDetailDTO.setOnClassPrice(cartEntity.getOnClassEntity().getOnClassPrice());
