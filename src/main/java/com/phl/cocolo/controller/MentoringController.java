@@ -1,6 +1,7 @@
 package com.phl.cocolo.controller;
 
 import com.phl.cocolo.dto.*;
+import com.phl.cocolo.service.MemberService;
 import com.phl.cocolo.service.MentoringService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ import static com.phl.cocolo.common.SessionConst.LOGIN_NICKNAME;
 @RequiredArgsConstructor
 public class MentoringController {
     private final MentoringService mts;
+    private final MemberService ms;
 
     //게시글 저장
     @PostMapping("/save")
@@ -34,10 +36,19 @@ public class MentoringController {
     }
     // 상세조회
     @GetMapping("{mentoringId}")
-    public String findById(@PathVariable("mentoringId") Long mentoringId, Model model){
+    public String findById(@PathVariable("mentoringId") Long mentoringId, Model model,HttpSession session){
         MentoringDetailDTO mentoringDetailDTO = mts.findById(mentoringId);
 
         model.addAttribute("mentoring",mentoringDetailDTO);
+
+        int totalPrice = mentoringDetailDTO.getMentoringCount()*mentoringDetailDTO.getMentoringCount();
+
+        model.addAttribute("totalPrice",totalPrice);
+
+        Long memberId = (Long) session.getAttribute(LOGIN_ID);
+        MemberDetailDTO member = ms.findById(memberId);
+        int memberPoint = member.getMemberPoint();
+        model.addAttribute("memberPoint", memberPoint);
 
         return "/mentoring/findById";
     }

@@ -126,21 +126,8 @@
     const memberEmail = document.querySelector("#memberEmail").value;
     const memberId = document.querySelector("#memberId").value;
 
-    // 장바구니의 모든 cartList
-    let cartList = [];
-    /*[# th:each="n : ${cartList}"]*/
-
-    cartList.push("[(${n})]");
-
-    /*[/]*/
-
-    // Array(4)
-    //   0: "CartDetailDTO(cartId=1, memberId=1, onClassId=1, onClassTitle=onClassTitle1, onClassPrice=20000, onClassFileName=기본.png)"
-    //   1: "CartDetailDTO(cartId=3, memberId=1, onClassId=2, onClassTitle=onClassTitle2, onClassPrice=20000, onClassFileName=기본.png)"
-    //   2: "CartDetailDTO(cartId=4, memberId=1, onClassId=10, onClassTitle=onClassTitle10, onClassPrice=20000, onClassFileName=기본.png)"
-    //   3: "CartDetailDTO(cartId=5, memberId=1, onClassId=14, onClassTitle=onClassTitle14, onClassPrice=20000, onClassFileName=기본.png)"
-    //   length: 4
-    //       [[Prototype]]: Array(0)
+    // 장바구니의 모든 cartArrayList
+    const cartList = '[[${cartList}]]';
     console.log(cartList);
 
 
@@ -150,15 +137,20 @@
     console.log(memberEmail);
 
     function requestPay() {
-        const applyPrice = document.querySelector("#applyValue").value;
-        const intApplyPrice = parseInt(applyPrice);
+        //결제할 금액
+        const applyPrice = parseInt(document.querySelector("#applyValue").value);
+        //사용한 포인트
+        const pointPoint = parseInt(document.getElementById('point_use_value').value);
+
+
+
         // IMP.request_pay(param, callback) 결제창 호출
         IMP.request_pay({ // param
             pg: "kakao",
             pay_method: "card",
             merchant_uid: 'merchant_' + new Date().getTime(),
             name: "수강권 구매",
-            amount: intApplyPrice,
+            amount: applyPrice,
             buyer_email: memberEmail
 
         }, function (rsp) { // callback
@@ -172,10 +164,10 @@
                     type: 'post',
                     url: reqUrl,
                     data: {
-                        'cartList': cartList,
-                        'memberId': memberId
+                        "cartList" : cartList,
+                        'memberId': memberId,
+                        'pointPoint' : pointPoint
                     },
-                    dataType: 'json',
                     success: function () {
                         console.log(data);
                     },

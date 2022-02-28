@@ -1,5 +1,6 @@
 package com.phl.cocolo.service;
 
+import com.phl.cocolo.dto.CartDetailDTO;
 import com.phl.cocolo.dto.OnClassDetailDTO;
 import com.phl.cocolo.dto.OnClassSaveDTO;
 import com.phl.cocolo.dto.OnClassUpdateDTO;
@@ -19,4 +20,6 @@ public interface OnClassService {
     List<OnClassDetailDTO> findAll();
 
     void update(OnClassUpdateDTO onClassUpdateDTO);
+
+    void payment(List<CartDetailDTO> cartList,Long memberId);
 }

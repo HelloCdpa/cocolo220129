@@ -171,7 +171,7 @@ public class MemberController {
         ms.deleteById(memberId);
         return new ResponseEntity(HttpStatus.OK);
     }
-
+    //포인트 충전 화면 이동
     @GetMapping("/pointCharge/{memberId}")
     public String pointCharge(@PathVariable("memberId") Long memberId,Model model) {
         MemberDetailDTO memberDetailDTO = ms.findById(memberId);
@@ -180,6 +180,7 @@ public class MemberController {
         model.addAttribute("pointList", pointList);
         return "/member/pointCharge";
     }
+    //포인트 충전하기
     @PostMapping("/pointCharge")
     public String pointCharge(@ModelAttribute PointSaveDTO pointSaveDTO,Model model) {
         ms.pointCharge(pointSaveDTO);
@@ -188,6 +189,7 @@ public class MemberController {
 
         return "/member/pointView";
     }
+    //포인트 내역 조회
     @GetMapping("/pointView/{memberId}")
     public String pointView(@PathVariable("memberId") Long memberId,Model model) {
         List<PointDetailDTO> pointList = ms.pointFindAll(memberId);
@@ -195,4 +197,10 @@ public class MemberController {
         return "/member/pointView";
     }
 
+    @PostMapping("/pointPayment")
+    public ResponseEntity pointPayment(@RequestParam("memberId") Long memberId, @RequestParam("pointPoint") int pointPoint) {
+        PointSaveDTO pointSaveDTO = new PointSaveDTO(memberId,-pointPoint,"포인트 사용");
+        ms.pointPayment(pointSaveDTO);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

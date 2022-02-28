@@ -1,10 +1,19 @@
 package com.phl.cocolo.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.phl.cocolo.dto.*;
-import com.phl.cocolo.service.CartService;
+import com.phl.cocolo.service.MemberService;
 import com.phl.cocolo.service.OnClassService;
 import com.phl.cocolo.service.WishListService;
 import lombok.RequiredArgsConstructor;
+import org.json.simple.JSONArray;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,7 +23,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.phl.cocolo.common.SessionConst.LOGIN_ID;
 
@@ -24,6 +37,8 @@ import static com.phl.cocolo.common.SessionConst.LOGIN_ID;
 public class OnClassController {
     private final OnClassService os;
     private final WishListService ws;
+    private final MemberService ms;
+
 
     @GetMapping("/save")
     public String saveForm() {
@@ -81,28 +96,26 @@ public class OnClassController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @PostMapping("/payment")
-    public ResponseEntity payment(@RequestParam(value="cartList[]") List<CartDetailDTO> cartList) {
-        System.out.println("cartList = " + cartList);
-        //    CartDetailDTO 에서 쓸 것
-        //    Long memberId;
-        //    Long onClassId;
-
-        // 1. 포인트 사용 내역 넣기
-        // 100포인트로 4000원짜리 물건을 3900원에 구매 : 포인트 내역에는 [-100포인트 /수강권 구매 사용 /회원번호]
-
-        // 2. 회원에게 강의 권한 주기
-        // 회원의 온라인 클래스 : : my_class_table  여기에 onClassId 와 memberId를 반복문을 이용해 넣음
-        // member_id
-        // onClass_id
-
-        //0번에 있는 onClassID : cartList.get(0).getOnClassId();
+    public String payment() {
 
 
+        // 1. 사용한 포인트가 0보다 크다면, 포인트 사용 내역 넣기
+        // 100포인트로 4000원짜리 물건을 3900원에 구매 : 포인트 내역에는 [회원번호/-100포인트 /수강권 구매 사용 /]
+//        if(0<pointPoint) {
+//            PointSaveDTO pointSaveDTO = new PointSaveDTO(memberId, -pointPoint, "수강권 구매 사용");
+//            ms.pointPayment(pointSaveDTO);
+//        }
+
+        // 2. 회원에게 강의 권한 주기 // 3. 장바구니 비우기
 
 
-        return new ResponseEntity(HttpStatus.OK);
+//        os.payment(cartDetailDTOList,memberId);
+
+
+//        return "redirect:/onClass/"+memberId;
+        return null;
     }
 
 

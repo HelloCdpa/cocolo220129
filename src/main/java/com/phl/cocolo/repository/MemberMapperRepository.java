@@ -12,12 +12,6 @@ public interface MemberMapperRepository {
     void pointCharge(Map<String, Object> memberPointUpdate);
 
 
-
-
-
-
-
-
 //    //회원목록 출력
 //    List<MemberDetailDTO> memberList();
 //    //회원가입

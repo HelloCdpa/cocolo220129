@@ -37,5 +37,6 @@ public interface MemberService {
     List<PointDetailDTO> pointFindAll(Long memberId);
 
 
+    void pointPayment(PointSaveDTO pointSaveDTO);
 }
 

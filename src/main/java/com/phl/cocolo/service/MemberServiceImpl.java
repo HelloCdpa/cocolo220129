@@ -273,6 +273,20 @@ public class MemberServiceImpl implements MemberService{
 
     }
 
+    @Override
+    public void pointPayment(PointSaveDTO pointSaveDTO) {
+        //포인트 이력 정보 저장
+        MemberEntity memberEntity = mr.findById(pointSaveDTO.getMemberId()).get();
+        PointEntity pointEntity = PointEntity.toPointSaveEntity(pointSaveDTO,memberEntity);
+        pr.save(pointEntity);
+        System.out.println("포인트 사용");
+        //회원 포인트 업데이트
+        Map<String, Object> memberPointUpdate = new HashMap<>();
+        memberPointUpdate.put("member_id", pointSaveDTO.getMemberId());
+        memberPointUpdate.put("member_point", pointSaveDTO.getPointPoint());
+
+        mmr.pointCharge(memberPointUpdate);
+    }
 
 
 }

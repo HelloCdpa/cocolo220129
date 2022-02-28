@@ -1,9 +1,11 @@
 package com.phl.cocolo.service;
 
-import com.phl.cocolo.dto.OnClassDetailDTO;
-import com.phl.cocolo.dto.OnClassSaveDTO;
-import com.phl.cocolo.dto.OnClassUpdateDTO;
+import com.phl.cocolo.dto.*;
+import com.phl.cocolo.entity.MyClassEntity;
 import com.phl.cocolo.entity.OnClassEntity;
+import com.phl.cocolo.repository.CartRepository;
+import com.phl.cocolo.repository.MemberRepository;
+import com.phl.cocolo.repository.MyClassRepository;
 import com.phl.cocolo.repository.OnClassRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OnClassServiceImpl implements OnClassService{
     private final OnClassRepository or;
+    private final MemberRepository mr;
+    private final MyClassRepository mcr;
+    private final CartRepository cr;
 
     @Override
     public Long save(OnClassSaveDTO onClassSaveDTO) throws IllegalStateException, IOException {
@@ -70,5 +75,27 @@ public class OnClassServiceImpl implements OnClassService{
     @Override
     public void update(OnClassUpdateDTO onClassUpdateDTO) {
         or.save(OnClassEntity.toOnClassUpdateEntity(onClassUpdateDTO));
+    }
+
+    @Override
+    public void payment(List<CartDetailDTO> cartList,Long memberId) {
+        // 회원의 온라인 클래스 : : my_class_table 여기에 onClassId 와 memberId를 반복문을 이용해 넣음
+        // member_id
+        // onClass_id
+        //    CartDetailDTO 에서 쓸 것
+        //    Long memberId;
+        //    Long onClassId;
+
+        //0번에 있는 onClassID : cartList.get(0).getOnClassId();
+
+        for(int i=0; i<cartList.size(); i++){
+           // Entity 로 변환시켜서 DB에 저장시키기
+            mcr.save(MyClassEntity.toMyClassSaveEntity(mr.findById(cartList.get(i).getMemberId()).get(),
+                    or.findById(cartList.get(i).getOnClassId()).get()));
+        }
+
+        //장바구니 비우기
+        cr.deleteAllByMemberEntity_Id(memberId);
+
     }
 }
