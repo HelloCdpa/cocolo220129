@@ -1,12 +1,11 @@
 package com.phl.cocolo.service;
 
-import com.phl.cocolo.dto.MemberDetailDTO;
-import com.phl.cocolo.dto.MentoringDetailDTO;
-import com.phl.cocolo.dto.MentoringSaveDTO;
-import com.phl.cocolo.dto.MentoringUpdateDTO;
+import com.phl.cocolo.dto.*;
 import com.phl.cocolo.entity.MemberEntity;
+import com.phl.cocolo.entity.MenteeEntity;
 import com.phl.cocolo.entity.MentoringEntity;
 import com.phl.cocolo.repository.MemberRepository;
+import com.phl.cocolo.repository.MenteeRepository;
 import com.phl.cocolo.repository.MentoringRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +19,7 @@ import java.util.Optional;
 public class MentoringServiceImpl implements MentoringService{
     private final MentoringRepository mtr;
     private final MemberRepository mr;
+    private final MenteeRepository mer;
 
     @Override
     public Long save(MentoringSaveDTO mentoringSaveDTO) {
@@ -58,6 +58,26 @@ public class MentoringServiceImpl implements MentoringService{
         MentoringEntity mentoringEntity = MentoringEntity.toMentoringUpdateEntity(mentoringUpdateDTO,memberEntity);
 
         mtr.save(mentoringEntity);
+    }
+
+    @Override
+    public void saveMentee(MenteeSaveDTO menteeSaveDTO) {
+        MemberEntity memberEntity = mr.findById(menteeSaveDTO.getMemberId()).get();
+        MentoringEntity mentoringEntity = mtr.findById(menteeSaveDTO.getMentoringId()).get();
+        MenteeEntity menteeEntity = MenteeEntity.toMenteeSaveEntity(memberEntity,mentoringEntity);
+        mer.save(menteeEntity);
+    }
+
+    @Override
+    public List<MenteeDetailDTO> findAllByMemberId(Long memberId) {
+        List<MenteeEntity> menteeEntityList = mer.findAllByMemberEntity_Id(memberId);
+        List<MenteeDetailDTO> menteeDetailList = new ArrayList<>();
+
+        for (MenteeEntity m : menteeEntityList){
+            menteeDetailList.add(MenteeDetailDTO.toMenteeDetailDTO(m));
+        }
+
+        return menteeDetailList;
     }
 
 

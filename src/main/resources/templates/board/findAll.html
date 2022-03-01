@@ -3,7 +3,7 @@
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
 <link rel="shortcut icon" href="#">
 <style>
-    #background{
+    #background {
         background-image: url("https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80'");
     }
 </style>
@@ -12,57 +12,58 @@
 <th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
 <body>
 <div id="wrapper">
-<header class="bg-gradient-dark">
-<th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
-    <th:block th:replace="/board/save :: saveModalFragment"></th:block>
+    <header class="bg-gradient-dark">
+        <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
+        <th:block th:replace="/board/save :: saveModalFragment"></th:block>
 
-    <div class="page-header min-vh-75" id="background" >
-        <span class="mask bg-gradient-dark opacity-6"></span>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center mx-auto my-auto">
-                    <h1 class="text-white">Community</h1>
-                    <p class="lead mb-4 text-white opacity-8">함께하는 개발생활</p>
-                    <span th:if="${not #strings.isEmpty(session['loginEmail'])}">
+        <div class="page-header min-vh-75" id="background">
+            <span class="mask bg-gradient-dark opacity-6"></span>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center mx-auto my-auto">
+                        <h1 class="text-white">Community</h1>
+                        <p class="lead mb-4 text-white opacity-8">함께하는 개발생활</p>
+                        <span th:if="${not #strings.isEmpty(session['loginEmail'])}">
                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#saveModal">게시글 작성하기</button>
                     </span>
-                    <div class="d-flex justify-content-center">
-                        <!--카테고리 별로 보기-->
-                    <span th:each="category: ${categoryList}">
+                        <div class="d-flex justify-content-center">
+                            <!--카테고리 별로 보기-->
+                            <span th:each="category: ${categoryList}">
                      <a class="btn bg-gradient-primary w-auto me-2" th:href="@{|/board/cateBoard/${category.cateId}|}"
-                    th:text="${category.cateName}"></a>
+                        th:text="${category.cateName}"></a>
                     </span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
     <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n3">
-<!--검색기능-->
-<form class="row g-3 container text-center" action="/board/search" method="get">
-    <div class="col-auto">
-        <select class="form-select" style="width:100px;height:40px; display:inline;" name="type">
-            <option value="boardTitle" th:selected="(${type}=='boardTitle')">제목</option>
-            <option value="boardWriter" th:selected="(${type}=='boardWriter')">작성자</option>
-        </select>
-    </div>
-    <div class="col-auto">
-        <div class="input-group input-group-dynamic mb-4">
-            <span class="input-group-text"><i class="fas fa-search" aria-hidden="true"></i></span>
-            <input class="form-control" name="keyword" th:value="${keyword}" placeholder="Search" type="text" >
-        </div>
-    </div>
-    <div class="col-auto">
-        <input class="btn btn-outline-primary" type="submit" value="검색">
-    </div>
-</form>
-<!--관리자 카테고리 저장-->
-<span th:if="${#strings.equals(session['loginEmail'],'phl1021@naver.com')}">
+        <!--검색기능-->
+        <form class="row g-3 container text-center" action="/board/search" method="get">
+            <div class="col-auto">
+                <select class="form-select" style="width:100px;height:40px; display:inline;" name="type">
+                    <option value="boardTitle" th:selected="(${type}=='boardTitle')">제목</option>
+                    <option value="boardWriter" th:selected="(${type}=='boardWriter')">작성자</option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <div class="input-group input-group-dynamic mb-4">
+                    <span class="input-group-text"><i class="fas fa-search" aria-hidden="true"></i></span>
+                    <input class="form-control" name="keyword" th:value="${keyword}" placeholder="Search" type="text">
+                </div>
+            </div>
+            <div class="col-auto">
+                <input class="btn btn-outline-primary" type="submit" value="검색">
+            </div>
+        </form>
+        <!--관리자 카테고리 저장-->
+        <span th:if="${#strings.equals(session['loginEmail'],'phl1021@naver.com')}">
 	<form action="/board/cateSave" method="get" class="row g-3">
 	<div class="col-auto">
-	<input type="text" name="cateName" class="input-group input-group-dynamic" style="width:300px;" placeholder="추가할 카테고리 입력">
+	<input type="text" name="cateName" class="input-group input-group-dynamic" style="width:300px;"
+           placeholder="추가할 카테고리 입력">
 	</div>
 	<div class="col-auto">
 	<input type="submit" class="btn btn-outline-danger" value="카테고리 추가">
@@ -71,69 +72,72 @@
 </span>
 
 
-<div class="container-fluid">
-<!--페이징 처리 된 게시판-->
-<table class="table table-hover">
-    <tbody>
-    <tr th:each="board: ${boardList}">
-        <td th:text="${board.boardId}"></td>
-        <td><a th:href="@{|/board/${board.boardId}|}" th:text="${board.boardTitle}"></a></td>
-        <td th:text="${board.boardWriter}"></td>
-        <td th:text="${board.boardHits}"></td>
-        <td><input class="btn btn-danger" type="button" th:if="(${#strings.equals(session['loginEmail'],'admin')})
+        <div class="container-fluid">
+            <!--페이징 처리 된 게시판-->
+            <table class="table table-hover">
+                <tbody>
+                <tr th:each="boardList: ${boardList}">
+                    <td th:text="${boardList.boardId}"></td>
+                    <td><a th:href="@{|/board/${boardList.boardId}|}" th:text="${boardList.boardTitle}"></a></td>
+                    <td th:text="${boardList.boardWriter}"></td>
+                    <td th:text="${boardList.boardHits}"></td>
+                    <td>
+                        <span th:text="*{#temporals.format(boardList.CreateBoardDate, 'yyyy/MM/dd HH:mm')}"></span>
+                    </td>
+                    <td><input class="btn btn-danger" type="button" th:if="(${#strings.equals(session['loginEmail'],'admin')})
         or (${session.loginEmail}==${board.boardWriter})"
-                   th:onclick="deleteById([[${board.boardId}]])"
-                   value="삭제"></td>
+                               th:onclick="deleteById([[${board.boardId}]])"
+                               value="삭제"></td>
 
-        <td><a class="btn btn-info" type="button" th:if="(${session.loginNick}==${board.boardWriter})"
-               th:href="@{|/board/update/${board.boardId}|}">글수정</a></td>
+                    <td><a class="btn btn-info" type="button" th:if="(${session.loginNick}==${boardList.boardWriter})"
+                           th:href="@{|/board/update/${boardList.boardId}|}">글수정</a></td>
 
-    </tr>
-    </tbody>
-</table>
+                </tr>
+                </tbody>
+            </table>
 
-<div class="container">
-    <ul class="pagination">
-        <li class="page-item">
-            <!--첫 페이지로 가는 링크-->
-            <a class="page-link" th:href="@{/board/search(page=1,type=${type},keyword=${keyword})}">
-                <span>First</span>
-            </a>
-        </li>
+            <div class="container">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <!--첫 페이지로 가는 링크-->
+                        <a class="page-link" th:href="@{/board/search(page=1,type=${type},keyword=${keyword})}">
+                            <span>First</span>
+                        </a>
+                    </li>
 
-        <li th:class="${boardList.first} ?  'page-item disabled'">
-            <a class="page-link"
-               th:href="${boardList.first} ? '#' : @{/board/search(page=${boardList.number},type=${type},keyword=${keyword})}">
-                <span>&lt;</span>
-            </a>
-        </li>
+                    <li th:class="${boardList.first} ?  'page-item disabled'">
+                        <a class="page-link"
+                           th:href="${boardList.first} ? '#' : @{/board/search(page=${boardList.number},type=${type},keyword=${keyword})}">
+                            <span>&lt;</span>
+                        </a>
+                    </li>
 
-        <!--startPage ~ endPage 까지 숫자를 만들어주는 역할-->
-        <li th:each="page: ${#numbers.sequence(startPage, endPage)}"
-            th:class="${page == boardList.number + 1} ? 'page-item active'">
-            <a class="page-link" th:text="${page}"
-               th:href="@{/board/search(page=${page},type=${type},keyword=${keyword})}"></a>
-        </li>
+                    <!--startPage ~ endPage 까지 숫자를 만들어주는 역할-->
+                    <li th:each="page: ${#numbers.sequence(startPage, endPage)}"
+                        th:class="${page == boardList.number + 1} ? 'page-item active'">
+                        <a class="page-link" th:text="${page}"
+                           th:href="@{/board/search(page=${page},type=${type},keyword=${keyword})}"></a>
+                    </li>
 
 
-        <li th:class="${boardList.last} ? 'disabled'">
-            <a class="page-link"
-               th:href="${boardList.last} ? '#' : @{/board/search(page=${boardList.number + 2},type=${type},keyword=${keyword})}">
-                <span>&gt;</span> <!--삼항연산자 사용-->
-            </a>
-        </li>
+                    <li th:class="${boardList.last} ? 'disabled'">
+                        <a class="page-link"
+                           th:href="${boardList.last} ? '#' : @{/board/search(page=${boardList.number + 2},type=${type},keyword=${keyword})}">
+                            <span>&gt;</span> <!--삼항연산자 사용-->
+                        </a>
+                    </li>
 
-        <li class="page-item">
-            <a class="page-link"
-               th:href="@{/board/search(page=${boardList.totalPages},type=${type},keyword=${keyword})}">
-                <span>Last</span>
-            </a>
-        </li>
-    </ul>
-</div>
-</div>
-<th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
-</div>
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:href="@{/board/search(page=${boardList.totalPages},type=${type},keyword=${keyword})}">
+                            <span>Last</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
+    </div>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>

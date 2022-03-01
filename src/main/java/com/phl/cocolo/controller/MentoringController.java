@@ -41,11 +41,12 @@ public class MentoringController {
 
         model.addAttribute("mentoring",mentoringDetailDTO);
 
-        int totalPrice = mentoringDetailDTO.getMentoringCount()*mentoringDetailDTO.getMentoringCount();
+        int totalPrice = (mentoringDetailDTO.getMentoringPrice())*(mentoringDetailDTO.getMentoringCount());
 
         model.addAttribute("totalPrice",totalPrice);
 
         Long memberId = (Long) session.getAttribute(LOGIN_ID);
+
         MemberDetailDTO member = ms.findById(memberId);
         int memberPoint = member.getMemberPoint();
         model.addAttribute("memberPoint", memberPoint);
@@ -86,7 +87,7 @@ public class MentoringController {
         return "/mentoring/update";
     }
     // 수정 하기
-    @PutMapping("{mentoringId}")
+    @PutMapping("/{mentoringId}")
     public ResponseEntity update(@ModelAttribute MentoringUpdateDTO mentoringUpdateDTO) {
         mts.update(mentoringUpdateDTO);
 
@@ -95,9 +96,19 @@ public class MentoringController {
 
 
 
+    @PostMapping("/payment")
+    public ResponseEntity payment(@ModelAttribute MenteeSaveDTO menteeSaveDTO){
+        mts.saveMentee(menteeSaveDTO);
+        return new ResponseEntity(HttpStatus.OK);
 
+    }
 
-
+    @GetMapping("/myMentoring/{memberId}")
+    public String myMentoring( @PathVariable ("memberId") Long memberId, Model model){
+        List<MenteeDetailDTO> menteeList = mts.findAllByMemberId(memberId);
+        model.addAttribute("menteeList",menteeList);
+        return "/mentoring/myMentoring";
+    }
 
 
 

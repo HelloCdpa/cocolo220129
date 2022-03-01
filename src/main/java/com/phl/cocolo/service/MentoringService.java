@@ -1,8 +1,6 @@
 package com.phl.cocolo.service;
 
-import com.phl.cocolo.dto.MentoringDetailDTO;
-import com.phl.cocolo.dto.MentoringSaveDTO;
-import com.phl.cocolo.dto.MentoringUpdateDTO;
+import com.phl.cocolo.dto.*;
 
 import java.util.List;
 
@@ -16,4 +14,8 @@ public interface MentoringService {
     List<MentoringDetailDTO> findAll();
 
     void update(MentoringUpdateDTO mentoringUpdateDTO);
+
+    void saveMentee(MenteeSaveDTO menteeSaveDTO);
+
+    List<MenteeDetailDTO> findAllByMemberId(Long memberId);
 }

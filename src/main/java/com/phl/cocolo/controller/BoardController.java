@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.List;
 
 import static com.phl.cocolo.common.SessionConst.LOGIN_ID;
@@ -72,6 +75,12 @@ public class BoardController {
         int endPage = ((startPage + PagingConst.BLOCK_LIMIT-1)< boardList.getTotalPages())?startPage + PagingConst.BLOCK_LIMIT -1 : boardList.getTotalPages();
         List<CategoryDetailDTO> categoryList = bs.cateFindAll();
 
+        // 새로운 게시글에 1일동안 로고를 붙임
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, -1); //1일간 보이도록 하기위해서. 현재 월의 날짜
+        String nowDay = format.format(cal.getTime());
+
         model.addAttribute("boardList",boardList);
         model.addAttribute("startPage",startPage);
         model.addAttribute("endPage",endPage);
@@ -80,6 +89,10 @@ public class BoardController {
 
 //        모달 게시글 저장할 때
         model.addAttribute("board",new BoardSaveDTO());
+
+
+
+        model.addAttribute("nowDay",nowDay);
 
         return "/board/findAll";
 
@@ -100,9 +113,16 @@ public class BoardController {
                                 @PageableDefault(page = 1)Pageable pageable) {
         Page<BoardPagingDTO> boardList =  bs.findCate(cateId, pageable);
 
+        // 새로운 게시글에 1일동안 로고를 붙임
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, -1); //1일간 보이도록 하기위해서. 현재 월의 날짜
+        String nowDay = format.format(cal.getTime());
+
 
         int startPage = (((int) (Math.ceil((double) pageable.getPageNumber() / PagingConst.BLOCK_LIMIT))) - 1) * PagingConst.BLOCK_LIMIT + 1;
         int endPage = ((startPage + PagingConst.BLOCK_LIMIT-1)< boardList.getTotalPages())?startPage + PagingConst.BLOCK_LIMIT -1 : boardList.getTotalPages();
+
         List<CategoryDetailDTO> categoryList = bs.cateFindAll();
 
         model.addAttribute("boardList",boardList);
@@ -110,6 +130,10 @@ public class BoardController {
         model.addAttribute("endPage",endPage);
 
         model.addAttribute("categoryList",categoryList);
+        //        모달 게시글 저장할 때
+        model.addAttribute("board",new BoardSaveDTO());
+
+        model.addAttribute("nowDay",nowDay);
 
         return "/board/findAll";
     }
@@ -124,6 +148,12 @@ public class BoardController {
         int endPage = ((startPage + PagingConst.BLOCK_LIMIT-1)< boardList.getTotalPages())?startPage + PagingConst.BLOCK_LIMIT -1 : boardList.getTotalPages();
         List<CategoryDetailDTO> categoryList = bs.cateFindAll();
 
+        // 새로운 게시글에 1일동안 로고를 붙임
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, -1); //1일간 보이도록 하기위해서. 현재 월의 날짜
+        String nowDay = format.format(cal.getTime());
+
         model.addAttribute("boardList", boardList);
         model.addAttribute("startPage",startPage);
         model.addAttribute("endPage",endPage);
@@ -131,6 +161,11 @@ public class BoardController {
         model.addAttribute("keyword",keyword);
 
         model.addAttribute("categoryList",categoryList);
+
+        //        모달 게시글 저장할 때
+        model.addAttribute("board",new BoardSaveDTO());
+
+        model.addAttribute("nowDay",nowDay);
         return "/board/findAll";
     }
 

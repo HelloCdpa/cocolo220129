@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -85,7 +86,8 @@ public class BoardServiceImpl implements BoardService {
                         board.getBoardWriter(),
                         board.getBoardTitle(),
                         board.getBoardHits(),
-                        board.getLikeCount())
+                        board.getLikeCount(),
+                        board.getCreatTime())
         );
 
         return boardList;
@@ -163,7 +165,8 @@ public class BoardServiceImpl implements BoardService {
                         board.getBoardWriter(),
                         board.getBoardTitle(),
                         board.getBoardHits(),
-                        board.getLikeCount())
+                        board.getLikeCount(),
+                        board.getCreatTime())
         );
 
         return boardList;
@@ -217,7 +220,8 @@ public class BoardServiceImpl implements BoardService {
                         board.getBoardWriter(),
                         board.getBoardTitle(),
                         board.getBoardHits(),
-                        board.getLikeCount())
+                        board.getLikeCount(),
+                        board.getCreatTime())
         );
 
         return boardList;

@@ -12,21 +12,24 @@ import javax.persistence.*;
 @Setter
 @Table(name = "mentee_table")
 public class MenteeEntity extends BaseEntity{
+    //멘티 번호
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mentee_id")
     private Long id;
 
+    //멘티 회원 번호
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
 
+    //멘토링 글번호
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mentoring_id")
     private MentoringEntity mentoringEntity;
 
-
-    @Column(columnDefinition = "integer default 0")
+    //멘토링 남은 횟수
+    @Column
     private int menteeCount;
 
 
@@ -36,6 +39,7 @@ public class MenteeEntity extends BaseEntity{
 
         menteeEntity.setMemberEntity(memberEntity);
         menteeEntity.setMentoringEntity(mentoringEntity);
+        menteeEntity.setMenteeCount(mentoringEntity.getMentoringCount());
 
         return menteeEntity;
     }

@@ -55,4 +55,13 @@ public class StudyServiceImpl implements StudyService{
     public void update(StudyUpdateDTO studyUpdateDTO) {
         sr.save(StudyEntity.toStudyUpdateEntity(studyUpdateDTO,mr.findById(studyUpdateDTO.getMemberId()).get()));
     }
+
+
+
+
+
+
+
+
+
 }

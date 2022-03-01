@@ -16,7 +16,7 @@
                     <div class="col-12 mx-auto">
                         <div class="mt-n8 mt-md-n9 text-center">
                             <img class="avatar avatar-xxl shadow-xl position-relative z-index-2"
-                                 th:src= "@{/member_upload/}+${mentoring.memberProfileName}" alt="bruce" loading="lazy">
+                                 th:src="@{/member_upload/}+${mentoring.memberProfileName}" alt="bruce" loading="lazy">
                         </div>
                         <div class="row py-5">
                             <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mx-auto">
@@ -31,31 +31,48 @@
                                         <span class="h6" th:text="${mentoring.mentoringCate}"></span>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
+                                <div>
+                                    <div class="col-md-12 card">
                                         경력/특기 : <span th:text="${mentoring.mentoringCareer}"></span>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <p class="text-lg mb-0" th:text="${mentoring.mentoringContents}"></p>
-                                    <div class="col-md-3">
-                                        가격 : <span th:text="${mentoring.mentoringCount}" th:value="${mentoring.mentoringCount}" id="mentoringCount"></span><span>회 멘토링</span>
-                                    </div>
-                                    <form action="/member/pointPayment" method="post" name="pointPayment">
-                                    <div class="col-md-3">
-                                        <span th:text="${mentoring.mentoringPrice}"></span><span>point</span>
-                                        <input type="hidden" id="mentoringId" th:value="${mentoring.mentoringId}">
-                                        <input type="hidden" name="memberId" id="loginId" th:value="${session.loginId}">
-                                        <input type="hidden" name="pointPoint" th:value="${memberPoint}">
-                                    </div>
-                                    <div class="col-md-3">
-                                        총액 : <span th:text="${totalPrice}" th:value="${totalPrice}" id="totalPrice" name="pointPoint"></span><br>
-                                        결제 가능 포인트 :  <span type="number" id="memberPoint" th:value="${memberPoint}"></span>
-                                        <button type="button" class="btn btn-danger" onclick="mentoringPayment()">멘토링 신청하기</button>
-                                    </div>
-                                    </form>
-                                </div>
+                                <form action="/member/pointPayment" method="post" name="pointPayment">
+                                    <div>
+                                        <p class="text-lg mb-0" th:text="${mentoring.mentoringContents}"></p>
 
+                                            <span th:text="${mentoring.mentoringCount}"></span>회 당
+                                            <span th:text="${mentoring.mentoringPrice}"></span>point
+
+                                            <input type="hidden" id="mentoringId" th:value="${mentoring.mentoringId}">
+                                            <input type="hidden" id="mentoringCount" th:value="${mentoring.mentoringCount}">
+                                            <input type="hidden" name="memberId" id="loginId"
+                                                   th:value="${session.loginId}">
+                                            <input type="hidden" th:value="${memberPoint}">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                총액 : <span type="text" th:text="${totalPrice}"></span>
+                                                <input type="hidden" id="totalPrice" th:value="${totalPrice}" name="pointPoint">
+                                            </div>
+                                            <div class="col-auto">
+                                                point
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                사용 가능 포인트 :<span id="memberPoint"
+                                                                 th:text="${memberPoint}" ></span>
+                                            </div>
+                                            <div class="col-auto">
+                                                point
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-danger" onclick="mentoringPayment()">멘토링
+                                            신청하기
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -71,35 +88,35 @@
 </div>
 </body>
 <script>
-    function mentoringPayment(){
+    function mentoringPayment() {
         const memberId = $('#loginId').val();
         const mentoringId = $('#mentoringId').val();
-        const menteeCount = $('#mentoringCount').val();
-        const memberPoint = $('#memberPoint').val();
-        const totalPrice = $('#totalPrice').val();
+        const menteeCount = parseInt($('#mentoringCount').val());
+        const memberPoint = parseInt($('#memberPoint').text());
+        const totalPrice = parseInt($('#totalPrice').val());
 
-        if(memberPoint<totalPrice){
+        if (memberPoint < totalPrice) {
             alert('포인트가 부족합니다.');
-        }else{
-        const reqUrl = "/mentoring/Payment";
-        $.ajax({
-            url : reqUrl,
-            type : 'post',
-            data : {
-                "memberId" :memberId,
-                "mentoringId" :mentoringId,
-                "menteeCount" :menteeCount
+        } else {
+            pointPayment.submit();
 
-            },
-            success : function (){
-
-                pointPayment.submit();
-                alert('신청 완료 되었습니다.')
-            }, error : function (){
-                alert('요청실패')
-            }
-        })
-    }
+            const reqUrl = "/mentoring/payment";
+            $.ajax({
+                url: reqUrl,
+                type: 'post',
+                data: {
+                    "memberId": memberId,
+                    "mentoringId": mentoringId,
+                    "menteeCount": menteeCount
+                },
+                success: function () {
+                    alert('신청 완료 되었습니다.')
+                    location.href = "/mentoring/myMentoring/" + memberId
+                }, error: function () {
+                    alert('요청실패')
+                }
+            })
+        }
     }
 </script>
 </html>
