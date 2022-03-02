@@ -33,7 +33,7 @@ public class BoardEntity extends BaseEntity{
     @Column
     private String boardTitle;
 
-    @Column
+    @Column(length=1000)
     private String boardContents;
 
     @Column(columnDefinition = "integer default 0")

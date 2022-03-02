@@ -1,8 +1,6 @@
 package com.phl.cocolo.service;
 
-import com.phl.cocolo.dto.StudyDetailDTO;
-import com.phl.cocolo.dto.StudySaveDTO;
-import com.phl.cocolo.dto.StudyUpdateDTO;
+import com.phl.cocolo.dto.*;
 
 import java.util.List;
 
@@ -16,4 +14,7 @@ public interface StudyService {
     List<StudyDetailDTO> findAll();
 
     void update(StudyUpdateDTO studyUpdateDTO);
+
+
+
 }

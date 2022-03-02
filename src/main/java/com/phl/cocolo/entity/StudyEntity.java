@@ -24,7 +24,7 @@ public class StudyEntity extends BaseEntity{
     @Column
     private String studyTitle;
 
-    @Column
+    @Column(length=1000)
     private String studyContents;
 
     @Column

@@ -29,7 +29,7 @@ public class MentoringEntity {
     @Column
     private String mentoringTitle;
 
-    @Column
+    @Column(length=1000)
     private String mentoringContents;
 
     @Column

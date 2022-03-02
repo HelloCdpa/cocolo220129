@@ -1,6 +1,5 @@
 package com.phl.cocolo.entity;
 
-import com.phl.cocolo.dto.StudyApplySaveDTO;
 import com.phl.cocolo.dto.StudyUpdateDTO;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "study_apply_table")
-public class StudyApplyEntity {
+public class StudyApplyEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "apply_id")
@@ -28,7 +27,7 @@ public class StudyApplyEntity {
     @Column(columnDefinition = "boolean default false")
     private boolean applyState;
 
-    public static StudyApplyEntity toStudyApplySaveEntity(StudyApplySaveDTO studyApplySaveDTO, MemberEntity memberEntity,
+    public static StudyApplyEntity toStudyApplySaveEntity(MemberEntity memberEntity,
                                                           StudyEntity studyEntity){
         StudyApplyEntity studyApplyEntity = new StudyApplyEntity();
 

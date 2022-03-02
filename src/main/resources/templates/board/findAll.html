@@ -82,7 +82,7 @@
                     <td th:text="${boardList.boardWriter}"></td>
                     <td th:text="${boardList.boardHits}"></td>
                     <td>
-                        <span th:text="*{#temporals.format(boardList.CreateBoardDate, 'yyyy/MM/dd HH:mm')}"></span>
+                        <span th:text="*{#temporals.format(boardList.createBoardDate, 'yyyy/MM/dd HH:mm')}"></span>
                     </td>
                     <td><input class="btn btn-danger" type="button" th:if="(${#strings.equals(session['loginEmail'],'admin')})
         or (${session.loginEmail}==${board.boardWriter})"

@@ -19,17 +19,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudyController {
     private final StudyService ss;
-    private final BoardService bs;
     @GetMapping("/save")
-    public String saveForm(Model model) {
-        model.addAttribute("board",new BoardSaveDTO());
-        List<CategoryDetailDTO> categoryList = bs.cateFindAll();
-        model.addAttribute("categoryList",categoryList);
+    public String saveForm() {
         return "/study/save";
     }
     //게시글 저장
     @PostMapping("/save")
-    public String save(@Validated @ModelAttribute StudySaveDTO studySaveDTO){
+    public String save(@ModelAttribute StudySaveDTO studySaveDTO){
 
         ss.save(studySaveDTO);
 
@@ -68,11 +64,12 @@ public class StudyController {
         return "/study/update";
     }
     // 수정 하기
-    @PutMapping("{studyId}")
+    @PutMapping("/{studyId}")
     public ResponseEntity update(@ModelAttribute StudyUpdateDTO studyUpdateDTO) {
         ss.update(studyUpdateDTO);
 
         return new ResponseEntity(HttpStatus.OK);
     }
+
 
 }

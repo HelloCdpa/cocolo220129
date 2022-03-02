@@ -46,6 +46,8 @@ public class MemberEntity{
     @Column
     private String memberLevel;
 
+
+
     @OneToMany(mappedBy = "memberEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CommentEntity> commentEntityList = new ArrayList<>();
     @OneToMany(mappedBy = "memberEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

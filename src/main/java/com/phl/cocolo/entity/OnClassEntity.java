@@ -25,7 +25,7 @@ public class OnClassEntity extends BaseEntity {
     @Column
     private String onClassTitle;
 
-    @Column
+    @Column(length=1000)
     private String onClassContents;
 
     @Column

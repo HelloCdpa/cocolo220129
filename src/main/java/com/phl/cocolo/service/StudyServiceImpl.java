@@ -1,16 +1,15 @@
 package com.phl.cocolo.service;
 
-import com.phl.cocolo.dto.StudyDetailDTO;
-import com.phl.cocolo.dto.StudySaveDTO;
-import com.phl.cocolo.dto.StudyUpdateDTO;
-import com.phl.cocolo.entity.MemberEntity;
-import com.phl.cocolo.entity.StudyEntity;
+import com.phl.cocolo.dto.*;
+import com.phl.cocolo.entity.*;
 import com.phl.cocolo.repository.MemberRepository;
+import com.phl.cocolo.repository.StudyApplyRepository;
 import com.phl.cocolo.repository.StudyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +18,8 @@ import java.util.Optional;
 public class StudyServiceImpl implements StudyService{
     private final StudyRepository sr;
     private final MemberRepository mr;
+
+
 
     @Override
     public void save(StudySaveDTO studySaveDTO) {
@@ -55,12 +56,6 @@ public class StudyServiceImpl implements StudyService{
     public void update(StudyUpdateDTO studyUpdateDTO) {
         sr.save(StudyEntity.toStudyUpdateEntity(studyUpdateDTO,mr.findById(studyUpdateDTO.getMemberId()).get()));
     }
-
-
-
-
-
-
 
 
 

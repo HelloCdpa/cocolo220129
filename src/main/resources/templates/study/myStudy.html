@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<link rel="shortcut icon" href="#">
+<style>
+    #background {
+        background-image: url("https://cdn.pixabay.com/photo/2017/07/31/11/21/people-2557396_1280.jpg");
+    }
+</style>
+
+<th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
+<body>
+<div id="wrapper">
+    <header class="bg-gradient-dark">
+        <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
+
+        <th:block th:replace="/study/save :: studySaveFragment"></th:block>
+
+        <div class="page-header min-vh-70" id="background">
+            <span class="mask bg-gradient-dark opacity-6"></span>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center mx-auto my-auto">
+                        <h1 class="text-white">study</h1>
+                        <p class="lead mb-4 text-white opacity-8">함께하는 개발생활</p>
+                        <span th:if="${not #strings.isEmpty(session['loginEmail'])}">
+                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                             data-bs-target="#studySaveModal">게시글 작성하기</button>
+                    </span>
+                        <div class="d-flex justify-content-center">
+                         <span>
+                             <a class="btn bg-gradient-primary w-auto me-2" href="/study/cateStudy/1">취업/면접</a>
+                            </span>
+                            <span>
+                             <a class="btn bg-gradient-primary w-auto me-2" href="/study/cateStudy/2">학습노하우</a>
+                            </span>
+                            <span>
+                             <a class="btn bg-gradient-primary w-auto me-2" href="/study/cateStudy/3">피드백</a>
+                            </span>
+                            <span>
+                             <a class="btn bg-gradient-primary w-auto me-2" href="/study/cateStudy/4">기타</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+            <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+                <h2>스터디 모집 현황</h2>
+                <table class="table table-hover table-sm">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">스터디 제목</th>
+                        <th scope="col">모집 인원</th>
+                        <th scope="col">스터디 신청 요청 날짜</th>
+                        <th scope="col">신청 승인 현황</th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="writer,writerStat:${writerApplyList}">
+                    <tr>
+                        <th scope="row" th:text="${writerStat.count}"></th>
+                        <td th:text="${writer.studyTitle}"></td>
+                        <td th:text="${writer.studyCount+'/'+writer.studyMax}"></td>
+                        <td th:text="*{#temporals.format(writer.creatTime, 'yyyy/MM/dd HH:mm')}"></td>
+                        <td th:text="${writer.applyState} ? '승인' : '미승인'"></td>
+
+                        <td><button type="button" class="btn bg-gradient-info btn-sm me-2"
+                                    th:onclick="apply([[${writer.studyApplyId}]])">승인</button>
+                            <button type="button" class="btn btn-outline-danger btn-sm me-2"
+                                    th:onclick="deleteById([[${writer.studyApplyId}]])">거절</button></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+        </div>
+
+
+        <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+            <h2>스터디 신청 현황</h2>
+            <table class="table table-hover table-sm">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">스터디 제목</th>
+                    <th scope="col">모집 인원</th>
+                    <th scope="col">스터디 신청 요청 날짜</th>
+                    <th scope="col">신청 승인 현황</th>
+                </tr>
+                </thead>
+                <tbody th:each="apply,applyStat:${applyList}">
+                <tr>
+                    <th scope="row" th:text="${applyStat.count}"></th>
+                    <td th:text="${apply.studyTitle}"></td>
+                    <td th:text="${apply.studyCount+'/'+apply.studyMax}"></td>
+                    <td th:text="*{#temporals.format(apply.creatTime, 'yyyy/MM/dd HH:mm')}"></td>
+                    <td th:text="${apply.applyState} ? '승인' : '미승인'"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+</div>
+<th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
+</body>
+<script>
+    const apply = (studyApplyId) => {
+        const reqUrl = "/studyApply/" + studyApplyId;
+        $.ajax({
+            url: reqUrl,
+            type: 'put',
+            success: function () {
+                alert('승인되었습니다.');
+                location.reload();
+            }, error: function () {
+                alert('실패')
+            }
+        })
+    }
+
+    const deleteById = (studyApplyId) => {
+        const reqUrl = "/studyApply/" + studyApplyId;
+        $.ajax({
+            url: reqUrl,
+            type: 'delete',
+            success: function () {
+                alert('승인 거절 완료되었습니다.');
+                location.reload();
+            }, error: function () {
+                alert('실패')
+            }
+        })
+    }
+
+</script>
+
+
+
+</html>

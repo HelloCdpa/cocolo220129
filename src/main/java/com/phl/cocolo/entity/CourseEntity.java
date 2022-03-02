@@ -30,7 +30,7 @@ public class CourseEntity extends BaseEntity {
     @Column
     private String courseFileName;
 
-    @Column
+    @Column(length=1000)
     private String courseContents;
 
     public static CourseEntity toCategorySaveEntity(CourseSaveDTO courseSaveDTO, OnClassEntity onClassEntity){

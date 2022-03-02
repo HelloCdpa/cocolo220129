@@ -29,10 +29,23 @@
                     </span>
                         <div class="d-flex justify-content-center">
                             <!--카테고리 별로 보기-->
-                            <span th:each="mentoring:${mentoringList}">
-                             <a class="btn bg-gradient-primary w-auto me-2" th:href="@{|/mentoring/cateMentoring/${mentoring.mentoringCate}|}"
-                                th:text="${mentoring.mentoringCate}"></a>
+                            <span>
+                             <a class="btn bg-gradient-primary w-auto me-2" href="/mentoring/cateMentoring/1"
+                               text="취업/면접"></a>
                             </span>
+                            <span>
+                             <a class="btn bg-gradient-primary w-auto me-2" href="/mentoring/cateMentoring/2"
+                                text="학습노하우"></a>
+                            </span>
+                            <span>
+                             <a class="btn bg-gradient-primary w-auto me-2" href="/mentoring/cateMentoring/3"
+                                text="피드백"></a>
+                            </span>
+                            <span>
+                             <a class="btn bg-gradient-primary w-auto me-2" href="/mentoring/cateMentoring/4"
+                                text="기타"></a>
+                            </span>
+
                         </div>
                     </div>
                 </div>
