@@ -32,4 +32,5 @@ public interface BoardService {
     int findLike(Long boardId, Long memberId);
 
     int saveLike(Long boardId, Long memberId);
+
 }

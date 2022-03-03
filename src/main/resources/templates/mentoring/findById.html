@@ -97,6 +97,7 @@
 
         if (memberPoint < totalPrice) {
             alert('포인트가 부족합니다.');
+            location.href = '/member/pointCharge/'+memberId;
         } else {
             pointPayment.submit();
 

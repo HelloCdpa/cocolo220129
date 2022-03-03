@@ -11,6 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -45,7 +46,9 @@ public class BoardController {
         bs.save(boardSaveDTO);
         return "redirect:/board/";
     }
+
     // 상세조회
+    @Transactional
     @GetMapping("{boardId}")
     public String findById(@PathVariable("boardId") Long boardId, Model model, HttpSession session){
         BoardDetailDTO boardDetailDTO = bs.findById(boardId);
@@ -174,9 +177,6 @@ public class BoardController {
         model.addAttribute("nowDay",nowDay);
         return "/board/findAll";
     }
-
-
-
 
 
     // 수정 화면 이동

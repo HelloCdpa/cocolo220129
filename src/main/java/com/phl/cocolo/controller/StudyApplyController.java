@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Controller
 @RequestMapping("/studyApply")
@@ -32,14 +33,17 @@ public class StudyApplyController {
     //스터디 신청 현황 화면
     @GetMapping("/myStudy/{memberId}")
     public String MyStudyApplyPage(@PathVariable("memberId") Long memberId, Model model){
-        // 스터디 작성자
-        List<StudyApplyDetailDTO> writerApplyList= sas.findByStudyApplyId(memberId);
-        model.addAttribute("writerApplyList",writerApplyList);
+        try {
+            // 스터디 작성자
+            List<StudyApplyDetailDTO> writerApplyList = sas.findByStudyApplyId(memberId);
+            model.addAttribute("writerApplyList", writerApplyList);
 
-        //스터디 신청자
-        List<StudyApplyDetailDTO>  applyList = sas.myApplyList(memberId);
-        model.addAttribute("applyList",applyList);
+            //스터디 신청자
+            List<StudyApplyDetailDTO> applyList = sas.myApplyList(memberId);
+            model.addAttribute("applyList", applyList);
+        }catch (NoSuchElementException n){
 
+        }
 
 
         return "/study/myStudy";

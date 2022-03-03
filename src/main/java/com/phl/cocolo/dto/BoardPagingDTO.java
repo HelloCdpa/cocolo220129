@@ -11,11 +11,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class BoardPagingDTO {
     private Long boardId;
-    private String BoardWriter;
-    private String BoardTitle;
-    private int likeCount;
+    private String boardWriter;
+    private String boardTitle;
+
     private int boardHits;
-    private LocalDateTime CreateBoardDate;
+    private int likeCount;
+
+    private LocalDateTime createBoardDate;
 
 
 }

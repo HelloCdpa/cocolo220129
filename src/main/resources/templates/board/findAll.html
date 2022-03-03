@@ -75,12 +75,27 @@
         <div class="container-fluid">
             <!--페이징 처리 된 게시판-->
             <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">제목</th>
+                    <th scope="col">작성자</th>
+                    <th scope="col">
+                        <a href="/board/cateBoard/10">조회수</a>
+                    </th>
+                    <th scope="col">
+                        <a href="/board/cateBoard/11">추천❤</a>
+                    </th>
+                    <th scope="col">작성시간</th>
+                </tr>
+                </thead>
                 <tbody>
                 <tr th:each="boardList: ${boardList}">
-                    <td th:text="${boardList.boardId}"></td>
+                    <th scope="row" th:text="${boardList.boardId}"></th>
                     <td><a th:href="@{|/board/${boardList.boardId}|}" th:text="${boardList.boardTitle}"></a></td>
                     <td th:text="${boardList.boardWriter}"></td>
                     <td th:text="${boardList.boardHits}"></td>
+                    <td th:text="${boardList.likeCount}"></td>
                     <td>
                         <span th:text="*{#temporals.format(boardList.createBoardDate, 'yyyy/MM/dd HH:mm')}"></span>
                     </td>
@@ -90,7 +105,6 @@
 
                     <td><a class="btn btn-info" type="button" th:if="(${session.loginNick}==${boardList.boardWriter})"
                            th:href="@{|/board/update/${boardList.boardId}|}">글수정</a></td>
-
                 </tr>
                 </tbody>
             </table>

@@ -49,9 +49,6 @@ public class BoardServiceImpl implements BoardService {
         boardSaveDTO.setBoardFileName(b_filename);
 
 
-
-
-
         MemberEntity memberEntity = mr.findById(boardSaveDTO.getMemberId()).get();
         CategoryEntity categoryEntity = ctr.findById(boardSaveDTO.getCateId()).get();
         BoardEntity boardEntity = BoardEntity.toBoardEntitySave(boardSaveDTO, memberEntity,categoryEntity);
@@ -83,11 +80,16 @@ public class BoardServiceImpl implements BoardService {
         page = (page == 1) ? 0 : (page - 1);
         //비워놓기
         Page<BoardEntity> cateEntity = null;
-        br.findAll(PageRequest.of(page, PagingConst.PAGE_LIMIT, Sort.by(Sort.Direction.DESC, "id")));
-
-        // 카테고리 아이디로 게시물 찾아 넣기
-        cateEntity = br.findByCategoryEntity_Id(cateId,PageRequest.of(page, PagingConst.PAGE_LIMIT, Sort.by(Sort.Direction.DESC, "id")));
-
+        if(cateId == 10) {
+            //조회수순
+            cateEntity = br.findAll(PageRequest.of(page, PagingConst.PAGE_LIMIT,Sort.by(Sort.Direction.DESC, "boardHits")));
+        }else if(cateId == 11){
+            //좋아요순
+            cateEntity = br.findAll(PageRequest.of(page, PagingConst.PAGE_LIMIT,Sort.by(Sort.Direction.DESC, "likeCount")));
+        }else {
+            // 카테고리 아이디로 게시물 찾아 넣기
+            cateEntity = br.findByCategoryEntity_Id(cateId, PageRequest.of(page, PagingConst.PAGE_LIMIT, Sort.by(Sort.Direction.DESC, "id")));
+        }
         // BoardPaging DTO 화 시키기
         Page<BoardPagingDTO> boardList = cateEntity.map(
                 board -> new BoardPagingDTO(board.getId(),
@@ -150,7 +152,6 @@ public class BoardServiceImpl implements BoardService {
         }
 
     }
-
 
     @Override
     @Transactional
@@ -217,7 +218,7 @@ public class BoardServiceImpl implements BoardService {
         //검색 타입이 제목이라면
         if (type.equals("boardTitle")){
             searchEntity = br.findByBoardTitleContainingIgnoreCase(keyword,PageRequest.of(page, PagingConst.PAGE_LIMIT, Sort.by(Sort.Direction.DESC, "id")));
-        } else {
+        } else{
             //검색 타입이 작성자라면
             searchEntity = br.findByBoardWriterContainingIgnoreCase(keyword,PageRequest.of(page, PagingConst.PAGE_LIMIT, Sort.by(Sort.Direction.DESC, "id")));
         }
