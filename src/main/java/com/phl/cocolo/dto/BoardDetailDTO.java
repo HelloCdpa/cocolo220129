@@ -4,6 +4,7 @@ import com.phl.cocolo.entity.BoardEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -21,6 +22,8 @@ public class BoardDetailDTO {
     private String boardTitle;
     private String boardContents;
     private String boardFileName;
+
+
     private LocalDateTime CreateBoardDate;
     private LocalDateTime UpdateBoardDate;
     private int boardHits;
@@ -32,6 +35,7 @@ public class BoardDetailDTO {
         boardDetailDTO.setBoardId(boardEntity.getId());
         boardDetailDTO.setMemberId(boardEntity.getMemberEntity().getId());
         boardDetailDTO.setCateId(boardEntity.getCategoryEntity().getId());
+
 
         boardDetailDTO.setCategoryName(boardEntity.getCategoryEntity().getCateName());
         boardDetailDTO.setMemberProfileName(boardEntity.getMemberEntity().getMemberProfileName());

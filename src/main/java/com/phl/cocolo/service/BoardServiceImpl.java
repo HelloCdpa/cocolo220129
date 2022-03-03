@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +32,7 @@ public class BoardServiceImpl implements BoardService {
     private final MemberRepository mr;
     private  final CategoryRepository ctr;
     private  final LikeRepository lr;
+    private final MemberService ms;
 
 
     @Override
@@ -48,9 +48,17 @@ public class BoardServiceImpl implements BoardService {
         }
         boardSaveDTO.setBoardFileName(b_filename);
 
+
+
+
+
         MemberEntity memberEntity = mr.findById(boardSaveDTO.getMemberId()).get();
         CategoryEntity categoryEntity = ctr.findById(boardSaveDTO.getCateId()).get();
         BoardEntity boardEntity = BoardEntity.toBoardEntitySave(boardSaveDTO, memberEntity,categoryEntity);
+
+        //게시물 업로드 포인트 적립
+        PointSaveDTO pointSaveDTO = new PointSaveDTO(boardSaveDTO.getMemberId(), 100,"게시물 작성 적립");
+        ms.pointCharge(pointSaveDTO);
 
         return br.save(boardEntity).getId();
     }
@@ -181,9 +189,8 @@ public class BoardServiceImpl implements BoardService {
         String savePath = "D:\\development_Phl\\source\\springboot\\MemberBoardProject\\src\\main\\resources\\board_uploadfile\\" + b_filename;
         if (!b_file.isEmpty()) {
             b_file.transferTo(new File(savePath));
+            boardUpdateDTO.setBoardFileName(b_filename);
         }
-        boardUpdateDTO.setBoardFileName(b_filename);
-
         MemberEntity memberEntity = mr.findById(boardUpdateDTO.getMemberId()).get();
         CategoryEntity categoryEntity = ctr.findById(boardUpdateDTO.getCateId()).get();
         BoardEntity boardEntity = BoardEntity.toBoardUpdateEntity(boardUpdateDTO, memberEntity,categoryEntity);

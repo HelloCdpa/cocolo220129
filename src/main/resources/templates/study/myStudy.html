@@ -48,61 +48,62 @@
     </header>
 
 
+    <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+        <h2>스터디 모집 현황</h2>
+        <table class="table table-hover table-sm">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">스터디 제목</th>
+                <th scope="col">모집 인원</th>
+                <th scope="col">스터디 신청 요청 날짜</th>
+                <th scope="col">신청 승인 현황</th>
+            </tr>
+            </thead>
+            <tbody th:each="writer,writerStat:${writerApplyList}">
+            <tr>
+                <th scope="row" th:text="${writerStat.count}"></th>
+                <td th:text="${writer.studyTitle}"></td>
+                <td th:text="${writer.studyCount+'/'+writer.studyMax}"></td>
+                <td th:text="*{#temporals.format(writer.creatTime, 'yyyy/MM/dd HH:mm')}"></td>
+                <td th:text="${writer.applyState} ? '승인' : '미승인'"></td>
 
-            <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
-                <h2>스터디 모집 현황</h2>
-                <table class="table table-hover table-sm">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">스터디 제목</th>
-                        <th scope="col">모집 인원</th>
-                        <th scope="col">스터디 신청 요청 날짜</th>
-                        <th scope="col">신청 승인 현황</th>
-                    </tr>
-                    </thead>
-                    <tbody th:each="writer,writerStat:${writerApplyList}">
-                    <tr>
-                        <th scope="row" th:text="${writerStat.count}"></th>
-                        <td th:text="${writer.studyTitle}"></td>
-                        <td th:text="${writer.studyCount+'/'+writer.studyMax}"></td>
-                        <td th:text="*{#temporals.format(writer.creatTime, 'yyyy/MM/dd HH:mm')}"></td>
-                        <td th:text="${writer.applyState} ? '승인' : '미승인'"></td>
 
-                        <td><button type="button" class="btn bg-gradient-info btn-sm me-2"
-                                    th:onclick="apply([[${writer.studyApplyId}]])">승인</button>
+                <td> <span th:unless="${writer.applyState}"> <button type="button"
+                                                                     class="btn bg-gradient-info btn-sm me-2"
+                                                                     th:onclick="apply([[${writer.studyApplyId}]])">승인</button>
                             <button type="button" class="btn btn-outline-danger btn-sm me-2"
-                                    th:onclick="deleteById([[${writer.studyApplyId}]])">거절</button></td>
+                                    th:onclick="deleteById([[${writer.studyApplyId}]])">거절</button> </span></td>
 
-                    </tr>
-                    </tbody>
-                </table>
-        </div>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 
-        <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
-            <h2>스터디 신청 현황</h2>
-            <table class="table table-hover table-sm">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">스터디 제목</th>
-                    <th scope="col">모집 인원</th>
-                    <th scope="col">스터디 신청 요청 날짜</th>
-                    <th scope="col">신청 승인 현황</th>
-                </tr>
-                </thead>
-                <tbody th:each="apply,applyStat:${applyList}">
-                <tr>
-                    <th scope="row" th:text="${applyStat.count}"></th>
-                    <td th:text="${apply.studyTitle}"></td>
-                    <td th:text="${apply.studyCount+'/'+apply.studyMax}"></td>
-                    <td th:text="*{#temporals.format(apply.creatTime, 'yyyy/MM/dd HH:mm')}"></td>
-                    <td th:text="${apply.applyState} ? '승인' : '미승인'"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+        <h2>스터디 신청 현황</h2>
+        <table class="table table-hover table-sm">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">스터디 제목</th>
+                <th scope="col">모집 인원</th>
+                <th scope="col">스터디 신청 요청 날짜</th>
+                <th scope="col">신청 승인 현황</th>
+            </tr>
+            </thead>
+            <tbody th:each="apply,applyStat:${applyList}">
+            <tr>
+                <th scope="row" th:text="${applyStat.count}"></th>
+                <td th:text="${apply.studyTitle}"></td>
+                <td th:text="${apply.studyCount+'/'+apply.studyMax}"></td>
+                <td th:text="*{#temporals.format(apply.creatTime, 'yyyy/MM/dd HH:mm')}"></td>
+                <td th:text="${apply.applyState} ? '승인' : '미승인'"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 </div>
 <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
@@ -112,10 +113,15 @@
         const reqUrl = "/studyApply/" + studyApplyId;
         $.ajax({
             url: reqUrl,
-            type: 'put',
-            success: function () {
-                alert('승인되었습니다.');
-                location.reload();
+            type: 'post',
+            dataType: 'text',
+            success: function (data) {
+                if (data == "ok") {
+                    alert('승인되었습니다.');
+                    location.reload();
+                } else {
+                    alert('모집인원을 초과하였습니다.');
+                }
             }, error: function () {
                 alert('실패')
             }
@@ -137,7 +143,6 @@
     }
 
 </script>
-
 
 
 </html>

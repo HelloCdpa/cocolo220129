@@ -35,8 +35,10 @@ public class StudyApplyDetailDTO {
     public static StudyApplyDetailDTO toStudyApplyDetailDTO(StudyApplyEntity studyApplyEntity){
         StudyApplyDetailDTO studyApplyDetailDTO = new StudyApplyDetailDTO();
 
+        studyApplyDetailDTO.setStudyApplyId(studyApplyEntity.getId());
         studyApplyDetailDTO.setMemberId(studyApplyEntity.getMemberEntity().getId());
         studyApplyDetailDTO.setStudyId(studyApplyEntity.getStudyEntity().getId());
+
         studyApplyDetailDTO.setCreatTime(studyApplyEntity.getCreatTime());
         studyApplyDetailDTO.setMemberNickName(studyApplyEntity.getMemberEntity().getMemberNickName());
         studyApplyDetailDTO.setStudyTitle(studyApplyEntity.getStudyEntity().getStudyTitle());

@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="col-auto">
                                     <span>작성 시간</span>
-                                    <span class="h6" th:text="${board.createBoardDate}"></span>
+                                    <span class="h6" th:text="*{#temporals.format(board.createBoardDate, 'yyyy/MM/dd HH:mm')}"></span>
                                 </div>
                             </div>
                             <input type="hidden" id="boardId" th:value="${board.boardId}">
@@ -86,7 +86,7 @@
                     <td th:text="${comment.commentId}"></td>
                     <td th:text="${comment.commentWriter}"></td>
                     <td th:text="${comment.commentContents}"></td>
-                    <td th:text="${comment.commentCreateDate}"></td>
+                    <td th:text="*{#temporals.format(comment.commentCreateDate, 'yyyy/MM/dd HH:mm')}"></td>
 
                     <td><input class="btn btn-danger" type="button" th:if="(${#strings.equals(session['loginEmail'],'admin')})
                                 or (${session.loginEmail}==${comment.commentWriter})"

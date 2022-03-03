@@ -4,15 +4,14 @@ import com.phl.cocolo.dto.*;
 import com.phl.cocolo.entity.MemberEntity;
 import com.phl.cocolo.entity.MenteeEntity;
 import com.phl.cocolo.entity.MentoringEntity;
+import com.phl.cocolo.repository.MemberMapperRepository;
 import com.phl.cocolo.repository.MemberRepository;
 import com.phl.cocolo.repository.MenteeRepository;
 import com.phl.cocolo.repository.MentoringRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +19,8 @@ public class MentoringServiceImpl implements MentoringService{
     private final MentoringRepository mtr;
     private final MemberRepository mr;
     private final MenteeRepository mer;
+    private final MemberService ms;
+
 
     @Override
     public Long save(MentoringSaveDTO mentoringSaveDTO) {
@@ -78,6 +79,37 @@ public class MentoringServiceImpl implements MentoringService{
         }
 
         return menteeDetailList;
+    }
+
+    @Override
+    public List<MenteeDetailDTO> fundAllMentorMemberId(Long memberId) {
+        List<MenteeEntity> mentorEntityList = mer.findAllByMentoringEntity_MemberEntity_Id(memberId);
+        List<MenteeDetailDTO> menteeDetailList = new ArrayList<>();
+
+        for (MenteeEntity m : mentorEntityList){
+            menteeDetailList.add(MenteeDetailDTO.toMenteeDetailDTO(m));
+        }
+
+        return menteeDetailList;
+
+
+
+    }
+
+    @Override
+    public void updateCount(Long menteeId) {
+      mer.updateMenteeCount(menteeId);
+      //멘토에게 포인트 적립
+        MenteeDetailDTO menteeDetailDTO = MenteeDetailDTO.toMenteeDetailDTO(mer.findById(menteeId).get());
+        PointSaveDTO pointSaveDTO = new PointSaveDTO(menteeDetailDTO.getMentorId(),menteeDetailDTO.getMentoringPrice(),"멘토링 포인트 적립");
+        ms.pointCharge(pointSaveDTO);
+
+    }
+
+    @Override
+    public MenteeDetailDTO findByMenteeId(Long menteeId) {
+        MenteeDetailDTO menteeDetailDTO = MenteeDetailDTO.toMenteeDetailDTO(mer.findById(menteeId).get());
+        return menteeDetailDTO;
     }
 
 

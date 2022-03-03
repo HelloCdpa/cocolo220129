@@ -2,6 +2,7 @@ package com.phl.cocolo.service;
 
 import com.phl.cocolo.dto.StudyApplyDetailDTO;
 import com.phl.cocolo.dto.StudyApplySaveDTO;
+import com.phl.cocolo.dto.StudyDetailDTO;
 import com.phl.cocolo.entity.MemberEntity;
 import com.phl.cocolo.entity.StudyApplyEntity;
 import com.phl.cocolo.entity.StudyEntity;
@@ -77,6 +78,22 @@ public class StudyApplyServiceImpl implements StudyApplyService{
     @Override
     public void deleteById(Long studyApplyId) {
         sar.deleteById(studyApplyId);
+    }
+
+    @Override
+    public Long studyId(Long studyApplyId) {
+
+        return sar.findById(studyApplyId).get().getStudyEntity().getId();
+    }
+
+    @Override
+    public String updateStudyCount(Long studyId) {
+        // 최대 모집인원이 현재 모집인원보다 클때까지 저장
+        if(sr.findById(studyId).get().getStudyMax() > sr.findById(studyId).get().getStudyCount()){
+            sr.studyCount(studyId);
+            return "ok";
+        }
+        return "no";
     }
 
 }

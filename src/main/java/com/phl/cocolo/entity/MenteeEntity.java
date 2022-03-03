@@ -28,9 +28,13 @@ public class MenteeEntity extends BaseEntity{
     @JoinColumn(name = "mentoring_id")
     private MentoringEntity mentoringEntity;
 
+    //멘토링 완료 횟수
+    @Column(columnDefinition = "integer default 0")
+    private int menteeCount;
+
     //멘토링 남은 횟수
     @Column
-    private int menteeCount;
+    private int menteeMax;
 
 
 
@@ -39,7 +43,7 @@ public class MenteeEntity extends BaseEntity{
 
         menteeEntity.setMemberEntity(memberEntity);
         menteeEntity.setMentoringEntity(mentoringEntity);
-        menteeEntity.setMenteeCount(mentoringEntity.getMentoringCount());
+        menteeEntity.setMenteeMax(mentoringEntity.getMentoringCount());
 
         return menteeEntity;
     }

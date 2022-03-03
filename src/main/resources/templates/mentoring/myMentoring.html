@@ -24,41 +24,94 @@
         </div>
     </div>
 </header>
+<div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+    <h2>멘토링 현황</h2>
+    <table class="table table-hover table-sm">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">멘토링 제목</th>
+            <th scope="col">멘토 닉네임</th>
+            <th scope="col">멘토링 분야</th>
+            <th scope="col">멘토링 횟수</th>
+            <th scope="col">1회 가격</th>
+            <th scope="col">멘토링 신청 날짜</th>
+        </tr>
+        </thead>
+        <tbody  th:each="mentee,menteeStat:${menteeList}">
+        <tr>
+            <th scope="row" th:text="${menteeStat.count}"></th>
+            <td th:text="${mentee.mentoringTitle}"></td>
+            <td th:text="${mentee.mentorNickName}"></td>
+            <td th:text="${mentee.mentoringCate}"></td>
+            <td th:text="${mentee.menteeCount+'/'+mentee.menteeMax}"></td>
+            <td th:text="${mentee.mentoringPrice}"></td>
+            <td th:text="*{#temporals.format(mentee.createTime, 'yyyy/MM/dd HH:mm')}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
-    <div class="row">
-        <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
-            <h3>나의 멘토링</h3>
-            <table>
-                <tr th:each="mentee:${menteeList}">
-                    <td th:text="${mentee.menteeId}"></td>
-                    <td th:text="${mentee.memberId}"></td>
-                    <td th:text="${mentee.menteeCount}"></td>
-                    <td th:text="${mentee.mentorNickName}"></td>
-                    <td th:text="${mentee.mentoringPrice}"></td>
-                    <td th:text="*{#temporals.format(mentee.createTime, 'yyyy/MM/dd HH:mm')}"></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-   <div class="row">
-    <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
-        <h3>나의 멘티</h3>
-        <table>
-            <tr th:each="mentee:${menteeList}">
-                <td th:text="${mentee.menteeId}"></td>
-                <td th:text="${mentee.memberId}"></td>
-                <td th:text="${mentee.menteeCount}"></td>
-                <td th:text="${mentee.mentorNickName}"></td>
-                <td th:text="${mentee.mentoringPrice}"></td>
-                <td th:text="${mentee.createTime}"></td>
-            </tr>
-        </table>
-    </div>
-  </div>
-<th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
-</body>
+
+<div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+    <h2>나의 멘티 현황</h2>
+    <table class="table table-hover table-sm">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">멘토링 제목</th>
+            <th scope="col">멘티 닉네임</th>
+            <th scope="col">멘토링 분야</th>
+            <th scope="col">멘토링 횟수</th>
+            <th scope="col">1회 가격</th>
+            <th scope="col">멘토링 신청 날짜</th>
+        </tr>
+        </thead>
+        <tbody  th:each="mentor,mentorStat:${mentorList}">
+        <tr>
+            <th scope="row" th:text="${mentorStat.count}"></th>
+            <td th:text="${mentor.mentoringTitle}"></td>
+            <td th:text="${mentor.menteeNickName}"></td>
+            <td th:text="${mentor.mentoringCate}"></td>
+            <td th:text="${mentor.menteeCount+'/'+mentor.menteeMax}"></td>
+            <td th:text="${mentor.mentoringPrice}"></td>
+            <td th:text="*{#temporals.format(mentor.createTime, 'yyyy/MM/dd HH:mm')}"></td>
+            <td><button type="button" class="btn btn-danger"
+                        th:onclick="mentoringApply([[${mentor.menteeId}]])">
+                멘토링 완료
+            </button></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+
 
 <a th:href="@{|/member/pointCharge/${session.loginId}|}" class="btn btn-primary"> 포인트 충전 하기 </a>
+
+<th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
+</body>
+<script>
+    const mentoringApply = (menteeId) => {
+        const reqUrl = "/mentoring/mentoringApply/" + menteeId;
+        $.ajax({
+            url: reqUrl,
+            type: 'put',
+            dataType: 'text',
+            success: function (data) {
+                if (data == "ok") {
+                    alert('멘토링 1회 완료!');
+                    location.reload();
+                } else {
+                    alert('완료된 멘토링입니다.');
+                }
+            }, error: function () {
+                alert('실패')
+            }
+        })
+    }
+</script>
 
 
 </html>

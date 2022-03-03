@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudyApplyController {
     private final StudyApplyService sas;
+    private final StudyService ss;
+
     //스터디 신청
     @PostMapping("/")
     public @ResponseBody
@@ -42,11 +45,19 @@ public class StudyApplyController {
         return "/study/myStudy";
     }
 
-    @PutMapping("/{studyApplyId}")
-    public ResponseEntity studyApply(@PathVariable("studyApplyId") Long studyApplyId){
-        sas.updateByApplyState(studyApplyId);
+    @Transactional
+    @PostMapping("/{studyApplyId}")
+    public @ResponseBody String studyApply(@PathVariable("studyApplyId") Long studyApplyId){
 
-        return new ResponseEntity(HttpStatus.OK);
+        Long studyId= sas.studyId(studyApplyId);
+        String result = sas.updateStudyCount(ss.findById(studyId).getStudyId());
+        if(result.equals("ok")){
+            sas.updateByApplyState(studyApplyId);
+        }
+
+
+
+        return result;
     }
 
     @DeleteMapping("/{studyApplyId}")

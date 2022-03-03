@@ -32,7 +32,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="col-md-12 card">
+                                    <div class="col-md-12">
                                         경력/특기 : <span th:text="${mentoring.mentoringCareer}"></span>
                                     </div>
                                 </div>
@@ -110,10 +110,10 @@
                     "menteeCount": menteeCount
                 },
                 success: function () {
-                    alert('신청 완료 되었습니다.')
-                    location.href = "/mentoring/myMentoring/" + memberId
+                    alert('신청 완료 되었습니다.');
+                    location.reload();
                 }, error: function () {
-                    alert('요청실패')
+                    alert('요청실패');
                 }
             })
         }

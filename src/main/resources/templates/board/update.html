@@ -1,65 +1,102 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <meta charset="UTF-8">
-    <title>update</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<link rel="shortcut icon" href="#">
+<style>
+    #background {
+        background-image: url("https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80'");
+    }
+</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
 <body>
-<form id="updateForm" th:object="${board}" enctype="multipart/form-data">
-    <input type="hidden" th:field="*{boardId}">
-    <input type="hidden" th:field="*{memberId}">
-    변경할제목 :  <input type="text" th:field="*{boardTitle}"><br>
-    <input type="text" th:field="*{boardWriter}" readonly><br>
-    변경할 내용 : <input type="text" th:field="*{boardContents}"><br>
-    <label for="boardFile">변경할 사진</label>
-    <input th:class="form-control" type="file" id="boardFile" name="boardFile"><br>
+<div id="wrapper">
+    <header class="bg-gradient-dark">
+        <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
+        <th:block th:replace="/board/save :: saveModalFragment"></th:block>
 
-    <input type="hidden" th:field="*{boardHits}">
-    <input type="hidden" th:field="*{likeCount}">
-    <input type="button" value="수정(put)" th:onclick="boardUpdate()">
+        <div class="page-header min-vh-75" id="background">
+            <span class="mask bg-gradient-dark opacity-6"></span>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center mx-auto my-auto">
+                        <h1 class="text-white">Community</h1>
+                        <p class="lead mb-4 text-white opacity-8">함께하는 개발생활</p>
+                        <span th:if="${not #strings.isEmpty(session['loginEmail'])}">
+                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#saveModal">게시글 작성하기</button>
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
+    <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n3">
+        <form id="updateForm" th:object="${board}" enctype="multipart/form-data">
+            <input type="hidden" th:field="*{boardHits}">
+            <input type="hidden" th:field="*{likeCount}">
+            <input type="hidden" th:field="*{boardId}">
+            <input type="hidden" th:field="*{memberId}">
+            <div class="container my-auto" width="200px">
+                    <div class="card w-80">
+                           <div class="h6">작성자 : <span class="form-control" id="boardWriter" th:field="*{boardWriter}" th:text="*{boardWriter}"></span></div>
+                        <div class="input-group mb-4 input-group-static">
+                            <label>제목</label>
+                            <input type="text" class="form-control" th:value="*{boardTitle}" th:field="*{boardTitle}"
+                                   name="boardTitle">
+                        </div>
 
+                            <div class="text-center">
+                                <img th:src="@{/board_upload/} + *{boardFileName}" alt="">
+                            </div>
 
-
-</form>
+                        <div class="input-group mb-4 input-group-static">
+                            <label>내용</label>
+                            <input type="text" th:value="*{boardContents}" th:field="*{boardContents}"
+                                   class="form-control">
+                        </div>
+                        <div>
+                            <label for="boardFile">업로드 사진 선택</label>
+                            <input class="form-control" type="file" id="boardFile" name="boardFile">
+                         <input type="button" class="btn btn-primary" value="수정" onclick="boardUpdate()">
+                        </div>
+                    </div>
+            </div>
+        </form>
+    </div>
+</div>
+<th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
     const boardUpdate = () => {
         const boardId = document.getElementById('boardId').value;
         const memberId = document.getElementById('memberId').value;
         const boardTitle = document.querySelector('#boardTitle').value;
-        const boardWriter = $('#boardWriter').val();
-        const boardPassword = $('#boardPassword').val();
+        const boardWriter = $('#boardWriter').text();
         const boardContents = $('#boardContents').val();
         const boardFile = document.getElementById('boardFile').value;
-        console.log(boardId,boardTitle,boardWriter,boardPassword,boardContents,boardFile,memberId);
-        const reqUrl = "/board/" +boardId;
+
+        console.log(boardId, boardTitle, boardWriter, boardContents, boardFile, memberId);
+        const reqUrl = "/board/" + boardId;
 
         const data = $('#updateForm')[0];
         const formData = new FormData(data);
 
+        $.ajax({
+            type: 'put',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: formData,
+            url: reqUrl,
+            success: function () {
+                location.href = '/';
+            }, error: function () {
+                alert("요청실패")
+            }
+        })
 
-        const pwDB = "[[${board.boardPassword}]]";
-        if(pwDB == boardPassword){
-            $.ajax({
-                type : 'put',
-                cache: false,
-                contentType : false,
-                processData : false,
-                data : formData,
-                url : reqUrl,
-                success : function (){
-                    location.href='/';
-                },error : function (){
-                    alert("요청실패")
-                }
-            })}
-        else {
-            alert('비밀번호가 틀렸습니다.');
-        }
     };
 </script>
 

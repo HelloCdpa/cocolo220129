@@ -18,4 +18,10 @@ public interface MentoringService {
     void saveMentee(MenteeSaveDTO menteeSaveDTO);
 
     List<MenteeDetailDTO> findAllByMemberId(Long memberId);
+
+    List<MenteeDetailDTO> fundAllMentorMemberId(Long memberId);
+
+    void updateCount(Long menteeId);
+
+    MenteeDetailDTO findByMenteeId(Long menteeId);
 }

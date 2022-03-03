@@ -39,7 +39,7 @@ public class BoardTest {
     @DisplayName("회원게시물작성테스트")
     public void BoardSaveTest() {
         IntStream.rangeClosed(1, 10).forEach(i -> {
-            BoardSaveDTO boardSaveDTO = new BoardSaveDTO((long) 1, (long) 2, "작성자" + i, "제목" + i, "내용" + i, "파일이름" + i);
+            BoardSaveDTO boardSaveDTO = new BoardSaveDTO((long) 1, (long) 2, "제목" + i, "내용" + i, "파일이름" + i);
             bs.saveTest(boardSaveDTO);
         });
     }

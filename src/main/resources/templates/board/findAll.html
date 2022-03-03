@@ -84,9 +84,8 @@
                     <td>
                         <span th:text="*{#temporals.format(boardList.createBoardDate, 'yyyy/MM/dd HH:mm')}"></span>
                     </td>
-                    <td><input class="btn btn-danger" type="button" th:if="(${#strings.equals(session['loginEmail'],'admin')})
-        or (${session.loginEmail}==${board.boardWriter})"
-                               th:onclick="deleteById([[${board.boardId}]])"
+                    <td><input class="btn btn-danger" type="button" th:if="(${#strings.equals(session['loginEmail'],'phl1021@naver.com')} or ${session.loginNick}==${boardList.boardWriter})"
+                               th:onclick="deleteById([[${boardList.boardId}]])"
                                value="삭제"></td>
 
                     <td><a class="btn btn-info" type="button" th:if="(${session.loginNick}==${boardList.boardWriter})"
@@ -140,7 +139,6 @@
     </div>
 </div>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
     const deleteById = (boardId) => {
         const reqUrl = "/board/" + boardId;
@@ -155,8 +153,6 @@
             }
         })
     }
-
-
 </script>
 
 

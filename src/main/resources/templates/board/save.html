@@ -33,8 +33,6 @@
 
                                         <div>
                                             작성자 : <p th:text="${session['loginNick']}"></p>
-                                            <input type="text" name="boardWriter"
-                                                   th:value="${session['loginEmail']}" hidden>
                                             <input type="text" name="memberId" th:value="${session['loginId']}"
                                                    hidden>
                                         </div>

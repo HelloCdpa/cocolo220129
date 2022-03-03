@@ -2,6 +2,7 @@ package com.phl.cocolo.service;
 
 import com.phl.cocolo.dto.CommentDetailDTO;
 import com.phl.cocolo.dto.CommentSaveDTO;
+import com.phl.cocolo.dto.PointSaveDTO;
 import com.phl.cocolo.entity.BoardEntity;
 import com.phl.cocolo.entity.CommentEntity;
 import com.phl.cocolo.entity.MemberEntity;
@@ -20,6 +21,7 @@ public class CommentServiceImpl implements CommentService{
     private final CommentRepository cr;
     private final BoardRepository br;
     private final MemberRepository mr;
+    private final MemberService ms;
 
     //댓글 저장 참조하는 키들의 데이터를 가져와서 활용
     @Override
@@ -27,6 +29,10 @@ public class CommentServiceImpl implements CommentService{
         BoardEntity boardEntity = br.findById(commentSaveDTO.getBoardId()).get();
         MemberEntity memberEntity = mr.findById(commentSaveDTO.getMemberId()).get();
         CommentEntity commentEntity = CommentEntity.toCommentEntity(commentSaveDTO, boardEntity, memberEntity);
+        // 댓글 포인트 적립
+        PointSaveDTO pointSaveDTO = new PointSaveDTO(commentSaveDTO.getMemberId(), 50,"댓글 작성 적립");
+        ms.pointCharge(pointSaveDTO);
+
         return cr.save(commentEntity).getId();
     }
 

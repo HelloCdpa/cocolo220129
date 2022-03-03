@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -104,10 +105,30 @@ public class MentoringController {
     }
 
     @GetMapping("/myMentoring/{memberId}")
-    public String myMentoring( @PathVariable ("memberId") Long memberId, Model model){
+    public String myMentoring(@PathVariable ("memberId") Long memberId, Model model){
+        //멘티정보로 멘토 신청정보 찾기
         List<MenteeDetailDTO> menteeList = mts.findAllByMemberId(memberId);
         model.addAttribute("menteeList",menteeList);
+
+        //멘토정보로 멘티 찾기
+        List<MenteeDetailDTO> mentorList = mts.fundAllMentorMemberId(memberId);
+        model.addAttribute("mentorList",mentorList);
+
         return "/mentoring/myMentoring";
+    }
+
+    @Transactional
+    @PutMapping("/mentoringApply/{menteeId}")
+    public @ResponseBody String mentoringApply(@PathVariable ("menteeId") Long menteeId){
+        MenteeDetailDTO mentee = mts.findByMenteeId(menteeId);
+        if(mentee.getMenteeMax() > mentee.getMenteeCount()){
+            mts.updateCount(menteeId);
+
+            return "ok";
+        }else {
+            return "no";
+        }
+
     }
 
 

@@ -2,6 +2,7 @@ package com.phl.cocolo.service;
 
 import com.phl.cocolo.dto.StudyApplyDetailDTO;
 import com.phl.cocolo.dto.StudyApplySaveDTO;
+import com.phl.cocolo.dto.StudyDetailDTO;
 
 import java.util.List;
 
@@ -15,4 +16,8 @@ public interface StudyApplyService {
     void updateByApplyState(Long studyApplyId);
 
     void deleteById(Long studyApplyId);
+
+    Long studyId(Long studyApplyId);
+
+    String updateStudyCount(Long studyId);
 }
