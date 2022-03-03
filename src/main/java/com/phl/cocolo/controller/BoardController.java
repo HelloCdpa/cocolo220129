@@ -32,7 +32,13 @@ import static com.phl.cocolo.common.SessionConst.LOGIN_ID;
 public class BoardController {
     private final BoardService bs;
     private final CommentService cs;
-
+    //게시글 저장
+    @GetMapping("/save")
+    public String saveForm(Model model){
+        List<CategoryDetailDTO> categoryList = bs.cateFindAll();
+        model.addAttribute("categoryList",categoryList);
+        return "/board/save";
+    }
     //게시글 저장
     @PostMapping("/save")
     public String save(@Validated @ModelAttribute BoardSaveDTO boardSaveDTO)throws IllegalStateException, IOException {
@@ -178,13 +184,15 @@ public class BoardController {
     public String updateForm(Model model, @PathVariable ("boardId") Long boardId){
         BoardDetailDTO board = bs.findById(boardId);
         model.addAttribute("board",board);
+
+        List<CategoryDetailDTO> categoryList = bs.cateFindAll();
+        model.addAttribute("categoryList",categoryList);
         return "/board/update";
     }
     // 수정 하기
     @PutMapping("{boardId}")
     public ResponseEntity update(@ModelAttribute BoardUpdateDTO boardUpdateDTO)  throws IllegalStateException, IOException {
         bs.update(boardUpdateDTO);
-
         return new ResponseEntity(HttpStatus.OK);
     }
     //게시글 삭제

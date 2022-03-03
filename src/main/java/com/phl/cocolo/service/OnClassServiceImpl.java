@@ -78,8 +78,8 @@ public class OnClassServiceImpl implements OnClassService{
     }
 
     @Override
-    public void payment(List<CartDetailDTO> cartList,Long memberId) {
-        // 회원의 온라인 클래스 : : my_class_table 여기에 onClassId 와 memberId를 반복문을 이용해 넣음
+    public void payment(Long onClassId,Long memberId) {
+        // 회원의 온라인 클래스 : : my_class_table 여기에 onClassId 와 memberId를 넣음
         // member_id
         // onClass_id
         //    CartDetailDTO 에서 쓸 것
@@ -87,12 +87,11 @@ public class OnClassServiceImpl implements OnClassService{
         //    Long onClassId;
 
         //0번에 있는 onClassID : cartList.get(0).getOnClassId();
+        // Entity 로 변환시켜서 DB에 저장시키기
+            mcr.save(MyClassEntity.toMyClassSaveEntity(mr.findById(memberId).get(),
+            or.findById(onClassId).get()));
 
-        for(int i=0; i<cartList.size(); i++){
-           // Entity 로 변환시켜서 DB에 저장시키기
-            mcr.save(MyClassEntity.toMyClassSaveEntity(mr.findById(cartList.get(i).getMemberId()).get(),
-                    or.findById(cartList.get(i).getOnClassId()).get()));
-        }
+
 
         //장바구니 비우기
         cr.deleteAllByMemberEntity_Id(memberId);

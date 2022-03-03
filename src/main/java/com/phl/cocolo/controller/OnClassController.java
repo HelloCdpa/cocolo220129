@@ -17,6 +17,7 @@ import org.json.simple.JSONArray;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -96,27 +97,28 @@ public class OnClassController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @PostMapping("/payment")
-    public String payment() {
-
-
+    // 온라인 클래스 구매 적용하기
+    @PostMapping("/pointPayment")
+    public ResponseEntity pointPayment(@RequestParam ("memberId") Long memberId,@RequestParam ("pointPoint") int pointPoint ) {
         // 1. 사용한 포인트가 0보다 크다면, 포인트 사용 내역 넣기
-        // 100포인트로 4000원짜리 물건을 3900원에 구매 : 포인트 내역에는 [회원번호/-100포인트 /수강권 구매 사용 /]
-//        if(0<pointPoint) {
-//            PointSaveDTO pointSaveDTO = new PointSaveDTO(memberId, -pointPoint, "수강권 구매 사용");
-//            ms.pointPayment(pointSaveDTO);
-//        }
-
-        // 2. 회원에게 강의 권한 주기 // 3. 장바구니 비우기
-
-
-//        os.payment(cartDetailDTOList,memberId);
-
-
-//        return "redirect:/onClass/"+memberId;
-        return null;
+        if(0<pointPoint) {
+            PointSaveDTO pointSaveDTO = new PointSaveDTO(memberId, -pointPoint, "수강권 구매 사용");
+            ms.pointPayment(pointSaveDTO);
+        }
+        return new ResponseEntity(HttpStatus.OK);
     }
+    @Transactional
+    @PostMapping("/payment")
+    public String payment(@RequestParam ("onClassId") Long onClassId,HttpSession session){
+         // 2. 회원에게 강의 권한 주기 // 3. 장바구니 비우기
+
+        Long memberId = (Long) session.getAttribute(LOGIN_ID);
+        os.payment(onClassId,memberId);
+
+        return "redirect:/onClass/"+memberId;
+
+    }
+
 
 
 

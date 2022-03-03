@@ -21,5 +21,5 @@ public interface OnClassService {
 
     void update(OnClassUpdateDTO onClassUpdateDTO);
 
-    void payment(List<CartDetailDTO> cartList,Long memberId);
+    void payment(Long onClassId,Long memberId);
 }
