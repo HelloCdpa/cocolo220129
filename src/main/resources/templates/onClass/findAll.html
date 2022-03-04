@@ -74,9 +74,7 @@
                                     th:onclick="saveCart([[${onClass.onClassId}]],[[${session.loginId}]])">장바구니에 담기
                             </button>
                         </div>
-                        <div th:if="(${session.loginNick}==${onClass.onClassTeacher})">
-                            <a class="btn btn-info" type="button"
-                               th:href="@{|/templates/onClass/update/${onClass.onClassId}|}">글수정</a>
+                        <div th:if="(${#strings.equals(session['loginEmail'],'phl1021@naver.com')})">
                             <button type="button" class="btn btn-danger"
                                     th:onclick="deleteById([[${onClass.onClassId}]])">글삭제
                             </button>

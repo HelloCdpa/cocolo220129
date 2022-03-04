@@ -16,6 +16,7 @@ public class CommentDetailDTO {
     private Long memberId;
     private String commentWriter;
     private String commentContents;
+    private String writerProfileName;
 
     private LocalDateTime commentCreateDate;
     private LocalDateTime commentUpdateDate;
@@ -30,6 +31,7 @@ public class CommentDetailDTO {
         commentDetailDTO.setCommentId(commentEntity.getId());
         commentDetailDTO.setBoardId(commentEntity.getBoardEntity().getId());
         commentDetailDTO.setMemberId(commentEntity.getMemberEntity().getId());
+        commentDetailDTO.setWriterProfileName(commentEntity.getMemberEntity().getMemberProfileName());
 
         return commentDetailDTO;
     }

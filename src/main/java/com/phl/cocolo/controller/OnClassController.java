@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import com.phl.cocolo.dto.*;
 import com.phl.cocolo.service.MemberService;
 import com.phl.cocolo.service.OnClassService;
+import com.phl.cocolo.service.ReviewService;
 import com.phl.cocolo.service.WishListService;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
@@ -39,6 +40,8 @@ public class OnClassController {
     private final OnClassService os;
     private final WishListService ws;
     private final MemberService ms;
+    private final ReviewService rs;
+
 
 
     @GetMapping("/save")
@@ -60,6 +63,8 @@ public class OnClassController {
 
         model.addAttribute("onClass",onClassDetailDTO);
 
+        List<ReviewDetailDTO> reviewList = rs.findAll(onClassId);
+        model.addAttribute("reviewList",reviewList);
         return "/onClass/findById";
     }
 
@@ -82,20 +87,7 @@ public class OnClassController {
         return "/onClass/findAll";
     }
 
-    // 수정 화면 이동
-    @GetMapping("/update/{onClassId}")
-    public String updateForm(Model model, @PathVariable ("onClassId") Long onClassId){
-        OnClassDetailDTO onClass = os.findById(onClassId);
-        model.addAttribute("onClass",onClass);
-        return "/onClass/update";
-    }
-    // 수정 하기
-    @PutMapping("/{onClassId}")
-    public ResponseEntity update(@ModelAttribute OnClassUpdateDTO onClassUpdateDTO) {
-        os.update(onClassUpdateDTO);
 
-        return new ResponseEntity(HttpStatus.OK);
-    }
 
     // 온라인 클래스 구매 적용하기
     @PostMapping("/pointPayment")

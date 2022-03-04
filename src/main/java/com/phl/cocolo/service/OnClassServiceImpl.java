@@ -72,16 +72,12 @@ public class OnClassServiceImpl implements OnClassService{
         return onClassList;
     }
 
-    @Override
-    public void update(OnClassUpdateDTO onClassUpdateDTO) {
-        or.save(OnClassEntity.toOnClassUpdateEntity(onClassUpdateDTO));
-    }
 
     @Override
     public void payment(Long onClassId,Long memberId) {
         // 회원의 온라인 클래스 : : my_class_table 여기에 onClassId 와 memberId를 넣음
-        // member_id
-        // onClass_id
+        //    member_id
+        //    onClass_id
         //    CartDetailDTO 에서 쓸 것
         //    Long memberId;
         //    Long onClassId;

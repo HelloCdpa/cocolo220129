@@ -6,106 +6,109 @@
 <body>
 <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
 <div style="margin-top: 300px">
-<div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6 mb-4">
-    <!-- START Testimonials w/ user image & text & info -->
-    <section class="py-sm-7 py-5 position-relative">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 mx-auto">
-                    <div class="mt-n8 mt-md-n9 text-center">
-                        <img class="avatar avatar-xxl shadow-xl position-relative z-index-2"
-                             th:src= "@{/member_upload/}+${board.memberProfileName}" alt="bruce" loading="lazy">
-                    </div>
-                    <div class="row py-5">
-                        <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mx-auto">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <h3 class="mb-0 " th:text="${board.boardTitle}"></h3>
-                                <div class="d-block">
-                                    <!--  like-->
-                                    <input type="hidden" id="like_check" th:value="${like}">
-                                    <img id="likeImg" src="/assets/img/like_empty.png" alt="" width="30px" height="30px">
-                                    <span th:text="${board.likeCount}"></span>
-                                </div>
-                            </div>
-                            <!--                           작성자 조회수 추천수 시간-->
-                            <div class="row mb-4">
-                                <div class="col-auto">
-                                    <span class="h6" th:text="${board.boardWriter}"></span>
-                                </div>
-                                <div class="col-auto">
-                                    <span class="h6" th:text="${board.boardHits}"></span>
-                                    <span>조회</span>
-                                </div>
-                                <div class="col-auto">
-                                    <span class="h6" th:text="${board.likeCount}"></span>
-                                    <span>추천</span>
-                                </div>
-                                <div class="col-auto">
-                                    <span>작성 시간</span>
-                                    <span class="h6" th:text="*{#temporals.format(board.createBoardDate, 'yyyy/MM/dd HH:mm')}"></span>
-                                </div>
-                            </div>
-                            <input type="hidden" id="boardId" th:value="${board.boardId}">
-                            <input type="hidden" id="memberId" th:value="${board.memberId}">
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <img th:src= "@{/board_upload/}+${board.boardFileName}" alt="">
-                                </div>
-                            </div>
-                            <p class="text-lg mb-0" th:text="${board.boardContents}"></p>
-                        </div>
-                   </div>
-                 </div>
-            </div>
-         </div>
-    </section>
-</div>
-</div>
-    <div id="comment-write" class="m-2">
-            <div class="row">
-                <div class="col-auto">
-                    <input class="form-control" type="text" id="commentWriter"
-                           th:value="${session['loginEmail']}">
-                </div>
-                <div class="col-auto">
-                    <input class="col-auto form-control" type="text" id="commentContents"
-                           placeholder="내용">
-                </div>
-                <div class="col-auto">
-                    <button class="col-auto btn btn-primary" id="comment-write-btn">댓글등록</button>
-                </div>
-
-            </div>
-        </div>
-
-        <div id="comment-list" class="container">
+    <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6 mb-4">
+        <!-- START Testimonials w/ user image & text & info -->
+        <section class="py-sm-7 py-5 position-relative">
             <div class="container">
+                <div class="row">
+                    <div class="col-12 mx-auto">
+                        <div class="mt-n8 mt-md-n9 text-center">
+                            <img class="avatar avatar-xxl shadow-xl position-relative z-index-2"
+                                 th:src="@{/member_upload/}+${board.memberProfileName}" alt="bruce" loading="lazy">
+                        </div>
+                        <div class="row py-5">
+                            <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mx-auto">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h3 class="mb-0 " th:text="${board.boardTitle}"></h3>
+                                    <div class="d-block">
+                                        <!--  like-->
+                                        <input type="hidden" id="like_check" th:value="${like}">
+                                        <img id="likeImg" src="/assets/img/like_empty.png" alt="" width="30px"
+                                             height="30px">
+                                        <span th:text="${board.likeCount}"></span>
+                                    </div>
+                                </div>
+                                <!--                           작성자 조회수 추천수 시간-->
+                                <div class="row mb-4">
+                                    <div class="col-auto">
+                                        <span class="h6" th:text="${board.boardWriter}"></span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <span class="h6" th:text="${board.boardHits}"></span>
+                                        <span>조회</span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <span class="h6" th:text="${board.likeCount}"></span>
+                                        <span>추천</span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <span>작성 시간</span>
+                                        <span class="h6"
+                                              th:text="*{#temporals.format(board.createBoardDate, 'yyyy/MM/dd HH:mm')}"></span>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="boardId" th:value="${board.boardId}">
+                                <input type="hidden" id="memberId" th:value="${board.memberId}">
 
-                <span th:each="comment: ${commentList}">
-                    <td th:text="${comment.commentId}"></td>
-                    <td th:text="${comment.commentWriter}"></td>
-                    <td th:text="${comment.commentContents}"></td>
-                    <td th:text="*{#temporals.format(comment.commentCreateDate, 'yyyy/MM/dd HH:mm')}"></td>
-
-                    <td><input class="btn btn-danger" type="button" th:if="(${#strings.equals(session['loginEmail'],'admin')})
-                                or (${session.loginEmail}==${comment.commentWriter})"
-                               th:onclick="deleteById([[${comment.commentId}]])"
-                               value="삭제"></td>
-
-                </span>
-
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <img th:src="@{/board_upload/}+${board.boardFileName}" alt="">
+                                    </div>
+                                </div>
+                                <p class="text-lg mb-0" th:text="${board.boardContents}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+            <hr style="solid-color: #D3D3D3">
+            <div id="comment-write" class="m-2 container">
+                <div class="row">
+                        <input type="hidden" id="commentWriter" th:value="${session['loginNick']}">
+                    <div class="col-md-9">
+                        <div class="input-group input-group-dynamic">
+                            <label class="form-label">댓글 작성</label>
+                            <input type="text" class="form-control" id="commentContents">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="col-auto btn btn-primary" id="comment-write-btn">댓글등록</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="comment-list" class="container">
+                <div class="container">
+                    <div class="row" th:each="comment: ${commentList}">
+                        <div class="col-md-2">
+                            <img class="avatar avatar-xl shadow-xl position-relative z-index-2"
+                                 th:src="@{/member_upload/}+${comment.writerProfileName}" alt="bruce" loading="lazy">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-dark"
+                                 th:text="${comment.commentWriter} +'  '+*{#temporals.format(comment.commentCreateDate, 'yyyy/MM/dd HH:mm')}"></div>
+                            <div th:text="${comment.commentContents}"></div>
+                            <div><input class="btn btn-danger" type="button" th:if="(${#strings.equals(session['loginEmail'],'admin')})
+                                or (${session.loginEmail}==${comment.commentWriter})"
+                                        th:onclick="deleteById([[${comment.commentId}]])"
+                                        value="삭제"></div>
+                        </div>
+                        <hr style="solid-color: #D3D3D3; margin-top: 10px;">
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </div>
-        <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
-    </div>
+
+
+<th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
+</div>
 </body>
 <script>
     $("#comment-write-btn").click(function () {
         console.log("댓글작성클릭");
-        const commentWriter = $("#commentWriter").val();
+        const commentWriter = $("#commentWriter").text();
         const commentContents = $("#commentContents").val();
         const boardId = $("#boardId").val();
         const memberId = $("#memberId").val();
@@ -174,11 +177,11 @@
                 success: function (data) {
                     if (data == 1) {
                         $("#likeImg").attr("src", "/assets/img/like_click.png");
-                        location.href="/board/"+boardId;
+                        location.href = "/board/" + boardId;
 
                     } else {
                         $("#likeImg").attr("src", "/assets/img/like_empty.png");
-                        location.href="/board/"+boardId;
+                        location.href = "/board/" + boardId;
                     }
                 }, error: function () {
                     $("#likeImg").attr("src", "/assets/img/like_click.png");
