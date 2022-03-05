@@ -1,5 +1,6 @@
 package com.phl.cocolo.repository;
 
+import com.phl.cocolo.dto.MemberUpdateDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
 
@@ -10,6 +11,9 @@ public interface MemberMapperRepository {
     //회원 포인트 충전
     @Update("update member_table set member_point = member_point + #{member_point} where member_id = #{member_id}")
     void pointCharge(Map<String, Object> memberPointUpdate);
+
+    @Update("update member_table set member_phone = #{memberPhone}, member_profileName = #{memberProfileName},member_level = #{memberLevel},member_interesting = #{memberInteresting} where member_id = #{memberId}")
+    void memberUpdate(MemberUpdateDTO memberUpdateDTO);
 
 
 //    //회원목록 출력

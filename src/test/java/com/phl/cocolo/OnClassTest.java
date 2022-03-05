@@ -1,11 +1,9 @@
 package com.phl.cocolo;
 
-import com.phl.cocolo.dto.MemberDetailDTO;
-import com.phl.cocolo.dto.MemberSaveDTO;
-import com.phl.cocolo.dto.OnClassDetailDTO;
-import com.phl.cocolo.dto.OnClassSaveDTO;
+import com.phl.cocolo.dto.*;
 import com.phl.cocolo.repository.MemberRepository;
 import com.phl.cocolo.repository.OnClassRepository;
+import com.phl.cocolo.service.CourseService;
 import com.phl.cocolo.service.MemberService;
 import com.phl.cocolo.service.OnClassService;
 import org.junit.jupiter.api.DisplayName;
@@ -32,14 +30,23 @@ public class OnClassTest {
     private MemberRepository mr;
 
     @Autowired
-    private OnClassRepository or;
+    private CourseService cs;
 
     @Test
     @DisplayName("테스트강의소개30개 등록")
-    public void testMemberSave(){
+    public void testClassSave(){
         IntStream.rangeClosed(1, 30).forEach(i->{
             OnClassSaveDTO onClassSaveDTO = new OnClassSaveDTO("onClassTeacher"+i, "onClassTitle"+i, "onClassContents"+i, "onClassCate", "onClassIntro"+i,20000,"기본.png");
             os.saveTest(onClassSaveDTO);
+        });
+    }
+
+    @Test
+    @DisplayName("테스트강의30개 등록")
+    public void testCourseSave(){
+        IntStream.rangeClosed(1, 30).forEach(i->{
+            CourseSaveDTO courseSaveDTO = new CourseSaveDTO((long)1, "courseSection"+i, "courseTitle"+i, "courseContents", "기본.png");
+            cs.saveTest(courseSaveDTO);
         });
     }
 

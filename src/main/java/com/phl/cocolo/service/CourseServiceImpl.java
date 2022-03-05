@@ -45,7 +45,7 @@ public class CourseServiceImpl implements CourseService{
   
     @Override
     public void deleteById(Long courseId) {
-        cr.findById(courseId);
+        cr.deleteById(courseId);
     }
 
     @Override
@@ -74,5 +74,13 @@ public class CourseServiceImpl implements CourseService{
         CourseEntity courseEntity = CourseEntity.toCategoryUpdateEntity(courseUpdateDTO,onClassEntity);
 
          cr.save(courseEntity);
+    }
+
+    @Override
+    public void saveTest(CourseSaveDTO courseSaveDTO) {
+        OnClassEntity onClassEntity = or.findById(courseSaveDTO.getOnClassId()).get();
+        CourseEntity courseEntity = CourseEntity.toCategorySaveEntity(courseSaveDTO,onClassEntity);
+
+       cr.save(courseEntity).getId();
     }
 }

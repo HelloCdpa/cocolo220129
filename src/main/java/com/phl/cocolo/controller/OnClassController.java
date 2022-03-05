@@ -8,10 +8,7 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.phl.cocolo.dto.*;
-import com.phl.cocolo.service.MemberService;
-import com.phl.cocolo.service.OnClassService;
-import com.phl.cocolo.service.ReviewService;
-import com.phl.cocolo.service.WishListService;
+import com.phl.cocolo.service.*;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 
@@ -41,6 +38,7 @@ public class OnClassController {
     private final WishListService ws;
     private final MemberService ms;
     private final ReviewService rs;
+    private final CourseService cs;
 
 
 
@@ -65,6 +63,9 @@ public class OnClassController {
 
         List<ReviewDetailDTO> reviewList = rs.findAll(onClassId);
         model.addAttribute("reviewList",reviewList);
+
+        List<CourseDetailDTO> courseList = cs.findAll(onClassId);
+        model.addAttribute("courseList", courseList);
         return "/onClass/findById";
     }
 

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
 <link rel="shortcut icon" href="#">
-<link href="/assets/css/star.css" rel="stylesheet" />
+<link href="/assets/css/star.css" rel="stylesheet"/>
 <style>
     #background {
         background-color: #002333;
@@ -11,6 +11,7 @@
 <th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
 <body>
 <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
+<th:block th:replace="/course/save :: courseSaveFragment"></th:block>
 <header class="bg-gradient-dark">
     <div class="page-header min-vh-75" id="background">
         <div class="container">
@@ -56,35 +57,41 @@
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
-<!--                        강의 소개 탭을 누르면 -->
+                        <!--                        강의 소개 탭을 누르면 -->
                         <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                              aria-labelledby="nav-home-tab">
                             <div class="mt-4">
-                            <p class="text-lg text-dark mb-0" th:text="${onClass.onClassContents}"></p>
+                                <p class="text-lg text-dark mb-0" th:text="${onClass.onClassContents}"></p>
                             </div>
                         </div>
-<!--                            리뷰 탭을 누르면-->
+                        <!--                            리뷰 탭을 누르면-->
                         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <div id="review-write" class="m-2">
 
-                                    <div>
+                                <div>
                                         <span class="h5" type="text" id="reviewWriter"
-                                               th:text="${session['loginNick']}"></span>
+                                              th:text="${session['loginNick']}"></span>
+                                </div>
+                                <form class="mb-3" name="myform" id="myform" method="post">
+                                    <fieldset>
+                                        <span class="text-bold">별점을 선택해주세요</span>
+                                        <input type="radio" name="reviewStar" value="5" id="rate1"><label
+                                            for="rate1">★</label>
+                                        <input type="radio" name="reviewStar" value="4" id="rate2"><label
+                                            for="rate2">★</label>
+                                        <input type="radio" name="reviewStar" value="3" id="rate3"><label
+                                            for="rate3">★</label>
+                                        <input type="radio" name="reviewStar" value="2" id="rate4"><label
+                                            for="rate4">★</label>
+                                        <input type="radio" name="reviewStar" value="1" id="rate5"><label
+                                            for="rate5">★</label>
+                                    </fieldset>
+                                    <div>
+                                        <textarea class="col-auto form-control" type="text" id="reviewContents"
+                                                  placeholder="좋은 수강평을 남겨주시면 Cocolo에 큰 힘이 됩니다! 포인트 5000p도 지급!!"></textarea>
                                     </div>
-                                    <form class="mb-3" name="myform" id="myform" method="post" >
-                                        <fieldset>
-                                            <span class="text-bold">별점을 선택해주세요</span>
-                                            <input type="radio" name="reviewStar" value="5" id="rate1"><label for="rate1">★</label>
-                                            <input type="radio" name="reviewStar" value="4" id="rate2"><label for="rate2">★</label>
-                                            <input type="radio" name="reviewStar" value="3" id="rate3"><label for="rate3">★</label>
-                                            <input type="radio" name="reviewStar" value="2" id="rate4"><label for="rate4">★</label>
-                                            <input type="radio" name="reviewStar" value="1" id="rate5"><label for="rate5">★</label>
-                                        </fieldset>
-                                        <div>
-                                            <textarea class="col-auto form-control" type="text" id="reviewContents" placeholder="좋은 수강평을 남겨주시면 Cocolo에 큰 힘이 됩니다! 포인트 5000p도 지급!!"></textarea>
-                                        </div>
-                                    </form>
-                                        <button class="col-auto btn btn-primary btn-lg" id="review-write-btn">리뷰 등록</button>
+                                </form>
+                                <button class="col-auto btn btn-primary btn-lg" id="review-write-btn">리뷰 등록</button>
 
                             </div>
 
@@ -92,18 +99,20 @@
                                 <div class="container">
 
                                     <div class="row" th:each="review: ${reviewList}">
-                                       <div class="col-md-2">
-                                          <img class="avatar avatar-xl shadow-xl position-relative z-index-2"
-                                               th:src= "@{/member_upload/}+${review.writerProfileName}" alt="bruce" loading="lazy">
-                                       </div>
+                                        <div class="col-md-2">
+                                            <img class="avatar avatar-xl shadow-xl position-relative z-index-2"
+                                                 th:src="@{/member_upload/}+${review.writerProfileName}" alt="bruce"
+                                                 loading="lazy">
+                                        </div>
                                         <div class="col-md-6">
-                                        <div class="h6" th:text="${review.reviewStar}"></div>
-                                        <div class="text-dark" th:text="${review.reviewWriter} +'  '+*{#temporals.format(review.createTime, 'yyyy/MM/dd HH:mm')}"></div>
-                                        <div th:text="${review.reviewContents}"></div>
-                                        <div><input class="btn btn-danger" type="button" th:if="(${#strings.equals(session['loginEmail'],'admin')})
+                                            <div class="h6" th:text="${review.reviewStar}"></div>
+                                            <div class="text-dark"
+                                                 th:text="${review.reviewWriter} +'  '+*{#temporals.format(review.createTime, 'yyyy/MM/dd HH:mm')}"></div>
+                                            <div th:text="${review.reviewContents}"></div>
+                                            <div><input class="btn btn-danger" type="button" th:if="(${#strings.equals(session['loginEmail'],'admin')})
                                                     or (${session.loginNick}==${review.reviewWriter})"
-                                                   th:onclick="deleteById([[${review.reviewId}]])"
-                                                   value="삭제"></div>
+                                                        th:onclick="deleteById([[${review.reviewId}]])"
+                                                        value="삭제"></div>
                                         </div>
                                         <hr style="solid-color: #D3D3D3">
                                     </div>
@@ -111,30 +120,58 @@
                                 </div>
                             </div>
                         </div>
-<!--                        강의 목록 탭을 누르면-->
+                        <!--                        강의 목록 탭을 누르면-->
                         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                            ...
+                            <span th:if="${#strings.equals(session['loginEmail'],'phl1021@naver.com')}">
+
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#courseSaveModalFragment">강의 업로드
+                            </button>
+                                </span>
+
+                            <ol class="list-group">
+                                <span th:each="course, courseStat:${courseList}">
+                                   <a th:href="@{|/course/${course.courseId}|}">
+                                        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
+                                            <div class="ms-2 me-auto">
+                                                <div class="text-dark"
+                                                     th:text="${courseStat.count +'. '+course.courseSection}"></div>
+                                                <div class="text-bold" th:text="${course.courseTitle}"></div>
+
+                                            </div>
+                                               <img src="/assets/img/playButton.png" alt="" width="45px"
+                                                    height="45px">
+                                            <!--                                    <span class="badge bg-primary rounded-pill">NEW!</span>-->
+                                        </li>
+                                   </a>
+                                     <span th:if="${#strings.equals(session['loginEmail'],'phl1021@naver.com')}">
+                                     <button type="button" class="btn btn-danger mt-1"
+                                             th:onclick="deleteByCourseId([[${course.courseId}]])">강의삭제</button>
+                                    </span>
+                                </span>
+                            </ol>
+
                         </div>
                     </div>
 
 
                 </div>
-                    <div class="col-md-4">
-                        <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
-                            <span class="text-dark">Cocolo는 평생 수강!</span>
-                                <span class="h3 text-dark" th:text="${onClass.onClassPrice} + '원'"></span>
-<!--                            수강신청-->
-                                <button type="button" class="btn btn-danger btn-lg w-auto me-2" id="buy-button">수강신청하기</button>
-<!--                            찜하기-->
+                <div class="col-md-4">
+                    <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+                        <span class="text-dark">Cocolo는 평생 수강!</span>
+                        <span class="h3 text-dark" th:text="${onClass.onClassPrice} + '원'"></span>
+                        <!--                            수강신청-->
+                        <button type="button" class="btn btn-danger btn-lg w-auto me-2" id="buy-button">수강신청하기</button>
+                        <!--                            찜하기-->
 
-                            <button class="btn bg-gradient-primary btn-icon w-auto me-2" type="button"
-                                    th:onclick="saveWish([[${onClass.onClassId}]],[[${session.loginId}]])">
-                                <div class="d-flex align-items-center">
-                                    <i class="material-icons me-2" aria-hidden="true">favorite</i>
-                                    찜 하기
-                                </div>
-                            </button>
-                        </div>
+                        <button class="btn bg-gradient-primary btn-icon w-auto me-2" type="button"
+                                th:onclick="saveWish([[${onClass.onClassId}]],[[${session.loginId}]])">
+                            <div class="d-flex align-items-center">
+                                <i class="material-icons me-2" aria-hidden="true">favorite</i>
+                                찜 하기
+                            </div>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -145,7 +182,7 @@
 </div>
 </body>
 <script>
-    <!--    수강신청버튼 클릭 - 장바구니에 추가 - 나의 장바구니로 이동-->
+    // 수강신청버튼 클릭 - 장바구니에 추가 - 나의 장바구니로 이동
     $("#buy-button").click(function () {
         const onClassId = $("#onClassId").val();
         const memberId = $("#memberId").val();
@@ -167,9 +204,8 @@
             }
         });
     });
-</script>
-<script>
-    function saveWish(onClassId,memberId) {
+
+    function saveWish(onClassId, memberId) {
         $.ajax({
             url: '/wish/save',
             type: 'POST',
@@ -186,11 +222,10 @@
             }
         });
     };
-</script>
-<script>
+
     $("#review-write-btn").click(function () {
         console.log("리뷰작성클릭");
-        const reviewStar =  $('[name=reviewStar]:checked').val()
+        const reviewStar = $('[name=reviewStar]:checked').val()
         const reviewContents = $("#reviewContents").val();
         const onClassId = $("#onClassId").val();
         const memberId = $("#memberId").val();
@@ -214,7 +249,7 @@
             }
         });
     });
-    
+
     const deleteById = (reviewId) => {
         console.log('삭제버튼클릭');
         console.log(reviewId);
@@ -228,6 +263,21 @@
                 location.reload();
             }, error() {
                 alert('ajax 실패')
+            }
+        })
+    }
+
+    <!--    강의 삭제-->
+    function deleteByCourseId(courseId) {
+        const reqUrl = "/course/" + courseId;
+        $.ajax({
+            url: reqUrl,
+            type: 'delete',
+            success: function () {
+                alert('삭제되었습니다.')
+                location.reload();
+            }, error: function () {
+                alert('요청실패')
             }
         })
     }

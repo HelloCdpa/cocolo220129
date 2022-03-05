@@ -18,4 +18,6 @@ public interface CourseService {
     CourseDetailDTO findById(Long courseId);
 
     void update(CourseUpdateDTO courseUpdateDTO);
+
+    void saveTest(CourseSaveDTO courseSaveDTO);
 }

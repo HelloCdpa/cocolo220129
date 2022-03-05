@@ -23,8 +23,8 @@
                                 <div class="card z-index-0 fadeIn3 fadeInBottom">
                                     <div class="card-body">
                                         <div>
-                                            <label class="form-label">온라인 강의 이름</label>
-                                            <input type="text" class="form-control" name="onclassId">
+                                            <h6 th:text="${'온라인 강의 이름 : '+onClass.onClassTitle}"></h6>
+                                            <input type="hidden" name="onClassId" th:value="${onClass.onClassId}">
                                         </div>
                                         <div class="input-group input-group-outline my-3">
                                             <label class="form-label">수업 주차(주제)</label>

@@ -17,6 +17,12 @@ public class CourseSaveDTO {
     private String courseFileName;
     private MultipartFile courseFile;
 
-
+    public CourseSaveDTO(Long onClassId, String courseSection, String courseTitle, String courseContents, String courseFileName) {
+        this.onClassId = onClassId;
+        this.courseSection = courseSection;
+        this.courseTitle = courseTitle;
+        this.courseContents = courseContents;
+        this.courseFileName = courseFileName;
+    }
 
 }

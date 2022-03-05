@@ -58,9 +58,16 @@
                     </div>
 
                     <div class="input-group input-group-static mb-4">
-                        <label>프로필 사진</label>
-                        <input class="form-control" type="file" id="memberProfile" name="memberProfile" >
-                        <img th:src= "@{/member_upload/}+${member.memberProfileName}" alt="member" loading="lazy">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img class="img-thumbnail" th:src= "@{/member_upload/}+${member.memberProfileName}" alt="member"
+                                     style="width:100px; height:100px;" loading="lazy">
+                             </div>
+                            <div class="col-md-6">
+                                <label>프로필 사진</label>
+                                <input class="form-control" type="file" id="memberProfile" name="memberProfile" >
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row">
@@ -68,11 +75,11 @@
                             <label for="memberInteresting">관심있는 분야</label>
                             <div class="input-group input-group-static mb-4">
                                 <select th:class="form-select" id="memberInteresting" th:field="*{memberInteresting}">
-                                    <option th:value="*{memberInteresting}" th:text="*{memberInteresting}" selected></option>
+                                    <option th:value="*{memberInteresting}" th:selected="*{memberInteresting}"></option>
                                     <option th:value="'앱개발'">앱개발</option>
-                                    <option th:value="'웹개발'" th:text="웹개발"></option>
-                                    <option th:value="'게임개발'" th:text="게임개발"></option>
-                                    <option th:value="'보안관련'" th:text="보안관련"></option>
+                                    <option th:value="'웹개발'">웹개발</option>
+                                    <option th:value="'게임개발'">게임개발</option>
+                                    <option th:value="'보안관련'">보안관련</option>
                                 </select>
 
                             </div>
@@ -91,20 +98,21 @@
                         </div>
                     </div>
 
-                    <input class="btn btn-danger" type="button" value="수정(put)" th:onclick="memberUpdate()">
+                    <input class="btn btn-danger" type="button" value="수정" th:onclick="memberUpdate()">
                 </form>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
-                  <div><a class="btn btn-success" th:href="@{|/member/pointView/${session.loginId}|}">나의 포인트</a></div>
-                  <div><a class="btn btn-success" th:href="@{|/member/mypage/${session.loginId}|}">회원정보 수정</a></div>
-                  <div><a class="btn btn-success" th:href="@{|/board/mypage/${session.loginId}|}">내가 쓴 글</a></div>
-                  <div><a class="btn btn-success"  th:href="@{|/mentoring/${session.loginId}|}">나의 멘토링</a></div>
-                  <div><a class="btn btn-success" th:href="@{|/onClass/${session.loginId}|}">강의 수강하기</a></div>
-                  <div><a class="btn btn-success" th:href="@{|/cart/${session.loginId}|}">장바구니</a></div>
-                  <div><a class="btn btn-success" th:href="@{|/wish/${session.loginId}|}">위시리스트</a></div>
-
+                <div class="btn-group-vertical">
+                    <a class="btn btn-outline-success" th:href="@{|/member/pointView/${session.loginId}|}">나의 포인트</a>
+                    <a class="btn btn-outline-success" th:href="@{|/member/mypage/${session.loginId}|}">회원정보 수정</a>
+                    <a class="btn btn-outline-success" th:href="@{|/board/mypage/${session.loginId}|}">내가 쓴 글</a>
+                    <a class="btn btn-outline-success"  th:href="@{|/mentoring/${session.loginId}|}">나의 멘토링</a>
+                    <a class="btn btn-outline-success" th:href="@{|/onClass/${session.loginId}|}">강의 수강하기</a>
+                    <a class="btn btn-outline-success" th:href="@{|/cart/${session.loginId}|}">장바구니</a>
+                    <a class="btn btn-outline-success" th:href="@{|/wish/${session.loginId}|}">위시리스트</a>
+                </div>
             </div>
         </div>
     </div>

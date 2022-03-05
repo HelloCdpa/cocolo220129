@@ -31,10 +31,10 @@ public class CourseController {
 
         cs.save(courseSaveDTO);
 
-        return "redirect:/course/";
+        return "redirect:/onClass/"+courseSaveDTO.getOnClassId();
     }
     // 상세조회
-    @GetMapping("{courseId}")
+    @GetMapping("/{courseId}")
     public String findById(@PathVariable("courseId") Long courseId, Model model){
         CourseDetailDTO courseDetailDTO = cs.findById(courseId);
 
