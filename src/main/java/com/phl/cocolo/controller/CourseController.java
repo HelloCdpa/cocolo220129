@@ -36,9 +36,12 @@ public class CourseController {
     // 상세조회
     @GetMapping("/{courseId}")
     public String findById(@PathVariable("courseId") Long courseId, Model model){
-        CourseDetailDTO courseDetailDTO = cs.findById(courseId);
+        CourseDetailDTO course = cs.findById(courseId);
 
-        model.addAttribute("course",courseDetailDTO);
+        model.addAttribute("course",course);
+
+        List<CourseDetailDTO> courseList = cs.findAll(course.getOnClassId());
+        model.addAttribute("courseList", courseList);
 
         return "/course/findById";
     }
@@ -50,29 +53,29 @@ public class CourseController {
         cs.deleteById(courseId);
         return new ResponseEntity(HttpStatus.OK);
     }
-
-    //전체조회
-    @GetMapping("/{onClassId}")
-    public String findAll(Model model,@PathVariable ("onClassId") Long onClassId) {
-        List<CourseDetailDTO> courseList = cs.findAll(onClassId);
-        model.addAttribute("courseList", courseList);
-        return "/course/findAll";
-    }
-
-    // 수정 화면 이동
-    @GetMapping("/update/{courseId}")
-    public String updateForm(Model model, @PathVariable ("courseId") Long courseId){
-        CourseDetailDTO course = cs.findById(courseId);
-        model.addAttribute("course",course);
-        return "/course/update";
-    }
-    // 수정 하기
-    @PutMapping("{courseId}")
-    public ResponseEntity update(@ModelAttribute CourseUpdateDTO courseUpdateDTO) {
-        cs.update(courseUpdateDTO);
-
-        return new ResponseEntity(HttpStatus.OK);
-    }
+//
+//    //전체조회
+//    @GetMapping("/{onClassId}")
+//    public String findAll(Model model,@PathVariable ("onClassId") Long onClassId) {
+//        List<CourseDetailDTO> courseList = cs.findAll(onClassId);
+//        model.addAttribute("courseList", courseList);
+//        return "/course/findAll";
+//    }
+//
+//    // 수정 화면 이동
+//    @GetMapping("/update/{courseId}")
+//    public String updateForm(Model model, @PathVariable ("courseId") Long courseId){
+//        CourseDetailDTO course = cs.findById(courseId);
+//        model.addAttribute("course",course);
+//        return "/course/update";
+//    }
+//    // 수정 하기
+//    @PutMapping("{courseId}")
+//    public ResponseEntity update(@ModelAttribute CourseUpdateDTO courseUpdateDTO) {
+//        cs.update(courseUpdateDTO);
+//
+//        return new ResponseEntity(HttpStatus.OK);
+//    }
 
 
 

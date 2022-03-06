@@ -17,6 +17,11 @@ public class CourseDetailDTO {
     private String courseContents;
     private String courseFileName;
 
+    // 선생님, 카테고리
+    private String onClassTeacher;
+    private String onClassCate;
+
+
     public static CourseDetailDTO toCourseDetailDTO(CourseEntity courseEntity){
         CourseDetailDTO courseDetailDTO = new CourseDetailDTO();
 
@@ -27,6 +32,9 @@ public class CourseDetailDTO {
         courseDetailDTO.setCourseSection(courseEntity.getCourseSection());
         courseDetailDTO.setCourseContents(courseEntity.getCourseContents());
         courseDetailDTO.setCourseFileName(courseEntity.getCourseFileName());
+
+        courseDetailDTO.setOnClassCate(courseEntity.getOnClassEntity().getOnClassCate());
+        courseDetailDTO.setOnClassTeacher(courseEntity.getOnClassEntity().getOnClassTeacher());
 
         return courseDetailDTO;
     }

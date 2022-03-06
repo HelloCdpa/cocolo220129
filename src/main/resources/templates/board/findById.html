@@ -55,7 +55,7 @@
                                         <img th:src="@{/board_upload/}+${board.boardFileName}" alt="">
                                     </div>
                                 </div>
-                                <p class="text-lg mb-0" th:text="${board.boardContents}"></p>
+                                <span class="text-dark mb-0" th:utext="${board.boardContents}"></span>
                             </div>
                         </div>
                     </div>

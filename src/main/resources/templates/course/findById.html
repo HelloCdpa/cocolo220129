@@ -1,10 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<link rel="shortcut icon" href="#">
+<link href="/assets/css/star.css" rel="stylesheet"/>
+<style>
+    #background {
+        background-color: #002333;
+    }
+</style>
+<th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
 <body>
+<th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
+<header class="bg-gradient-dark">
+    <div class="page-header min-vh-100" id="background">
+        <div class="container">
+            <div class="row mt-5">
+                <span class="h5 text-white" th:text="${course.onClassCate +'>'+course.onClassTeacher}"></span>
+                <h1 class="text-white" th:text="${course.courseTitle}"></h1>
 
+                <div class="col-lg-6">
+                    <img class="img-thumbnail" th:src="@{/class_upload/}+${course.courseFileName}"
+                         style="width:500px; height:400px;" alt="">
+                    <div class="h5 text-white" th:text="'['+${course.courseSection}+']'"></div><br>
+                    <p class="text-white" th:text="${course.courseContents}"></p>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="list-group">
+                        <span th:each="courseList, courseStat:${courseList}">
+                           <a th:href="@{|/course/${courseList.courseId}|}">
+                                <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <div class="text-dark"
+                                             th:text="${courseStat.count +'. '+courseList.courseSection}"></div>
+                                        <div class="text-bold" th:text="${courseList.courseTitle}"></div>
+
+                                    </div>
+                                       <img src="/assets/img/playButton.png" alt="" width="45px"
+                                            height="45px">
+                                </li>
+                           </a>
+                        </span>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
 </body>
 </html>
