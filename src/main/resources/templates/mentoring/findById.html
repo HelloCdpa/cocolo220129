@@ -38,7 +38,7 @@
                                 </div>
                                 <form action="/member/pointPayment" method="post" name="pointPayment">
                                     <div>
-                                        <p class="text-lg mb-0" th:text="${mentoring.mentoringContents}"></p>
+                                        <p class="text-lg mb-0" th:utext="${mentoring.mentoringContents}"></p>
 
                                             <span th:text="${mentoring.mentoringCount}"></span>회 당
                                             <span th:text="${mentoring.mentoringPrice}"></span>point

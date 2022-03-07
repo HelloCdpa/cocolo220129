@@ -22,7 +22,7 @@
                     <img class="img-thumbnail" th:src="@{/class_upload/}+${course.courseFileName}"
                          style="width:500px; height:400px;" alt="">
                     <div class="h5 text-white" th:text="'['+${course.courseSection}+']'"></div><br>
-                    <p class="text-white" th:text="${course.courseContents}"></p>
+                    <p class="text-white" th:utext="${course.courseContents}"></p>
                 </div>
                 <div class="col-lg-6">
                     <ol class="list-group">
