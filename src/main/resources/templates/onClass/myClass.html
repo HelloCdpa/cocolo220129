@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<link rel="shortcut icon" href="#">
+<style>
+    #background {
+        background-image: url("https://cdn.pixabay.com/photo/2015/07/19/10/00/school-work-851328_1280.jpg");
+    }
+</style>
+<th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
+<body>
+<div id="wrapper">
+    <header class="bg-gradient-dark">
+        <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
+
+        <th:block th:replace="/onClass/save :: onClassSaveFragment"></th:block>
+
+        <div class="page-header min-vh-75" id="background">
+            <span class="mask bg-gradient-dark opacity-6"></span>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center mx-auto my-auto">
+                        <h1 class="text-white">MY ClassRoom</h1>
+                        <p class="lead mb-4 text-white opacity-8">구매한 강의는 평생수강!</p>
+                        <span th:if="${not #strings.isEmpty(session['loginEmail'])}">
+                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#onClassSave">게시글 작성하기</button>
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n3">
+        <div class="row">
+            <div class="col-md-3 mb-5" th:each="myClass:${myClassList}">
+                <div class="card h-100">
+                    <a th:href="@{|/onClass/${myClass.onClassId}|}">
+                        <div class="card-body">
+                            <p class="card-text text-center">
+                                <img class="img-fluid rounded mb-4 mb-lg-0"
+                                     th:src="@{/class_upload/}+${myClass.onClassFileName}"
+                                     alt="..." width="150" height="100"/></p>
+                            <p class="card-text text-center h6" th:text="${myClass.onClassTitle}"></p>
+                            <p class="card-text text-center">
+                                <span th:text="${myClass.onClassCate}"></span>
+                                /<span th:text="${myClass.onClassIntro}"></span>
+                                <input type="hidden" id="onClassId" th:value="${myClass.onClassId}">
+                                <input type="hidden" id="memberId" th:value="${session.loginId}">
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
+</body>
+
+
+</html>

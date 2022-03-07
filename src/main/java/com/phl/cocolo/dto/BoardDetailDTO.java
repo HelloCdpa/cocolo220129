@@ -44,7 +44,10 @@ public class BoardDetailDTO {
         boardDetailDTO.setBoardTitle(boardEntity.getBoardTitle());
         boardDetailDTO.setBoardContents(boardEntity.getBoardContents());
         boardDetailDTO.setBoardFileName(boardEntity.getBoardFileName());
+
         boardDetailDTO.setCreateBoardDate(boardEntity.getCreatTime());
+        boardDetailDTO.setUpdateBoardDate(boardEntity.getUpdateTime());
+
         boardDetailDTO.setBoardHits(boardEntity.getBoardHits());
         boardDetailDTO.setLikeCount(boardEntity.getLikeCount());
 

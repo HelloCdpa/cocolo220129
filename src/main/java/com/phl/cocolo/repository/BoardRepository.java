@@ -8,10 +8,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface BoardRepository extends JpaRepository<BoardEntity,Long> {
     Page<BoardEntity> findByBoardTitleContainingIgnoreCase(String keyword, Pageable paging);
     Page<BoardEntity> findByBoardWriterContainingIgnoreCase(String keyword,Pageable paging);
     Page<BoardEntity> findByCategoryEntity_Id(Long cateId,Pageable paging);
+    List<BoardEntity> findAllByMemberEntity_Id(Long memberId);
 
 
     //조회수를 올렸는데 보드업데이트 시간이 수정되는 기이한 현상을 보완해줌

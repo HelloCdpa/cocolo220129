@@ -47,59 +47,79 @@
         </div>
     </header>
 
-    <input type="hidden" th:value="${session.loginId}" id="memberId">
-    <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6">
-            <div class="row">
-        <div class="col-lg-6" th:each="study:${studyList}">
-                <div class="accordion accordion-flush" th:id="${'accordionFlushExample' + study.studyId}">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" th:id="${'flush-headingOne' + study.studyId}">
-                          <button th:text="${study.studyTitle}" class="accordion-button collapsed h4" type="button"
-                                  data-bs-toggle="collapse" th:data-bs-target="${'#flush-collapseOne' + study.studyId}"
-                                  aria-expanded="false" th:aria-controls="${'flush-collapseOne' + study.studyId}">
-                          </button>
-                        </h2>
-                        <div th:id="${'flush-collapseOne' + study.studyId}" class="accordion-collapse collapse"
-                             th:aria-labelledby="${'flush-headingOne' + study.studyId}"
-                             th:data-bs-parent="${'#accordionFlushExample' + study.studyId}">
-                          <div class="accordion-body">
-                              <div class="row">
-                                  <div class="col-md-8">
-                                      <input type="hidden" th:value="${study.studyId}" id="studyId">
-                              <div class="h6">스터디 소개 : </div>
-                              <div class="text-bold" th:text="${study.studyContents}"></div>
-                               <div class="h6">스터디 분야 :&nbsp; <span th:text="${study.studyCate}"></span></div>
+    <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+        <div class="container-fluid">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">제목</th>
+                    <th scope="col">작성자</th>
+                    <th scope="col">스터디 인원</th>
+                    <th scope="col">스터디 지역</th>
+                    <th scope="col">작성시간</th>
+                </tr>
+                </thead>
+                <tbody>
+                <span th:each="study,studyStat:${studyList}">
+                    <div class="accordion accordion-flush" th:id="${'accordionFlushExample' + study.studyId}">
+                        <div class="accordion-item">
+                            <input type="hidden" th:value="${study.studyId}" id="studyId">
+                            <tr>
+                                <th scope="row" th:text="${studyStat.count}"></th>
+                                <span class="accordion-header" th:id="${'flush-headingOne' + study.studyId}">
+                                   <td> <button th:text="${study.studyTitle}" class="accordion-button collapsed"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                th:data-bs-target="${'#flush-collapseOne' + study.studyId}"
+                                                aria-expanded="false"
+                                                th:aria-controls="${'flush-collapseOne' + study.studyId}">
 
-                               <div class="h6">스터디 현재 인원 :&nbsp; <span th:text="${study.studyCount}"></span>명</div>
-                               <div class="h6">모집 인원 :&nbsp; <span th:text="${study.studyMax}"></span>명</div>
-                                      <span class="h6">스터디 장소 :&nbsp;</span><span th:text="${study.studyPlace}"></span>
-                                      <span th:if="${#strings.equals(session['loginNick'],study.studyWriter)}">
+                                    </button></td>
+                                        <td th:text="${study.studyWriter}"></td>
+                                <td th:text="${study.studyCount+'/'+study.studyMax}"></td>
+                                <td th:text="${study.studyPlace}"></td>
+                                <td>
+                                    <span th:text="*{#temporals.format(study.createTime, 'yy/MM/dd HH:mm')}"></span>
+                                </td>
+                                </span>
+                            </tr>
+                            <tr>
+                                <td colspan="6">
+                                <div th:id="${'flush-collapseOne' + study.studyId}" class="accordion-collapse collapse"
+                                     th:aria-labelledby="${'flush-headingOne' + study.studyId}"
+                                     th:data-bs-parent="${'#accordionFlushExample' + study.studyId}">
+                                    <div class="accordion-body">
+                                        <div class="text-bold" th:utext="${study.studyContents}"></div>
 
-                                <button type="button" class="btn btn-danger"
-                                        th:onclick="deleteById([[${study.studyId}]])">글삭제</button>
-                                <a class="btn btn-outline-info" th:href="@{|/study/update/${study.studyId}|}">글수정</a>
-                                          </span>
-                                  </div>
-                                  <div class="col-md-4">
-                            <img class="avatar avatar-xxl shadow-xl position-relative z-index-2"
-                                 th:src= "@{/member_upload/}+${study.memberProfileName}" alt="bruce" loading="lazy">
-                                  </div>
-                                  <span th:if="${not #strings.isEmpty(session['loginEmail'])}">
-                                      <button class="btn btn-outline-info" th:onclick="studyApply([[${study.studyId}]])">스터디 신청하기</button>
 
-                                  </span>
-
-                              </div>
-                          </div>
+                                        <span th:if="${#strings.equals(session['loginNick'],study.studyWriter)}">
+                                            <button type="button" class="btn btn-danger"
+                                                    th:onclick="deleteById([[${study.studyId}]])">글삭제</button>
+                                            <a class="btn btn-outline-info"
+                                               th:href="@{|/study/update/${study.studyId}|}">글수정</a>
+                                        </span>
+                                        <!--                                  작성자가 스터디 모집 신청 방지 -->
+                                        <span th:if="${not #strings.isEmpty(session['loginEmail']) && not #strings.equals(session['loginNick'],study.studyWriter)}">
+                                          <button class="btn btn-outline-info"
+                                                  th:onclick="studyApply([[${study.studyId}]])">스터디 신청하기</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                </td>
+                            </tr>
                         </div>
                     </div>
-                </div>
+                </span>
+                </tbody>
+            </table>
+
+
+            <input type="hidden" th:value="${session.loginId}" id="memberId">
         </div>
-          </div>
     </div>
     <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
 </div>
-
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
@@ -121,22 +141,22 @@
     function studyApply(studyId) {
         const memberId = $('#memberId').val();
 
-        console.log('클릭한 회원 = '+memberId+'studyId = '+studyId);
+        console.log('클릭한 회원 = ' + memberId + 'studyId = ' + studyId);
 
         const reqUrl = "/studyApply/";
         $.ajax({
             url: reqUrl,
             type: 'post',
-            data : {
-                'memberId' : memberId,
+            data: {
+                'memberId': memberId,
                 'studyId': studyId
             },
-            dataType : 'text',
+            dataType: 'text',
             success: function (data) {
-                if(data == "ok"){
+                if (data == "ok") {
                     alert('신청되었습니다.')
                     location.reload();
-                }else{
+                } else {
                     alert('이미 신청한 스터디 입니다.')
                 }
 

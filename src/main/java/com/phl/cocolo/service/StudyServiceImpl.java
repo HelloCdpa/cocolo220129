@@ -57,6 +57,19 @@ public class StudyServiceImpl implements StudyService{
         sr.save(StudyEntity.toStudyUpdateEntity(studyUpdateDTO,mr.findById(studyUpdateDTO.getMemberId()).get()));
     }
 
+    @Override
+    public List<StudyDetailDTO> findAllByMemberId(Long memberId) {
+        List<StudyEntity> studyEntityList = sr.findAllByMemberEntity_Id(memberId);
+        List<StudyDetailDTO> studyList = new ArrayList<>();
+
+        for (StudyEntity s: studyEntityList){
+            studyList.add(StudyDetailDTO.toStudyDetailDTO(s));
+        }
+
+
+
+        return studyList;
+    }
 
 
 }

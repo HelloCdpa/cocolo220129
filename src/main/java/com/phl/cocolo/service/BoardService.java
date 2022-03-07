@@ -33,4 +33,5 @@ public interface BoardService {
 
     int saveLike(Long boardId, Long memberId);
 
+    List<BoardDetailDTO> findAllByMemberId(Long memberId);
 }

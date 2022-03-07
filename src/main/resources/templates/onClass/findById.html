@@ -66,7 +66,8 @@
                         </div>
                         <!--                            리뷰 탭을 누르면-->
                         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            <div id="review-write" class="m-2">
+<!--                            구매한 강의 인지 true 리뷰를 쓰지 않았었는지 false 체크-->
+                            <div id="review-write" class="m-2" th:if="${myClassCheck && !reviewCheck}">
 
                                 <div>
                                         <span class="h5" type="text" id="reviewWriter"
@@ -92,8 +93,8 @@
                                     </div>
                                 </form>
                                 <button class="col-auto btn btn-primary btn-lg" id="review-write-btn">리뷰 등록</button>
-
                             </div>
+                            <div th:unless="${myClassCheck}"><h4 class="mt-2">❤강의를 구매하시면 리뷰를 남길 수 있어요!❤</h4></div>
 
                             <div id="review-list" class="container">
                                 <div class="container">
@@ -105,7 +106,9 @@
                                                  loading="lazy">
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="h6" th:text="${review.reviewStar}"></div>
+                                            <span class="h6" th:text="${review.reviewStar}" id="reviewStar"></span>
+                                            <span class="reviewStar" th:text="${'★'*review.reviewStar}"></span>
+
                                             <div class="text-dark"
                                                  th:text="${review.reviewWriter} +'  '+*{#temporals.format(review.createTime, 'yyyy/MM/dd HH:mm')}"></div>
                                             <div th:text="${review.reviewContents}"></div>
@@ -122,7 +125,8 @@
                         </div>
                         <!--                        강의 목록 탭을 누르면-->
                         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                            <span th:if="${#strings.equals(session['loginEmail'],'phl1021@naver.com')}">
+                        <!--  강의를 맡은 선생님 닉네임과 같다면 강의 업로드 가능  -->
+                            <span th:if="${#strings.equals(session['loginNick'],onClass.onClassTeacher)}">
 
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#courseSaveModalFragment">강의 업로드
@@ -131,7 +135,8 @@
 
                             <ol class="list-group">
                                 <span th:each="course, courseStat:${courseList}">
-                                   <a th:href="@{|/course/${course.courseId}|}">
+<!--                                    강의 구매 안한 회원-->
+                                   <a  th:unless="${myClassCheck}" href="#" id="myClassCheckAlert">
                                         <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
                                             <div class="ms-2 me-auto">
                                                 <div class="text-dark"
@@ -144,7 +149,21 @@
                                             <!--                                    <span class="badge bg-primary rounded-pill">NEW!</span>-->
                                         </li>
                                    </a>
-                                     <span th:if="${#strings.equals(session['loginEmail'],'phl1021@naver.com')}">
+<!--                                 강의를 구매한 회원이면   -->
+                                     <a th:if="${myClassCheck}" th:href="@{|/course/${course.courseId}|}">
+                                        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
+                                            <div class="ms-2 me-auto">
+                                                <div class="text-dark"
+                                                     th:text="${courseStat.count +'. '+course.courseSection}"></div>
+                                                <div class="text-bold" th:text="${course.courseTitle}"></div>
+
+                                            </div>
+                                               <img src="/assets/img/playButton.png" alt="" width="45px"
+                                                    height="45px">
+                                            <!--                                    <span class="badge bg-primary rounded-pill">NEW!</span>-->
+                                        </li>
+                                   </a>
+                                     <span th:if="${#strings.equals(session['loginNick'],onClass.onClassTeacher)}">
                                      <button type="button" class="btn btn-danger mt-1"
                                              th:onclick="deleteByCourseId([[${course.courseId}]])">강의삭제</button>
                                     </span>
@@ -157,7 +176,7 @@
 
                 </div>
                 <div class="col-md-4">
-                    <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+                    <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3" th:unless="${myClassCheck}" >
                         <span class="text-dark">Cocolo는 평생 수강!</span>
                         <span class="h3 text-dark" th:text="${onClass.onClassPrice} + '원'"></span>
                         <!--                            수강신청-->
@@ -171,6 +190,10 @@
                                 찜 하기
                             </div>
                         </button>
+                    </div>
+                    <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3" th:if="${myClassCheck}" >
+                        <span class="text-dark">Cocolo는 평생 수강!</span>
+                        <span class="h4 text-dark">강의 수강 후 리뷰 5000p 지급! </span>
                     </div>
                 </div>
             </div>
@@ -281,5 +304,10 @@
             }
         })
     }
+</script>
+<script>
+    $("#myClassCheckAlert").click(function (){
+        alert('강의 구매 후 들으실 수 있습니다.')
+    })
 </script>
 </html>

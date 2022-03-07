@@ -24,4 +24,6 @@ public interface MentoringService {
     void updateCount(Long menteeId);
 
     MenteeDetailDTO findByMenteeId(Long menteeId);
+
+    List<MentoringDetailDTO> mentorFindAllByMemberId(Long memberId);
 }

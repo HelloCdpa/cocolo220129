@@ -4,6 +4,8 @@ import com.phl.cocolo.common.PagingConst;
 import com.phl.cocolo.dto.*;
 import com.phl.cocolo.service.BoardService;
 import com.phl.cocolo.service.CommentService;
+import com.phl.cocolo.service.MentoringService;
+import com.phl.cocolo.service.StudyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +35,10 @@ import static com.phl.cocolo.common.SessionConst.LOGIN_ID;
 public class BoardController {
     private final BoardService bs;
     private final CommentService cs;
+    private final MentoringService mts;
+    private final StudyService ss;
+
+
     //게시글 저장
     @GetMapping("/save")
     public String saveForm(Model model){
@@ -196,13 +202,25 @@ public class BoardController {
         return new ResponseEntity(HttpStatus.OK);
     }
     //게시글 삭제
-    @DeleteMapping("{boardId}")
+    @DeleteMapping("/{boardId}")
     public ResponseEntity deleteById (@PathVariable ("boardId") Long boardId){
         bs.deleteById(boardId);
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @GetMapping("/myBoard/{memberId}")
+    public String myBoard(@PathVariable ("memberId") Long memberId,Model model){
+        List<BoardDetailDTO> boardList = bs.findAllByMemberId(memberId);
+        model.addAttribute("boardList",boardList);
 
+        List<MentoringDetailDTO> mentoringList = mts.mentorFindAllByMemberId(memberId);
+        model.addAttribute("mentoringList", mentoringList);
+
+        List<StudyDetailDTO> studyList = ss.findAllByMemberId(memberId);
+        model.addAttribute("studyList", studyList);
+
+        return "/board/myBoard";
+    }
 
 
 

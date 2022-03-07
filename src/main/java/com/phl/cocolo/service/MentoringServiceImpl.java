@@ -1,6 +1,7 @@
 package com.phl.cocolo.service;
 
 import com.phl.cocolo.dto.*;
+import com.phl.cocolo.entity.BoardEntity;
 import com.phl.cocolo.entity.MemberEntity;
 import com.phl.cocolo.entity.MenteeEntity;
 import com.phl.cocolo.entity.MentoringEntity;
@@ -110,6 +111,20 @@ public class MentoringServiceImpl implements MentoringService{
     public MenteeDetailDTO findByMenteeId(Long menteeId) {
         MenteeDetailDTO menteeDetailDTO = MenteeDetailDTO.toMenteeDetailDTO(mer.findById(menteeId).get());
         return menteeDetailDTO;
+    }
+
+    @Override
+    public List<MentoringDetailDTO> mentorFindAllByMemberId(Long memberId) {
+        List<MentoringEntity> mentoringEntityList = mtr.findAllByMemberEntity_Id(memberId);
+        List<MentoringDetailDTO> mentoringList = new ArrayList<>();
+
+        for (MentoringEntity m: mentoringEntityList){
+            mentoringList.add(MentoringDetailDTO.toMentoringDetailDTO(m));
+        }
+
+
+
+        return mentoringList;
     }
 
 

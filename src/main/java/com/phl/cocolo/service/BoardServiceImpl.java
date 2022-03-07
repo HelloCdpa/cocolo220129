@@ -154,6 +154,18 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public List<BoardDetailDTO> findAllByMemberId(Long memberId) {
+        List<BoardEntity> boardEntityList = br.findAllByMemberEntity_Id(memberId);
+        List<BoardDetailDTO> boardList = new ArrayList<>();
+
+        for (BoardEntity b: boardEntityList){
+            boardList.add(BoardDetailDTO.toBoardDetailDTO(b));
+        }
+
+        return boardList;
+    }
+
+    @Override
     @Transactional
     public BoardDetailDTO findById(Long boardId) {
         Optional<BoardEntity> optionalBoard = br.findById(boardId);

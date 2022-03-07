@@ -24,7 +24,7 @@
                             <form action="/member/login" method="post" role="form" class="text-start">
                                 <div class="input-group input-group-outline my-3">
                                     <label class="form-label">Email</label>
-                                    <input type="email" name="memberEmail" class="form-control">
+                                    <input type="email" name="memberEmail" id="memberEmail" class="form-control">
                                 </div>
                                 <div class="input-group input-group-outline mb-3">
                                     <label class="form-label">Password</label>
@@ -69,6 +69,26 @@
 
         }
     })
+
+    $(function(){
+        let rememberMe = $("#rememberMe");
+        //쿠키가 있는지 확인
+        let userEmail = getCookie("userEmail");
+
+        //rememberMe에 체크가 되어있는지 확인
+        if(userEmail) {
+            rememberMe.attr("checked", true);
+            $("#memberEmail").val(userEmail);
+        }
+
+        if(rememberMe[0].checked){
+            setCookie("userEmail", $("#memberEmail").val(), 7);
+        } else {
+            deleteCookie("userEmail");
+        }
+    });
+
+
 
 </script>
 

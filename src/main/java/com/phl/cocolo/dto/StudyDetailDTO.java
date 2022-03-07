@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,6 +25,8 @@ public class StudyDetailDTO {
     private String studyCate;
     private String memberProfileName;
 
+    private LocalDateTime createTime;
+
     public static StudyDetailDTO toStudyDetailDTO(StudyEntity studyEntity){
         StudyDetailDTO studyDetailDTO = new StudyDetailDTO();
 
@@ -37,6 +41,8 @@ public class StudyDetailDTO {
         studyDetailDTO.setStudyPlace(studyEntity.getStudyPlace());
         studyDetailDTO.setStudyCate(studyEntity.getStudyCate());
         studyDetailDTO.setMemberProfileName(studyEntity.getMemberEntity().getMemberProfileName());
+
+        studyDetailDTO.setCreateTime(studyEntity.getCreatTime());
 
         return studyDetailDTO;
     }

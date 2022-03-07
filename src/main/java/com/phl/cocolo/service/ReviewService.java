@@ -11,4 +11,6 @@ public interface ReviewService {
     List<ReviewDetailDTO> findAll(Long onClassId);
 
     void deleteById(Long reviewId);
+
+    boolean reviewCheck(Long memberId, Long onClassId);
 }

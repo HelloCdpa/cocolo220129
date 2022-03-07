@@ -1,5 +1,6 @@
 package com.phl.cocolo.service;
 
+import com.phl.cocolo.dto.MyClassDetailDTO;
 import com.phl.cocolo.dto.OnClassDetailDTO;
 import com.phl.cocolo.dto.OnClassSaveDTO;
 
@@ -18,4 +19,8 @@ public interface OnClassService {
     List<OnClassDetailDTO> findAll();
 
     void payment(Long onClassId,Long memberId);
+
+    List<MyClassDetailDTO> myClassList(Long memberId);
+
+    boolean myClassCheck(Long memberId, Long onClassId);
 }

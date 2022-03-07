@@ -16,5 +16,5 @@ public interface StudyService {
     void update(StudyUpdateDTO studyUpdateDTO);
 
 
-
+    List<StudyDetailDTO> findAllByMemberId(Long memberId);
 }

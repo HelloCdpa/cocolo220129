@@ -106,10 +106,9 @@
             <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
                 <div class="btn-group-vertical">
                     <a class="btn btn-outline-success" th:href="@{|/member/pointView/${session.loginId}|}">나의 포인트</a>
-                    <a class="btn btn-outline-success" th:href="@{|/member/mypage/${session.loginId}|}">회원정보 수정</a>
-                    <a class="btn btn-outline-success" th:href="@{|/board/mypage/${session.loginId}|}">내가 쓴 글</a>
+                    <a class="btn btn-outline-success" th:href="@{|/board/myBoard/${session.loginId}|}">내가 쓴 글</a>
                     <a class="btn btn-outline-success"  th:href="@{|/mentoring/${session.loginId}|}">나의 멘토링</a>
-                    <a class="btn btn-outline-success" th:href="@{|/onClass/${session.loginId}|}">강의 수강하기</a>
+                    <a class="btn btn-outline-success" th:href="@{|/onClass/myClass/${session.loginId}|}">강의 수강하기</a>
                     <a class="btn btn-outline-success" th:href="@{|/cart/${session.loginId}|}">장바구니</a>
                     <a class="btn btn-outline-success" th:href="@{|/wish/${session.loginId}|}">위시리스트</a>
                 </div>

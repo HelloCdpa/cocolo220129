@@ -27,11 +27,14 @@
                     </span>
                         <div class="d-flex justify-content-center">
                             <!--카테고리 별로 보기-->
-                            <span th:each="onClass:${onClassList}">
-                             <a class="btn bg-gradient-primary w-auto me-2"
-                                th:href="@{|/templates/onClass/cateOnClass/${onClass.onClassCate}|}"
-                                th:text="${onClass.onClassCate}"></a>
-                            </span>
+                            <div>
+                                <a class="btn bg-gradient-primary w-auto me-2" href="/onClass/onClassCate/1">자바</a>
+                                <a class="btn bg-gradient-primary w-auto me-2" href="/onClass/onClassCate/2">스프링</a>
+                                <a class="btn bg-gradient-primary w-auto me-2" href="/onClass/onClassCate/3">파이썬</a>
+                                <a class="btn bg-gradient-primary w-auto me-2" href="/onClass/onClassCate/4">프론트엔드</a>
+                                <a class="btn bg-gradient-primary w-auto me-2" href="/onClass/onClassCate/5">기타</a>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -88,7 +91,6 @@
 
 <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
     function deleteById(onClassId) {
         const reqUrl = "/onClass/" + onClassId;

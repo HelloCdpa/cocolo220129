@@ -56,7 +56,7 @@ public class OnClassController {
     }
     // 상세조회
     @GetMapping("/{onClassId}")
-    public String findById(@PathVariable("onClassId") Long onClassId, Model model){
+    public String findById(@PathVariable("onClassId") Long onClassId, Model model,HttpSession session){
         OnClassDetailDTO onClassDetailDTO = os.findById(onClassId);
 
         model.addAttribute("onClass",onClassDetailDTO);
@@ -66,6 +66,26 @@ public class OnClassController {
 
         List<CourseDetailDTO> courseList = cs.findAll(onClassId);
         model.addAttribute("courseList", courseList);
+
+        Long memberId = (Long) session.getAttribute(LOGIN_ID);
+        // 상세정보를 확인하기 전에 회원과 강의 아이디를 체크해서
+        // 회원이 구매하지 않은 강의면(null) false myClassCheck 구매한 강의라면 true
+        boolean myClassCheck = os.myClassCheck(memberId,onClassId);
+
+        // 리뷰 중복 쓰기 방지
+        // 회원이 리뷰를 안썼으면(null) false myClassCheck 이미 썼다면 true
+        boolean reviewCheck = rs.reviewCheck(memberId,onClassId);
+        if (memberId == null){
+            myClassCheck = false;
+        }
+
+        model.addAttribute("myClassCheck", myClassCheck);
+        model.addAttribute("reviewCheck", reviewCheck);
+
+
+
+
+
         return "/onClass/findById";
     }
 
@@ -100,6 +120,7 @@ public class OnClassController {
         }
         return new ResponseEntity(HttpStatus.OK);
     }
+
     @Transactional
     @PostMapping("/payment")
     public String payment(@RequestParam ("onClassId") Long onClassId,HttpSession session){
@@ -110,6 +131,14 @@ public class OnClassController {
 
         return "redirect:/onClass/"+memberId;
 
+    }
+    //구매한 강의들 조회
+    @GetMapping("/myClass/{memberId}")
+    public String myClass(Model model,@PathVariable("memberId") Long memberId) {
+        List<MyClassDetailDTO> myClassList = os.myClassList(memberId);
+        model.addAttribute("myClassList", myClassList);
+
+        return "/onClass/myClass";
     }
 
 

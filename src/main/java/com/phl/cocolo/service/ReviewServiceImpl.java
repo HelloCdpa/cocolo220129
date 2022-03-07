@@ -53,4 +53,14 @@ public class ReviewServiceImpl implements ReviewService{
     public void deleteById(Long reviewId) {
         rr.deleteById(reviewId);
     }
+
+    @Override
+    public boolean reviewCheck(Long memberId, Long onClassId) {
+        if(rr.findByMemberEntity_IdAndOnClassEntity_Id(memberId,onClassId) == null){
+            return false;
+        }else {
+            return true;
+        }
+
+    }
 }

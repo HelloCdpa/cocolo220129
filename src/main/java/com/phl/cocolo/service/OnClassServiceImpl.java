@@ -93,4 +93,31 @@ public class OnClassServiceImpl implements OnClassService{
         cr.deleteAllByMemberEntity_Id(memberId);
 
     }
+
+    @Override
+    public List<MyClassDetailDTO> myClassList(Long memberId) {
+        //my course 에서 memberID 를 찾아 회원의 온라인클래스 조회
+        List<MyClassEntity> myClassEntityList =mcr.findAllByMemberEntity_Id(memberId);
+
+        List<MyClassDetailDTO> myClassList = new ArrayList<>();
+
+        for (MyClassEntity m : myClassEntityList){
+            myClassList.add(MyClassDetailDTO.toMyClassDetailDTO(m));
+        }
+
+
+
+
+        return myClassList;
+    }
+
+    @Override
+    public boolean myClassCheck(Long memberId, Long onClassId) {
+        if(mcr.findByMemberEntity_IdAndOnClassEntity_Id(memberId,onClassId) == null){
+            return false;
+        }else {
+            return true;
+        }
+
+    }
 }

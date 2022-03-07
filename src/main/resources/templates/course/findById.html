@@ -5,7 +5,7 @@
 <link href="/assets/css/star.css" rel="stylesheet"/>
 <style>
     #background {
-        background-color: #002333;
+        background-color: rgba(20,26,52,0.95);
     }
 </style>
 <th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
@@ -14,15 +14,18 @@
 <header class="bg-gradient-dark">
     <div class="page-header min-vh-100" id="background">
         <div class="container">
-            <div class="row mt-5">
+            <div class="row mt-6">
                 <span class="h5 text-white" th:text="${course.onClassCate +'>'+course.onClassTeacher}"></span>
                 <h1 class="text-white" th:text="${course.courseTitle}"></h1>
 
                 <div class="col-lg-6">
                     <img class="img-thumbnail" th:src="@{/class_upload/}+${course.courseFileName}"
                          style="width:500px; height:400px;" alt="">
-                    <div class="h5 text-white" th:text="'['+${course.courseSection}+']'"></div><br>
-                    <p class="text-white" th:utext="${course.courseContents}"></p>
+                    <div class="card card-body mt-3 mx-2">
+                        <div class="h5" th:text="'['+${course.courseSection}+']'"></div>
+                        <div class="text-dark" th:utext="${course.courseContents}"></div>
+                    </div>
+
                 </div>
                 <div class="col-lg-6">
                     <ol class="list-group">
