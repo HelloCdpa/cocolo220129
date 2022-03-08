@@ -34,38 +34,42 @@
 
                     <div class="input-group input-group-static mb-4">
                         <label>닉네임</label>
-                        <input class="form-control" th:field="*{memberNickName}" th:value="*{memberNickName}" type="text" readonly>
+                        <input class="form-control" th:field="*{memberNickName}" th:value="*{memberNickName}"
+                               type="text" readonly>
                     </div>
 
                     <div class="input-group input-group-static mb-4">
                         <label>이름</label>
-                        <input class="form-control" th:field="*{memberName}" th:value="*{memberName}" type="text" readonly>
+                        <input class="form-control" th:field="*{memberName}" th:value="*{memberName}" type="text"
+                               readonly>
                     </div>
 
                     <div class="input-group input-group-static mb-4">
                         <label>이메일</label>
-                        <input class="form-control" th:field="*{memberEmail}" th:value="*{memberEmail}" type="text" readonly>
+                        <input class="form-control" th:field="*{memberEmail}" th:value="*{memberEmail}" type="text"
+                               readonly>
                     </div>
 
                     <div class="input-group input-group-static mb-4">
                         <label>비밀번호입력</label>
-                        <input class="form-control" th:field="*{memberPassword}" type="password" >
+                        <input class="form-control" th:field="*{memberPassword}" type="password">
                     </div>
 
                     <div class="input-group input-group-static mb-4">
                         <label>전화번호</label>
-                        <input class="form-control" th:field="*{memberPhone}" th:value="*{memberPhone}" type="text" >
+                        <input class="form-control" th:field="*{memberPhone}" th:value="*{memberPhone}" type="text">
                     </div>
 
                     <div class="input-group input-group-static mb-4">
                         <div class="row">
                             <div class="col-md-6">
-                                <img class="img-thumbnail" th:src= "@{/member_upload/}+${member.memberProfileName}" alt="member"
+                                <img class="img-thumbnail" th:src="@{/member_upload/}+${member.memberProfileName}"
+                                     alt="member"
                                      style="width:100px; height:100px;" loading="lazy">
-                             </div>
+                            </div>
                             <div class="col-md-6">
                                 <label>프로필 사진</label>
-                                <input class="form-control" type="file" id="memberProfile" name="memberProfile" >
+                                <input class="form-control" type="file" id="memberProfile" name="memberProfile">
                             </div>
                         </div>
                     </div>
@@ -89,10 +93,10 @@
                             <div class="input-group input-group-static mb-4">
                                 <select th:class="form-select" id="memberLevel" th:field="*{memberLevel}">
                                     <option th:value="*{memberLevel}" th:text="*{memberLevel}" selected></option>
-                                    <option th:value="'초보 개발자'" >초보 개발자</option>
+                                    <option th:value="'초보 개발자'">초보 개발자</option>
                                     <option th:value="'중급 개발자'">중급 개발자</option>
-                                    <option th:value="'고급 개발자'" >고급 개발자</option>
-                                    <option th:value="'선생님'" >선생님</option>
+                                    <option th:value="'고급 개발자'">고급 개발자</option>
+                                    <option th:value="'선생님'">선생님</option>
                                 </select>
                             </div>
                         </div>
@@ -107,7 +111,8 @@
                 <div class="btn-group-vertical">
                     <a class="btn btn-outline-success" th:href="@{|/member/pointView/${session.loginId}|}">나의 포인트</a>
                     <a class="btn btn-outline-success" th:href="@{|/board/myBoard/${session.loginId}|}">내가 쓴 글</a>
-                    <a class="btn btn-outline-success"  th:href="@{|/mentoring/${session.loginId}|}">나의 멘토링</a>
+                    <a class="btn btn-outline-success" th:href="@{|/mentoring/${session.loginId}|}">나의 멘토링</a>
+                    <a class="btn btn-outline-success" th:href="@{|/studyApply/myStudy/${session.loginId}|}">나의 스터디</a>
                     <a class="btn btn-outline-success" th:href="@{|/onClass/myClass/${session.loginId}|}">강의 수강하기</a>
                     <a class="btn btn-outline-success" th:href="@{|/cart/${session.loginId}|}">장바구니</a>
                     <a class="btn btn-outline-success" th:href="@{|/wish/${session.loginId}|}">위시리스트</a>
@@ -130,29 +135,29 @@
         const memberPassword = $('#memberPassword').val();
         const memberPhone = $('#memberPhone').val();
         const memberProfile = document.getElementById('memberProfile').value;
-        console.log(memberId,memberName,memberEmail,memberPassword,memberPhone,memberProfile);
-        const reqUrl = "/member/" +memberId;
+        console.log(memberId, memberName, memberEmail, memberPassword, memberPhone, memberProfile);
+        const reqUrl = "/member/" + memberId;
 
         const data = $('#updateForm')[0];
         const formData = new FormData(data);
 
 
         const pwDB = "[[${member.memberPassword}]]";
-        if(pwDB == memberPassword){
+        if (pwDB == memberPassword) {
             $.ajax({
-                type : 'put',
+                type: 'put',
                 cache: false,
-                contentType : false,
-                processData : false,
-                data : formData,
-                url : reqUrl,
-                success : function (){
-                    location.href='/';
-                },error : function (){
+                contentType: false,
+                processData: false,
+                data: formData,
+                url: reqUrl,
+                success: function () {
+                    location.href = '/';
+                }, error: function () {
                     alert("요청실패")
                 }
-            })}
-        else {
+            })
+        } else {
             alert('비밀번호가 틀렸습니다.');
         }
     };

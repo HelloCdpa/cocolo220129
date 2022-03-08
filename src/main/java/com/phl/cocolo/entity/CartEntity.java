@@ -1,6 +1,5 @@
 package com.phl.cocolo.entity;
 
-import com.phl.cocolo.dto.CartSaveDTO;
 import lombok.Getter;
 import lombok.Setter;
 

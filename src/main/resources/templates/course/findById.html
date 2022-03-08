@@ -19,8 +19,11 @@
                 <h1 class="text-white" th:text="${course.courseTitle}"></h1>
 
                 <div class="col-lg-6">
-                    <img class="img-thumbnail" th:src="@{/class_upload/}+${course.courseFileName}"
-                         style="width:500px; height:400px;" alt="">
+
+                    <div class="ratio ratio-16x9">
+                        <iframe th:src="@{/class_upload/}+${course.courseFileName}" allowfullscreen></iframe>
+                    </div>
+
                     <div class="card card-body mt-3 mx-2">
                         <div class="h5" th:text="'['+${course.courseSection}+']'"></div>
                         <div class="text-dark" th:utext="${course.courseContents}"></div>

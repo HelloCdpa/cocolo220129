@@ -35,7 +35,7 @@
 
                 <div id="cartLength" class="row">
                     <form action="/onClass/payment" method="post" id="payment">
-                    <div class="col-md-3 mb-5" th:each="cart:${cartList}">
+                        <div class="col-md-3 mb-5" th:each="cart:${cartList}">
                             <div class="card h-100">
                                 <a th:href="@{|/onClass/${cart.onClassId}|}">
 
@@ -57,8 +57,7 @@
                                         th:onclick="deleteById([[${cart.cartId}]])">장바구니에서 삭제
                                 </button>
                             </div>
-
-                    </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -68,7 +67,7 @@
                 <div class="h4">총계 : &#8361;<span th:text="*{totalPrice}" th:value="*{totalPrice}"></span></div>
                 <div class="h6">포인트 사용 :<input class="form-control" type="number" min="0" th:max="*{memberPoint}"
                                                id="point_use_value" name="pointUse" onblur="point_use()" value="0">
-                    보유 포인트 : <span th:text="*{memberPoint}" th:value="*{memberPoint}"></span>point
+                    <span th:text="*{'보유 포인트 : '+memberPoint +'point'}"></span>
                 </div>
                 <span class="h6" id="pointApply"></span>
                 <div class="h3"> 결제금액 : <span id="applyPrice"></span></div>
@@ -132,10 +131,6 @@
     const memberEmail = document.querySelector("#memberEmail").value;
     const memberId = document.querySelector("#memberId").value;
 
-    // 장바구니의 모든 cartArrayList
-    const cartList = '[[${cartList}]]';
-    console.log(cartList);
-
 
     const IMP = window.IMP;
     IMP.init('imp45182196');
@@ -169,8 +164,8 @@
                     type: 'post',
                     url: pointUrl,
                     data: {
-                        "memberId" : memberId,
-                        "pointPoint" : pointPoint
+                        "memberId": memberId,
+                        "pointPoint": pointPoint
                     },
                     success: function () {
                     },

@@ -10,6 +10,6 @@ public interface CartRepository extends JpaRepository<CartEntity,Long> {
     Optional<CartEntity> findByMemberEntity_IdAndOnClassEntity_Id(Long memberId, Long onClassId);
 
     List<CartEntity> findByMemberEntity_Id(Long memberId);
-
+    //장바구니 비우기
     void deleteAllByMemberEntity_Id(Long memberId);
 }

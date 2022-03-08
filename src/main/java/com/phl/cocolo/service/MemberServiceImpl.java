@@ -23,22 +23,22 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository mr;
     private final MemberMapperRepository mmr;
     private final PointRepository pr;
-    private final KakaoRepository kr;
+
     //엔티티로 저장
     @Override
-    public Long save(MemberSaveDTO memberSaveDTO)throws IllegalStateException, IOException {
+    public Long save(MemberSaveDTO memberSaveDTO) throws IllegalStateException, IOException {
         // 프로필 사진 저장하기 파일 -> 이름
         MultipartFile m_file = memberSaveDTO.getMemberProfile();
         String m_filename = m_file.getOriginalFilename();
         m_filename = System.currentTimeMillis() + "-" + m_filename;
         // 파일 저장하기
-        String savePath = "D:\\development_Phl\\source\\springboot\\CocoloProject\\src\\main\\resources\\static\\member_upload\\"+m_filename;
-        if(!m_file.isEmpty()) {
+        String savePath = "D:\\development_Phl\\source\\springboot\\CocoloProject\\src\\main\\resources\\static\\member_upload\\" + m_filename;
+        if (!m_file.isEmpty()) {
             m_file.transferTo(new File(savePath));
         }
         memberSaveDTO.setMemberProfileName(m_filename);
@@ -46,14 +46,14 @@ public class MemberServiceImpl implements MemberService{
         MemberEntity memberEntity = MemberEntity.toMemberEntitySave(memberSaveDTO);
         MemberEntity emailCheck = mr.findByMemberEmail(memberSaveDTO.getMemberEmail());
 
-        if (emailCheck != null){
+        if (emailCheck != null) {
             throw new IllegalStateException("중복된 이메일 입니다!");
         }
         return mr.save(memberEntity).getId();
     }
 
     @Override
-    public Long saveTest(MemberSaveDTO memberSaveDTO){
+    public Long saveTest(MemberSaveDTO memberSaveDTO) {
         MemberEntity memberEntity = MemberEntity.toMemberEntitySave(memberSaveDTO);
         return mr.save(memberEntity).getId();
     }
@@ -63,22 +63,23 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean findByEmail(MemberLoginDTO memberLoginDTO) {
         MemberEntity memberEntity = mr.findByMemberEmail(memberLoginDTO.getMemberEmail());
-        if(memberEntity!=null){
-            if(memberEntity.getMemberPassword().equals(memberLoginDTO.getMemberPassword())){
+        if (memberEntity != null) {
+            if (memberEntity.getMemberPassword().equals(memberLoginDTO.getMemberPassword())) {
                 return true;
-            }else {
+            } else {
                 return false;
             }
-        }else {
+        } else {
             return false;
         }
     }
+
     //반복문으로 DTOList 에 Entity dto 로 변환한 값 담기
     @Override
     public List<MemberDetailDTO> findAll() {
         List<MemberEntity> memberEntityList = mr.findAll();
-        List <MemberDetailDTO> memberList = new ArrayList<>();
-        for (MemberEntity e : memberEntityList){
+        List<MemberDetailDTO> memberList = new ArrayList<>();
+        for (MemberEntity e : memberEntityList) {
             memberList.add(MemberDetailDTO.toMemberDetailDTO(e));
         }
         return memberList;
@@ -86,8 +87,7 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public MemberDetailDTO findById(Long memberId) {
-        Optional<MemberEntity> memberEntityOptional = mr.findById(memberId);
-        MemberEntity memberEntity = memberEntityOptional.get();
+        MemberEntity memberEntity = mr.findById(memberId).get();
         MemberDetailDTO memberDetailDTO = MemberDetailDTO.toMemberDetailDTO(memberEntity);
 
         return memberDetailDTO;
@@ -122,8 +122,8 @@ public class MemberServiceImpl implements MemberService{
         String m_filename = m_file.getOriginalFilename();
         m_filename = System.currentTimeMillis() + "-" + m_filename;
         // 파일 저장하기
-        String savePath = "D:\\development_Phl\\source\\springboot\\MemberBoardProject\\src\\main\\resources\\member_uploadfile\\"+m_filename;
-        if(!m_file.isEmpty()) {
+        String savePath = "D:\\development_Phl\\source\\springboot\\MemberBoardProject\\src\\main\\resources\\member_uploadfile\\" + m_filename;
+        if (!m_file.isEmpty()) {
             m_file.transferTo(new File(savePath));
         }
         memberUpdateDTO.setMemberProfileName(m_filename);
@@ -135,12 +135,12 @@ public class MemberServiceImpl implements MemberService{
 
     //유저정보 조회
     @Override
-    public String getKaKaoAccessToken(String code){
-        String access_Token="";
-        String refresh_Token ="";
+    public String getKaKaoAccessToken(String code) {
+        String access_Token = "";
+        String refresh_Token = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
 
-        try{
+        try {
             URL url = new URL(reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -183,7 +183,7 @@ public class MemberServiceImpl implements MemberService{
 
             br.close();
             bw.close();
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -248,7 +248,7 @@ public class MemberServiceImpl implements MemberService{
     public void pointCharge(PointSaveDTO pointSaveDTO) {
         //포인트 이력 정보 저장
         MemberEntity memberEntity = mr.findById(pointSaveDTO.getMemberId()).get();
-        PointEntity pointEntity = PointEntity.toPointSaveEntity(pointSaveDTO,memberEntity);
+        PointEntity pointEntity = PointEntity.toPointSaveEntity(pointSaveDTO, memberEntity);
         pr.save(pointEntity);
         System.out.println("포인트 충전");
         //회원 포인트 업데이트
@@ -266,8 +266,8 @@ public class MemberServiceImpl implements MemberService{
 
         List<PointEntity> pointEntityList = memberEntity.getPointEntityList();
         List<PointDetailDTO> pointList = new ArrayList<>();
-        for (PointEntity p : pointEntityList){
-            pointList.add( PointDetailDTO.toPointDetailDTO(p));
+        for (PointEntity p : pointEntityList) {
+            pointList.add(PointDetailDTO.toPointDetailDTO(p));
         }
         return pointList;
 
@@ -277,7 +277,7 @@ public class MemberServiceImpl implements MemberService{
     public void pointPayment(PointSaveDTO pointSaveDTO) {
         //포인트 이력 정보 저장
         MemberEntity memberEntity = mr.findById(pointSaveDTO.getMemberId()).get();
-        PointEntity pointEntity = PointEntity.toPointSaveEntity(pointSaveDTO,memberEntity);
+        PointEntity pointEntity = PointEntity.toPointSaveEntity(pointSaveDTO, memberEntity);
         pr.save(pointEntity);
         System.out.println("포인트 사용");
         //회원 포인트 업데이트

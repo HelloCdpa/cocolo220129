@@ -81,8 +81,7 @@ public class OnClassServiceImpl implements OnClassService{
         //    CartDetailDTO 에서 쓸 것
         //    Long memberId;
         //    Long onClassId;
-
-        //0번에 있는 onClassID : cartList.get(0).getOnClassId();
+        // 나의 강의에 저장(구매한 회원, 구매한강의)
         // Entity 로 변환시켜서 DB에 저장시키기
             mcr.save(MyClassEntity.toMyClassSaveEntity(mr.findById(memberId).get(),
             or.findById(onClassId).get()));

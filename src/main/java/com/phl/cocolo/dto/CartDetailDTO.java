@@ -15,7 +15,7 @@ public class CartDetailDTO {
     private Long memberId;
     private Long onClassId;
 
-    // 장바구니에서 보여줄 것 : 온클래스 제목/ 온클래스 사진/ 가격 / 장바구니 리스트의 가격
+    // 장바구니에서 보여줄 것 : 온클래스 제목/ 온클래스 사진/ 가격
     private String onClassTitle;
     private int onClassPrice;
     private String onClassFileName;
