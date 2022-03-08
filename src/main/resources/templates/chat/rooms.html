@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+
+<!-- 공통 헤더-->
+<th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
+
+<body>
+<th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
+        <div class="container" style="margin-top: 100px;">
+            <div>
+                <ul th:each="room : ${list}">
+                    <li><a th:href="@{/chat/room(roomId=${room.roomId})}">[[${room.name}]]</a></li>
+                </ul>
+            </div>
+        </div>
+        <form th:action="@{/chat/room}" method="post">
+            <input type="text" name="name" class="form-control">
+            <button class="btn btn-secondary">개설하기</button>
+        </form>
+<th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
+</body>
+<script th:inline="javascript">
+    $(document).ready(function(){
+
+        let roomName = [[${roomName}]];
+
+        if(roomName != null)
+            alert(roomName + "방이 개설되었습니다.");
+
+        $(".btn-create").on("click", function (e){
+            e.preventDefault();
+
+            let name = $("input[name='name']").val();
+
+            if(name == "")
+                alert("Please write the name.")
+            else
+                $("form").submit();
+        });
+
+    });
+</script>
+</html>
