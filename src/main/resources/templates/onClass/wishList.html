@@ -29,30 +29,30 @@
     <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n3">
         <div class="row">
 
-                <div class="col-md-4 mb-5" th:each="wish:${wishList}">
-                        <div class="card h-100">
-                             <a th:href="@{|/onClass/${wish.onClassId}|}">
-                                    <div class="card-body">
-                                        <p class="card-text text-center">
-                                            <img class="img-fluid rounded mb-4 mb-lg-0"
-                                                 th:src="@{/class_upload/}+${wish.onClassFileName}"
-                                                 alt="..." width="150" height="100"/></p>
-                                        <p class="card-text text-center h6" th:text="${wish.onClassTitle}"></p>
-                                         <div class="d-block">
-                                    <!--  like-->
-                                    <input type="hidden" id="onClassId" th:value="${wish.onClassId}">
-                                    <input type="hidden" id="memberId" th:value="${session.loginId}">
-                                    <input type="hidden" id="wishListId" th:value="${wish.wishListId}">
-                                        </div>
-                                    </div>
-                            </a>
-                            <div class="card-footer text-center">
-                                <img id="likeImg" src="/assets/img/like_click.png" alt="" width="30px" height="30px">
-                                <span class="card-text" th:text="${wish.onClassPrice}"></span>
-                                <span>point</span>
+            <div class="col-md-4 mb-5" th:each="wish:${wishList}">
+                <div class="card h-100">
+                    <a th:href="@{|/onClass/${wish.onClassId}|}">
+                        <div class="card-body">
+                            <p class="card-text text-center">
+                                <img class="img-fluid rounded mb-4 mb-lg-0"
+                                     th:src="@{/class_upload/}+${wish.onClassFileName}"
+                                     alt="..." width="150" height="100"/></p>
+                            <p class="card-text text-center h6" th:text="${wish.onClassTitle}"></p>
+                            <div class="d-block">
+                                <!--  like-->
+                                <input type="hidden" id="onClassId" th:value="${wish.onClassId}">
+                                <input type="hidden" id="memberId" th:value="${session.loginId}">
+                                <input type="hidden" id="wishListId" th:value="${wish.wishListId}">
                             </div>
                         </div>
+                    </a>
+                    <div class="card-footer text-center">
+                        <img id="likeImg" src="/assets/img/like_click.png" alt="" width="30px" height="30px">
+                        <span class="card-text" th:text="${wish.onClassPrice}"></span>
+                        <span>point</span>
+                    </div>
                 </div>
+            </div>
 
         </div>
     </div>
@@ -60,19 +60,19 @@
 <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
 </body>
 <script>
-        $("#likeImg").on("click", function () {
-            const wishListId = $("#wishListId").val();
-                const reqUrl = "/wish/" + wishListId;
-                $.ajax({
-                url: reqUrl,
-                type: 'delete',
-                success: function () {
+    $("#likeImg").on("click", function () {
+        const wishListId = $("#wishListId").val();
+        const reqUrl = "/wish/" + wishListId;
+        $.ajax({
+            url: reqUrl,
+            type: 'delete',
+            success: function () {
                 alert('위시리스트에서 삭제되었습니다.')
                 location.reload();
             }, error: function () {
                 alert('요청실패')
             }
-            })
-        });
+        })
+    });
 </script>
 </html>

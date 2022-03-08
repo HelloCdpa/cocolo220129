@@ -40,29 +40,29 @@ public class OnClassController {
     private final ReviewService rs;
     private final CourseService cs;
 
-
-
     @GetMapping("/save")
     public String saveForm() {
         return "/onClass/save";
     }
+
     //게시글 저장
     @PostMapping("/save")
-    public String save(@Validated @ModelAttribute OnClassSaveDTO onClassSaveDTO)throws IllegalStateException, IOException {
+    public String save(@Validated @ModelAttribute OnClassSaveDTO onClassSaveDTO) throws IllegalStateException, IOException {
 
         os.save(onClassSaveDTO);
 
         return "redirect:/onClass/";
     }
+
     // 상세조회
     @GetMapping("/{onClassId}")
-    public String findById(@PathVariable("onClassId") Long onClassId, Model model,HttpSession session){
+    public String findById(@PathVariable("onClassId") Long onClassId, Model model, HttpSession session) {
         OnClassDetailDTO onClassDetailDTO = os.findById(onClassId);
 
-        model.addAttribute("onClass",onClassDetailDTO);
+        model.addAttribute("onClass", onClassDetailDTO);
 
         List<ReviewDetailDTO> reviewList = rs.findAll(onClassId);
-        model.addAttribute("reviewList",reviewList);
+        model.addAttribute("reviewList", reviewList);
 
         List<CourseDetailDTO> courseList = cs.findAll(onClassId);
         model.addAttribute("courseList", courseList);
@@ -70,12 +70,12 @@ public class OnClassController {
         Long memberId = (Long) session.getAttribute(LOGIN_ID);
         // 상세정보를 확인하기 전에 회원과 강의 아이디를 체크해서
         // 회원이 구매하지 않은 강의면(null) false myClassCheck 구매한 강의라면 true
-        boolean myClassCheck = os.myClassCheck(memberId,onClassId);
+        boolean myClassCheck = os.myClassCheck(memberId, onClassId);
 
         // 리뷰 중복 쓰기 방지
         // 회원이 리뷰를 안썼으면(null) false myClassCheck 이미 썼다면 true
-        boolean reviewCheck = rs.reviewCheck(memberId,onClassId);
-        if (memberId == null){
+        boolean reviewCheck = rs.reviewCheck(memberId, onClassId);
+        if (memberId == null) {
             myClassCheck = false;
         }
 
@@ -83,15 +83,12 @@ public class OnClassController {
         model.addAttribute("reviewCheck", reviewCheck);
 
 
-
-
-
         return "/onClass/findById";
     }
 
     //글 삭제
     @DeleteMapping("/{onClassId}")
-    public ResponseEntity deleteById (@PathVariable ("onClassId") Long onClassId){
+    public ResponseEntity deleteById(@PathVariable("onClassId") Long onClassId) {
         os.deleteById(onClassId);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -108,13 +105,11 @@ public class OnClassController {
         return "/onClass/findAll";
     }
 
-
-
     // 온라인 클래스 구매 적용하기
     @PostMapping("/pointPayment")
-    public ResponseEntity pointPayment(@RequestParam ("memberId") Long memberId,@RequestParam ("pointPoint") int pointPoint ) {
+    public ResponseEntity pointPayment(@RequestParam("memberId") Long memberId, @RequestParam("pointPoint") int pointPoint) {
         // 1. 사용한 포인트가 0보다 크다면, 포인트 사용 내역 넣기
-        if(0<pointPoint) {
+        if (0 < pointPoint) {
             PointSaveDTO pointSaveDTO = new PointSaveDTO(memberId, -pointPoint, "수강권 구매 사용");
             ms.pointPayment(pointSaveDTO);
         }
@@ -123,31 +118,24 @@ public class OnClassController {
 
     @Transactional
     @PostMapping("/payment")
-    public String payment(@RequestParam ("onClassId") Long onClassId,HttpSession session){
-         // 2. 회원에게 강의 권한 주기 // 3. 장바구니 비우기
+    public String payment(@RequestParam("onClassId") Long onClassId, HttpSession session) {
+        // 2. 회원에게 강의 권한 주기 // 3. 장바구니 비우기
 
         Long memberId = (Long) session.getAttribute(LOGIN_ID);
-        os.payment(onClassId,memberId);
+        os.payment(onClassId, memberId);
 
-        return "redirect:/onClass/"+memberId;
+        return "redirect:/onClass/" + memberId;
 
     }
+
     //구매한 강의들 조회
     @GetMapping("/myClass/{memberId}")
-    public String myClass(Model model,@PathVariable("memberId") Long memberId) {
+    public String myClass(Model model, @PathVariable("memberId") Long memberId) {
         List<MyClassDetailDTO> myClassList = os.myClassList(memberId);
         model.addAttribute("myClassList", myClassList);
 
         return "/onClass/myClass";
     }
-
-
-
-
-
-
-
-
 
 
 }

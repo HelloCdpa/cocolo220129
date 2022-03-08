@@ -22,68 +22,66 @@
                             <div class="row">
                                 <div class="card z-index-0 fadeIn3 fadeInBottom">
                                     <div class="card-body">
+                                        <div>
+                                            <input type="radio" class="btn-check" value="취업/면접" name="mentoringCate"
+                                                   id="job" autocomplete="off" checked>
+                                            <label class="btn btn-outline-primary" for="job">취업/면접</label>
 
-                                            <div>
-                                                <input type="radio" class="btn-check" value="취업/면접" name="mentoringCate"
-                                                       id="job" autocomplete="off" checked>
-                                                <label class="btn btn-outline-primary" for="job">취업/면접</label>
+                                            <input type="radio" class="btn-check" value="학습노하우" name="mentoringCate"
+                                                   id="know-how" autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="know-how">학습노하우</label>
 
-                                                <input type="radio" class="btn-check" value="학습노하우" name="mentoringCate"
-                                                       id="know-how" autocomplete="off">
-                                                <label class="btn btn-outline-primary" for="know-how">학습노하우</label>
+                                            <input type="radio" class="btn-check" value="피드백" name="mentoringCate"
+                                                   id="feedback" autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="feedback">피드백</label>
 
-                                                <input type="radio" class="btn-check" value="피드백" name="mentoringCate"
-                                                       id="feedback" autocomplete="off">
-                                                <label class="btn btn-outline-primary" for="feedback">피드백</label>
+                                            <input type="radio" class="btn-check" value="기타" name="mentoringCate"
+                                                   id="etc" autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="etc">기타</label>
+                                        </div>
 
-                                                <input type="radio" class="btn-check" value="기타" name="mentoringCate"
-                                                       id="etc" autocomplete="off">
-                                                <label class="btn btn-outline-primary" for="etc">기타</label>
-                                            </div>
-
-                                            <div>
-                                                작성자 : <p th:text="${session['loginNick']}"></p>
-                                                <input type="text" name="memberId" th:value="${session['loginId']}"
-                                                       hidden>
-                                            </div>
-                                            <div class="input-group input-group-outline my-3">
-                                                <label class="form-label">제목</label>
-                                                <input type="text" class="form-control" name="mentoringTitle">
-                                            </div>
-                                            <div class="input-group mb-4 input-group-static">
+                                        <div>
+                                            작성자 : <p th:text="${session['loginNick']}"></p>
+                                            <input type="text" name="memberId" th:value="${session['loginId']}"
+                                                   hidden>
+                                        </div>
+                                        <div class="input-group input-group-outline my-3">
+                                            <label class="form-label">제목</label>
+                                            <input type="text" class="form-control" name="mentoringTitle">
+                                        </div>
+                                        <div class="input-group mb-4 input-group-static">
                                                 <textarea id="summernote" type="text" class="form-control"
-                                                          name="mentoringContents" rows="5" >
+                                                          name="mentoringContents" rows="5">
                                                     자기소개 👋
                                                     멘토링 종류 🧐
                                                     사전 준비물 🧳</textarea>
+                                        </div>
+                                        <div class="row"><label for="mentoringCount">멘토링 가격</label></div>
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <select class="form-select" id="mentoringCount"
+                                                        name="mentoringCount">
+                                                    <option value="1" selected>1</option>
+                                                    <option value="5">5</option>
+                                                    <option value="10">10</option>
+                                                    <option value="20">20</option>
+                                                </select>
                                             </div>
-                                            <div class="row"><label for="mentoringCount">멘토링 가격</label></div>
-                                            <div class="row">
-                                                <div class="col-3">
-                                                    <select class="form-select" id="mentoringCount"
-                                                            name="mentoringCount">
-                                                        <option value="1" selected>1</option>
-                                                        <option value="5">5</option>
-                                                        <option value="10">10</option>
-                                                        <option value="20">20</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-3"><h6>회</h6></div>
-                                                <div class="col-3">
-                                                    <select class="form-select" name="mentoringPrice">
-                                                        <option value="1000" selected>1000</option>
-                                                        <option value="5000">5000</option>
-                                                        <option value="10000">10000</option>
-                                                        <option value="20000">20000</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-3"><h6>point</h6></div>
+                                            <div class="col-3"><h6>회</h6></div>
+                                            <div class="col-3">
+                                                <select class="form-select" name="mentoringPrice">
+                                                    <option value="1000" selected>1000</option>
+                                                    <option value="5000">5000</option>
+                                                    <option value="10000">10000</option>
+                                                    <option value="20000">20000</option>
+                                                </select>
                                             </div>
-                                            <div class="input-group input-group-outline my-3">
-                                                <label class="form-label">경력/특기</label>
-                                                <input type="text" class="form-control" name="mentoringCareer">
-                                            </div>
-
+                                            <div class="col-3"><h6>point</h6></div>
+                                        </div>
+                                        <div class="input-group input-group-outline my-3">
+                                            <label class="form-label">경력/특기</label>
+                                            <input type="text" class="form-control" name="mentoringCareer">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -101,8 +99,6 @@
             </div>
         </div>
     </div>
-
 </th:block>
-
 </body>
 </html>

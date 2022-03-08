@@ -39,27 +39,28 @@
             <input type="hidden" th:field="*{boardId}">
             <input type="hidden" th:field="*{memberId}">
             <div class="container my-auto" width="200px">
-                    <div class="card w-80">
-                        <div class="p-5">
-                            <div>
-                                <span th:each="category: ${categoryList}">
-                                    <input type="radio" class="btn-check" th:value="${category.cateId}"
-                                           name="cateId" th:id="${category.cateName}" autocomplete="off" checked
-                                           required>
-                                <label class="btn btn-outline-primary" th:for="${category.cateName}"
-                                       th:text="${category.cateName}"></label>
-                                </span>
-                            </div>
-                           <div class="h6">작성자 : <span class="form-control" id="boardWriter" th:field="*{boardWriter}" th:text="*{boardWriter}"></span></div>
+                <div class="card w-80">
+                    <div class="p-5">
+                        <div>
+                            <span th:each="category: ${categoryList}">
+                                <input type="radio" class="btn-check" th:value="${category.cateId}"
+                                       name="cateId" th:id="${category.cateName}" autocomplete="off" checked
+                                       required>
+                            <label class="btn btn-outline-primary" th:for="${category.cateName}"
+                                   th:text="${category.cateName}"></label>
+                            </span>
+                        </div>
+                        <div class="h6">작성자 : <span class="form-control" id="boardWriter" th:field="*{boardWriter}"
+                                                    th:text="*{boardWriter}"></span></div>
                         <div class="input-group mb-4 input-group-static">
                             <label>제목</label>
                             <input type="text" class="form-control" th:value="*{boardTitle}" th:field="*{boardTitle}"
                                    name="boardTitle">
                         </div>
 
-                            <div class="text-center">
-                                <img th:src="@{/board_upload/} + *{boardFileName}" alt="">
-                            </div>
+                        <div class="text-center">
+                            <img th:src="@{/board_upload/} + *{boardFileName}" alt="">
+                        </div>
 
                         <div class="input-group mb-4 input-group-static">
                             <label>내용</label>
@@ -67,13 +68,17 @@
                                    class="form-control">
                         </div>
                         <div class="row">
-                            <div class="col-md-3"> <label for="boardFile" >업로드 사진 선택</label> </div>
-                            <div class="col-md-6"><input class="form-control" type="file" id="boardFile" name="boardFile"></div>
-
+                            <div class="col-md-3">
+                                <label for="boardFile">업로드 사진 선택</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="file" id="boardFile"
+                                                         name="boardFile">
+                            </div>
                             <button type="button" class="btn btn-primary w-auto" onclick="boardUpdate()">게시글 수정</button>
                         </div>
-                        </div>
                     </div>
+                </div>
             </div>
         </form>
     </div>

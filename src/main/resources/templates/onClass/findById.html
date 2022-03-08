@@ -66,7 +66,7 @@
                         </div>
                         <!--                            리뷰 탭을 누르면-->
                         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-<!--                            구매한 강의 인지 true 리뷰를 쓰지 않았었는지 false 체크-->
+                            <!--                            구매한 강의 인지 true 리뷰를 쓰지 않았었는지 false 체크-->
                             <div id="review-write" class="m-2" th:if="${myClassCheck && !reviewCheck}">
 
                                 <div>
@@ -119,13 +119,12 @@
                                         </div>
                                         <hr style="solid-color: #D3D3D3">
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                         <!--                        강의 목록 탭을 누르면-->
                         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                        <!--  강의를 맡은 선생님 닉네임과 같다면 강의 업로드 가능  -->
+                            <!--  강의를 맡은 선생님 닉네임과 같다면 강의 업로드 가능  -->
                             <span th:if="${#strings.equals(session['loginNick'],onClass.onClassTeacher)}">
 
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -136,7 +135,7 @@
                             <ol class="list-group">
                                 <span th:each="course, courseStat:${courseList}">
 <!--                                    강의 구매 안한 회원-->
-                                   <a  th:unless="${myClassCheck}" href="#" id="myClassCheckAlert">
+                                   <a th:unless="${myClassCheck}" href="#" id="myClassCheckAlert">
                                         <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
                                             <div class="ms-2 me-auto">
                                                 <div class="text-dark"
@@ -149,7 +148,7 @@
                                             <!--                                    <span class="badge bg-primary rounded-pill">NEW!</span>-->
                                         </li>
                                    </a>
-<!--                                 강의를 구매한 회원이면   -->
+                                    <!--                                 강의를 구매한 회원이면   -->
                                      <a th:if="${myClassCheck}" th:href="@{|/course/${course.courseId}|}">
                                         <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
                                             <div class="ms-2 me-auto">
@@ -176,7 +175,7 @@
 
                 </div>
                 <div class="col-md-4">
-                    <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3" th:unless="${myClassCheck}" >
+                    <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3" th:unless="${myClassCheck}">
                         <span class="text-dark">Cocolo는 평생 수강!</span>
                         <span class="h3 text-dark" th:text="${onClass.onClassPrice} + '원'"></span>
                         <!--                            수강신청-->
@@ -191,7 +190,7 @@
                             </div>
                         </button>
                     </div>
-                    <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3" th:if="${myClassCheck}" >
+                    <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3" th:if="${myClassCheck}">
                         <span class="text-dark">Cocolo는 평생 수강!</span>
                         <span class="h4 text-dark">강의 수강 후 리뷰 5000p 지급! </span>
                     </div>
@@ -306,7 +305,7 @@
     }
 </script>
 <script>
-    $("#myClassCheckAlert").click(function (){
+    $("#myClassCheckAlert").click(function () {
         alert('강의 구매 후 들으실 수 있습니다.')
     })
 </script>

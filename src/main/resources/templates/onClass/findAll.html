@@ -88,7 +88,6 @@
         </div>
     </div>
 </div>
-
 <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
 </body>
 <script>
@@ -105,10 +104,8 @@
             }
         })
     }
-</script>
 
-<script>
-    function saveCart(onClassId,memberId) {
+    function saveCart(onClassId, memberId) {
         console.log(onClassId + memberId);
         $.ajax({
             type: 'post',
@@ -131,9 +128,8 @@
             }
         });
     };
-</script>
-<script>
-    function saveWish(onClassId,memberId) {
+
+    function saveWish(onClassId, memberId) {
         $.ajax({
             url: '/wish/save',
             type: 'POST',

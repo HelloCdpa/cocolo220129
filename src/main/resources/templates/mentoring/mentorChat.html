@@ -7,16 +7,17 @@
 
 <body>
 <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
-<div class="modal fade" id="chatModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="chatModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
 
             <div class="user-container modal-header">
                 <label class="modal-title" id="staticBackdropLabel" for="nickname">대화명</label>
-                <span type="text" id="nickname" th:text="${session['loginNick']}" th:value="${session['loginNick']}"></span>
+                <span type="text" id="nickname" th:text="${session['loginNick']}"
+                      th:value="${session['loginNick']}"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
 
             <div class="display-container modal-body" style="height: 1000px">
                 <ul class="chatting-list">
@@ -24,12 +25,13 @@
                 </ul>
             </div>
 
-
             <div class="input-container modal-footer">
-                                    <span>
-                                        <textarea type="text" id="msg" class="chatting-input form-control" aria-label="Recipient's username" aria-describedby="button-addon2"></textarea>
-                                        <button type="button" id="send-button" class="send-button">전송</button>
-                                    </span>
+                <span>
+                    <textarea type="text" id="msg" class="chatting-input form-control"
+                              aria-label="Recipient's username"
+                              aria-describedby="button-addon2"></textarea>
+                    <button type="button" id="send-button" class="send-button">전송</button>
+                </span>
             </div>
 
         </div>
@@ -44,10 +46,10 @@
 </body>
 <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
 <script th:inline="javascript">
-    $(document).ready(function(){
+    $(document).ready(function () {
         const date = new Date();
-        const hours = String(date.getHours()).padStart(2,"0");
-        const minutes = String(date.getMinutes()).padStart(2,"0");
+        const hours = String(date.getHours()).padStart(2, "0");
+        const minutes = String(date.getMinutes()).padStart(2, "0");
         const time = `${hours}시 : ${minutes}분`;
         const username = "[[${memberNickName}]]"
         const msg = document.getElementById('msg');
@@ -61,9 +63,9 @@
         })
 
         $("#send-button").on("click", (e) => {
-            if(msg.value == "" || msg.value == " "){
+            if (msg.value == "" || msg.value == " ") {
 
-            }else {
+            } else {
                 send();
             }
 
@@ -76,7 +78,7 @@
         websocket.onclose = onClose;
 
 
-        function send(){
+        function send() {
 
             let msg = document.getElementById("msg");
 
@@ -104,7 +106,7 @@
             let message = null;
             let arr = data.split(":");
 
-            for(let i=0; i<arr.length; i++){
+            for (let i = 0; i < arr.length; i++) {
                 console.log('arr[' + i + ']: ' + arr[i]);
             }
 
@@ -118,17 +120,17 @@
             console.log("sessionID : " + sessionId);
             console.log("cur_session : " + cur_session);
 
-            const item = new LiModel(sessionId, message,time);
+            const item = new LiModel(sessionId, message, time);
             item.makeLi();
         }
 
-        function LiModel(sessionId,message,time){
+        function LiModel(sessionId, message, time) {
             this.name = sessionId;
             this.msg = message;
             this.time = time;
             const chatList = document.querySelector(".chatting-list");
             const nickname = document.querySelector("#nickname");
-            this.makeLi = ()=>{
+            this.makeLi = () => {
                 const li = document.createElement("li");
                 li.classList.add(nickname.value === this.name ? "sent" : "received")
                 const dom = `  <span class="profile">
@@ -139,7 +141,6 @@
                     <span class="time">${this.time}</span>`;
                 li.innerHTML = dom;
                 chatList.appendChild(li)
-
             }
         }
     })

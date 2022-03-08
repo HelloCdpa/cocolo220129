@@ -9,19 +9,21 @@
 <body class="index-page bg-gray-200">
 <!-- Channel Plugin Scripts -->
 <script>
-    (function() {
+    (function () {
         let w = window;
         if (w.ChannelIO) {
-            return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
+            return (window.console.error || window.console.log || function () {
+            })('ChannelIO script included twice.');
         }
-        let ch = function() {
+        let ch = function () {
             ch.c(arguments);
         };
         ch.q = [];
-        ch.c = function(args) {
+        ch.c = function (args) {
             ch.q.push(args);
         };
         w.ChannelIO = ch;
+
         function l() {
             if (w.ChannelIOInitialized) {
                 return;
@@ -35,6 +37,7 @@
             let x = document.getElementsByTagName('script')[0];
             x.parentNode.insertBefore(s, x);
         }
+
         if (document.readyState === 'complete') {
             l();
         } else if (window.attachEvent) {
@@ -53,7 +56,8 @@
     <div id="content-wrapper" class="d-flex flex-column">
         <header class="bg-gradient-dark">
             <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
-            <div class="page-header min-vh-65" style="background-image: url('https://cdn.pixabay.com/photo/2019/10/04/18/36/milky-way-4526277_1280.jpg')">
+            <div class="page-header min-vh-65"
+                 style="background-image: url('https://cdn.pixabay.com/photo/2019/10/04/18/36/milky-way-4526277_1280.jpg')">
                 <span class="mask bg-gradient-dark opacity-6"></span>
                 <div class="container">
                     <div class="row justify-content-center">
@@ -65,7 +69,7 @@
                 </div>
             </div>
         </header>
-            <!-- 본문-->
+        <!-- 본문-->
         <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n3">
             <section class="my-5 py-5">
                 <div class="container">
@@ -73,18 +77,24 @@
                         <div class="col-lg-4 ms-auto me-auto p-lg-4 mt-lg-1">
                             <div class="rotating-card-container">
                                 <div class="card card-rotate card-background card-background-mask-primary shadow-primary mt-md-0 mt-2">
-                                    <div class="front front-background" style="background-image: url(https://images.unsplash.com/photo-1569683795645-b62e50fbf103?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80); background-size: auto;">
+                                    <div class="front front-background"
+                                         style="background-image: url(https://images.unsplash.com/photo-1569683795645-b62e50fbf103?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80); background-size: auto;">
                                         <div class="card-body py-7 text-center">
                                             <i class="material-icons text-white text-4xl my-3">touch_app</i>
                                             <h3 class="text-white"> Please watch the test video Cocolo</h3>
-                                            <p class="text-white opacity-8">Cocolo 한 눈에 보기! Cocolo 프로젝트 시연 영상을 감상해보세요!^^*</p>
+                                            <p class="text-white opacity-8">Cocolo 한 눈에 보기! Cocolo 프로젝트 시연 영상을
+                                                감상해보세요!^^*</p>
                                         </div>
                                     </div>
-                                    <div class="back back-background" style="background-image: url(https://images.unsplash.com/photo-1498889444388-e67ea62c464b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1365&q=80); background-size: auto;">
+                                    <div class="back back-background"
+                                         style="background-image: url(https://images.unsplash.com/photo-1498889444388-e67ea62c464b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1365&q=80); background-size: auto;">
                                         <div class="card-body pt-7 text-center">
                                             <h3 class="text-white">Discover More</h3>
-                                            <p class="text-white opacity-8"> You will save a lot of time going from prototyping to full-functional code because all elements are implemented.</p>
-                                            <a href="/testVideo" target="_blank" class="btn btn-white btn-sm w-50 mx-auto mt-3">Start with Headers</a>
+                                            <p class="text-white opacity-8"> You will save a lot of time going from
+                                                prototyping to full-functional code because all elements are
+                                                implemented.</p>
+                                            <a href="/testVideo" target="_blank"
+                                               class="btn btn-white btn-sm w-50 mx-auto mt-3">Start with Headers</a>
                                         </div>
                                     </div>
                                 </div>
@@ -95,9 +105,10 @@
                                 <div class="col-md-6">
                                     <div class="info">
                                         <div class="embed-responsive embed-responsive-16by9">
-                                        <video width="450" height="350" controls autoplay loop class="embed-responsive-item">
-                                            <source src="/assets/images/sample.mp4" type="video/mp4">
-                                        </video>
+                                            <video width="450" height="350" controls autoplay loop
+                                                   class="embed-responsive-item">
+                                                <source src="/assets/images/sample.mp4" type="video/mp4">
+                                            </video>
                                         </div>
                                     </div>
                                 </div>
@@ -105,12 +116,14 @@
                             <div class="row justify-content-start mt-5">
                                 <div class="col-md-6 mt-3">
                                     <h5 class="font-weight-bolder mt-3">멘토링 구경하기</h5>
-                                    <p class="pe-5">Creating your design from scratch with dedicated designers can be very expensive. Start with our Design System.</p>
+                                    <p class="pe-5">Creating your design from scratch with dedicated designers can be
+                                        very expensive. Start with our Design System.</p>
                                 </div>
                                 <div class="col-md-6 mt-3">
                                     <div class="info">
                                         <h5 class="font-weight-bolder mt-3">HOT 글 구경하기</h5>
-                                        <p class="pe-3">Regardless of the screen size, the website content will naturally fit the given resolution.</p>
+                                        <p class="pe-3">Regardless of the screen size, the website content will
+                                            naturally fit the given resolution.</p>
                                     </div>
                                 </div>
                             </div>

@@ -14,9 +14,7 @@
 <div id="wrapper">
     <header class="bg-gradient-dark">
         <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
-
         <th:block th:replace="/mentoring/save :: mentoringsaveModalFragment"></th:block>
-
         <div class="page-header min-vh-75" id="background">
             <span class="mask bg-gradient-dark opacity-6"></span>
             <div class="container">
@@ -25,8 +23,9 @@
                         <h1 class="text-white">Mentoring</h1>
                         <p class="lead mb-4 text-white opacity-8">나의 멘토를 찾아 지식을 나누고 멘토가 되어주세요!</p>
                         <span th:if="${not #strings.isEmpty(session['loginEmail'])}">
-                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mentoringSaveModal">게시글 작성하기</button>
-                    </span>
+                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                     data-bs-target="#mentoringSaveModal">게시글 작성하기</button>
+                        </span>
                         <div class="d-flex justify-content-center">
                             <!--카테고리 별로 보기-->
                             <span>
@@ -41,7 +40,6 @@
                             <span>
                              <a class="btn bg-gradient-primary w-auto me-2" href="/mentoring/cateMentoring/4">기타</a>
                             </span>
-
                         </div>
                     </div>
                 </div>
@@ -54,38 +52,36 @@
             <tr th:each="mentoring:${mentoringList}">
                 <td th:text="${mentoring.mentoringId}">글번호</td>
                 <td th:text="${mentoring.mentoringWriter}">작성자</td>
-                <td><a th:text="${mentoring.mentoringTitle}" th:href="@{|/mentoring/${mentoring.mentoringId}|}"> 글제목</a></td>
+                <td><a th:text="${mentoring.mentoringTitle}" th:href="@{|/mentoring/${mentoring.mentoringId}|}"> 글제목</a>
+                </td>
                 <td th:text="${mentoring.mentoringContents}">글내용</td>
                 <td th:text="${mentoring.mentoringPrice}">멘토링 가격</td>
                 <td th:text="${mentoring.mentoringCareer}">멘토 경력, 특기</td>
                 <td th:text="${mentoring.mentoringCate}">멘토 분야</td>
                 <td th:text="${mentoring.mentoringCount}">멘토링 횟수</td>
-
-                <td><button type="button" class="btn btn-danger" th:onclick="deleteById([[${mentoring.mentoringId}]])">글삭제</button></td>
+                <td>
+                    <button type="button" class="btn btn-danger" th:onclick="deleteById([[${mentoring.mentoringId}]])">
+                        글삭제
+                    </button>
+                </td>
                 <td><a th:href="@{|/mentoring/update/${mentoring.mentoringId}|}">글수정</a></td>
             </tr>
-
         </table>
-
-
-
     </div>
 </div>
 <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
-</div>
-</div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
-    function deleteById(mentoringId){
-        const reqUrl = "/mentoring/"+mentoringId;
+    function deleteById(mentoringId) {
+        const reqUrl = "/mentoring/" + mentoringId;
         $.ajax({
-            url : reqUrl,
-            type : 'delete',
-            success : function (){
+            url: reqUrl,
+            type: 'delete',
+            success: function () {
                 alert('삭제되었습니다.')
                 location.reload();
-            }, error : function (){
+            }, error: function () {
                 alert('요청실패')
             }
         })

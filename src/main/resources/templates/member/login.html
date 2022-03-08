@@ -8,8 +8,10 @@
 
 <body class="sign-in-basic">
 <div id="wrapper">
-   <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
-    <div class="page-header align-items-start min-vh-100" style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');" loading="lazy">
+    <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
+    <div class="page-header align-items-start min-vh-100"
+         style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');"
+         loading="lazy">
         <span class="mask bg-gradient-dark opacity-6"></span>
         <div class="container my-8">
             <div class="row">
@@ -38,13 +40,15 @@
                                     <input type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2" value="로그인">
                                 </div>
                                 <div class="text-center">
-                                    <a class="p-2" href="https://kauth.kakao.com/oauth/authorize?client_id=198b13b4aad42557177244425bb771f9&redirect_uri=http://localhost:8093/member/kakaologin&response_type=code">
+                                    <a class="p-2"
+                                       href="https://kauth.kakao.com/oauth/authorize?client_id=198b13b4aad42557177244425bb771f9&redirect_uri=http://localhost:8093/member/kakaologin&response_type=code">
                                         <img src="/assets/img/kakao.png" class="w-md-90 h-auto">
                                     </a>
                                 </div>
                                 <p class="mt-4 text-sm text-center">
                                     회원이 아니신가요?
-                                    <a href="/member/save" class="text-primary text-gradient font-weight-bold">회원가입 하러 가기!</a>
+                                    <a href="/member/save" class="text-primary text-gradient font-weight-bold">회원가입 하러
+                                        가기!</a>
                                 </p>
                                 <p class="mt-4 text-sm text-center">
                                     <a href="#">비밀번호를 잊으셨나요?</a>
@@ -61,33 +65,32 @@
 <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         let message = "[[${msg}]]";
         if (message != "") {
             alert(message);
-        }else {
+        } else {
 
         }
     })
 
-    $(function(){
+    $(function () {
         let rememberMe = $("#rememberMe");
         //쿠키가 있는지 확인
         let userEmail = getCookie("userEmail");
 
         //rememberMe에 체크가 되어있는지 확인
-        if(userEmail) {
+        if (userEmail) {
             rememberMe.attr("checked", true);
             $("#memberEmail").val(userEmail);
         }
 
-        if(rememberMe[0].checked){
+        if (rememberMe[0].checked) {
             setCookie("userEmail", $("#memberEmail").val(), 7);
         } else {
             deleteCookie("userEmail");
         }
     });
-
 
 
 </script>

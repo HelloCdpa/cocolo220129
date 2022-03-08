@@ -38,7 +38,7 @@
             <th scope="col">멘토링 신청 날짜</th>
         </tr>
         </thead>
-        <tbody  th:each="mentee,menteeStat:${menteeList}">
+        <tbody th:each="mentee,menteeStat:${menteeList}">
         <tr>
             <th scope="row" th:text="${menteeStat.count}"></th>
             <td th:text="${mentee.mentoringTitle}"></td>
@@ -67,7 +67,7 @@
             <th scope="col">멘토링 신청 날짜</th>
         </tr>
         </thead>
-        <tbody  th:each="mentor,mentorStat:${mentorList}">
+        <tbody th:each="mentor,mentorStat:${mentorList}">
         <tr>
             <th scope="row" th:text="${mentorStat.count}"></th>
             <td th:text="${mentor.mentoringTitle}"></td>
@@ -76,23 +76,23 @@
             <td th:text="${mentor.menteeCount+'/'+mentor.menteeMax}"></td>
             <td th:text="${mentor.mentoringPrice}"></td>
             <td th:text="*{#temporals.format(mentor.createTime, 'yyyy/MM/dd HH:mm')}"></td>
-            <td><button type="button" class="btn btn-danger"
+            <td>
+                <button type="button" class="btn btn-danger"
                         th:onclick="mentoringApply([[${mentor.menteeId}]])">
-                멘토링 완료
-            </button></td>
+                    멘토링 완료
+                </button>
+            </td>
         </tr>
         </tbody>
     </table>
 </div>
-
-</div>
-
 
 <a th:href="@{|/member/pointCharge/${session.loginId}|}" class="btn btn-primary"> 포인트 충전 하기 </a>
 
 <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
 </body>
 <script>
+<!--    멘토링 승인-->
     const mentoringApply = (menteeId) => {
         const reqUrl = "/mentoring/mentoringApply/" + menteeId;
         $.ajax({

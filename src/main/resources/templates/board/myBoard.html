@@ -26,101 +26,107 @@
 </header>
 <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
     <div class="container-fluid">
-    <table class="table table-hover caption-top">
+        <table class="table table-hover caption-top">
             <caption>커뮤니티 글</caption>
-        <thead>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col">제목</th>
-            <th scope="col">작성자</th>
-            <th scope="col">조회수</th>
-            <th scope="col">추천❤</th>
-            <th scope="col">작성시간</th>
-            <th scope="col">수정시간</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="boardList: ${boardList}">
-            <th scope="row" th:text="${boardList.boardId}"></th>
-            <td><a th:href="@{|/board/${boardList.boardId}|}" th:text="${boardList.boardTitle}"></a></td>
-            <td th:text="${boardList.boardWriter}"></td>
-            <td th:text="${boardList.boardHits}"></td>
-            <td th:text="${boardList.likeCount}"></td>
-            <td>
-                <span th:text="*{#temporals.format(boardList.createBoardDate, 'yy/MM/dd HH:mm')}"></span>
-            </td>
-            <td>
-                <span th:text="*{#temporals.format(boardList.updateBoardDate, 'yy/MM/dd HH:mm')}"></span>
-            </td>
-            <td><input class="btn btn-danger" type="button"
-                       th:onclick="deleteByIdBoard([[${boardList.boardId}]])"
-                       value="삭제"></td>
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">제목</th>
+                <th scope="col">작성자</th>
+                <th scope="col">조회수</th>
+                <th scope="col">추천❤</th>
+                <th scope="col">작성시간</th>
+                <th scope="col">수정시간</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="boardList: ${boardList}">
+                <th scope="row" th:text="${boardList.boardId}"></th>
+                <td><a th:href="@{|/board/${boardList.boardId}|}" th:text="${boardList.boardTitle}"></a></td>
+                <td th:text="${boardList.boardWriter}"></td>
+                <td th:text="${boardList.boardHits}"></td>
+                <td th:text="${boardList.likeCount}"></td>
+                <td>
+                    <span th:text="*{#temporals.format(boardList.createBoardDate, 'yy/MM/dd HH:mm')}"></span>
+                </td>
+                <td>
+                    <span th:text="*{#temporals.format(boardList.updateBoardDate, 'yy/MM/dd HH:mm')}"></span>
+                </td>
+                <td><input class="btn btn-danger" type="button"
+                           th:onclick="deleteByIdBoard([[${boardList.boardId}]])"
+                           value="삭제"></td>
 
-            <td><a class="btn btn-info" type="button"
-                   th:href="@{|/board/update/${boardList.boardId}|}">글수정</a></td>
-        </tr>
-        </tbody>
-    </table>
-    <table class="table caption-top">
-        <caption>멘토링 글</caption>
-        <tr th:each="mentoring:${mentoringList}">
-            <td th:text="${mentoring.mentoringId}">글번호</td>
-            <td th:text="${mentoring.mentoringWriter}">작성자</td>
-            <td><a th:text="${mentoring.mentoringTitle}" th:href="@{|/mentoring/${mentoring.mentoringId}|}"> 글제목</a></td>
-            <td th:text="${mentoring.mentoringContents}">글내용</td>
-            <td th:text="${mentoring.mentoringPrice}">멘토링 가격</td>
-            <td th:text="${mentoring.mentoringCareer}">멘토 경력, 특기</td>
-            <td th:text="${mentoring.mentoringCate}">멘토 분야</td>
-            <td th:text="${mentoring.mentoringCount}">멘토링 횟수</td>
+                <td><a class="btn btn-info" type="button"
+                       th:href="@{|/board/update/${boardList.boardId}|}">글수정</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table caption-top">
+            <caption>멘토링 글</caption>
+            <tr th:each="mentoring:${mentoringList}">
+                <td th:text="${mentoring.mentoringId}">글번호</td>
+                <td th:text="${mentoring.mentoringWriter}">작성자</td>
+                <td><a th:text="${mentoring.mentoringTitle}" th:href="@{|/mentoring/${mentoring.mentoringId}|}"> 글제목</a>
+                </td>
+                <td th:text="${mentoring.mentoringContents}">글내용</td>
+                <td th:text="${mentoring.mentoringPrice}">멘토링 가격</td>
+                <td th:text="${mentoring.mentoringCareer}">멘토 경력, 특기</td>
+                <td th:text="${mentoring.mentoringCate}">멘토 분야</td>
+                <td th:text="${mentoring.mentoringCount}">멘토링 횟수</td>
 
-            <td><button type="button" class="btn btn-danger" th:onclick="deleteByIdMentor([[${mentoring.mentoringId}]])">글삭제</button></td>
-            <td><a th:href="@{|/mentoring/update/${mentoring.mentoringId}|}">글수정</a></td>
-        </tr>
-    </table>
-    <p>스터디 글</p>
-    <div class="col-lg-6" th:each="study:${studyList}">
-        <div class="accordion accordion-flush" th:id="${'accordionFlushExample' + study.studyId}">
-            <div class="accordion-item">
-                <h2 class="accordion-header" th:id="${'flush-headingOne' + study.studyId}">
-                    <button th:text="${study.studyTitle}" class="accordion-button collapsed h4" type="button"
-                            data-bs-toggle="collapse" th:data-bs-target="${'#flush-collapseOne' + study.studyId}"
-                            aria-expanded="false" th:aria-controls="${'flush-collapseOne' + study.studyId}">
+                <td>
+                    <button type="button" class="btn btn-danger"
+                            th:onclick="deleteByIdMentor([[${mentoring.mentoringId}]])">글삭제
                     </button>
-                </h2>
-                <div th:id="${'flush-collapseOne' + study.studyId}" class="accordion-collapse collapse"
-                     th:aria-labelledby="${'flush-headingOne' + study.studyId}"
-                     th:data-bs-parent="${'#accordionFlushExample' + study.studyId}">
-                    <div class="accordion-body">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <input type="hidden" th:value="${study.studyId}" id="studyId">
-                                <div class="h6">스터디 소개 : </div>
-                                <div class="text-dark" th:utext="${study.studyContents}"></div>
-                                <div class="h6">스터디 분야 :&nbsp; <span th:text="${study.studyCate}"></span></div>
+                </td>
+                <td><a th:href="@{|/mentoring/update/${mentoring.mentoringId}|}">글수정</a></td>
+            </tr>
+        </table>
+        <p>스터디 글</p>
+        <div class="col-lg-6" th:each="study:${studyList}">
+            <div class="accordion accordion-flush" th:id="${'accordionFlushExample' + study.studyId}">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" th:id="${'flush-headingOne' + study.studyId}">
+                        <button th:text="${study.studyTitle}" class="accordion-button collapsed h4" type="button"
+                                data-bs-toggle="collapse" th:data-bs-target="${'#flush-collapseOne' + study.studyId}"
+                                aria-expanded="false" th:aria-controls="${'flush-collapseOne' + study.studyId}">
+                        </button>
+                    </h2>
+                    <div th:id="${'flush-collapseOne' + study.studyId}" class="accordion-collapse collapse"
+                         th:aria-labelledby="${'flush-headingOne' + study.studyId}"
+                         th:data-bs-parent="${'#accordionFlushExample' + study.studyId}">
+                        <div class="accordion-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <input type="hidden" th:value="${study.studyId}" id="studyId">
+                                    <div class="h6">스터디 소개 :</div>
+                                    <div class="text-dark" th:utext="${study.studyContents}"></div>
+                                    <div class="h6">스터디 분야 :&nbsp; <span th:text="${study.studyCate}"></span></div>
 
-                                <div class="h6">스터디 현재 인원 :&nbsp; <span th:text="${study.studyCount}"></span>명</div>
-                                <div class="h6">모집 인원 :&nbsp; <span th:text="${study.studyMax}"></span>명</div>
-                                <span class="h6">스터디 장소 :&nbsp;</span><span th:text="${study.studyPlace}"></span>
-                                <span th:if="${#strings.equals(session['loginNick'],study.studyWriter)}">
+                                    <div class="h6">스터디 현재 인원 :&nbsp; <span th:text="${study.studyCount}"></span>명</div>
+                                    <div class="h6">모집 인원 :&nbsp; <span th:text="${study.studyMax}"></span>명</div>
+                                    <span class="h6">스터디 장소 :&nbsp;</span><span th:text="${study.studyPlace}"></span>
+                                    <span th:if="${#strings.equals(session['loginNick'],study.studyWriter)}">
 
                                 <button type="button" class="btn btn-danger"
                                         th:onclick="deleteByIdStudy([[${study.studyId}]])">글삭제</button>
                                 <a class="btn btn-outline-info" th:href="@{|/study/update/${study.studyId}|}">글수정</a>
                                           </span>
-                            </div>
-                            <div class="col-md-4">
-                                <img class="avatar avatar-xxl shadow-xl position-relative z-index-2"
-                                     th:src= "@{/member_upload/}+${study.memberProfileName}" alt="bruce" loading="lazy">
-                            </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <img class="avatar avatar-xxl shadow-xl position-relative z-index-2"
+                                         th:src="@{/member_upload/}+${study.memberProfileName}" alt="bruce"
+                                         loading="lazy">
+                                </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
+    <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
 </div>
 </body>
 <script>
@@ -139,33 +145,33 @@
         })
     }
 
-        function deleteByIdMentor(mentoringId){
-        const reqUrl = "/mentoring/"+mentoringId;
+    function deleteByIdMentor(mentoringId) {
+        const reqUrl = "/mentoring/" + mentoringId;
         $.ajax({
-        url : reqUrl,
-        type : 'delete',
-        success : function (){
-        alert('삭제되었습니다.')
-        location.reload();
-    }, error : function (){
-        alert('요청실패')
-    }
-    })
+            url: reqUrl,
+            type: 'delete',
+            success: function () {
+                alert('삭제되었습니다.')
+                location.reload();
+            }, error: function () {
+                alert('요청실패')
+            }
+        })
     }
 
 
-        function deleteByIdStudy(studyId) {
+    function deleteByIdStudy(studyId) {
         const reqUrl = "/study/" + studyId;
         $.ajax({
-        url: reqUrl,
-        type: 'delete',
-        success: function () {
-        alert('삭제되었습니다.')
-        location.reload();
-    }, error: function () {
-        alert('요청실패')
-    }
-    })
+            url: reqUrl,
+            type: 'delete',
+            success: function () {
+                alert('삭제되었습니다.')
+                location.reload();
+            }, error: function () {
+                alert('요청실패')
+            }
+        })
     }
 
 

@@ -25,7 +25,8 @@
                         <h1 class="text-white">course</h1>
                         <p class="lead mb-4 text-white opacity-8">함께하는 개발생활</p>
                         <span th:if="${not #strings.isEmpty(session['loginEmail'])}">
-                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#courseSaveModal">게시글 작성하기</button>
+                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                             data-bs-target="#courseSaveModal">게시글 작성하기</button>
                     </span>
                     </div>
                 </div>
@@ -42,36 +43,30 @@
                 <td th:text="${course.courseSection}">수업주차/주제</td>
                 <td th:text="${course.courseFileName}">동영상 파일</td>
 
-                <td><button type="button" class="btn btn-danger" th:onclick="deleteById([[${course.courseId}]])">글삭제</button></td>
+                <td>
+                    <button type="button" class="btn btn-danger" th:onclick="deleteById([[${course.courseId}]])">글삭제
+                    </button>
+                </td>
                 <td><a th:href="@{|/course/update/${course.courseId}|}">글수정</a></td>
             </tr>
-
         </table>
-
-
-
     </div>
 </div>
 <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
-</div>
-</div>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
-    function deleteById(courseId){
-        const reqUrl = "/course/"+courseId;
+    function deleteById(courseId) {
+        const reqUrl = "/course/" + courseId;
         $.ajax({
-            url : reqUrl,
-            type : 'delete',
-            success : function (){
+            url: reqUrl,
+            type: 'delete',
+            success: function () {
                 alert('삭제되었습니다.')
                 location.reload();
-            }, error : function (){
+            }, error: function () {
                 alert('요청실패')
             }
         })
     }
 </script>
-
-
 </html>
