@@ -71,12 +71,14 @@
                 <td th:text="${mentoring.mentoringCate}"></td>
                 <td th:text="*{#temporals.format(mentoring.createTime, 'yyyy/MM/dd HH:mm')}"></td>
 
+                <span th:if="(${#strings.equals(session['loginEmail'],'phl1021@naver.com')} or ${session.loginNick}==${mentoring.mentoringWriter})">
                 <td>
                     <button type="button" class="btn btn-danger" th:onclick="deleteById([[${mentoring.mentoringId}]])">
                         글삭제
                     </button>
                 </td>
-                <td><a th:href="@{|/mentoring/update/${mentoring.mentoringId}|}">글수정</a></td>
+                </span>
+                <td><a th:if="(${session.loginNick}==${mentoring.mentoringWriter})" th:href="@{|/mentoring/update/${mentoring.mentoringId}|}">글수정</a></td>
             </tr>
             </tbody>
         </table>

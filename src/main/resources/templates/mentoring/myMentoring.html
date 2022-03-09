@@ -60,6 +60,13 @@
         <tbody>
             <tr th:each="room : ${rooms}">
                 <td><a th:href="@{/mentoring/room(roomId=${room.roomId})}">[[${room.name}]]</a></td>
+                <span th:if="(${#strings.equals(session['loginEmail'],'phl1021@naver.com')} or ${session.loginNick}==${room.chatMentor})">
+                <td>
+                    <button type="button" class="btn btn-danger" th:onclick="deleteById([[${room.chatRoomId}]])">
+                        채팅방 삭제
+                    </button>
+                </td>
+                </span>
             </tr>
         </tbody>
     </table>
@@ -144,6 +151,20 @@
             $("form").submit();
         }
     });
+
+    function deleteById(chatRoomId) {
+        const reqUrl = "/mentoring/chat/" + chatRoomId;
+        $.ajax({
+            url: reqUrl,
+            type: 'delete',
+            success: function () {
+                alert('삭제되었습니다.')
+                location.reload();
+            }, error: function () {
+                alert('요청실패')
+            }
+        })
+    }
 </script>
 
 

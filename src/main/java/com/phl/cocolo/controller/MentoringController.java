@@ -99,6 +99,7 @@ public class MentoringController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    //멘토링 구매
     @PostMapping("/payment")
     public ResponseEntity payment(@ModelAttribute MenteeSaveDTO menteeSaveDTO){
         mts.saveMentee(menteeSaveDTO);
@@ -106,6 +107,7 @@ public class MentoringController {
 
     }
 
+    //나의 멘토링 조회
     @GetMapping("/myMentoring/{memberId}")
     public String myMentoring(@PathVariable ("memberId") Long memberId, Model model){
         //멘티정보로 멘토 신청정보 찾기
@@ -117,7 +119,6 @@ public class MentoringController {
         model.addAttribute("mentorList",mentorList);
 
         //채팅방 목록 불러오기
-
         model.addAttribute("rooms", cs.findAllRooms());
 
 
@@ -127,9 +128,10 @@ public class MentoringController {
     @PostMapping(value = "/room")
     public String create(@RequestParam String name,HttpSession session,Model model){
         Long memberId = (Long) session.getAttribute(LOGIN_ID);
+        String memberNick = (String) session.getAttribute(LOGIN_NICKNAME);
         log.info("# Create Chat Room , name: " + name);
 
-        cs.createChatRoomDTO(name);
+        cs.createChatRoomDTO(name,memberNick);
 
         return "redirect:/mentoring/myMentoring/"+memberId;
     }
@@ -137,14 +139,22 @@ public class MentoringController {
     //채팅방 조회
     @GetMapping("/room")
     public void getRoom(String roomId, Model model,HttpSession session){
-//        Long memberId = (Long) session.getAttribute(LOGIN_ID);
-//        String memberProfileName = ms.findById(memberId).getMemberProfileName();
-//        model.addAttribute("memberProfileName",memberProfileName);
+        //        Long memberId = (Long) session.getAttribute(LOGIN_ID);
+        //        String memberProfileName = ms.findById(memberId).getMemberProfileName();
+        //        model.addAttribute("memberProfileName",memberProfileName);
         log.info("# get Chat Room, roomID : " + roomId);
 
         model.addAttribute("room", cs.findRoomById(roomId));
     }
 
+    //멘토링 삭제
+    @DeleteMapping("/chat/{chatRoomId}")
+    public ResponseEntity deleteChatById (@PathVariable ("chatRoomId") Long chatRoomId){
+        cs.deleteById(chatRoomId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    //멘토링 승인
     @Transactional
     @PutMapping("/mentoringApply/{menteeId}")
     public @ResponseBody String mentoringApply(@PathVariable ("menteeId") Long menteeId){

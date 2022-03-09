@@ -3,6 +3,7 @@ package com.phl.cocolo.entity;
 import com.phl.cocolo.dto.ChatMessageSaveDTO;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ public class ChatMessageEntity {
     @Column(name = "chat_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "chatRoom_id")
     private ChatRoomEntity chatRoomEntity;
 
@@ -27,7 +28,7 @@ public class ChatMessageEntity {
     @Column
     private String message;
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime sendDate;
 

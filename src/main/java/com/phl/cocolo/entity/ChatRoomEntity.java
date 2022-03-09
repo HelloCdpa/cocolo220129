@@ -23,15 +23,18 @@ public class ChatRoomEntity {
     @Column
     private String roomName;
 
-    @OneToMany(mappedBy = "chatRoomEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column
+    private String chatMentor;
+
+    @OneToMany(mappedBy = "chatRoomEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ChatMessageEntity> chatMessageEntityList = new ArrayList<>();
 
 
-    public static ChatRoomEntity toChatRoomEntity(String roomName, String roomId){
+    public static ChatRoomEntity toChatRoomEntity(String roomName, String roomId, String chatMentor){
         ChatRoomEntity chatRoomEntity = new ChatRoomEntity();
-        chatRoomEntity.setRoomId(roomId);
         chatRoomEntity.setRoomName(roomName);
-
+        chatRoomEntity.setRoomId(roomId);
+        chatRoomEntity.setChatMentor(chatMentor);
         return chatRoomEntity;
     }
 

@@ -21,7 +21,6 @@
 
             <div class="display-container modal-body" style="height: 1000px">
                 <ul class="chatting-list" id="msgArea">
-
                 </ul>
             </div>
 
@@ -74,7 +73,7 @@
                 const item = new LiModel(writer, message);
                 item.makeLi();
 
-                function LiModel(writer, message,memberProfileName) {
+                function LiModel(writer, message) {
                     this.writer = writer;
                     this.msg = message;
                     const chatList = document.querySelector(".chatting-list");

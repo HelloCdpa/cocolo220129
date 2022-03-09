@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ChatRoomDetailDTO {
     private Long chatRoomId;
+    private String chatMentor;
     private String roomId;
     private String name;
 
@@ -17,6 +18,7 @@ public class ChatRoomDetailDTO {
         ChatRoomDetailDTO chatRoomDetailDTO = new ChatRoomDetailDTO();
 
         chatRoomDetailDTO.setChatRoomId(chatRoomEntity.getId());
+        chatRoomDetailDTO.setChatMentor(chatRoomEntity.getChatMentor());
         chatRoomDetailDTO.setRoomId(chatRoomEntity.getRoomId());
         chatRoomDetailDTO.setName(chatRoomEntity.getRoomName());
 

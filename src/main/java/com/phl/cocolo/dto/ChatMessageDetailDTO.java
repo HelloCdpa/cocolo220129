@@ -7,7 +7,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChatMessageDetailDTO {
+
+    private Long chatId;
     private Long chatRoomId;
+
     private String roomId;
     private String writer;
     private String message;
@@ -15,8 +18,11 @@ public class ChatMessageDetailDTO {
     public static ChatMessageDetailDTO toChatMessageDetailDTO(ChatMessageEntity chatMessageEntity){
         ChatMessageDetailDTO chatMessageDetailDTO = new ChatMessageDetailDTO();
 
-        chatMessageDetailDTO.setRoomId(chatMessageEntity.getChatRoomEntity().getRoomId());
+        chatMessageDetailDTO.setChatId(chatMessageEntity.getId());
+
         chatMessageDetailDTO.setChatRoomId(chatMessageEntity.getChatRoomEntity().getId());
+        chatMessageDetailDTO.setRoomId(chatMessageEntity.getChatRoomEntity().getRoomId());
+
         chatMessageDetailDTO.setWriter(chatMessageEntity.getWriter());
         chatMessageDetailDTO.setMessage(chatMessageEntity.getMessage());
 

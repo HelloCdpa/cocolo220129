@@ -1,5 +1,6 @@
 package com.phl.cocolo.service;
 
+import com.phl.cocolo.dto.ChatMessageDetailDTO;
 import com.phl.cocolo.dto.ChatRoomDTO;
 import com.phl.cocolo.dto.ChatRoomDetailDTO;
 import com.phl.cocolo.entity.ChatMessageEntity;
@@ -10,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
 
 @Service
@@ -18,14 +18,7 @@ import java.util.*;
 public class ChatServiceImpl implements ChatService{
     private final ChatRoomRepository crr;
     private final ChatRepository cr;
-    
-    
-    private Map<String, ChatRoomDTO> chatRoomDTOMap;
 
-    @PostConstruct
-    private void init(){
-        chatRoomDTOMap = new LinkedHashMap<>();
-    }
     //채팅방 전체보기
     @Override
     public List<ChatRoomDetailDTO> findAllRooms(){
@@ -48,11 +41,26 @@ public class ChatServiceImpl implements ChatService{
 
     //채팅방 생성하기
     @Override
-    public void createChatRoomDTO(String name){
-
+    public void createChatRoomDTO(String name, String chatMentor){
         ChatRoomDTO room = ChatRoomDTO.create(name);
-        ChatRoomEntity chatRoomEntity = ChatRoomEntity.toChatRoomEntity(room.getName(),room.getRoomId());
+        ChatRoomEntity chatRoomEntity = ChatRoomEntity.toChatRoomEntity(room.getName(),room.getRoomId(),chatMentor);
         crr.save(chatRoomEntity);
-
     }
+
+    @Override
+    public void deleteById(Long chatRoomId) {
+        crr.deleteById(chatRoomId);
+    }
+
+    @Override
+    public List<ChatMessageDetailDTO> findAllChatByRoomId(String roomId) {
+        List<ChatMessageEntity> chatMessageEntityList = cr.findAllByChatRoomEntity_RoomId(roomId);
+        List<ChatMessageDetailDTO> chatMessageList = new ArrayList<>();
+        for (ChatMessageEntity c:chatMessageEntityList){
+            chatMessageList.add(ChatMessageDetailDTO.toChatMessageDetailDTO(c));
+        }
+        return chatMessageList;
+    }
+
+
 }
