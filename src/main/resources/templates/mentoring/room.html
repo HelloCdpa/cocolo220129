@@ -54,7 +54,7 @@
         let username = [[${session.loginNick}]];
 
 
-        console.log(roomName + ", " + roomId + ", " + username);
+        console.log(roomName + ", " + roomId + ", " + username  );
 
         let sockJs = new SockJS("/stomp/chat");
         //1. SockJS를 내부에 들고있는 stomp를 내어줌
@@ -74,7 +74,7 @@
                 const item = new LiModel(writer, message);
                 item.makeLi();
 
-                function LiModel(writer, message) {
+                function LiModel(writer, message,memberProfileName) {
                     this.writer = writer;
                     this.msg = message;
                     const chatList = document.querySelector(".chatting-list");

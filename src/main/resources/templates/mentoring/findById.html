@@ -7,13 +7,14 @@
 
 <body>
 <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
-<div style="margin-top: 300px">
-    <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6 mb-4">
+<div style="margin-top: 200px;">
+    <div class="container-fluid mx-3 mx-md-4 mt-n6 mb-4">
         <!-- START Testimonials w/ user image & text & info -->
         <section class="py-sm-7 py-5 position-relative">
-            <div class="container">
+            <div class="container border">
                 <div class="row">
-                    <div class="col-12 mx-auto">
+                    <div class="col-9 mx-auto">
+                            <a class="nav-link nav-link-icon me-2" href="/mentoring/">Mentoring></a>
                         <div class="mt-n8 mt-md-n9 text-center">
                             <img class="avatar avatar-xxl shadow-xl position-relative z-index-2"
                                  th:src="@{/member_upload/}+${mentoring.memberProfileName}" alt="bruce" loading="lazy">
@@ -32,13 +33,13 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 mb-3">
                                         경력/특기 : <span th:text="${mentoring.mentoringCareer}"></span>
                                     </div>
                                 </div>
                                 <form action="/member/pointPayment" method="post" name="pointPayment">
                                     <div>
-                                        <p class="text-lg mb-0" th:utext="${mentoring.mentoringContents}"></p>
+                                        <p class="text-lg mb-3" th:utext="${mentoring.mentoringContents}"></p>
                                         <span th:text="${mentoring.mentoringCount}"></span>회 당
                                         <span th:text="${mentoring.mentoringPrice}"></span>point
 
@@ -48,7 +49,7 @@
                                                th:value="${session.loginId}">
                                         <input type="hidden" th:value="${memberPoint}">
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 mb-3">
                                         <div class="row">
                                             <div class="col-auto">
                                                 총액 : <span type="text" th:text="${totalPrice}"></span>
@@ -59,9 +60,9 @@
                                                 point
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row mb-3">
                                             <div class="col-auto">
-                                                사용 가능 포인트 :<span id="memberPoint"
+                                                사용 가능 포인트 : <span id="memberPoint"
                                                                  th:text="${memberPoint}"></span>
                                             </div>
                                             <div class="col-auto">

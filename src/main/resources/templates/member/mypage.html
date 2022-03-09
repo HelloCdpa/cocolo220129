@@ -63,7 +63,7 @@
                     <div class="input-group input-group-static mb-4">
                         <div class="row">
                             <div class="col-md-6">
-                                <img class="img-thumbnail" th:src="@{/member_upload/}+${member.memberProfileName}"
+                                <img class="img-thumbnail" th:src="@{/member_upload/}+*{memberProfileName}"
                                      alt="member"
                                      style="width:100px; height:100px;" loading="lazy">
                             </div>

@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,6 +25,8 @@ public class MentoringDetailDTO {
     private String mentoringCate;
     private String memberProfileName;
 
+    private LocalDateTime createTime;
+
 
 //    멘토링 상세조회
     public static MentoringDetailDTO toMentoringDetailDTO(MentoringEntity mentoringEntity){
@@ -39,6 +43,7 @@ public class MentoringDetailDTO {
         mentoringDetailDTO.setMentoringPrice(mentoringEntity.getMentoringPrice());
         mentoringDetailDTO.setMentoringCate(mentoringEntity.getMentoringCate());
         mentoringDetailDTO.setMentoringCareer(mentoringEntity.getMentoringCareer());
+        mentoringDetailDTO.setCreateTime(mentoringEntity.getCreatTime());
 
         return mentoringDetailDTO;
     }

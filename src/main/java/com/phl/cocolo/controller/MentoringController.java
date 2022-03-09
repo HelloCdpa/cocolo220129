@@ -1,9 +1,11 @@
 package com.phl.cocolo.controller;
 
 import com.phl.cocolo.dto.*;
+import com.phl.cocolo.service.ChatService;
 import com.phl.cocolo.service.MemberService;
 import com.phl.cocolo.service.MentoringService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -21,11 +24,12 @@ import static com.phl.cocolo.common.SessionConst.LOGIN_NICKNAME;
 
 @Controller
 @RequestMapping("/mentoring")
-@CrossOrigin("*")
 @RequiredArgsConstructor
+@Log4j2
 public class MentoringController {
     private final MentoringService mts;
     private final MemberService ms;
+    private final ChatService cs;
 
     //게시글 저장
     @PostMapping("/save")
@@ -95,8 +99,6 @@ public class MentoringController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-
-
     @PostMapping("/payment")
     public ResponseEntity payment(@ModelAttribute MenteeSaveDTO menteeSaveDTO){
         mts.saveMentee(menteeSaveDTO);
@@ -114,7 +116,33 @@ public class MentoringController {
         List<MenteeDetailDTO> mentorList = mts.fundAllMentorMemberId(memberId);
         model.addAttribute("mentorList",mentorList);
 
+        //채팅방 목록 불러오기
+
+        model.addAttribute("rooms", cs.findAllRooms());
+
+
         return "/mentoring/myMentoring";
+    }
+    //채팅방 개설
+    @PostMapping(value = "/room")
+    public String create(@RequestParam String name,HttpSession session,Model model){
+        Long memberId = (Long) session.getAttribute(LOGIN_ID);
+        log.info("# Create Chat Room , name: " + name);
+
+        cs.createChatRoomDTO(name);
+
+        return "redirect:/mentoring/myMentoring/"+memberId;
+    }
+
+    //채팅방 조회
+    @GetMapping("/room")
+    public void getRoom(String roomId, Model model,HttpSession session){
+//        Long memberId = (Long) session.getAttribute(LOGIN_ID);
+//        String memberProfileName = ms.findById(memberId).getMemberProfileName();
+//        model.addAttribute("memberProfileName",memberProfileName);
+        log.info("# get Chat Room, roomID : " + roomId);
+
+        model.addAttribute("room", cs.findRoomById(roomId));
     }
 
     @Transactional
@@ -134,3 +162,5 @@ public class MentoringController {
 
 
 }
+
+

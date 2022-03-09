@@ -1,6 +1,6 @@
 package com.phl.cocolo.controller;
 
-import com.phl.cocolo.dto.ChatMessageDTO;
+import com.phl.cocolo.dto.ChatMessageDetailDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -16,13 +16,13 @@ public class StompChatController {
     //stompConfig 에서 설정한 applicationDestinationPrefixes 와 @MessageMapping 경로가 병합됨
     //"/pub/chat/enter"
     @MessageMapping(value = "/chat/enter")
-    public void enter(ChatMessageDTO message) {
+    public void enter(ChatMessageDetailDTO message) {
         message.setMessage(message.getWriter() + "님이 채팅방에 참여하였습니다.");
         template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
 
     @MessageMapping(value = "/chat/message")
-    public void message(ChatMessageDTO message) {
+    public void message(ChatMessageDetailDTO message) {
         template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
 //    @MessageMapping 을 통해 WebSocket 으로 들어오는 메세지 발행을 처리한다.

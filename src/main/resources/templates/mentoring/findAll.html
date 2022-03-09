@@ -49,16 +49,28 @@
 
     <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n3">
         <table>
-            <tr th:each="mentoring:${mentoringList}">
-                <td th:text="${mentoring.mentoringId}">글번호</td>
-                <td th:text="${mentoring.mentoringWriter}">작성자</td>
-                <td><a th:text="${mentoring.mentoringTitle}" th:href="@{|/mentoring/${mentoring.mentoringId}|}"> 글제목</a>
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">멘티 닉네임</th>
+                <th scope="col">제목</th>
+                <th scope="col">가격</th>
+                <th scope="col">경력</th>
+                <th scope="col">분야</th>
+                <th scope="col">작성시간</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="mentoring,mentoringStat:${mentoringList}">
+                <td th:text="${mentoringStat.count}"></td>
+                <td th:text="${mentoring.mentoringWriter}"></td>
+                <td><a th:text="${mentoring.mentoringTitle}" th:href="@{|/mentoring/${mentoring.mentoringId}|}"></a>
                 </td>
-                <td th:text="${mentoring.mentoringContents}">글내용</td>
-                <td th:text="${mentoring.mentoringPrice}">멘토링 가격</td>
-                <td th:text="${mentoring.mentoringCareer}">멘토 경력, 특기</td>
-                <td th:text="${mentoring.mentoringCate}">멘토 분야</td>
-                <td th:text="${mentoring.mentoringCount}">멘토링 횟수</td>
+                <td th:text="${mentoring.mentoringCount+'회 '+mentoring.mentoringPrice+'point'}"></td>
+                <td th:text="${mentoring.mentoringCareer}"></td>
+                <td th:text="${mentoring.mentoringCate}"></td>
+                <td th:text="*{#temporals.format(mentoring.createTime, 'yyyy/MM/dd HH:mm')}"></td>
+
                 <td>
                     <button type="button" class="btn btn-danger" th:onclick="deleteById([[${mentoring.mentoringId}]])">
                         글삭제
@@ -66,6 +78,7 @@
                 </td>
                 <td><a th:href="@{|/mentoring/update/${mentoring.mentoringId}|}">글수정</a></td>
             </tr>
+            </tbody>
         </table>
     </div>
 </div>
