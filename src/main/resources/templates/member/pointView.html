@@ -24,10 +24,18 @@
         </div>
     </div>
 </header>
+<div class="row">
 <th:block th:fragment="pointFragment">
     <div class="col-lg-8">
         <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
-            <h3>포인트 내역</h3>
+            <div class="row">
+                <div class="col-md-6"><h3>포인트 내역</h3></div>
+                <div class="col-md-6">
+                    <a th:href="@{|/member/pointCharge/${session.loginId}|}" class="btn btn-primary"> 포인트 충전 하기 </a>
+                </div>
+            </div>
+
+
             <table>
                 <tr th:each="point:${pointList}">
                     <td th:text="${point.pointPoint}"></td>
@@ -38,10 +46,11 @@
         </div>
     </div>
 </th:block>
+<th:block th:replace="/member/mypage :: myPageSideBarFragment"></th:block>
+</div>
 <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
 </body>
 
-<a th:href="@{|/member/pointCharge/${session.loginId}|}" class="btn btn-primary"> 포인트 충전 하기 </a>
 
 
 </html>

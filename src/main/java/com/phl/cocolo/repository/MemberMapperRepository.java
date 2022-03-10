@@ -12,7 +12,7 @@ public interface MemberMapperRepository {
     @Update("update member_table set member_point = member_point + #{member_point} where member_id = #{member_id}")
     void pointCharge(Map<String, Object> memberPointUpdate);
 
-    @Update("update member_table set member_phone = #{memberPhone}, member_profileName = #{memberProfileName},member_level = #{memberLevel},member_interesting = #{memberInteresting} where member_id = #{memberId}")
+    @Update("update member_table set member_phone = #{memberPhone}, member_profile_name = #{memberProfileName},member_level = #{memberLevel},member_interesting = #{memberInteresting} where member_id = #{memberId}")
     void memberUpdate(MemberUpdateDTO memberUpdateDTO);
 
 

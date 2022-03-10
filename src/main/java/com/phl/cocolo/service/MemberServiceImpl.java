@@ -128,8 +128,7 @@ public class MemberServiceImpl implements MemberService {
         }
         memberUpdateDTO.setMemberProfileName(m_filename);
 
-        MemberEntity memberEntity = MemberEntity.toMemberUpdateEntity(memberUpdateDTO);
-        mr.save(memberEntity);
+        mmr.memberUpdate(memberUpdateDTO);
 
     }
 

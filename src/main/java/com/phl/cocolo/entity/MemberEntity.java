@@ -84,28 +84,6 @@ public class MemberEntity{
         memberEntity.setMemberProfileName(memberSaveDTO.getMemberProfileName());
         memberEntity.setMemberLevel(memberSaveDTO.getMemberLevel());
 
-
-
-        return memberEntity;
-    }
-
-    public static MemberEntity toMemberUpdateEntity(MemberUpdateDTO memberUpdateDTO) {
-        MemberEntity memberEntity = new MemberEntity();
-
-        memberEntity.setId(memberUpdateDTO.getMemberId());
-        memberEntity.setMemberPoint(memberUpdateDTO.getMemberPoint());
-
-        memberEntity.setMemberEmail(memberUpdateDTO.getMemberEmail());
-        memberEntity.setMemberPassword(memberUpdateDTO.getMemberPassword());
-        memberEntity.setMemberName(memberUpdateDTO.getMemberName());
-        memberEntity.setMemberNickName(memberUpdateDTO.getMemberNickName());
-        memberEntity.setMemberPhone(memberUpdateDTO.getMemberPhone());
-        memberEntity.setMemberInteresting(memberUpdateDTO.getMemberInteresting());
-        memberEntity.setMemberProfileName(memberUpdateDTO.getMemberProfileName());
-        memberEntity.setMemberLevel(memberUpdateDTO.getMemberLevel());
-
-
-
         return memberEntity;
     }
 

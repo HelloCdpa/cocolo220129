@@ -38,6 +38,8 @@ public class MemberDetailDTO {
         memberDetailDTO.setMemberPassword(memberEntity.getMemberPassword());
         memberDetailDTO.setMemberProfileName(memberEntity.getMemberProfileName());
         memberDetailDTO.setMemberPoint(memberEntity.getMemberPoint());
+        memberDetailDTO.setMemberInteresting(memberEntity.getMemberInteresting());
+        memberDetailDTO.setMemberLevel(memberEntity.getMemberLevel());
 
         return memberDetailDTO;
 

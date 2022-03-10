@@ -40,8 +40,8 @@
                                 <form action="/member/pointPayment" method="post" name="pointPayment">
                                     <div>
                                         <p class="text-lg mb-3" th:utext="${mentoring.mentoringContents}"></p>
-                                        <span th:text="${mentoring.mentoringCount}"></span>회 당
-                                        <span th:text="${mentoring.mentoringPrice}"></span>point
+                                        <span th:text="${mentoring.mentoringCount + ' 회 당 '}"></span>
+                                        <span th:text="${mentoring.mentoringPrice + ' point'}"></span>
 
                                         <input type="hidden" id="mentoringId" th:value="${mentoring.mentoringId}">
                                         <input type="hidden" id="mentoringCount" th:value="${mentoring.mentoringCount}">
@@ -50,24 +50,12 @@
                                         <input type="hidden" th:value="${memberPoint}">
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="row">
-                                            <div class="col-auto">
-                                                총액 : <span type="text" th:text="${totalPrice}"></span>
-                                                <input type="hidden" id="totalPrice" th:value="${totalPrice}"
-                                                       name="pointPoint">
-                                            </div>
-                                            <div class="col-auto">
-                                                point
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-auto">
-                                                사용 가능 포인트 : <span id="memberPoint"
-                                                                 th:text="${memberPoint}"></span>
-                                            </div>
-                                            <div class="col-auto">
-                                                point
-                                            </div>
+                                        <span type="text" th:text="${'총액 : '+ totalPrice + ' point'}"></span>
+                                        <input type="hidden" id="totalPrice" th:value="${totalPrice}"
+                                               name="pointPoint">
+                                        <div class="mb-3">
+                                        <input type="hidden" id="memberPoint" th:value="${memberPoint}">
+                                        <span th:text="${'사용 가능 포인트 : ' + memberPoint + ' point'}"></span>
                                         </div>
                                         <button type="button" class="btn btn-danger" onclick="mentoringPayment()">멘토링
                                             신청하기
@@ -89,7 +77,7 @@
         const memberId = $('#loginId').val();
         const mentoringId = $('#mentoringId').val();
         const menteeCount = parseInt($('#mentoringCount').val());
-        const memberPoint = parseInt($('#memberPoint').text());
+        const memberPoint = parseInt($('#memberPoint').val());
         const totalPrice = parseInt($('#totalPrice').val());
 
         if (memberPoint < totalPrice) {

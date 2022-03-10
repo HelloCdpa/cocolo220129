@@ -11,9 +11,9 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/a")
+    @GetMapping("/test")
     public String a(){
-        return "/layout/layout";
+        return "layout/fragments/test";
     }
 
 }

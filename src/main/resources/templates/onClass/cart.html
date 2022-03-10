@@ -29,7 +29,13 @@
     <input type="hidden" th:value="${session.loginEmail}" id="memberEmail">
     <input type="hidden" th:value="${session.loginId}" id="memberId">
 
-    <div class="row">
+    <div th:if="${cartCheck}" class="row">
+        <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+        <a href="/onClass/" class="h3">아직 장바구니에 담은 강의가 없어요🤸‍♂</a>
+        </div>
+    </div>
+
+    <div class="row" th:unless="${cartCheck}">
         <div class="col-lg-8">
             <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
 
@@ -70,10 +76,10 @@
                     <span th:text="*{'보유 포인트 : '+memberPoint +'point'}"></span>
                 </div>
                 <span class="h6" id="pointApply"></span>
-                <div class="h3"> 결제금액 : <span id="applyPrice"></span></div>
+                <div class="h3"> 결제금액 : <span id="applyPrice" th:text="*{totalPrice}"></span></div>
                 <input type="hidden" id="point_value" value="0">
-                <input type="hidden" id="totalPrice" th:value="*{totalPrice}">
-                <input type="hidden" id="applyValue">
+                <input type="hidden" id="totalPrice">
+                <input type="hidden" id="applyValue" th:value="*{totalPrice}">
                 <button type="button" class="btn btn-success" onclick="requestPay()" value="수강권 구매">수강권 구매</button>
             </div>
         </div>
@@ -103,12 +109,12 @@
         const intPoint = parseInt(point.value);
         //초기 값
         const startPrice = document.getElementById('totalPrice').value;
+        const applyPrice = document.getElementById('applyPrice');
 
         console.log(intPoint + "<" + maxPoint);
         if (intPoint < maxPoint && intPoint <= startPrice) {
             // 포인트가 적용된 값
             const view = document.getElementById('pointApply');
-            const applyPrice = document.getElementById('applyPrice');
             document.getElementById('point_value').value = intPoint;
 
             let finalInt = startPrice - intPoint;
@@ -118,7 +124,11 @@
 
         } else if (intPoint > maxPoint) {
             alert(`보유 포인트(${maxPoint})를 초과하였습니다.`);
-        } else {
+        } else if(intPoint == 0){
+            $('#applyValue').val(startPrice);
+            applyPrice.innerHTML = `${startPrice} 원`;
+        }
+        else {
             alert('결제 금액을 초과하였습니다.');
         }
     }

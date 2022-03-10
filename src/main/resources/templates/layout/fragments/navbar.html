@@ -3,14 +3,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="navbarFragment">
 
-<!-- 로그인 모달 -->
-<div id="myModal" class="modal fade">
-    <div class="modal-dialog modal-dialog-centered modal-login">
-        <div class="modal-content">
-            <div class="modal-body">
-                <form action="/member/login" method="post">
-                    <div class="container my-auto">
-                        <div class="row">
+    <!-- 로그인 모달 -->
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered modal-login">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form action="/member/login" method="post">
+                        <div class="container my-auto">
+                            <div class="row">
 
                                 <div class="card z-index-0 fadeIn3 fadeInBottom">
                                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
@@ -26,318 +26,452 @@
                                             </div>
                                             <div class="input-group input-group-outline mb-3">
                                                 <label class="form-label">Password</label>
-                                                <input type="password" name="memberPassword" class="form-control" required>
+                                                <input type="password" name="memberPassword" class="form-control"
+                                                       required>
                                             </div>
                                             <div class="form-check form-switch d-flex align-items-center mb-3">
                                                 <input class="form-check-input" type="checkbox" id="rememberMe">
-                                                <label class="form-check-label mb-0 ms-2" for="rememberMe">Remember me</label>
+                                                <label class="form-check-label mb-0 ms-2" for="rememberMe">Remember
+                                                    me</label>
                                             </div>
                                             <div class="text-center">
-                                                <input type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2" value="로그인">
+                                                <input type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2"
+                                                       value="로그인">
                                             </div>
                                             <div class="text-center">
-                                                <a class="p-2" href="https://kauth.kakao.com/oauth/authorize?client_id=198b13b4aad42557177244425bb771f9&redirect_uri=http://localhost:8093/member/kakaologin&response_type=code">
+                                                <a class="p-2"
+                                                   href="https://kauth.kakao.com/oauth/authorize?client_id=198b13b4aad42557177244425bb771f9&redirect_uri=http://localhost:8093/member/kakaologin&response_type=code">
                                                     <img src="/assets/img/kakao.png">
                                                 </a>
                                             </div>
                                             <p class="mt-4 text-sm text-center">
                                                 회원이 아니신가요?
-                                                <a href="/member/save" class="text-primary text-gradient font-weight-bold">회원가입 하러 가기!</a>
+                                                <a href="/member/save"
+                                                   class="text-primary text-gradient font-weight-bold">회원가입 하러 가기!</a>
                                             </p>
                                         </form>
                                     </div>
                                 </div>
 
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a href="#">Forgot Password?</a>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="#">Forgot Password?</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!--로그인 모달 끝-->
+    <!--로그인 모달 끝-->
 
-<!-- nav bar -->
-<div class="container position-sticky z-index-sticky top-0"><div class="row"><div class="col-12">
-     <nav class="navbar navbar-expand-lg  blur border-radius-xl top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
-        <div class="container-fluid px-0">
-            <!-- nav 로고 -->
-            <a class="navbar-brand font-weight-bolder ms-sm-3" href="/" rel="tooltip" data-placement="bottom" target="_blank">
-                <img src="/assets/img/logos/gray-logos/logo2.png" alt="" width="120" class="rounded-pill">
-            </a>
-            <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon mt-2">
-                  <span class="navbar-toggler-bar bar1"></span>
-                  <span class="navbar-toggler-bar bar2"></span>
-                  <span class="navbar-toggler-bar bar3"></span>
-                </span>
-            </button>
+    <!-- nav bar -->
+    <div class="container position-sticky z-index-sticky top-0">
+        <div class="row">
+            <div class="col-12">
+                <nav class="navbar navbar-expand-lg  blur border-radius-xl top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+                    <div class="container-fluid px-0">
+                        <!-- nav 로고 -->
+                        <a class="navbar-brand font-weight-bolder ms-sm-3" href="/" rel="tooltip"
+                           data-placement="bottom" target="_blank">
+                            <img src="/assets/img/logos/gray-logos/logo2.png" alt="" width="120" class="rounded-pill">
+                        </a>
 
-            <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 w-100" id="navigation">
-                <ul class="navbar-nav navbar-nav-hover ms-auto">
-                    <!-- nav-item 1 강의 -->
-                    <li class="nav-item ms-lg-auto">
-                        <a class="nav-link nav-link-icon me-2" href="/onClass/">
-                            <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" >강의</p>
-                        </a>
-                    </li>
-                    <!-- nav-item 2 커뮤니티 -->
-                    <li class="nav-item dropdown dropdown-hover mx-2">
-                        <a class="nav-link ps-2 d-flex cursor-pointer align-items-center font-weight-bold" id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
-                            커뮤니티
-                            <img src="/assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-auto ms-md-2">
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-animation dropdown-md dropdown-md-responsive p-3 border-radius-lg mt-0 mt-lg-3" aria-labelledby="dropdownMenuBlocks">
-                            <div class="d-none d-lg-block">
-                                <li class="nav-item dropdown dropdown-hover dropdown-subitem">
-                                    <!-- nav-item 2 커뮤니티 > dropdown item 1 게시판 -->
-                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="/board/">
-                                        <div class="w-100 d-flex align-items-center justify-content-between">
-                                            <div>
-                                                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">게시판</h6>
-                                            </div>
-                                            <img src="/assets/img/down-arrow.svg" alt="down-arrow" class="arrow">
-                                        </div>
+                        <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                                  <span class="navbar-toggler-icon mt-2">
+                                    <span class="navbar-toggler-bar bar1"></span>
+                                    <span class="navbar-toggler-bar bar2"></span>
+                                    <span class="navbar-toggler-bar bar3"></span>
+                                  </span>
+                        </button>
+
+                        <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 w-100" id="navigation">
+                            <ul class="navbar-nav navbar-nav-hover ms-auto">
+                                <!-- nav-item 1 강의 -->
+                                <li class="nav-item dropdown dropdown-hover mx-2">
+                                    <a class="nav-link ps-2 d-flex cursor-pointer align-items-center font-weight-bold"
+                                       data-bs-toggle="dropdown" aria-expanded="false">
+                                        온라인 클래스
+                                        <img src="/assets/img/down-arrow-dark.svg" alt="down-arrow"
+                                             class="arrow ms-auto ms-md-2">
                                     </a>
-                                    <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
-                                        <a class="dropdown-item ps-3 border-radius-md mb-1" href="/board">
-                                            자유 게시판
-                                        </a>
-                                        <a class="dropdown-item ps-3 border-radius-md mb-1" href="/board">
-                                            면접 게시판
-                                        </a>
-                                        <a class="dropdown-item ps-3 border-radius-md mb-1" href="/board">
-                                            질문 게시판
-                                        </a>
-                                    </div>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-animation dropdown-md dropdown-md-responsive p-3 border-radius-lg mt-0 mt-lg-3"
+                                        aria-labelledby="dropdownMenuBlocks">
+                                        <div class="d-none d-lg-block">
+                                            <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+                                                <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                   href="/onClass/">
+                                                    <div class="w-100 d-flex align-items-center justify-content-between">
+                                                        <div>
+                                                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                                강의 전체보기</h6>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                   th:href="@{|/onClass/myClass/${session.loginId}|}">
+                                                    <div class="w-100 d-flex align-items-center justify-content-between">
+                                                        <div>
+                                                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                                강의 학습하기</h6>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </div>
+
+                                        <!--반응형 : md 화면일 때 강의 nav-->
+                                        <div class="row d-lg-none">
+                                            <div class="col-md-12">
+                                                <div class="d-flex mb-2">
+                                                    <div class="w-100 d-flex align-items-center justify-content-between">
+                                                        <div>
+                                                            <a class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"
+                                                               href="/onClass/">강의 전체보기</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex mb-2 mt-3">
+                                                    <div class="w-100 d-flex align-items-center justify-content-between">
+                                                        <div>
+                                                            <a class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"
+                                                               th:href="@{|/onClass/myClass/${session.loginId}|}">강의
+                                                                학습하기</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ul>
+                                </li>
+                                <!-- nav-item 2 커뮤니티 -->
+                                <li class="nav-item dropdown dropdown-hover mx-2">
+                                    <a class="nav-link ps-2 d-flex cursor-pointer align-items-center font-weight-bold"
+                                       id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
+                                        커뮤니티
+                                        <img src="/assets/img/down-arrow-dark.svg" alt="down-arrow"
+                                             class="arrow ms-auto ms-md-2">
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-animation dropdown-md dropdown-md-responsive p-3 border-radius-lg mt-0 mt-lg-3"
+                                        aria-labelledby="dropdownMenuBlocks">
+                                        <!-- nav-item 2 커뮤니티 > dropdown item 1 게시판 -->
+                                        <div class="d-none d-lg-block">
+                                            <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+                                                <a class="dropdown-item py-2 ps-3 border-radius-md" href="/board/">
+                                                    <div class="w-100 d-flex align-items-center justify-content-between">
+                                                        <div>
+                                                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                                게시판</h6>
+                                                        </div>
+                                                        <img src="/assets/img/down-arrow.svg" alt="down-arrow"
+                                                             class="arrow">
+                                                    </div>
+                                                </a>
+                                                <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+                                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                                       href="/board/cateBoard/1">
+                                                        자유 게시판
+                                                    </a>
+                                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                                       href="/board/cateBoard/2">
+                                                        면접 게시판
+                                                    </a>
+                                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                                       href="/board/cateBoard/3">
+                                                        질문 게시판
+                                                    </a>
+                                                </div>
+                                            </li>
+
+                                            <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+                                                <!-- nav-item 2 커뮤니티 > dropdown item 2 스터디 -->
+                                                <a class="dropdown-item py-2 ps-3 border-radius-md" href="/study/">
+                                                    <div class="w-100 d-flex align-items-center justify-content-between">
+                                                        <div>
+                                                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                                스터디</h6>
+                                                        </div>
+                                                        <img src="/assets/img/down-arrow.svg" alt="down-arrow"
+                                                             class="arrow">
+                                                    </div>
+                                                </a>
+                                                <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+                                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                                       th:href="@{|/studyApply/myStudy/${session.loginId}|}">
+                                                        나의 스터디
+                                                    </a>
+                                                    <a class="dropdown-item ps-3 border-radius-md mb-1" href="/study/">
+                                                        스터디 모집 게시판
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </div>
+
+                                        <!--반응형 : md 화면일 때 커뮤니티 nav-->
+                                        <div class="row d-lg-none">
+                                            <div class="col-md-12">
+                                                <div class="d-flex mb-2">
+                                                    <div class="icon h-10 me-3 d-flex mt-1">
+                                                        <i class="ni ni-single-copy-04 text-gradient text-primary"></i>
+                                                    </div>
+                                                    <div class="w-100 d-flex align-items-center justify-content-between">
+                                                        <div>
+                                                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                                게시판</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                                   href="/board/cateBoard/1">
+                                                    자유 게시판
+                                                </a>
+                                                <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                                   href="/board/cateBoard/2">
+                                                    면접 게시판
+                                                </a>
+                                                <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                                   href="/board/cateBoard/3">
+                                                    질문 게시판
+                                                </a>
+
+                                                <div class="d-flex mb-2 mt-3">
+                                                    <div class="icon h-10 me-3 d-flex mt-1">
+                                                        <i class="ni ni-laptop text-gradient text-primary"></i>
+                                                    </div>
+                                                    <div class="w-100 d-flex align-items-center justify-content-between">
+                                                        <div>
+                                                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                                스터디 모집</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                                   th:href="@{|/studyApply/myStudy/${session.loginId}|}">
+                                                    나의 스터디
+                                                </a>
+                                                <a class="dropdown-item ps-3 border-radius-md mb-1" href="/study/">
+                                                    스터디 모집 게시판
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </ul>
                                 </li>
 
-                                <li class="nav-item dropdown dropdown-hover dropdown-subitem">
-                                    <!-- nav-item 2 커뮤니티 > dropdown item 2 스터디 -->
-                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="/study/">
-                                        <div class="w-100 d-flex align-items-center justify-content-between">
-                                            <div>
-                                                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">스터디</h6>
-                                            </div>
-                                            <img src="/assets/img/down-arrow.svg" alt="down-arrow" class="arrow">
-                                        </div>
+                                <!-- nav-item 3 멘토링 -->
+                                <li class="nav-item dropdown dropdown-hover mx-2">
+                                    <a href="/mentoring/"
+                                       class="nav-link ps-2 d-flex cursor-pointer align-items-center font-weight-bold"
+                                       data-bs-toggle="dropdown" aria-expanded="false">
+                                        멘토링
+                                        <img src="/assets/img/down-arrow-dark.svg" alt="down-arrow"
+                                             class="arrow ms-auto ms-md-2">
                                     </a>
-                                    <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
-                                        <a class="dropdown-item ps-3 border-radius-md mb-1" th:href="@{|/studyApply/myStudy/${session.loginId}|}">
-                                            나의 스터디
-                                        </a>
-                                        <a class="dropdown-item ps-3 border-radius-md mb-1" href="/study/">
-                                            스터디 모집 게시판
-                                        </a>
-                                    </div>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-animation dropdown-md dropdown-md-responsive p-3 border-radius-lg mt-0 mt-lg-3"
+                                        aria-labelledby="dropdownMenuBlocks">
+                                        <div class="d-none d-lg-block">
+                                            <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+                                                <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                   th:href="@{|/mentoring/myMentoring/${session.loginId}|}">
+                                                    <div class="w-100 d-flex align-items-center justify-content-between">
+                                                        <div>
+                                                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                                나의 멘토링</h6>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a class="dropdown-item py-2 ps-3 border-radius-md" href="/mentoring/">
+                                                    <div class="w-100 d-flex align-items-center justify-content-between">
+                                                        <div>
+                                                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                                멘토링 게시판</h6>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </div>
+                                        <!--반응형 : md 화면일 때 멘토링 nav-->
+                                        <div class="row d-lg-none">
+                                            <div class="col-md-12">
+                                                <div class="d-flex mb-2">
+                                                    <div class="icon h-10 me-3 d-flex mt-1">
+                                                        <i class="ni ni-laptop text-gradient text-primary"></i>
+                                                    </div>
+                                                    <div class="w-100 d-flex align-items-center justify-content-between">
+                                                        <div>
+                                                            <a class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"
+                                                               th:href="@{|/mentoring/myMentoring/${session.loginId}|}">나의
+                                                                멘토링</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex mb-2 mt-3">
+                                                    <div class="icon h-10 me-3 d-flex mt-1">
+                                                        <i class="ni ni-single-copy-04 text-gradient text-primary"></i>
+                                                    </div>
+                                                    <div class="w-100 d-flex align-items-center justify-content-between">
+                                                        <div>
+                                                            <a class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"
+                                                               href="/mentoring">멘토링 게시판</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ul>
                                 </li>
-                            </div>
 
-                                <!--반응형 : md 화면일 때 커뮤니티 nav-->
-                            <div class="row d-lg-none">
-                                <div class="col-md-12">
-                                    <div class="d-flex mb-2">
-                                        <div class="icon h-10 me-3 d-flex mt-1">
-                                            <i class="ni ni-single-copy-04 text-gradient text-primary"></i>
-                                        </div>
-                                        <div class="w-100 d-flex align-items-center justify-content-between">
-                                            <div>
-                                                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">게시판</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a class="dropdown-item ps-3 border-radius-md mb-1" href="/board/">
-                                        자유 게시판
-                                    </a>
-                                    <a class="dropdown-item ps-3 border-radius-md mb-1" href="/board/">
-                                        면접 게시판
-                                    </a>
-                                    <a class="dropdown-item ps-3 border-radius-md mb-1" href="/board/">
-                                        질문 게시판
-                                    </a>
 
-                                    <div class="d-flex mb-2 mt-3">
-                                        <div class="icon h-10 me-3 d-flex mt-1">
-                                            <i class="ni ni-laptop text-gradient text-primary"></i>
-                                        </div>
-                                        <div class="w-100 d-flex align-items-center justify-content-between">
-                                            <div>
-                                                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">스터디 모집</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a class="dropdown-item ps-3 border-radius-md mb-1" th:href="@{|/studyApply/myStudy/${session.loginId}|}">
-                                        나의 스터디
-                                    </a>
-                                    <a class="dropdown-item ps-3 border-radius-md mb-1" href="/study/">
-                                        스터디 모집 게시판
-                                    </a>
-                                </div>
-                            </div>
-                        </ul>
-                    </li>
-
-                    <!-- nav-item 3 멘토링 -->
-                    <li class="nav-item dropdown dropdown-hover mx-2">
-                        <a href="/mentoring/" class="nav-link ps-2 d-flex cursor-pointer align-items-center font-weight-bold" data-bs-toggle="dropdown" aria-expanded="false">
-                            멘토링
-                            <img src="/assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-auto ms-md-2">
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-animation dropdown-md dropdown-md-responsive p-3 border-radius-lg mt-0 mt-lg-3" aria-labelledby="dropdownMenuBlocks">
-                            <div class="d-none d-lg-block">
-                                <li class="nav-item dropdown dropdown-hover dropdown-subitem">
-                                    <a class="dropdown-item py-2 ps-3 border-radius-md"  th:href="@{|/mentoring/myMentoring/${session.loginId}|}">
-                                        <div class="w-100 d-flex align-items-center justify-content-between">
-                                            <div>
-                                                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">나의 멘토링</h6>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="/mentoring/">
-                                        <div class="w-100 d-flex align-items-center justify-content-between">
-                                            <div>
-                                                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">멘토링 게시판</h6>
-                                            </div>
-                                        </div>
+                                <!--nav cocolo 깃허브 이동-->
+                                <li class="nav-item ms-lg-auto">
+                                    <a class="nav-link nav-link-icon me-2"
+                                       href="https://github.com/HelloCdpa/cocolo220129" target="_blank">
+                                        <i class="fa fa-github me-1"></i>
+                                        <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip"
+                                           data-bs-placement="bottom" title="Star us on Github">Github</p>
                                     </a>
                                 </li>
-                            </div>
-                            <!--반응형 : md 화면일 때 멘토링 nav-->
-                            <div class="row d-lg-none">
-                                <div class="col-md-12">
-                                    <div class="d-flex mb-2">
-                                        <div class="icon h-10 me-3 d-flex mt-1">
-                                            <i class="ni ni-laptop text-gradient text-primary"></i>
+                                <!-- 로그인 하지 않은 유저일 때 보이는 nav-->
+                                <li th:if="${#strings.isEmpty(session['loginEmail'])}"
+                                    class="nav-item my-auto ms-3 ms-lg-0">
+                                    <a href="" class="btn btn-sm  bg-gradient-primary  mb-0 me-1 mt-2 mt-md-0"
+                                       data-bs-toggle="modal" data-bs-target="#myModal"
+                                       data-bs-whatever="@mdo">login</a>
+                                    <a href="/member/save"
+                                       class="btn btn-sm  bg-gradient-primary  mb-0 me-1 mt-2 mt-md-0">sign up</a>
+                                </li>
+                                <!-- 로그인 유저일 때 보이는 nav : 마이페이지-->
+                                <li th:if="${not #strings.isEmpty(session['loginEmail'])}"
+                                    class="nav-item dropdown dropdown-hover mx-2">
+                                    <a th:href="@{|/member/mypage|}"
+                                       class="nav-link ps-2 d-flex cursor-pointer align-items-center"
+                                       id="dropdownMenuDocs" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="/assets/img/slide_3.jpg" alt="" width="40" height="40"
+                                             class="rounded-circle"></a>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-animation dropdown-md dropdown-md-responsive mt-0 mt-lg-3 p-3 border-radius-lg"
+                                        aria-labelledby="dropdownMenuDocs">
+                                        <div class="d-none d-lg-block">
+                                            <ul class="list-group">
+                                                <li class="nav-item list-group-item border-0 p-0">
+                                                    <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                       th:href="@{|/member/mypage|}">
+                                                        <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                            마이페이지</h6>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item list-group-item border-0 p-0">
+                                                    <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                       th:href="@{|/board/myBoard/${session.loginId}|}">
+                                                        <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                            내가 쓴 글</h6>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item list-group-item border-0 p-0">
+                                                    <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                       th:href="@{|/onClass/myClass/${session.loginId}|}">
+                                                        <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                            강의 학습</h6>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item list-group-item border-0 p-0">
+                                                    <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                       th:href="@{|/member/pointView/${session.loginId}|}">
+                                                        <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                            나의 포인트</h6>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item list-group-item border-0 p-0">
+                                                    <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                       th:href="@{|/board/myBoard/${session.loginId}|}">
+                                                        <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                            나의 게시글 조회</h6>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item list-group-item border-0 p-0">
+                                                    <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                       th:href="@{|/cart/${session.loginId}|}">
+                                                        <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                            나의 장바구니</h6>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item list-group-item border-0 p-0">
+                                                    <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                       th:href="@{|/wish/${session.loginId}|}">
+                                                        <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                            나의 위시리스트</h6>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item list-group-item border-0 p-0">
+                                                    <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                       href="/member/logout">
+                                                        <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                            로그아웃</h6>
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <div class="w-100 d-flex align-items-center justify-content-between">
-                                            <div>
-                                                <a class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0" th:href="@{|/mentoring/myMentoring/${session.loginId}|}">나의 멘토링</a>
+                                        <!-- 반응형 : md일 때 nav 마이페이지-->
+                                        <div class="row d-lg-none">
+                                            <div class="col-md-12 g-0">
+                                                <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                   th:href="@{|/member/mypage|}">
+                                                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                        마이페이지</h6>
+                                                </a>
+                                                <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                   th:href="@{|/board/myBoard/${session.loginId}|}">
+                                                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                        내가 쓴 글</h6>
+                                                </a>
+                                                <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                   th:href="@{|/member/pointView/${session.loginId}|}">
+                                                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                        나의 포인트</h6>
+                                                </a>
+
+                                                <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                   th:href="@{|/mentoring/myMentoring/${session.loginId}|}">
+                                                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                        나의 멘토링</h6>
+
+                                                </a>
+                                                <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                   th:href="@{|/onClass/myClass/${session.loginId}|}">
+                                                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                        강의 학습</h6>
+                                                </a>
+                                                <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                   th:href="@{|/cart/${session.loginId}|}">
+                                                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                        나의 장바구니</h6>
+                                                </a>
+                                                <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                   th:href="@{|/wish/${session.loginId}|}">
+                                                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                        나의 위시리스트</h6>
+                                                </a>
+                                                <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                   href="/member/logout">
+                                                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                        로그아웃</h6>
+                                                </a>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="d-flex mb-2 mt-3">
-                                        <div class="icon h-10 me-3 d-flex mt-1">
-                                            <i class="ni ni-single-copy-04 text-gradient text-primary"></i>
-                                        </div>
-                                        <div class="w-100 d-flex align-items-center justify-content-between">
-                                            <div>
-                                                <a class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0" href="/mentoring">멘토링 게시판</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </ul>
-                    </li>
-
-
-
-
-                    <!--nav cocolo 깃허브 이동-->
-                    <li class="nav-item ms-lg-auto">
-                        <a class="nav-link nav-link-icon me-2" href="https://github.com/HelloCdpa/cocolo220129" target="_blank">
-                            <i class="fa fa-github me-1"></i>
-                            <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Star us on Github">Github</p>
-                        </a>
-                    </li>
-                    <!-- 로그인 하지 않은 유저일 때 보이는 nav-->
-                    <span th:if="${#strings.isEmpty(session['loginEmail'])}">
-                    <li class="nav-item my-auto ms-3 ms-lg-0">
-                       <a href="" class="btn btn-sm  bg-gradient-primary  mb-0 me-1 mt-2 mt-md-0"data-bs-toggle="modal" data-bs-target="#myModal" data-bs-whatever="@mdo">login</a>
-                        <a href="/member/save" class="btn btn-sm  bg-gradient-primary  mb-0 me-1 mt-2 mt-md-0">sign up</a>
-                    </li>
-                    </span>
-                        <!-- 로그인 유저일 때 보이는 nav : 마이페이지-->
-                    <span th:if="${not #strings.isEmpty(session['loginEmail'])}">
-                    <li class="nav-item dropdown dropdown-hover mx-2">
-                        <a th:href="@{|/member/mypage|}" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuDocs" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="/assets/img/slide_3.jpg" alt="" width="40" height="40" class="rounded-circle"></a>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-animation dropdown-md dropdown-md-responsive mt-0 mt-lg-3 p-3 border-radius-lg" aria-labelledby="dropdownMenuDocs">
-                            <div class="d-none d-lg-block">
-                                <ul class="list-group">
-                                      <li class="nav-item list-group-item border-0 p-0">
-                                        <a class="dropdown-item py-2 ps-3 border-radius-md"  th:href="@{|/member/mypage|}">
-                                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">마이페이지</h6>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item list-group-item border-0 p-0">
-                                        <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/onClass/myClass/${session.loginId}|}">
-                                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">강의 학습</h6>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item list-group-item border-0 p-0">
-                                        <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/member/pointView/${session.loginId}|}">
-                                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">나의 포인트</h6>
-                                        </a>
-                                    </li>
-                                        <li class="nav-item list-group-item border-0 p-0">
-                                        <a class="dropdown-item py-2 ps-3 border-radius-md"  th:href="@{|/board/myBoard/${session.loginId}|}">
-                                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">나의 게시글 조회</h6>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item list-group-item border-0 p-0">
-                                        <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/cart/${session.loginId}|}">
-                                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">나의 장바구니</h6>
-                                        </a>
-                                    </li>
-                                     <li class="nav-item list-group-item border-0 p-0">
-                                        <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/wish/${session.loginId}|}">
-                                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">나의 위시리스트</h6>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item list-group-item border-0 p-0">
-                                        <a class="dropdown-item py-2 ps-3 border-radius-md" href="/member/logout">
-                                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">로그아웃</h6>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- 반응형 : md일 때 nav 마이페이지-->
-                            <div class="row d-lg-none">
-                                <div class="col-md-12 g-0">
-                                    <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/member/pointView/${session.loginId}|}">
-                                        <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">나의 포인트</h6>
-                                    </a>
-
-                                    <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/member/mypage/${session.loginId}|}">
-                                        <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">나의 멘토링</h6>
-
-                                    </a>
-
-                                    <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/member/mypage/${session.loginId}|}">
-                                        <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">강의 학습</h6>
-
-                                    </a>
-
-                                    <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/member/mypage|}">
-                                        <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">회원정보 수정</h6>
-                                    </a>
-
-                                    <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/cart/${session.loginId}|}">
-                                        <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">나의 장바구니</h6>
-                                    </a>
-                                    <a class="dropdown-item py-2 ps-3 border-radius-md" th:href="@{|/wish/${session.loginId}|}">
-                                        <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">나의 위시리스트</h6>
-                                    </a>
-                                </div>
-                            </div>
-                        </ul>
-                    </li>
-                    </span>
-                    </li>
-                </ul>
+                                    </ul>
+                                </li>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <!-- End Navbar -->
             </div>
         </div>
-    </nav>
-    <!-- End Navbar -->
-    </div></div></div>
-
-
+    </div>
 
 
 </th:block>

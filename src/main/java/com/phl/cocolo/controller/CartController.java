@@ -23,6 +23,7 @@ public class CartController {
     private final MemberService ms;
 
 
+    //장바구니 저장
     @PostMapping("/save")
     public @ResponseBody boolean
     save(@ModelAttribute CartSaveDTO cartSaveDTO) {
@@ -35,10 +36,11 @@ public class CartController {
        }
     }
 
+    //장바구니 조회
     @GetMapping("/{memberId}")
     public String findByMemberId(@PathVariable ("memberId") Long memberId, Model model) {
         List<CartDetailDTO> cartList = cs.findByMemberId(memberId);
-
+        boolean cartCheck = false;
         if (!cartList.isEmpty()) {
             int totalPrice = 0;
             for (CartDetailDTO c : cartList) {
@@ -52,7 +54,12 @@ public class CartController {
             int memberPoint = member.getMemberPoint();
             model.addAttribute("memberPoint", memberPoint);
 
+        }else {
+            //장바구니 비어있을 때
+            cartCheck = true;
         }
+        model.addAttribute("cartCheck", cartCheck);
+
         return "/onClass/cart";
     }
     @DeleteMapping("/{cartId}")

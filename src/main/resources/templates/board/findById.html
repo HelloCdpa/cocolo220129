@@ -52,7 +52,7 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <img th:src="@{/board_upload/}+${board.boardFileName}" alt="">
+                                        <img th:src="@{/board_upload/}+${board.boardFileName}" alt="" width="300px" height="300px">
                                     </div>
                                 </div>
                                 <span class="text-dark mb-0" th:utext="${board.boardContents}"></span>
@@ -156,13 +156,13 @@
 
 <script>
     $(document).ready(function () {
-        let likeVal = document.getElementById('like_check').value
+        let likeVal = $('#like_check').val();
         const boardId = $("#boardId").val();
         const memberId = $("#memberId").val();
         console.log(memberId);
         console.log(likeVal);
-        const likeImg = document.getElementById("likeImg")
-
+        const likeImg = document.getElementById("likeImg");
+        //데이터가 있으면 1 화면에 채워진 하트 없으면 0 빈하트
         if (likeVal > 0) {
             likeImg.src = "/assets/img/like_click.png";
         } else {
@@ -175,7 +175,8 @@
                 type: 'POST',
                 data: {'boardId': boardId, 'memberId': memberId},
                 success: function (data) {
-                    if (data == 1) {
+                    //데이터를 넣었으면 1 삭제했으면 0
+                    if (data > 0) {
                         $("#likeImg").attr("src", "/assets/img/like_click.png");
                         location.href = "/board/" + boardId;
 

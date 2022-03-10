@@ -21,6 +21,7 @@ import static com.phl.cocolo.common.SessionConst.LOGIN_ID;
 public class WishListController {
     private final WishListService ws;
 
+    //위시리스트 저장
     @PostMapping("/save")
     public @ResponseBody
     boolean
@@ -35,14 +36,21 @@ public class WishListController {
         }
     }
 
+    //위시리스트 조회
     @GetMapping("/{memberId}")
     public String findByMemberId(@PathVariable ("memberId") Long memberId, Model model, HttpSession session){
         List<WishListDetailDTO> wishList = ws.findByMemberId(memberId);
         model.addAttribute("wishList",wishList);
+        //비었는지 조회
+        boolean wishCheck = false;
+        if(wishList.isEmpty()){
+            wishCheck = true;
+        }
+        model.addAttribute("wishCheck", wishCheck);
 
         return "/onClass/wishList";
     }
-
+    // 삭제
     @DeleteMapping("/{wishId}")
     public ResponseEntity deleteById(@PathVariable("wishId") Long wishId) {
         ws.deleteById(wishId);

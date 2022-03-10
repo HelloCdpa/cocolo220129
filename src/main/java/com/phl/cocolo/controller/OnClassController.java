@@ -116,6 +116,7 @@ public class OnClassController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    //장바구니 전체구매
     @Transactional
     @PostMapping("/payment")
     public String payment(@RequestParam("onClassId") Long onClassId, HttpSession session) {
@@ -133,6 +134,12 @@ public class OnClassController {
     public String myClass(Model model, @PathVariable("memberId") Long memberId) {
         List<MyClassDetailDTO> myClassList = os.myClassList(memberId);
         model.addAttribute("myClassList", myClassList);
+        //비었는지 조회
+        boolean classCheck = false;
+        if(myClassList.isEmpty()){
+            classCheck = true;
+        }
+        model.addAttribute("classCheck", classCheck);
 
         return "/onClass/myClass";
     }

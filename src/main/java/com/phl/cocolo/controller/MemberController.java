@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -99,8 +100,18 @@ public class MemberController {
         }
     }
 
+    //게스트 로그인
+    @GetMapping("/testLogin")
+    public String testLogin(HttpSession session){
+        session.setAttribute(LOGIN_EMAIL, "guest@guest");
+
+        session.setAttribute(LOGIN_ID, (long)1);
+
+        session.setAttribute(LOGIN_NICKNAME, "게스트");
 
 
+        return "index";
+    }
     //카카오 로그인 : 카카오로 로그인 하면 이메일을 받아오고 해당 이메일과 일치하는 회원을 로그인 시킴
     @GetMapping("/kakaologin")
     public String KaKaoLogin(@RequestParam(value = "code", required = false) String code, Model model,
@@ -157,6 +168,7 @@ public class MemberController {
     }
 
     //수정
+    @Transactional
     @PutMapping("/{memberId}")
     public ResponseEntity update(@ModelAttribute MemberUpdateDTO memberUpdateDTO)
             throws IllegalStateException, IOException {

@@ -33,7 +33,8 @@
         </div>
     </header>
 
-
+    <div class="row">
+    <div class="col-md-8">
     <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
         <h2>스터디 모집 현황</h2>
         <table class="table table-hover table-sm">
@@ -90,6 +91,10 @@
             </tbody>
         </table>
     </div>
+    </div>
+        <th:block th:replace="/member/mypage :: myPageSideBarFragment"></th:block>
+    </div>
+
 
 </div>
 <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>

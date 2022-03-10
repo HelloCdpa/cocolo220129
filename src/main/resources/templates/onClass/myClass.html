@@ -30,28 +30,37 @@
         </div>
     </header>
 
-    <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n3">
-        <div class="row">
-            <div class="col-md-3 mb-5" th:each="myClass:${myClassList}">
-                <div class="card h-100">
-                    <a th:href="@{|/onClass/${myClass.onClassId}|}">
-                        <div class="card-body">
-                            <p class="card-text text-center">
-                                <img class="img-fluid rounded mb-4 mb-lg-0"
-                                     th:src="@{/class_upload/}+${myClass.onClassFileName}"
-                                     alt="..." width="150" height="100"/></p>
-                            <p class="card-text text-center h6" th:text="${myClass.onClassTitle}"></p>
-                            <p class="card-text text-center">
-                                <span th:text="${myClass.onClassCate}"></span>
-                                /<span th:text="${myClass.onClassIntro}"></span>
-                                <input type="hidden" id="onClassId" th:value="${myClass.onClassId}">
-                                <input type="hidden" id="memberId" th:value="${session.loginId}">
-                            </p>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n3">
+                <div th:if="${classCheck}" class="row">
+                    <h3>아직 구매한 강의가 없어요👩‍🔧</h3>
+                </div>
+
+                <div th:unless="${classCheck}" class="row">
+                    <div class="col-md-3 mb-5" th:each="myClass:${myClassList}">
+                        <div class="card h-100">
+                            <a th:href="@{|/onClass/${myClass.onClassId}|}">
+                                <div class="card-body">
+                                    <p class="card-text text-center">
+                                        <img class="img-fluid rounded mb-4 mb-lg-0"
+                                             th:src="@{/class_upload/}+${myClass.onClassFileName}"
+                                             alt="..." width="150" height="100"/></p>
+                                    <p class="card-text text-center h6" th:text="${myClass.onClassTitle}"></p>
+                                    <p class="card-text text-center">
+                                        <span th:text="${myClass.onClassCate}"></span>
+                                        /<span th:text="${myClass.onClassIntro}"></span>
+                                        <input type="hidden" id="onClassId" th:value="${myClass.onClassId}">
+                                        <input type="hidden" id="memberId" th:value="${session.loginId}">
+                                    </p>
+                                </div>
+                            </a>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </div>
         </div>
+        <th:block th:replace="/member/mypage :: myPageSideBarFragment"></th:block>
     </div>
 </div>
 
