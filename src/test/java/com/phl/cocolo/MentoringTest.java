@@ -28,7 +28,7 @@ public class MentoringTest {
     @Test
     @DisplayName("테스트멘토링30개 등록")
     public void testMentoringSave(){
-        IntStream.rangeClosed(1, 30).forEach(i->{
+        IntStream.rangeClosed(1, 5).forEach(i->{
             MentoringSaveDTO mentoringSaveDTO = new MentoringSaveDTO((long)1, "MentoringTitle"+i, "MentoringContents"+i, 2000, "MentoringCareer"+i,"취업/면접",5);
             mts.save(mentoringSaveDTO);
         });

@@ -65,8 +65,7 @@ public class BoardController {
         model.addAttribute("board",boardDetailDTO);
         model.addAttribute("commentList",commentList);
 
-        bs.findLike(boardId,memberId);
-
+        // 좋아요 함1 안함0
         int like = bs.findLike(boardId,memberId);
         model.addAttribute("like",like);
 
@@ -75,6 +74,7 @@ public class BoardController {
     //좋아요
     @PostMapping("/like")
     public @ResponseBody int like(Long boardId, Long memberId) {
+        //저장 1 삭제 0
         int result = bs.saveLike(boardId,memberId);
         return result;
     }

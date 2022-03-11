@@ -70,14 +70,18 @@ public class OnClassController {
         Long memberId = (Long) session.getAttribute(LOGIN_ID);
         // 상세정보를 확인하기 전에 회원과 강의 아이디를 체크해서
         // 회원이 구매하지 않은 강의면(null) false myClassCheck 구매한 강의라면 true
-        boolean myClassCheck = os.myClassCheck(memberId, onClassId);
+        boolean myClassCheck;
+        if (memberId == null) {
+            myClassCheck = false;
+        }else{
+            myClassCheck = os.myClassCheck(memberId, onClassId);
+        }
+
 
         // 리뷰 중복 쓰기 방지
         // 회원이 리뷰를 안썼으면(null) false myClassCheck 이미 썼다면 true
         boolean reviewCheck = rs.reviewCheck(memberId, onClassId);
-        if (memberId == null) {
-            myClassCheck = false;
-        }
+
 
         model.addAttribute("myClassCheck", myClassCheck);
         model.addAttribute("reviewCheck", reviewCheck);

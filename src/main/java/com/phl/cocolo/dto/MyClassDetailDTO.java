@@ -39,6 +39,7 @@ public class MyClassDetailDTO {
         myClassDetailDTO.setOnClassIntro(myClassEntity.getOnClassEntity().getOnClassIntro());
         myClassDetailDTO.setOnClassPrice(myClassEntity.getOnClassEntity().getOnClassPrice());
         myClassDetailDTO.setOnClassWishListCount(myClassEntity.getOnClassEntity().getOnClassWishListCount());
+        myClassDetailDTO.setOnClassFileName(myClassEntity.getOnClassEntity().getOnClassFileName());
 
         return myClassDetailDTO;
     }

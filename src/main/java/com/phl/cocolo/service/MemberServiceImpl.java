@@ -5,10 +5,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import com.phl.cocolo.dto.*;
-import com.phl.cocolo.entity.KakaoEntity;
 import com.phl.cocolo.entity.MemberEntity;
 import com.phl.cocolo.entity.PointEntity;
-import com.phl.cocolo.repository.KakaoRepository;
 import com.phl.cocolo.repository.MemberMapperRepository;
 import com.phl.cocolo.repository.MemberRepository;
 import com.phl.cocolo.repository.PointRepository;

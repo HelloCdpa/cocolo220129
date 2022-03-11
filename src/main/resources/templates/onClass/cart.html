@@ -78,7 +78,7 @@
                 <span class="h6" id="pointApply"></span>
                 <div class="h3"> 결제금액 : <span id="applyPrice" th:text="*{totalPrice}"></span></div>
                 <input type="hidden" id="point_value" value="0">
-                <input type="hidden" id="totalPrice">
+                <input type="hidden" id="totalPrice" th:value="*{totalPrice}">
                 <input type="hidden" id="applyValue" th:value="*{totalPrice}">
                 <button type="button" class="btn btn-success" onclick="requestPay()" value="수강권 구매">수강권 구매</button>
             </div>
@@ -155,6 +155,7 @@
 
         const form = document.getElementById("payment");
 
+
         // IMP.request_pay(param, callback) 결제창 호출
         IMP.request_pay({ // param
             pg: "kakao",
@@ -165,7 +166,10 @@
             buyer_email: memberEmail
 
         }, function (rsp) { // callback
-
+            //결제금액이 0일 때
+            if(applyPrice == 0){
+                rsp.success = true;
+            }
             if (rsp.success) {
                 form.submit();
                 alert('결제가 완료되었습니다.');

@@ -116,15 +116,13 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public int findLike(Long boardId, Long memberId) {
-        // 저장된 DTO 가 없다면 0, 있다면 1
+        // 저장된 DTO 가 없다면 0(좋아요안함), 있다면 1(좋아요함)
 
         Optional<LikeEntity> findLike = lr.findByBoardEntity_IdAndMemberEntity_Id(boardId, memberId);
-
 
         if (findLike.isEmpty()){
             return 0;
         }else {
-
             return 1;
         }
     }
@@ -134,8 +132,6 @@ public class BoardServiceImpl implements BoardService {
     public int saveLike(Long boardId, Long memberId) {
         Optional<LikeEntity> findLike = lr.findByBoardEntity_IdAndMemberEntity_Id(boardId, memberId);
 
-        System.out.println(findLike.isEmpty());
-
         if (findLike.isEmpty()){
             MemberEntity memberEntity = mr.findById(memberId).get();
             BoardEntity boardEntity = br.findById(boardId).get();
@@ -143,10 +139,12 @@ public class BoardServiceImpl implements BoardService {
             LikeEntity likeEntity = LikeEntity.toLikeEntity(memberEntity, boardEntity);
             lr.save(likeEntity);
             br.plusLike(boardId);
+            //저장 : 1
             return 1;
         }else {
             lr.deleteByBoardEntity_IdAndMemberEntity_Id(boardId, memberId);
             br.minusLike(boardId);
+            //삭제 : 0
             return 0;
 
         }

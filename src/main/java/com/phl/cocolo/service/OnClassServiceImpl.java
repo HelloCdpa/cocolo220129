@@ -112,7 +112,7 @@ public class OnClassServiceImpl implements OnClassService{
 
     @Override
     public boolean myClassCheck(Long memberId, Long onClassId) {
-        if(mcr.findByMemberEntity_IdAndOnClassEntity_Id(memberId,onClassId) == null){
+        if(mcr.findByMemberEntity_IdAndOnClassEntity_Id(memberId,onClassId).isEmpty()){
             return false;
         }else {
             return true;
