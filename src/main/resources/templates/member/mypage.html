@@ -105,6 +105,28 @@
                     <input class="btn btn-danger" type="button" value="수정" th:onclick="memberUpdate()">
                 </form>
             </div>
+
+            <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+                <form action="/member/updatePassWord" method="post" name="updatePassWord">
+                    <div class="input-group input-group-static mb-4">
+                        <label>현재 비밀번호 입력</label>
+                        <input class="form-control" id="checkPw" type="password">
+                    </div>
+                    <div class="input-group input-group-static mb-4">
+                        <label>변경할 비밀번호 입력</label>
+                        <input class="form-control" name="memberPassword" id="changePw" type="password">
+                    </div>
+                    <div class="input-group input-group-static mb-4">
+                        <label>변경 비밀번호 확인</label>
+                        <input class="form-control" id="changePwCheck" type="password"
+                               onblur="changePasswordCheck()">
+                        <span id="pwCheckResult"></span>
+
+                    </div>
+                    <input class="btn btn-danger" type="button" value="비밀번호 변경" th:onclick="pwCheck()">
+                </form>
+
+
         </div>
         <th:block th:fragment="myPageSideBarFragment">
         <div class="col-lg-4">
@@ -163,7 +185,40 @@
             alert('비밀번호가 틀렸습니다.');
         }
     };
+</script>
 
+<script>
+    //변경된 비밀번호 확인
+    function changePasswordCheck() {
+        const changePw = $('#changePw').val();
+        const changePwCheck = $('#changePwCheck').val();
+        const pwCheckResult = document.querySelector('#pwCheckResult');
+        console.log(changePwCheck);
+        if (changePw == changePwCheck) {
+            pwCheckResult.style.color = 'green';
+            pwCheckResult.innerHTML = '비밀번호가 일치합니다'
+        } else {
+            pwCheckResult.style.color = 'red';
+            pwCheckResult.innerHTML = '비밀번호가 일치하지 않습니다'
+        }
+    }
+    const pwCheck = () => {
+        const pwDB = "[[${member.memberPassword}]]";
+        const checkPw = $('#checkPw').val();
+        const changePw = $('#changePw').val();
+        const changePwCheck = $('#changePwCheck').val();
+        const updatePassWord = document.forms["updatePassWord"];
+
+
+        if(pwDB == checkPw && changePw == changePwCheck){
+            alert('비밀번호가 변경되었습니다.');
+            updatePassWord.submit();
+        }else if(pwDB != checkPw){
+            alert('현재 비밀번호가 틀립니다.');
+        }else{
+            alert('변경 비밀번호를 정확히 재입력해주세요.');
+        }
+    }
 </script>
 
 

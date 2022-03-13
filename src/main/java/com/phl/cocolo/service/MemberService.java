@@ -1,9 +1,9 @@
 package com.phl.cocolo.service;
 
+import com.phl.cocolo.dto.MailDTO;
 import com.phl.cocolo.dto.*;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 public interface MemberService {
@@ -38,5 +38,15 @@ public interface MemberService {
 
 
     void pointPayment(PointSaveDTO pointSaveDTO);
+
+    MailDTO createMailAndChangePassword(String memberEmail);
+
+    void updatePassword(String str, String userEmail);
+
+    String getTempPassword();
+
+    void mailSend(MailDTO dto);
+
+    void updatePassWord(Long memberId, String memberPassword);
 }
 

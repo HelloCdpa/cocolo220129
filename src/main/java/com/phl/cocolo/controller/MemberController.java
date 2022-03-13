@@ -144,6 +144,16 @@ public class MemberController {
         }
     }
 
+    @Transactional
+    @PostMapping("/sendEmail")
+    public String sendEmail(@RequestParam("memberEmail") String memberEmail){
+        System.out.println("memberEmail = "+memberEmail);
+        MailDTO dto = ms.createMailAndChangePassword(memberEmail);
+        ms.mailSend(dto);
+        System.out.println("dto = "+dto);
+
+        return "/member/login";
+    }
 
     //로그아웃
     @GetMapping("/logout")
@@ -177,6 +187,14 @@ public class MemberController {
         System.out.println("받아온 것"+ memberUpdateDTO);
         ms.update(memberUpdateDTO);
         return new ResponseEntity(HttpStatus.OK);
+    }
+    @Transactional
+    @PostMapping("/updatePassWord")
+    public String updatePassWord(@RequestParam("memberPassword") String memberPassword, HttpSession session){
+        Long memberId = (Long) session.getAttribute(LOGIN_ID);
+        ms.updatePassWord(memberId,memberPassword);
+
+        return "redirect:/member/mypage";
     }
 
     //삭제

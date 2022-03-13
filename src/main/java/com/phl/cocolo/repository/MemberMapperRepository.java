@@ -15,6 +15,9 @@ public interface MemberMapperRepository {
     @Update("update member_table set member_phone = #{memberPhone}, member_profile_name = #{memberProfileName},member_level = #{memberLevel},member_interesting = #{memberInteresting} where member_id = #{memberId}")
     void memberUpdate(MemberUpdateDTO memberUpdateDTO);
 
+    @Update("update member_table set member_password = #{memberPassword} where member_id = #{memberId}")
+    void updatePassword(Long memberId, String memberPassword);
+
 
 //    //회원목록 출력
 //    List<MemberDetailDTO> memberList();
