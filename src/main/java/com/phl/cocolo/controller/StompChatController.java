@@ -31,22 +31,31 @@ public class StompChatController {
     // 사용자가 들어옴
     @MessageMapping(value = "/chat/enter")
     public void enter(ChatMessageDetailDTO message) {
-        message.setMessage(message.getWriter() + "님이 채팅방에 참여하였습니다.");
-        System.out.println("들어온 메세지 : "+message);
-
+        //set 되기 전 글쓴이
+         String enterMember = message.getWriter();
+//        채팅이력 보여주기
         List<ChatMessageDetailDTO> chatList = cs.findAllChatByRoomId(message.getRoomId());
-        if(chatList != null){
-             for(ChatMessageDetailDTO c : chatList ){
-                 message.setWriter(c.getWriter());
-                 message.setMessage(c.getMessage());
-             }
-         }
+        if(!(chatList.isEmpty())) {
+            for (ChatMessageDetailDTO c : chatList) {
+                message.setWriter(c.getWriter());
+                message.setMessage(c.getMessage());
+                template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
+            }
+            message.setMessage(enterMember+ "님이 채팅방에 참여하였습니다.");
+            message.setWriter(enterMember);
+            template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
+        }else {
+            //        채팅방 참여 정보 알려주기
+            message.setMessage(message.getWriter() + "님이 채팅방에 참여하였습니다.");
+            System.out.println("들어온 메세지 : "+message);
 
-        template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
+            template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
+        }
 
-        ChatRoomEntity chatRoomEntity= crr.findByRoomId(message.getRoomId());
+
+//      채팅이력 저장하기
         ChatMessageSaveDTO chatMessageSaveDTO = new ChatMessageSaveDTO(message.getRoomId(),message.getWriter(), message.getMessage());
-
+        ChatRoomEntity chatRoomEntity= crr.findByRoomId(message.getRoomId());
         cr.save(ChatMessageEntity.toChatEntity(chatMessageSaveDTO,chatRoomEntity));
     }
 

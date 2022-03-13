@@ -40,7 +40,7 @@ public class MemberEntity{
     @Column
     private String memberProfileName;
 
-    @Column(columnDefinition = "integer default 10000")
+    @Column(columnDefinition = "integer default 0")
     private int memberPoint;
 
     @Column

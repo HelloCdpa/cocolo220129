@@ -40,7 +40,9 @@ public class MemberController {
         }
         // 이메일 중복체크 오류를 던져주는 트라이캐치문
         try {
-            ms.save(memberSaveDTO);
+            Long memberId = ms.save(memberSaveDTO);
+
+            ms.pointCharge(new PointSaveDTO(memberId,10000,"가입 축하금"));
 
         } catch (IllegalStateException e) {
 
