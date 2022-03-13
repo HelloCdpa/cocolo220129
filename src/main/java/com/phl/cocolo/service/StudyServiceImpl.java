@@ -6,6 +6,7 @@ import com.phl.cocolo.repository.MemberRepository;
 import com.phl.cocolo.repository.StudyApplyRepository;
 import com.phl.cocolo.repository.StudyRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class StudyServiceImpl implements StudyService{
 
     @Override
     public List<StudyDetailDTO> findAll() {
-        List<StudyEntity> studyEntityList = sr.findAll();
+        List<StudyEntity> studyEntityList = sr.findAll(Sort.by(Sort.Direction.DESC, "id"));
         List<StudyDetailDTO> studyList = new ArrayList<>();
 
         for(StudyEntity s : studyEntityList){

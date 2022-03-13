@@ -10,6 +10,7 @@ import com.phl.cocolo.repository.MemberRepository;
 import com.phl.cocolo.repository.MenteeRepository;
 import com.phl.cocolo.repository.MentoringRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -46,7 +47,7 @@ public class MentoringServiceImpl implements MentoringService{
 
     @Override
     public List<MentoringDetailDTO> findAll() {
-        List<MentoringEntity> mentoringEntityList = mtr.findAll();
+        List<MentoringEntity> mentoringEntityList = mtr.findAll(Sort.by(Sort.Direction.DESC, "id"));
         List<MentoringDetailDTO> mentoringList = new ArrayList<>();
         for (MentoringEntity m : mentoringEntityList){
             mentoringList.add(MentoringDetailDTO.toMentoringDetailDTO(m));

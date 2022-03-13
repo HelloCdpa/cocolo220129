@@ -42,6 +42,11 @@
                     <td th:text="${point.pointType}"></td>
                     <td th:text="*{#temporals.format(point.pointDate, 'yyyy/MM/dd HH:mm')}"></td>
                 </tr>
+                <tr>
+                <tfoot>
+                    <td th:text="${session.loginNick+'님의 전체 포인트 : '+memberPoint+' Point'}"></td>
+                </tfoot>
+                </tr>
             </table>
         </div>
     </div>

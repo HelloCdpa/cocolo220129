@@ -190,6 +190,9 @@ public class MemberController {
         model.addAttribute("member", memberDetailDTO);
         List<PointDetailDTO> pointList = ms.pointFindAll(memberId);
         model.addAttribute("pointList", pointList);
+
+        int memberPoint = memberDetailDTO.getMemberPoint();
+        model.addAttribute("memberPoint",memberPoint);
         return "/member/pointCharge";
     }
     //포인트 충전하기
@@ -206,6 +209,9 @@ public class MemberController {
     public String pointView(@PathVariable("memberId") Long memberId,Model model) {
         List<PointDetailDTO> pointList = ms.pointFindAll(memberId);
         model.addAttribute("pointList", pointList);
+
+        int memberPoint = ms.findById(memberId).getMemberPoint();
+        model.addAttribute("memberPoint",memberPoint);
         return "/member/pointView";
     }
 

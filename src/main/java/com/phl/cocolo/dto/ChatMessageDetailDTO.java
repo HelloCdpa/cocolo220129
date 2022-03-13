@@ -3,6 +3,8 @@ package com.phl.cocolo.dto;
 import com.phl.cocolo.entity.ChatMessageEntity;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,6 +17,8 @@ public class ChatMessageDetailDTO {
     private String writer;
     private String message;
 
+    private LocalDateTime sendDate;
+
     public static ChatMessageDetailDTO toChatMessageDetailDTO(ChatMessageEntity chatMessageEntity){
         ChatMessageDetailDTO chatMessageDetailDTO = new ChatMessageDetailDTO();
 
@@ -25,6 +29,7 @@ public class ChatMessageDetailDTO {
 
         chatMessageDetailDTO.setWriter(chatMessageEntity.getWriter());
         chatMessageDetailDTO.setMessage(chatMessageEntity.getMessage());
+        chatMessageDetailDTO.setSendDate(chatMessageEntity.getSendDate());
 
         return chatMessageDetailDTO;
 

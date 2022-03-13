@@ -121,27 +121,28 @@ public class MentoringController {
         //채팅방 목록 불러오기
         model.addAttribute("rooms", cs.findAllRooms());
 
-
         return "/mentoring/myMentoring";
     }
     //채팅방 개설
     @PostMapping(value = "/room")
-    public String create(@RequestParam String name,HttpSession session,Model model){
+    public String create(@RequestParam String name, @RequestParam  int password,HttpSession session,Model model){
         Long memberId = (Long) session.getAttribute(LOGIN_ID);
         String memberNick = (String) session.getAttribute(LOGIN_NICKNAME);
         log.info("# Create Chat Room , name: " + name);
 
-        cs.createChatRoomDTO(name,memberNick);
+        cs.createChatRoomDTO(name,password,memberNick);
 
         return "redirect:/mentoring/myMentoring/"+memberId;
     }
 
     //채팅방 조회
     @GetMapping("/room")
-    public void getRoom(String roomId, Model model,HttpSession session){
-        //        Long memberId = (Long) session.getAttribute(LOGIN_ID);
-        //        String memberProfileName = ms.findById(memberId).getMemberProfileName();
-        //        model.addAttribute("memberProfileName",memberProfileName);
+    public void getRoom(@RequestParam String roomId, Model model,HttpSession session){
+        Long memberId = (Long) session.getAttribute(LOGIN_ID);
+        String memberProfileName = ms.findById(memberId).getMemberProfileName();
+        model.addAttribute("memberProfileName",memberProfileName);
+
+
         log.info("# get Chat Room, roomID : " + roomId);
 
         model.addAttribute("room", cs.findRoomById(roomId));

@@ -51,7 +51,7 @@
         let roomName = [[${room.name}]];
         let roomId = [[${room.roomId}]];
         let username = [[${session.loginNick}]];
-
+        let memberProfileName = [[${memberProfileName}]];
 
         console.log(roomName + ", " + roomId + ", " + username  );
 
@@ -65,17 +65,21 @@
 
             //4. subscribe(path, callback)으로 메세지를 받을 수 있음
             stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
+                console.log("chat : "+chat);
                 let content = JSON.parse(chat.body);
                 let message = content.message;
                 let writer = content.writer;
+                let time = content.sendDate;
+                console.log("content : "+content);
 
                 //css 적용하여 반환
-                const item = new LiModel(writer, message);
+                const item = new LiModel(writer, message,time);
                 item.makeLi();
 
-                function LiModel(writer, message) {
+                function LiModel(writer, message,time) {
                     this.writer = writer;
                     this.msg = message;
+                    this.time = time;
                     const chatList = document.querySelector(".chatting-list");
                     this.makeLi = () => {
                         const li = document.createElement("li");
@@ -83,8 +87,10 @@
                         const dom = `<span class="profile">
                     <span class="user">${this.writer}</span>
                     <img class="image" src="https://placeimg.com/50/50/any" alt="any">
+
                     </span>
-                    <span class="message">${this.msg}</span>`;
+                    <span class="message">${this.msg}</span>
+                    <span class="time">${this.time}</span>`;
                         li.innerHTML = dom;
                         chatList.appendChild(li)
                     }
@@ -100,7 +106,7 @@
             let msg = document.getElementById("msg");
 
             console.log(username + ":" + msg.value);
-            stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, message: msg.value, writer: username}));
+            stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, message: msg.value, writer: username, writerProfileName : memberProfileName}));
             msg.value = '';
         });
     });

@@ -41,9 +41,9 @@ public class ChatServiceImpl implements ChatService{
 
     //채팅방 생성하기
     @Override
-    public void createChatRoomDTO(String name, String chatMentor){
+    public void createChatRoomDTO(String name, int password, String chatMentor){
         ChatRoomDTO room = ChatRoomDTO.create(name);
-        ChatRoomEntity chatRoomEntity = ChatRoomEntity.toChatRoomEntity(room.getName(),room.getRoomId(),chatMentor);
+        ChatRoomEntity chatRoomEntity = ChatRoomEntity.toChatRoomEntity(room.getName(),password,room.getRoomId(),chatMentor);
         crr.save(chatRoomEntity);
     }
 

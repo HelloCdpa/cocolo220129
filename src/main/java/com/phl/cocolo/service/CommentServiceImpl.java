@@ -10,6 +10,7 @@ import com.phl.cocolo.repository.BoardRepository;
 import com.phl.cocolo.repository.CommentRepository;
 import com.phl.cocolo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

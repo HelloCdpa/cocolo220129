@@ -4,7 +4,6 @@ import com.phl.cocolo.dto.ChatMessageSaveDTO;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Table(name = "chat_table")
-public class ChatMessageEntity {
+public class ChatMessageEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chat_id")
@@ -23,6 +22,7 @@ public class ChatMessageEntity {
     @JoinColumn(name = "chatRoom_id")
     private ChatRoomEntity chatRoomEntity;
 
+    @Column
     private String writer;
 
     @Column
@@ -36,6 +36,7 @@ public class ChatMessageEntity {
         ChatMessageEntity chatMessageEntity = new ChatMessageEntity();
 
         chatMessageEntity.setChatRoomEntity(chatRoomEntity);
+
 
         chatMessageEntity.setWriter(chatMessageSaveDTO.getWriter());
         chatMessageEntity.setMessage(chatMessageSaveDTO.getMessage());

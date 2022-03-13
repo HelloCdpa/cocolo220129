@@ -49,9 +49,9 @@
                     <a th:href="@{|/onClass/${onClass.onClassId}|}">
                         <div class="card-body">
                             <p class="card-text text-center">
-                                <img class="img-fluid rounded mb-4 mb-lg-0"
+                                <img class="thumbnail rounded"
                                      th:src="@{/class_upload/}+${onClass.onClassFileName}"
-                                     alt="..." width="150" height="100"/></p>
+                                     alt="..." width="200" height="150"/></p>
                             <p class="card-text text-center h6" th:text="${onClass.onClassTitle}"></p>
                             <p class="card-text text-center">
                                 <span th:text="${onClass.onClassCate}"></span>
