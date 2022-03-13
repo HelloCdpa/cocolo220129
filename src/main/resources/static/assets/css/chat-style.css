@@ -109,7 +109,12 @@ html, body{
 .received .message{
     background: #fff;
 }
-
+.sent .image{
+    content:url("https://pbs.twimg.com/media/E19fCiaVoAIqdae.jpg");
+}
+.received .image{
+    content:url("https://pbs.twimg.com/media/D7CsyG1UYAAD_zX.jpg");
+}
 
 
 

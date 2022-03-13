@@ -51,7 +51,6 @@
         let roomName = [[${room.name}]];
         let roomId = [[${room.roomId}]];
         let username = [[${session.loginNick}]];
-        let memberProfileName = [[${memberProfileName}]];
 
         console.log(roomName + ", " + roomId + ", " + username  );
 
@@ -69,28 +68,24 @@
                 let content = JSON.parse(chat.body);
                 let message = content.message;
                 let writer = content.writer;
-                let time = content.sendDate;
                 console.log("content : "+content);
 
                 //css 적용하여 반환
-                const item = new LiModel(writer, message,time);
+                const item = new LiModel(writer, message);
                 item.makeLi();
 
-                function LiModel(writer, message,time) {
+                function LiModel(writer, message) {
                     this.writer = writer;
                     this.msg = message;
-                    this.time = time;
                     const chatList = document.querySelector(".chatting-list");
                     this.makeLi = () => {
                         const li = document.createElement("li");
                         li.classList.add(username === this.writer ? "sent" : "received")
                         const dom = `<span class="profile">
                     <span class="user">${this.writer}</span>
-                    <img class="image" src="https://placeimg.com/50/50/any" alt="any">
-
+                    <img class="image" src="https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg" alt="any">
                     </span>
-                    <span class="message">${this.msg}</span>
-                    <span class="time">${this.time}</span>`;
+                    <span class="message">${this.msg}</span>`;
                         li.innerHTML = dom;
                         chatList.appendChild(li)
                     }
@@ -102,11 +97,19 @@
             stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username}))
         });
 
+        //엔터를 누르면 메시지 전송
+        $("#msg").on("keyup",function(event){
+            if(event.keyCode === 13){
+                event.preventDefault();
+                document.getElementById('button-send').click();
+            }
+        });
+
         $("#button-send").on("click", function(e){
             let msg = document.getElementById("msg");
 
             console.log(username + ":" + msg.value);
-            stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, message: msg.value, writer: username, writerProfileName : memberProfileName}));
+            stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, message: msg.value, writer: username}));
             msg.value = '';
         });
     });
