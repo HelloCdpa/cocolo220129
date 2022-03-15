@@ -27,6 +27,7 @@
                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#saveModal">게시글 작성하기</button>
                     </span>
                         <div class="d-flex justify-content-center">
+                            <a class="btn bg-gradient-primary w-auto me-2" href="/board/">전체보기</a>
                             <!--카테고리 별로 보기-->
                             <span th:each="category: ${categoryList}">
                      <a class="btn bg-gradient-primary w-auto me-2" th:href="@{|/board/cateBoard/${category.cateId}|}"

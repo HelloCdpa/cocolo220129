@@ -107,6 +107,7 @@
             </div>
 
             <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
+                <h5>비밀번호 변경</h5>
                 <form action="/member/updatePassWord" method="post" name="updatePassWord">
                     <div class="input-group input-group-static mb-4">
                         <label>현재 비밀번호 입력</label>
@@ -125,8 +126,7 @@
                     </div>
                     <input class="btn btn-danger" type="button" value="비밀번호 변경" th:onclick="pwCheck()">
                 </form>
-
-
+            </div>
         </div>
         <th:block th:fragment="myPageSideBarFragment">
         <div class="col-lg-4">
@@ -154,12 +154,7 @@
 <script>
     const memberUpdate = () => {
         const memberId = document.getElementById('memberId').value;
-        const memberName = document.querySelector('#memberName').value;
-        const memberEmail = $('#memberEmail').val();
         const memberPassword = $('#memberPassword').val();
-        const memberPhone = $('#memberPhone').val();
-        const memberProfile = document.getElementById('memberProfile').value;
-        console.log(memberId, memberName, memberEmail, memberPassword, memberPhone, memberProfile);
         const reqUrl = "/member/" + memberId;
 
         const data = $('#updateForm')[0];

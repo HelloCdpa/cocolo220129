@@ -99,7 +99,7 @@
                             <div id="review-list" class="container">
                                 <div class="container">
 
-                                    <div class="row" th:each="review: ${reviewList}">
+                                    <div class="row mt-3" th:each="review: ${reviewList}">
                                         <div class="col-md-2">
                                             <img class="avatar avatar-xl shadow-xl position-relative z-index-2"
                                                  th:src="@{/member_upload/}+${review.writerProfileName}" alt="..."
@@ -178,6 +178,7 @@
                     <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3" th:unless="${myClassCheck}">
                         <span class="text-dark">Cocolo는 평생 수강!</span>
                         <span class="h3 text-dark" th:text="${onClass.onClassPrice} + '원'"></span>
+                        <span th:if="${not #strings.isEmpty(session['loginEmail'])}">
                         <!--                            수강신청-->
                         <button type="button" class="btn btn-danger btn-lg w-auto me-2" id="buy-button">수강신청하기</button>
                         <!--                            찜하기-->
@@ -189,6 +190,20 @@
                                 찜 하기
                             </div>
                         </button>
+                        </span>
+                        <span th:if="${#strings.isEmpty(session['loginEmail'])}">
+                             <!--                            수강신청-->
+                        <button type="button" class="btn btn-danger btn-lg w-auto me-2 loginAlert">수강신청하기</button>
+                            <!--                            찜하기-->
+
+                        <button class="btn bg-gradient-primary btn-icon w-auto me-2 loginAlert" type="button">
+                            <div class="d-flex align-items-center">
+                                <i class="material-icons me-2" aria-hidden="true">favorite</i>
+                                찜 하기
+                            </div>
+                        </button>
+                        </span>
+
                     </div>
                     <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3" th:if="${myClassCheck}">
                         <span class="text-dark">Cocolo는 평생 수강!</span>
@@ -307,6 +322,10 @@
 <script>
     $("#myClassCheckAlert").click(function () {
         alert('강의 구매 후 들으실 수 있습니다.')
+    })
+
+    $(".loginAlert").click(function () {
+        alert('로그인 후 이용하실 수 있습니다.')
     })
 </script>
 </html>

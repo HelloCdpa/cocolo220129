@@ -30,9 +30,12 @@
     <input type="hidden" th:value="${session.loginId}" id="memberId">
 
     <div th:if="${cartCheck}" class="row">
+        <div class="col-md-8">
         <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
         <a href="/onClass/" class="h3">아직 장바구니에 담은 강의가 없어요🤸‍♂</a>
         </div>
+        </div>
+        <th:block th:replace="/member/mypage :: myPageSideBarFragment"></th:block>
     </div>
 
     <div class="row" th:unless="${cartCheck}">

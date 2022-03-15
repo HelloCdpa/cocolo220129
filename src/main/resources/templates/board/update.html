@@ -7,14 +7,11 @@
         background-image: url("https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80'");
     }
 </style>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
 <body>
 <div id="wrapper">
     <header class="bg-gradient-dark">
         <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
-        <th:block th:replace="/board/save :: saveModalFragment"></th:block>
 
         <div class="page-header min-vh-75" id="background">
             <span class="mask bg-gradient-dark opacity-6"></span>
@@ -59,13 +56,12 @@
                         </div>
 
                         <div class="text-center">
-                            <img th:src="@{/board_upload/} + *{boardFileName}" alt="">
+                            <img th:src="@{/board_upload/} + *{boardFileName}" alt=""width="200px" height="auto">
                         </div>
 
                         <div class="input-group mb-4 input-group-static">
-                            <label>내용</label>
-                            <input type="text" th:value="*{boardContents}" th:field="*{boardContents}"
-                                   class="form-control">
+                            <textarea id="summernote" type="text" class="form-control"
+                                      name="boardContents" rows="10">[[${board.boardContents}]]</textarea>
                         </div>
                         <div class="row">
                             <div class="col-md-3">
@@ -88,13 +84,6 @@
 <script>
     const boardUpdate = () => {
         const boardId = document.getElementById('boardId').value;
-        const memberId = document.getElementById('memberId').value;
-        const boardTitle = document.querySelector('#boardTitle').value;
-        const boardWriter = $('#boardWriter').text();
-        const boardContents = $('#boardContents').val();
-        const boardFile = document.getElementById('boardFile').value;
-
-        console.log(boardId, boardTitle, boardWriter, boardContents, boardFile, memberId);
         const reqUrl = "/board/" + boardId;
 
         const data = $('#updateForm')[0];
@@ -108,7 +97,7 @@
             data: formData,
             url: reqUrl,
             success: function () {
-                location.href = '/';
+                location.href = '/board/';
             }, error: function () {
                 alert("요청실패")
             }
