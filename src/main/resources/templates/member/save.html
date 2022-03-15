@@ -4,8 +4,6 @@
 <head>
     <!-- 공통 헤드-->
     <th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script>
         function emailCheck() {
             const memberEmail = document.getElementById("memberEmail").value
@@ -17,8 +15,14 @@
                 dataType: 'text',
                 success: function (result) {
                     if (result == "ok") {
-                        checkResult.style.color = 'green';
-                        checkResult.innerHTML = '사용 가능 이메일';
+                        if(memberEmail==""){
+                            checkResult.style.color = 'red';
+                            checkResult.innerHTML = '이메일을 입력해주세요';
+                        }else{
+                            checkResult.style.color = 'green';
+                            checkResult.innerHTML = '사용 가능 이메일';
+                        }
+
                     } else {
                         checkResult.style.color = 'red'
                         checkResult.innerHTML = '이미 사용중인 이메일'
@@ -27,37 +31,36 @@
                     console.log('에러 체크!!')
 
                 }
-
-
             })
-
-
         }
-        function NickNameDuplication() {
-            const memberNickName = $("#memberNickName").value
-            const NickCheckResult = $("#NickCheckResult")
+    </script>
+    <script>
+        function nickNameCheck() {
+            const memberNickName = document.getElementById("memberNickName").value;
+            const nickCheckResult = document.getElementById("nickCheckResult");
             $.ajax({
                 type: 'post',
-                url: 'NickNameDuplication',
+                url: 'nickNameDuplication',
                 data: {'memberNickName': memberNickName},
                 dataType: 'text',
                 success: function (result) {
                     if (result == "ok") {
-                        NickCheckResult.style.color = 'green';
-                        NickCheckResult.innerHTML = '사용 가능 닉네임';
+                        if(memberNickName == ""){
+                            nickCheckResult.style.color = 'red';
+                            nickCheckResult.innerHTML = '닉네임을 입력해주세요';
+                        }else{
+                            nickCheckResult.style.color = 'green';
+                            nickCheckResult.innerHTML = '사용 가능 닉네임';
+                        }
                     } else {
-                        NickCheckResult.style.color = 'red'
-                        NickCheckResult.innerHTML = '이미 사용중인 닉네임'
+                        nickCheckResult.style.color = 'red'
+                        nickCheckResult.innerHTML = '이미 사용중인 닉네임'
                     }
                 }, error: function () {
                     console.log('에러 체크!!')
 
                 }
-
-
             })
-
-
         }
 
     </script>
@@ -99,8 +102,8 @@
                                                     <label for="memberNickName">닉네임</label>
                                                     <input class="form-control" type="text" id="memberNickName"
                                                            th:field="*{memberNickName}" placeholder="닉네임"
-                                                           th:onblur="NickNameDuplication()">
-                                                    <p id="NickCheckResult"></p>
+                                                           th:onblur="nickNameCheck()">
+                                                    <p id="nickCheckResult"></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -217,8 +220,14 @@
         const pwCheckResult = document.querySelector('#pwCheckResult');
         console.log(checkPw);
         if (memberPassword == checkPw) {
-            pwCheckResult.style.color = 'green';
-            pwCheckResult.innerHTML = '비밀번호가 일치합니다'
+            if(memberPassword == ""){
+                pwCheckResult.style.color = 'red';
+                pwCheckResult.innerHTML = '비밀번호를 입력해주세요'
+            }else{
+                pwCheckResult.style.color = 'green';
+                pwCheckResult.innerHTML = '비밀번호가 일치합니다'
+            }
+
         } else {
             pwCheckResult.style.color = 'red';
             pwCheckResult.innerHTML = '비밀번호가 일치하지 않습니다'

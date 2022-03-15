@@ -14,8 +14,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(1) // 해당 인터셉터가 적용되는 순서 (몇번째로 적용시켜줄까? 스프링이 우선순위를 배정해줌)
                 .addPathPatterns("/**") //해당 프로젝트의 모든 주소에 대해 인터셉터를 적용
                 .excludePathPatterns("/","/member/save","/member/login","/member/logout","/assets/**","/member/emailDuplication",
-                        "/board_upload/**","/member_upload/**","/class_upload/**","/board/**","/onClass/**","/study/","/mentoring/",
-                        "/member/NickNameDuplication","/board/search/**","/board/cateBoard/**"
+                        "/board_upload/**","/member_upload/**","/class_upload/**","/course/","/board/**","/onClass/**","/study/","/mentoring/",
+                        "/member/nickNameDuplication","/board/search/**","/board/cateBoard/**"
                         ); //그 중에 이 주소는 제외
     }
 

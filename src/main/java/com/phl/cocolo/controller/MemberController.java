@@ -60,10 +60,10 @@ public class MemberController {
         return result;
     }
     //닉네임 중복 체크
-    @PostMapping("/NickNameDuplication")
+    @PostMapping("/nickNameDuplication")
     public @ResponseBody
-    String NickNameDuplication(@RequestParam("memberNickName") String memberNickName) {
-        String result = ms.NickNameDuplication(memberNickName);
+    String nickNameDuplication(@RequestParam("memberNickName") String memberNickName) {
+        String result = ms.nickNameDuplication(memberNickName);
         return result;
     }
 

@@ -114,6 +114,17 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public String nickNameDuplication(String memberNickName) {
+        MemberEntity memberEntity = mr.findByMemberNickName(memberNickName);
+        if (memberEntity == null) {
+            return "ok";
+        } else {
+            return "no";
+        }
+
+    }
+
+    @Override
     public void deleteById(Long memberId) {
         mr.deleteById(memberId);
     }
@@ -235,16 +246,6 @@ public class MemberServiceImpl implements MemberService {
 
     }
 
-    @Override
-    public String NickNameDuplication(String memberNickName) {
-        MemberEntity memberEntity = mr.findByMemberNickName(memberNickName);
-        if (memberEntity == null) {
-            return "ok";
-        } else {
-            return "no";
-        }
-
-    }
 
     @Override
     public void pointCharge(PointSaveDTO pointSaveDTO) {

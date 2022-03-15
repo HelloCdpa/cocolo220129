@@ -30,7 +30,7 @@ public interface MemberService {
 
     String getUserInfo(String access_token);
 
-    String NickNameDuplication(String memberNickName);
+    String nickNameDuplication(String memberNickName);
 
     void pointCharge(PointSaveDTO pointSaveDTO);
 
