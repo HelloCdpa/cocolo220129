@@ -20,6 +20,7 @@ public class StudyApplyDetailDTO {
     //신청 날짜
     private LocalDateTime creatTime;
 
+    //신청회원
     private String memberNickName;
 
     //스터디 모집 제목

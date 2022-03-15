@@ -9,4 +9,6 @@ public interface StudyApplyRepository extends JpaRepository<StudyApplyEntity,Lon
     StudyApplyEntity findByMemberEntity_IdAndStudyEntity_Id(Long memberId,Long studyId);
 
     List<StudyApplyEntity> findAllByMemberEntity_Id(Long memberId);
+
+    List<StudyApplyEntity> findAllByStudyEntity_MemberEntity_Id(Long memberId);
 }

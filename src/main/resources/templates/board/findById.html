@@ -5,13 +5,14 @@
 <th:block th:replace="/layout/fragments/head :: headFragment"></th:block>
 <body>
 <th:block th:replace="/layout/fragments/navbar :: navbarFragment"></th:block>
-<div style="margin-top: 300px">
+<div style="margin-top: 200px">
     <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6 mb-4">
         <!-- START Testimonials w/ user image & text & info -->
         <section class="py-sm-7 py-5 position-relative">
             <div class="container">
                 <div class="row">
                     <div class="col-12 mx-auto">
+                    <a class="nav-link nav-link-icon me-2" href="/board/">게시판 홈으로></a>
                         <div class="mt-n8 mt-md-n9 text-center">
                             <img class="avatar avatar-xxl shadow-xl position-relative z-index-2"
                                  th:src="@{/member_upload/}+${board.memberProfileName}" alt="bruce" loading="lazy">
@@ -20,10 +21,16 @@
                             <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mx-auto">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     <h3 class="mb-0 " th:text="${board.boardTitle}"></h3>
-                                    <div class="d-block">
+                                    <div th:if="${not #strings.isEmpty(session['loginEmail'])}" class="d-block">
                                         <!--  like-->
                                         <input type="hidden" id="like_check" th:value="${like}">
                                         <img id="likeImg" src="/assets/img/like_empty.png" alt="" width="30px"
+                                             height="30px">
+                                        <span th:text="${board.likeCount}"></span>
+                                    </div>
+                                    <div th:if="${#strings.isEmpty(session['loginEmail'])}" class="d-block">
+                                        <!--  like-->
+                                        <img id="loginCheck" src="/assets/img/like_empty.png" alt="" width="30px"
                                              height="30px">
                                         <span th:text="${board.likeCount}"></span>
                                     </div>
@@ -52,7 +59,7 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <img th:src="@{/board_upload/}+${board.boardFileName}" alt="" width="400px" height="300px">
+                                        <img th:src="@{/board_upload/}+${board.boardFileName}" alt="" width="500px" height="auto">
                                     </div>
                                 </div>
                                 <span class="text-dark mb-0" th:utext="${board.boardContents}"></span>
@@ -129,7 +136,7 @@
                 document.getElementById('commentContents').value = '';
             },
             error: function () {
-                alert('ajax 실패');
+                alert('로그인 후 이용해주세요');
             }
         });
     });
@@ -191,5 +198,10 @@
 
         });
     });
+</script>
+<script>
+    $("#loginCheck").on("click", function () {
+        alert('로그인 후 이용하실 수 있습니다.')
+    })
 </script>
 </html>

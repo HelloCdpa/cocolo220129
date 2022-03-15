@@ -15,4 +15,5 @@ public interface StudyRepository extends JpaRepository<StudyEntity,Long> {
     int studyCount(@Param("studyId") Long studyId);
 
     List<StudyEntity> findAllByMemberEntity_Id(Long memberId);
+
 }

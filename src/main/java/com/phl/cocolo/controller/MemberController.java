@@ -109,7 +109,7 @@ public class MemberController {
 
         session.setAttribute(LOGIN_ID, (long)1);
 
-        session.setAttribute(LOGIN_NICKNAME, "게스트");
+        session.setAttribute(LOGIN_NICKNAME, "손님");
 
 
         return "index";
@@ -133,6 +133,7 @@ public class MemberController {
             session.setAttribute(LOGIN_EMAIL, userInfo);
             Long memberId = ms.findByMemberId(userInfo);
             session.setAttribute(LOGIN_ID, memberId);
+            session.setAttribute(LOGIN_NICKNAME, ms.findById(memberId).getMemberNickName());
 
             String redirectURL = (String) session.getAttribute("redirectURL");
 

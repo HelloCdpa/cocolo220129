@@ -68,16 +68,16 @@
                                     <label class="form-label">Password</label>
                                     <input type="password" name="memberPassword" class="form-control">
                                 </div>
-                                <div class="form-check form-switch d-flex align-items-center mb-3">
-                                    <input class="form-check-input" type="checkbox" id="rememberMe">
-                                    <label class="form-check-label mb-0 ms-2" for="rememberMe">Remember me</label>
-                                </div>
+<!--                                <div class="form-check form-switch d-flex align-items-center mb-3">-->
+<!--                                    <input class="form-check-input" type="checkbox" id="rememberMe">-->
+<!--                                    <label class="form-check-label mb-0 ms-2" for="rememberMe">Remember me</label>-->
+<!--                                </div>-->
                                 <div class="text-center">
                                     <input type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2" value="로그인">
                                 </div>
                                 <div class="text-center">
                                     <a class="p-2"
-                                       href="https://kauth.kakao.com/oauth/authorize?client_id=198b13b4aad42557177244425bb771f9&redirect_uri=http://localhost:8093/member/kakaologin&response_type=code">
+                                       href="https://kauth.kakao.com/oauth/authorize?client_id=198b13b4aad42557177244425bb771f9&redirect_uri=http://localhost:8091/member/kakaologin&response_type=code">
                                         <img src="/assets/img/kakao.png" class="w-md-90 h-auto">
                                     </a>
                                 </div>
@@ -100,7 +100,6 @@
 </div>
 </body>
 <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
     $(document).ready(function () {
         let message = "[[${msg}]]";

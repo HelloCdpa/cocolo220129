@@ -34,6 +34,7 @@ public class StudyDetailDTO {
         studyDetailDTO.setMemberId(studyEntity.getMemberEntity().getId());
         studyDetailDTO.setStudyWriter(studyEntity.getMemberEntity().getMemberNickName());
 
+
         studyDetailDTO.setStudyMax(studyEntity.getStudyMax());
         studyDetailDTO.setStudyCount(studyEntity.getStudyCount());
         studyDetailDTO.setStudyTitle(studyEntity.getStudyTitle());

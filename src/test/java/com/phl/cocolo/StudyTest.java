@@ -22,8 +22,8 @@ public class StudyTest {
     @Test
     @DisplayName("테스트스터디30개 등록")
     public void testStudySave(){
-        IntStream.rangeClosed(1, 30).forEach(i->{
-            StudySaveDTO studySaveDTO = new StudySaveDTO((long)1, 5, 0, "StudyTitle"+i, "StudyContents"+i,"서울","취업/면접");
+        IntStream.rangeClosed(1, 3).forEach(i->{
+            StudySaveDTO studySaveDTO = new StudySaveDTO((long)3, 1, 0, "자바 같이 공부해요!"+i, "얼른 모집"+i,"강원","기타");
             ss.save(studySaveDTO);
         });
     }

@@ -102,7 +102,7 @@
                                                     <label for="memberNickName">닉네임</label>
                                                     <input class="form-control" type="text" id="memberNickName"
                                                            th:field="*{memberNickName}" placeholder="닉네임"
-                                                           th:onblur="nickNameCheck()">
+                                                           th:onblur="nickNameCheck()" required>
                                                     <p id="nickCheckResult"></p>
                                                 </div>
                                             </div>
@@ -114,20 +114,20 @@
                                                     <input class="form-control" type="email" id="memberEmail"
                                                            th:field="*{memberEmail}" placeholder="hello@naver.com"
                                                            th:onblur="emailCheck()">
-                                                    <p id="checkResult"></p>
-                                                    <p th:if="${#fields.hasErrors('memberEmail')}"
-                                                       th:errors="*{memberEmail}" th:errorclass="field-error"></p>
+                                                    <div><p id="checkResult"></p></div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <h6 class="text-danger" th:if="${#fields.hasErrors('memberEmail')}"
+                                            th:errors="*{memberEmail}" th:errorclass="field-error"></h6>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="input-group input-group-static mb-4">
                                                     <label for="memberPassword">비밀번호</label>
                                                     <input class="form-control" type="password" id="memberPassword"
                                                            th:field="*{memberPassword}" placeholder="비밀번호">
-                                                    <p th:if="${#fields.hasErrors('memberPassword')}"
-                                                       th:errors="*{memberPassword}" th:errorclass="field-error"></p>
+                                                    <h6 class="text-danger" th:if="${#fields.hasErrors('memberPassword')}"
+                                                       th:errors="*{memberPassword}" th:errorclass="field-error"></h6>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 ps-md-2">
@@ -144,8 +144,8 @@
                                                 <label for="memberPhone">전화번호</label>
                                                 <input class="form-control" type="text" id="memberPhone"
                                                        th:field="*{memberPhone}" placeholder="010-3333-3333">
-                                                <p th:if="${#fields.hasErrors('memberPhone')}"
-                                                   th:errors="*{memberPhone}" th:errorclass="field-error"></p>
+                                                <h6 class="text-danger" th:if="${#fields.hasErrors('memberPhone')}"
+                                                   th:errors="*{memberPhone}" th:errorclass="field-error"></h6>
                                             </div>
                                         </div>
 

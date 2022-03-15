@@ -71,6 +71,7 @@ public class MentoringServiceImpl implements MentoringService{
         mer.save(menteeEntity);
     }
 
+    //멘티
     @Override
     public List<MenteeDetailDTO> findAllByMemberId(Long memberId) {
         List<MenteeEntity> menteeEntityList = mer.findAllByMemberEntity_Id(memberId);
@@ -82,7 +83,7 @@ public class MentoringServiceImpl implements MentoringService{
 
         return menteeDetailList;
     }
-
+    //멘토
     @Override
     public List<MenteeDetailDTO> fundAllMentorMemberId(Long memberId) {
         List<MenteeEntity> mentorEntityList = mer.findAllByMentoringEntity_MemberEntity_Id(memberId);

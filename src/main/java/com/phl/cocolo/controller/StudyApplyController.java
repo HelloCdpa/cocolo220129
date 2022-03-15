@@ -34,7 +34,7 @@ public class StudyApplyController {
     @GetMapping("/myStudy/{memberId}")
     public String MyStudyApplyPage(@PathVariable("memberId") Long memberId, Model model){
         try {
-            // 스터디 작성자
+            // 스터디 작성자 = 스터디 신청의 스터디글 작성자
             List<StudyApplyDetailDTO> writerApplyList = sas.findByStudyApplyId(memberId);
             model.addAttribute("writerApplyList", writerApplyList);
 

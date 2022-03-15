@@ -22,18 +22,18 @@
                     <div class="col-lg-8 text-center mx-auto my-auto">
                         <h1 class="text-white">Online ClassRoom</h1>
                         <p class="lead mb-4 text-white opacity-8">포인트로 수강권을 구매하여 개발 지식을 키워나가세요!</p>
-                        <span th:if="${not #strings.isEmpty(session['loginEmail'])}">
+                        <span th:if="${#strings.equals(session['loginEmail'],'phl1021@naver.com')}">
                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#onClassSave">게시글 작성하기</button>
                     </span>
                         <div class="d-flex justify-content-center">
                             <!--카테고리 별로 보기-->
-                            <div>
-                                <a class="btn bg-gradient-primary w-auto me-2" href="/onClass/onClassCate/1">자바</a>
-                                <a class="btn bg-gradient-primary w-auto me-2" href="/onClass/onClassCate/2">스프링</a>
-                                <a class="btn bg-gradient-primary w-auto me-2" href="/onClass/onClassCate/3">파이썬</a>
-                                <a class="btn bg-gradient-primary w-auto me-2" href="/onClass/onClassCate/4">프론트엔드</a>
-                                <a class="btn bg-gradient-primary w-auto me-2" href="/onClass/onClassCate/5">기타</a>
-                            </div>
+<!--                            <div>-->
+<!--                                <a class="btn bg-gradient-primary w-auto me-2" href="/onClass/onClassCate/1">자바</a>-->
+<!--                                <a class="btn bg-gradient-primary w-auto me-2" href="/onClass/onClassCate/2">스프링</a>-->
+<!--                                <a class="btn bg-gradient-primary w-auto me-2" href="/onClass/onClassCate/3">파이썬</a>-->
+<!--                                <a class="btn bg-gradient-primary w-auto me-2" href="/onClass/onClassCate/4">프론트엔드</a>-->
+<!--                                <a class="btn bg-gradient-primary w-auto me-2" href="/onClass/onClassCate/5">기타</a>-->
+<!--                            </div>-->
 
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                             <p class="card-text text-center h6" th:text="${onClass.onClassTitle}"></p>
                             <p class="card-text text-center">
                                 <span th:text="${onClass.onClassCate}"></span>
-                                /<span th:text="${onClass.onClassIntro}"></span>
+                                <span th:text="${onClass.onClassIntro}"></span>
                                 <input type="hidden" id="onClassId" th:value="${onClass.onClassId}">
                                 <input type="hidden" id="memberId" th:value="${session.loginId}">
                             </p>
