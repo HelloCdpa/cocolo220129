@@ -22,7 +22,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             //미로그인 상태
             //로그인 하지 않은 경우 바로 로그인 페이지로 보내고 로그인 후 요청 화면을 보여줌.
             //requestURI 사용자가 요청한 주소값
-            session.setAttribute("redirectURL", requestURI);
+//            session.setAttribute("redirectURL", requestURI);
             response.sendRedirect("/member/login");
 
             return false;

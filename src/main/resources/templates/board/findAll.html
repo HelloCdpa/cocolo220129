@@ -103,7 +103,7 @@
                                th:onclick="deleteById([[${boardList.boardId}]])"
                                value="삭제"></td>
 
-                    <td><a class="btn btn-info" type="button" th:if="(${session.loginNick}==${boardList.boardWriter})"
+                    <td><a class="btn btn-info" type="button" th:if="(${#strings.equals(session['loginNick'],boardList.boardWriter)})"
                            th:href="@{|/board/update/${boardList.boardId}|}">글수정</a></td>
                 </tr>
                 </tbody>

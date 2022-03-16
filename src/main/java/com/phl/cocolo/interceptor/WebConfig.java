@@ -16,7 +16,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/","/member/save","/member/login","/member/logout","/assets/**","/member/emailDuplication",
                         "/board_upload/**","/member_upload/**","/class_upload/**","/course/","/board/**","/onClass/**","/study/","/mentoring/",
                         "/member/nickNameDuplication","/board/search/**","/board/cateBoard/**","/member/kakaologin",
-                        "/member/testLogin"
+                        "/member/testLogin","/member/sendEmail"
                         ); //그 중에 이 주소는 제외
     }
 

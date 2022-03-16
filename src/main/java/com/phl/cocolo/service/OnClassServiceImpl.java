@@ -24,6 +24,7 @@ public class OnClassServiceImpl implements OnClassService{
     private final MemberRepository mr;
     private final MyClassRepository mcr;
     private final CartRepository cr;
+    private final CartService cs;
 
     @Override
     public Long save(OnClassSaveDTO onClassSaveDTO) throws IllegalStateException, IOException {
@@ -83,8 +84,12 @@ public class OnClassServiceImpl implements OnClassService{
         //    Long onClassId;
         // 나의 강의에 저장(구매한 회원, 구매한강의)
         // Entity 로 변환시켜서 DB에 저장시키기
+        for(int i=0; i<cs.findByMemberId(memberId).size(); i++){
             mcr.save(MyClassEntity.toMyClassSaveEntity(mr.findById(memberId).get(),
-            or.findById(onClassId).get()));
+                    or.findById(cs.findByMemberId(memberId).get(i).getOnClassId()).get() ));
+        }
+
+
 
 
 

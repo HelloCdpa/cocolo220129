@@ -42,10 +42,10 @@ public class OnClassTest {
     }
 
     @Test
-    @DisplayName("테스트강의30개 등록")
+    @DisplayName("테스트강의5개 등록")
     public void testCourseSave(){
-        IntStream.rangeClosed(1, 30).forEach(i->{
-            CourseSaveDTO courseSaveDTO = new CourseSaveDTO((long)1, "courseSection"+i, "courseTitle"+i, "courseContents", "기본.png");
+        IntStream.rangeClosed(1, 1).forEach(i->{
+            CourseSaveDTO courseSaveDTO = new CourseSaveDTO((long)1, "자바란 무엇인가?", "자바의 개념", "자바는 뭘까요?", "수업.mp4");
             cs.saveTest(courseSaveDTO);
         });
     }

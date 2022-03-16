@@ -42,33 +42,33 @@
         <div class="col-lg-8">
             <div class="card card-body blur shadow-blur mx-1 mx-md-1 mt-n3">
 
-                <div id="cartLength" class="row">
                     <form action="/onClass/payment" method="post" id="payment">
-                        <div class="col-md-3 mb-5" th:each="cart:${cartList}">
-                            <div class="card h-100">
-                                <a th:href="@{|/onClass/${cart.onClassId}|}">
+                        <div id="cartLength" class="row">
+                                <div class="col-md-3 mb-5" th:each="cart:${cartList}">
+                                    <div class="card h-100">
+                                        <a th:href="@{|/onClass/${cart.onClassId}|}">
 
-                                    <input type="hidden" th:value="${cart.onClassId}" name="onClassId">
+                                            <input type="hidden" th:value="${cart.onClassId}" name="onClassId">
 
-                                    <div class="card-body">
-                                        <p class="card-text text-center">
-                                            <img class="img-fluid rounded mb-4 mb-lg-0"
-                                                 th:src="@{/class_upload/}+${cart.onClassFileName}"
-                                                 alt="..." width="150" height="100"/></p>
-                                        <p class="card-text text-center h6" th:text="${cart.onClassTitle}"></p>
+                                            <div class="card-body">
+                                                <p class="card-text text-center">
+                                                    <img class="img-fluid rounded mb-4 mb-lg-0"
+                                                         th:src="@{/class_upload/}+${cart.onClassFileName}"
+                                                         alt="..." width="150" height="100"/></p>
+                                                <p class="card-text text-center h6" th:text="${cart.onClassTitle}"></p>
+                                            </div>
+                                        </a>
+                                        <div class="card-footer text-center">
+                                            <span class="card-text" id="onClassPrice" th:text="${cart.onClassPrice}"></span>
+                                            <span>point</span>
+                                        </div>
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                                th:onclick="deleteById([[${cart.cartId}]])">장바구니에서 삭제
+                                        </button>
                                     </div>
-                                </a>
-                                <div class="card-footer text-center">
-                                    <span class="card-text" id="onClassPrice" th:text="${cart.onClassPrice}"></span>
-                                    <span>point</span>
                                 </div>
-                                <button type="button" class="btn btn-danger btn-sm"
-                                        th:onclick="deleteById([[${cart.cartId}]])">장바구니에서 삭제
-                                </button>
-                            </div>
                         </div>
                     </form>
-                </div>
             </div>
         </div>
         <div class="col-lg-4">

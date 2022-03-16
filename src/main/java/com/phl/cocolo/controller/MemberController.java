@@ -86,15 +86,15 @@ public class MemberController {
             String memberNickName = ms.findById(memberId).getMemberNickName();
             session.setAttribute(LOGIN_NICKNAME, memberNickName);
 
-            String redirectURL = (String) session.getAttribute("redirectURL");
+//            String redirectURL = (String) session.getAttribute("redirectURL");
+//
 
-
-            if (redirectURL != null){
-                return "redirect:" + redirectURL;
-            }else{
-                return "index";
-            }
-
+//            if (redirectURL != null){
+//                return "index";
+//            }else{
+//                return "index";
+//            }
+            return "index";
         } else {
             model.addAttribute("msg","로그인 실패");
             return "/member/login";
@@ -140,7 +140,7 @@ public class MemberController {
             if (redirectURL != null){
                 return "redirect:" + redirectURL;
             }else{
-                return "redirect:/board/";
+                return "redirect:/";
             }
         }
     }
@@ -218,12 +218,13 @@ public class MemberController {
     }
     //포인트 충전하기
     @PostMapping("/pointCharge")
-    public String pointCharge(@ModelAttribute PointSaveDTO pointSaveDTO,Model model) {
+    public String pointCharge(@ModelAttribute PointSaveDTO pointSaveDTO,Model model,HttpSession session) {
+        Long memberId = (Long) session.getAttribute(LOGIN_ID);
         ms.pointCharge(pointSaveDTO);
         List<PointDetailDTO> pointList = ms.pointFindAll(pointSaveDTO.getMemberId());
         model.addAttribute("pointList", pointList);
 
-        return "/member/pointView";
+        return "redirect:/member/pointView/"+memberId;
     }
     //포인트 내역 조회
     @GetMapping("/pointView/{memberId}")

@@ -129,7 +129,7 @@ public class OnClassController {
         Long memberId = (Long) session.getAttribute(LOGIN_ID);
         os.payment(onClassId, memberId);
 
-        return "redirect:/onClass/" + memberId;
+        return "redirect:/onClass/myClass/" + memberId;
 
     }
 
