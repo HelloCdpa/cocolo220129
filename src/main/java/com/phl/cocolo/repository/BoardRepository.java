@@ -29,12 +29,13 @@ public interface BoardRepository extends JpaRepository<BoardEntity,Long> {
     int boardHits(@Param("boardId") Long boardId);
 
     @Modifying
-    @Query(value = "update BoardEntity b set b.likeCount = b.likeCount+1 where b.id = :boardId")
+    @Query(value = "update BoardEntity b set b.likeCount = b.likeCount+1, b.boardHits = b.boardHits-1 where b.id = :boardId")
     int plusLike(@Param("boardId") Long boardId);
 
     @Modifying
-    @Query(value = "update BoardEntity b set b.likeCount = b.likeCount-1 where b.id = :boardId")
+    @Query(value = "update BoardEntity b set b.likeCount = b.likeCount-1, b.boardHits = b.boardHits-1 where b.id = :boardId")
     int minusLike(@Param("boardId") Long boardId);
+
 
 }
 

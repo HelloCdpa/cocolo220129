@@ -59,8 +59,7 @@ public class StudyApplyServiceImpl implements StudyApplyService{
     //회원이 신청한 스터디 조회
     @Override
     public List<StudyApplyDetailDTO> myApplyList(Long memberId) {
-        StudyApplyEntity studyApplyEntity= sar.findById(memberId).get();
-        List<StudyApplyEntity> studyApplyEntityList = studyApplyEntity.getMemberEntity().getStudyApplyEntityList();
+        List<StudyApplyEntity> studyApplyEntityList  = sar.findAllByMemberEntity_Id(memberId);
         List<StudyApplyDetailDTO> applyList = new ArrayList<>();
 
         for(StudyApplyEntity s : studyApplyEntityList) {

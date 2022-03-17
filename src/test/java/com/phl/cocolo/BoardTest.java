@@ -38,8 +38,8 @@ public class BoardTest {
     @Rollback(value = false)
     @DisplayName("회원게시물작성테스트")
     public void BoardSaveTest() {
-        IntStream.rangeClosed(1, 10).forEach(i -> {
-            BoardSaveDTO boardSaveDTO = new BoardSaveDTO((long) 1, (long) 3, "질문 글" + i, "내용" + i, "짜장면.jpg");
+        IntStream.rangeClosed(1, 5).forEach(i -> {
+            BoardSaveDTO boardSaveDTO = new BoardSaveDTO((long) 3, (long) 2, "면접 글" + i, "내용" + i, "짜장면.jpg");
             bs.saveTest(boardSaveDTO);
         });
     }

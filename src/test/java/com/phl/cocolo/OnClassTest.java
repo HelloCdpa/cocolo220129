@@ -45,7 +45,7 @@ public class OnClassTest {
     @DisplayName("테스트강의5개 등록")
     public void testCourseSave(){
         IntStream.rangeClosed(1, 1).forEach(i->{
-            CourseSaveDTO courseSaveDTO = new CourseSaveDTO((long)1, "자바란 무엇인가?", "자바의 개념", "자바는 뭘까요?", "수업.mp4");
+            CourseSaveDTO courseSaveDTO = new CourseSaveDTO((long)1, "프로그램 설치", "자바를 사용하기 전에..", "자바는 뭘까요?", "수업.mp4");
             cs.saveTest(courseSaveDTO);
         });
     }

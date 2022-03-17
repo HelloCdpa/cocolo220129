@@ -76,6 +76,7 @@ public class BoardEntity extends BaseEntity{
         boardEntity.setBoardContents(boardUpdateDTO.getBoardContents());
         boardEntity.setBoardFileName(boardUpdateDTO.getBoardFileName());
         boardEntity.setLikeCount(boardUpdateDTO.getLikeCount());
+        boardEntity.setBoardHits(boardUpdateDTO.getBoardHits());
 
         return boardEntity;
     }

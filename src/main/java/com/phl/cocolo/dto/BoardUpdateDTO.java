@@ -18,6 +18,7 @@ public class BoardUpdateDTO {
     private String boardFileName;
     private MultipartFile boardFile;
     private int likeCount;
+    private int boardHits;
 
 
 }

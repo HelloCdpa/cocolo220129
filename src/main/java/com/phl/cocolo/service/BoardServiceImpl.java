@@ -97,7 +97,8 @@ public class BoardServiceImpl implements BoardService {
                         board.getBoardTitle(),
                         board.getBoardHits(),
                         board.getLikeCount(),
-                        board.getCreatTime())
+                        board.getCreatTime(),
+                        board.getCategoryEntity().getCateName())
         );
 
         return boardList;
@@ -185,7 +186,8 @@ public class BoardServiceImpl implements BoardService {
                         board.getBoardTitle(),
                         board.getBoardHits(),
                         board.getLikeCount(),
-                        board.getCreatTime())
+                        board.getCreatTime(),
+                        board.getCategoryEntity().getCateName())
         );
 
         return boardList;
@@ -239,7 +241,8 @@ public class BoardServiceImpl implements BoardService {
                         board.getBoardTitle(),
                         board.getBoardHits(),
                         board.getLikeCount(),
-                        board.getCreatTime())
+                        board.getCreatTime(),
+                        board.getCategoryEntity().getCateName())
         );
 
         return boardList;

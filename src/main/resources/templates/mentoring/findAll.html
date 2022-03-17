@@ -67,7 +67,7 @@
                 <td th:text="${mentoring.mentoringCount+'회 '+mentoring.mentoringPrice+'p'}"></td>
                 <td th:text="${mentoring.mentoringCareer}"></td>
                 <td th:text="${mentoring.mentoringCate}"></td>
-                <td th:text="*{#temporals.format(mentoring.createTime, 'yyyy/MM/dd HH:mm')}"></td>
+                <td th:text="*{#temporals.format(mentoring.createTime, 'yy/MM/dd HH:mm')}"></td>
 
                 <span th:if="(${#strings.equals(session['loginEmail'],'phl1021@naver.com')} or ${session.loginNick}==${mentoring.mentoringWriter})">
                 <td>
@@ -76,7 +76,7 @@
                     </button>
                 </td>
                 </span>
-                <td><a th:if="(${session.loginNick}==${mentoring.mentoringWriter})" th:href="@{|/mentoring/update/${mentoring.mentoringId}|}">글수정</a></td>
+                <td><a class="btn btn-info" th:if="(${session.loginNick}==${mentoring.mentoringWriter})" th:href="@{|/mentoring/update/${mentoring.mentoringId}|}">글수정</a></td>
             </tr>
             </tbody>
         </table>

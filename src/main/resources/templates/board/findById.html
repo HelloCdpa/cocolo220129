@@ -72,7 +72,12 @@
             <div id="comment-write" class="m-2 container">
                 <div class="row">
                     <input type="hidden" id="commentWriter" th:value="${session['loginNick']}">
-                    <div class="col-md-9">
+                    <div th:if="${not #strings.isEmpty(session['loginEmail'])}" class="col-md-2 align-items-center">
+                        <img class="avatar avatar-lg shadow-xl"
+                             th:src="@{/member_upload/}+${memberProfileName}" alt="" loading="lazy">
+                    </div>
+                    <div th:if="${#strings.isEmpty(session['loginEmail'])}" class="col-md-2"> </div>
+                    <div class="col-md-6">
                         <div class="input-group input-group-dynamic">
                             <label class="form-label">댓글 작성</label>
                             <input type="text" class="form-control" id="commentContents">
@@ -84,7 +89,7 @@
                 </div>
             </div>
 
-            <div id="comment-list" class="container">
+            <div id="comment-list" class="container mt-3">
                 <div class="container">
                     <div class="row" th:each="comment: ${commentList}">
                         <div class="col-md-2">
@@ -92,9 +97,9 @@
                                  th:src="@{/member_upload/}+${comment.writerProfileName}" alt="bruce" loading="lazy">
                         </div>
                         <div class="col-md-6">
-                            <div class="text-dark"
-                                 th:text="${comment.commentWriter} +'  '+*{#temporals.format(comment.commentCreateDate, 'yyyy/MM/dd HH:mm')}"></div>
-                            <div th:text="${comment.commentContents}"></div>
+                            <div
+                                 th:text="${comment.commentWriter} +'  '+*{#temporals.format(comment.commentCreateDate, 'yy/MM/dd HH:mm')}"></div>
+                            <div class="text-dark" th:text="${comment.commentContents}"></div>
                             <div><input class="btn btn-danger" type="button" th:if="(${#strings.equals(session['loginEmail'],'admin')})
                                 or (${session.loginEmail}==${comment.commentWriter})"
                                         th:onclick="deleteById([[${comment.commentId}]])"

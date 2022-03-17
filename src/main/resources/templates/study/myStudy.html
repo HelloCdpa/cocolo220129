@@ -86,7 +86,7 @@
                 <th scope="row" th:text="${applyStat.count}"></th>
                 <td th:text="${apply.studyTitle}"></td>
                 <td th:text="${apply.studyCount+'/'+apply.studyMax}"></td>
-                <td th:text="*{#temporals.format(apply.creatTime, 'yyyy/MM/dd HH:mm')}"></td>
+                <td th:text="*{#temporals.format(apply.creatTime, 'yy/MM/dd HH:mm')}"></td>
                 <td th:text="${apply.applyState} ? '승인' : '미승인'"></td>
             </tr>
             </tbody>

@@ -14,10 +14,14 @@ public class BoardPagingDTO {
     private String boardWriter;
     private String boardTitle;
 
+
+
     private int boardHits;
     private int likeCount;
 
     private LocalDateTime createBoardDate;
+
+    private String cateName;
 
 
 }

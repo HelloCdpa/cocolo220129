@@ -23,7 +23,7 @@ public class StudyTest {
     @DisplayName("테스트스터디30개 등록")
     public void testStudySave(){
         IntStream.rangeClosed(1, 3).forEach(i->{
-            StudySaveDTO studySaveDTO = new StudySaveDTO((long)3, 1, 0, "자바 같이 공부해요!"+i, "얼른 모집"+i,"강원","기타");
+            StudySaveDTO studySaveDTO = new StudySaveDTO((long)2, 4, 3, "스프링 같이 공부해요!", "얼른 모집"+i,"서울","자바");
             ss.save(studySaveDTO);
         });
     }

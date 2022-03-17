@@ -41,6 +41,7 @@ public class StudyApplyController {
             //스터디 신청자
             List<StudyApplyDetailDTO> applyList = sas.myApplyList(memberId);
             model.addAttribute("applyList", applyList);
+            System.out.println(applyList);
         }catch (NoSuchElementException n){
 
         }

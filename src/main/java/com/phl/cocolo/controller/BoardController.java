@@ -2,10 +2,7 @@ package com.phl.cocolo.controller;
 
 import com.phl.cocolo.common.PagingConst;
 import com.phl.cocolo.dto.*;
-import com.phl.cocolo.service.BoardService;
-import com.phl.cocolo.service.CommentService;
-import com.phl.cocolo.service.MentoringService;
-import com.phl.cocolo.service.StudyService;
+import com.phl.cocolo.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +34,7 @@ public class BoardController {
     private final CommentService cs;
     private final MentoringService mts;
     private final StudyService ss;
+    private final MemberService ms;
 
 
     //게시글 저장
@@ -68,6 +66,11 @@ public class BoardController {
         // 좋아요 함1 안함0
         int like = bs.findLike(boardId,memberId);
         model.addAttribute("like",like);
+
+        if (memberId!=null){
+            String memberProfileName = ms.findById(memberId).getMemberProfileName();
+            model.addAttribute("memberProfileName",memberProfileName);
+        }
 
         return "/board/findById";
     }
@@ -208,6 +211,7 @@ public class BoardController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    //나의 게시글 조회
     @GetMapping("/myBoard/{memberId}")
     public String myBoard(@PathVariable ("memberId") Long memberId,Model model){
         List<BoardDetailDTO> boardList = bs.findAllByMemberId(memberId);

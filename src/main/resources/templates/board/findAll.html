@@ -86,6 +86,8 @@
                         <a href="/board/cateBoard/11">추천❤</a>
                     </th>
                     <th scope="col">작성시간</th>
+                    <th scope="col">카테고리</th>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -98,6 +100,8 @@
                     <td>
                         <span th:text="*{#temporals.format(boardList.createBoardDate, 'yyyy/MM/dd HH:mm')}"></span>
                     </td>
+                    <th scope="row" th:text="${boardList.cateName}"></th>
+
                     <td><input class="btn btn-danger" type="button"
                                th:if="(${#strings.equals(session['loginEmail'],'phl1021@naver.com')} or ${session.loginNick}==${boardList.boardWriter})"
                                th:onclick="deleteById([[${boardList.boardId}]])"
