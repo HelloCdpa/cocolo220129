@@ -2,6 +2,16 @@ server:
   port: 8091
 #DB접속 정보
 spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+  devtools:
+    livereload:
+      enabled: true
+    remote:
+      restart:
+        enabled: true
   mail:
     host: smtp.naver.com
     port: 465

@@ -53,7 +53,7 @@
                 <th scope="row" th:text="${writerStat.count}"></th>
                 <td th:text="${writer.studyTitle}"></td>
                 <td th:text="${writer.studyCount+'/'+writer.studyMax}"></td>
-                <td th:text="*{#temporals.format(writer.creatTime, 'yyyy/MM/dd HH:mm')}"></td>
+                <td th:text="*{#temporals.format(writer.creatTime, 'yy/MM/dd HH:mm')}"></td>
                 <td th:text="${writer.applyState} ? '승인' : '미승인'"></td>
                 <td th:text="${writer.memberNickName}"></td>
 
