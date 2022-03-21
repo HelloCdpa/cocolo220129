@@ -101,7 +101,7 @@
                                  th:text="${comment.commentWriter} +'  '+*{#temporals.format(comment.commentCreateDate, 'yy/MM/dd HH:mm')}"></div>
                             <div class="text-dark" th:text="${comment.commentContents}"></div>
                             <div><input class="btn btn-danger" type="button" th:if="(${#strings.equals(session['loginEmail'],'admin')})
-                                or (${session.loginEmail}==${comment.commentWriter})"
+                                or (${session.loginNick}==${comment.commentWriter})"
                                         th:onclick="deleteById([[${comment.commentId}]])"
                                         value="삭제"></div>
                         </div>

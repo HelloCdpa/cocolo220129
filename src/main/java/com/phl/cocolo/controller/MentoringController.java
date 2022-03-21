@@ -155,7 +155,7 @@ public class MentoringController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    //멘토링 승인
+    //멘토링 완료
     @Transactional
     @PutMapping("/mentoringApply/{menteeId}")
     public @ResponseBody String mentoringApply(@PathVariable ("menteeId") Long menteeId){

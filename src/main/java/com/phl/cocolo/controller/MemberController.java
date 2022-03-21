@@ -145,13 +145,14 @@ public class MemberController {
         }
     }
 
+    // 이메일 보내기
     @Transactional
     @PostMapping("/sendEmail")
     public String sendEmail(@RequestParam("memberEmail") String memberEmail){
-        System.out.println("memberEmail = "+memberEmail);
+        // 임시 비밀번호 생성 & 임시비밀번호로 변경 & 메일 내용 담기
         MailDTO dto = ms.createMailAndChangePassword(memberEmail);
+        // 메일 보내기
         ms.mailSend(dto);
-        System.out.println("dto = "+dto);
 
         return "/member/login";
     }
@@ -171,6 +172,7 @@ public class MemberController {
         model.addAttribute("memberList", memberList);
         return "/admin/memberFindAll";
     }
+
     //상세조회(마이페이지) && 수정화면
     @GetMapping("/mypage")
     public String findById(Model model,HttpSession session) {
@@ -189,6 +191,8 @@ public class MemberController {
         ms.update(memberUpdateDTO);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    // 비밀번호 변경
     @Transactional
     @PostMapping("/updatePassWord")
     public String updatePassWord(@RequestParam("memberPassword") String memberPassword, HttpSession session){

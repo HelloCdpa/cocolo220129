@@ -16,7 +16,7 @@ spring:
     host: smtp.naver.com
     port: 465
     username: phl1021@naver.com
-    password:
+    password: 보낼 이메일 비번
     properties:
       mail.smtp.auth: true
       mail.smtp.ssl.enable: true
