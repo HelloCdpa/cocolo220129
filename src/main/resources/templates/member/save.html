@@ -22,15 +22,11 @@
                             checkResult.style.color = 'green';
                             checkResult.innerHTML = '사용 가능 이메일';
                         }
-
                     } else {
                         checkResult.style.color = 'red'
                         checkResult.innerHTML = '이미 사용중인 이메일'
                     }
-                }, error: function () {
-                    console.log('에러 체크!!')
-
-                }
+                }, error: function () {console.log('에러 체크!!')}
             })
         }
     </script>
@@ -58,11 +54,9 @@
                     }
                 }, error: function () {
                     console.log('에러 체크!!')
-
                 }
             })
         }
-
     </script>
 
 </head>

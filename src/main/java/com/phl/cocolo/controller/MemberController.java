@@ -24,7 +24,7 @@ import static com.phl.cocolo.common.SessionConst.*;
 public class MemberController {
     private final MemberService ms;
 
-    //MemberSaveDTO 에서 유효성검사한 에러를 보여주기 위해 담아감
+    //회원가입 화면 이동 MemberSaveDTO 에서 유효성검사한 에러를 보여주기 위해 담아감
     @GetMapping("/save")
     public String saveForm(Model model) {
         model.addAttribute("member", new MemberSaveDTO());
@@ -33,7 +33,8 @@ public class MemberController {
 
     //회원가입
     @PostMapping("/save")
-    public String save(@Validated @ModelAttribute("member") MemberSaveDTO memberSaveDTO, BindingResult bindingResult) throws IllegalStateException, IOException {
+    public String save(@Validated @ModelAttribute("member") MemberSaveDTO memberSaveDTO,
+                       BindingResult bindingResult) throws IllegalStateException, IOException {
         //유효성을 검증하는 조건문
         if (bindingResult.hasErrors()) {
             return "/member/save";
@@ -50,8 +51,8 @@ public class MemberController {
             return "/member/save";
         }
         return "redirect:/member/login";
-
     }
+
     // 이메일 중복 체크
     @PostMapping("/emailDuplication")
     public @ResponseBody
@@ -67,16 +68,16 @@ public class MemberController {
         return result;
     }
 
+    //로그인 화면 이동
     @GetMapping("/login")
-    public String loginForm(Model model) {
+    public String loginForm() {
         return "/member/login";
     }
 
-    //로그인 세션값 저장 - 이메일 확인 -> 비밀번호 확인 -> 세션아이디 저장
+    //로그인 : 세션값 저장 - 이메일 확인 -> 비밀번호 확인 -> 세션아이디/닉네임/이메일 저장
     @PostMapping("/login")
     public String login(@Validated @ModelAttribute("member") MemberLoginDTO memberLoginDTO,
                          HttpSession session, Model model) {
-
         if(ms.findByEmail(memberLoginDTO)){
             session.setAttribute(LOGIN_EMAIL, memberLoginDTO.getMemberEmail());
 
@@ -86,19 +87,16 @@ public class MemberController {
             String memberNickName = ms.findById(memberId).getMemberNickName();
             session.setAttribute(LOGIN_NICKNAME, memberNickName);
 
-//            String redirectURL = (String) session.getAttribute("redirectURL");
-//
+            String redirectURL = (String) session.getAttribute("redirectURL");
 
-//            if (redirectURL != null){
-//                return "index";
-//            }else{
-//                return "index";
-//            }
-            return "index";
+            if (redirectURL != null){
+                return "redirect:/"+redirectURL;
+            }else{
+                return "index";
+            }
         } else {
             model.addAttribute("msg","로그인 실패");
             return "/member/login";
-
         }
     }
 
@@ -136,7 +134,6 @@ public class MemberController {
             session.setAttribute(LOGIN_NICKNAME, ms.findById(memberId).getMemberNickName());
 
             String redirectURL = (String) session.getAttribute("redirectURL");
-
             if (redirectURL != null){
                 return "redirect:" + redirectURL;
             }else{

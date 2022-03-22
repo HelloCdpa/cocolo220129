@@ -62,7 +62,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-    //이메일, 비밀번호 체크
+    //이메일, 비밀번호 체크 로그인
     @Override
     public boolean findByEmail(MemberLoginDTO memberLoginDTO) {
         MemberEntity memberEntity = mr.findByMemberEmail(memberLoginDTO.getMemberEmail());
@@ -103,6 +103,7 @@ public class MemberServiceImpl implements MemberService {
         return memberId;
     }
 
+    // 이메일 중복체크
     @Override
     public String emailDuplication(String memberEmail) {
         MemberEntity memberEntity = mr.findByMemberEmail(memberEmail);
@@ -112,7 +113,7 @@ public class MemberServiceImpl implements MemberService {
             return "no";
         }
     }
-
+    // 닉네임 중복체크
     @Override
     public String nickNameDuplication(String memberNickName) {
         MemberEntity memberEntity = mr.findByMemberNickName(memberNickName);
@@ -121,7 +122,6 @@ public class MemberServiceImpl implements MemberService {
         } else {
             return "no";
         }
-
     }
 
     @Override
@@ -183,14 +183,12 @@ public class MemberServiceImpl implements MemberService {
                 result += line;
             }
             System.out.println("response body : " + result);
-
             //Gson 라이브러리에 포함된 클래스로 JSON 파싱 객체 생성
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
 
             access_Token = element.getAsJsonObject().get("access_token").getAsString();
             refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
-
             System.out.println("access_token : " + access_Token);
             System.out.println("refresh_token : " + refresh_Token);
 
@@ -199,10 +197,9 @@ public class MemberServiceImpl implements MemberService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return access_Token;
     }
-
+    // 유저정보 사용
     @Override
     public String getUserInfo(String access_Token) {
         String reqURL = "https://kapi.kakao.com/v2/user/me";
@@ -233,7 +230,6 @@ public class MemberServiceImpl implements MemberService {
         // catch 아래 코드 추가.
         MemberEntity result = mr.findByMemberEmail(userEmail);
         //멤버테이블에서 정보가 있나 조회
-
         System.out.println("S:" + result);
         if (result == null) {
             //정보가 없으면 회원가입으로 넘어가게 함
@@ -242,8 +238,6 @@ public class MemberServiceImpl implements MemberService {
             return userEmail;
             // 정보가 이미 있으면 사용자의 이메일을 리턴함.
         }
-
-
     }
 
 

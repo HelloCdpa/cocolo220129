@@ -51,8 +51,6 @@ public class StompChatController {
 
             template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
         }
-
-
 //      채팅이력 저장하기
         ChatMessageSaveDTO chatMessageSaveDTO = new ChatMessageSaveDTO(message.getRoomId(),message.getWriter(), message.getMessage());
         ChatRoomEntity chatRoomEntity= crr.findByRoomId(message.getRoomId());

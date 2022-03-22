@@ -52,6 +52,7 @@ public class ChatServiceImpl implements ChatService{
         crr.deleteById(chatRoomId);
     }
 
+    //채팅 이력 보여주기
     @Override
     public List<ChatMessageDetailDTO> findAllChatByRoomId(String roomId) {
         List<ChatMessageEntity> chatMessageEntityList = cr.findAllByChatRoomEntity_RoomId(roomId);
